@@ -1,0 +1,7 @@
+{
+	"hosting": {
+		"public": "public",
+		"site": "majlisku-invite",
+		"ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+	}
+}
