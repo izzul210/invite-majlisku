@@ -42,18 +42,7 @@ export async function getServerSideProps(context) {
 
 	const title = `Wedding ${userInfo.brideName} & ${userInfo.groomName}`;
 	const imageUrl = userInfo.whatsappImg;
-	// const description = `You're invited to Wedding ${userInfo.brideName} & ${userInfo.groomName}! `;
-	const description = `Assalamualaikum & Salam Sejahtera
-
-	Kami sekeluarga ingin menjemput kehadiran Tan Sri | Puan Sri | Dato' Seri | Datin Seri | Dato' | Datin | Tuan | Puan | Encik | Cik untuk bersama-sama memeriahkan majlis perkahwinan putera dan puteri
-	
-	*Syaf & Izzul*
-	
-	🗓️ Sabtu, 15 Oktober 2022
-	🕐 11:00 am - 1:30 pm
-	📍 Magica Crystal Hall, Level 4 Plaza Alam Sentral, Jalan Majlis, Seksyen 14, 40000 Shah Alam, Selangor
-	
-	Sila lengkapkan RSVP tuan/puan di link yang tertera  sebelum 30 September 2022`;
+	const description = `You're invited to Wedding ${userInfo.brideName} & ${userInfo.groomName}! `;
 
 	return { props: { title, imageUrl, description } };
 }
