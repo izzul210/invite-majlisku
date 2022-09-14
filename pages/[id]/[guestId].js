@@ -42,7 +42,7 @@ export async function getServerSideProps(context) {
 		});
 
 	const title = `Wedding ${userInfo.brideName} & ${userInfo.groomName}`;
-	const imageUrl = userInfo.dashboardImg;
+	const imageUrl = userInfo.whatsappImg;
 	const description = `You're invited to Wedding ${userInfo.brideName} & ${userInfo.groomName}! `;
 
 	return { props: { title, imageUrl, description } };
