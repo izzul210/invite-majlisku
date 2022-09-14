@@ -20,8 +20,6 @@ function Cars({ title, imageUrl, description }) {
 				<h1>{title}</h1>
 			</main>
 		</div>
-
-https://invite.majlisku.app/
 	);
 }
 
