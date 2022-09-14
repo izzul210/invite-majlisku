@@ -14,13 +14,14 @@ function Cars({ title, imageUrl, description }) {
 				<meta name='description' content={description}></meta>
 				<meta property='og:title' content={title}></meta>
 				<meta property='og:description' content={description}></meta>
-				<meta property='og:url' content={imageUrl}></meta>
 				<meta property='og:image' content={imageUrl}></meta>
 			</Head>
 			<main>
 				<h1>{title}</h1>
 			</main>
 		</div>
+
+https://invite.majlisku.app/
 	);
 }
 
