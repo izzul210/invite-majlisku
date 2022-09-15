@@ -2,7 +2,7 @@
 
 /////////Fonts
 @mixin loraItalic($fontSize, $lineHeight) {
-	font-family: lora, serif;
+	font-family: Lora, serif;
 	font-weight: 400;
 	font-style: italic;
 	font-size: $fontSize;
@@ -10,7 +10,7 @@
 }
 
 @mixin loraBoldItalic($fontSize, $lineHeight) {
-	font-family: lora, serif;
+	font-family: Lora, serif;
 	font-weight: 700;
 	font-style: italic;
 	font-size: $fontSize;
@@ -18,7 +18,7 @@
 }
 
 @mixin loraBold($fontSize, $lineHeight) {
-	font-family: lora, serif;
+	font-family: Lora Bold, sans-serif;
 	font-weight: 700;
 	font-style: normal;
 	font-size: $fontSize;
@@ -36,7 +36,7 @@
 }
 
 @mixin playfair($fontSize, $lineHeight) {
-	font-family: 'Playfair Display', serif;
+	font-family: Playfair Display, serif;
 	font-size: $fontSize;
 	font-weight: 400;
 	line-height: $lineHeight;

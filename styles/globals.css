@@ -1,5 +1,26 @@
 /** @format */
 
+@font-face {
+	font-family: 'Lora';
+	src: url('../assets/LoraFamily/Lora-Regular.ttf');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Lora Bold';
+	src: url('../assets/LoraFamily/Lora-Bold.ttf');
+	font-weight: 600;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Playfair Display';
+	src: url('../assets/PlayfairDisplay/PlayfairDisplay-Regular.otf');
+	font-weight: 400;
+	font-style: normal;
+}
+
 html,
 body {
 	padding: 0;

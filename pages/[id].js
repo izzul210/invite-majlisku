@@ -3,7 +3,7 @@
 import Head from 'next/head';
 import axios from 'axios';
 
-const API = process.env.REACT_APP_API_KEY;
+const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 
 function Car2({ title, imageUrl, description }) {
 	return (
