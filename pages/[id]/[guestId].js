@@ -973,9 +973,11 @@ export async function getServerSideProps(context) {
 			console.log(err.message);
 		});
 
-	const title = `Wedding ${userInfo.brideName} & ${userInfo.groomName}`;
+	const title = `The Wedding of ${userInfo.brideName} & ${userInfo.groomName} | ${moment(
+		userInfo?.weddingDate
+	).format('Do MMMM YYYY')}`;
 	const imageUrl = userInfo.whatsappImg;
-	const description = `You're invited to Wedding ${userInfo.brideName} & ${userInfo.groomName}! `;
+	const description = `You are cordially invited to the event. *Kindly RSVP by the link `;
 	const userId = id;
 
 	return { props: { title, imageUrl, description, userId, guestId, userInfo } };
