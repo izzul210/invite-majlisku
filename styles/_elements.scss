@@ -1,0 +1,83 @@
+/** @format */
+
+@use './textStyle';
+@use './variables';
+@use './colorStyle';
+
+@mixin button_2() {
+	background: rgb(211, 180, 180);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 12px;
+	color: white;
+	border: none;
+}
+
+@mixin inputField() {
+	background: #ffffff;
+	border: 1px solid rgb(166, 166, 167);
+	padding: 10px 16px;
+	outline: none;
+	border-radius: 12px;
+}
+
+@mixin greenButton($width, $padding, $borderRadius) {
+	color: white;
+	padding: $padding;
+	border-radius: $borderRadius;
+	width: $width;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: variables.$green;
+}
+
+@mixin inputButton($width, $padding, $borderRadius, $fontSize, $lineHeight) {
+	@include textStyle.semiBold(14px, 20px);
+	font-size: if($fontSize, $fontSize, null);
+	line-height: if($lineHeight, $lineHeight, null);
+	background: colorStyle.$white;
+	color: colorStyle.$diorGrey;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	justify-content: center;
+	align-items: center;
+	width: if($width, $width, auto);
+	padding: if($padding, $padding, null);
+	border-radius: if($borderRadius, $borderRadius, null);
+	border: 1px solid variables.$neutralGrey300;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+@mixin primaryButton($fontSize, $lineHeight) {
+	@include textStyle.semiBold($fontSize, $lineHeight);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	text-align: center;
+	text-transform: uppercase;
+	background: colorStyle.$diorGrey;
+	color: colorStyle.$white;
+	cursor: pointer;
+	box-sizing: border-box;
+	border: 1px solid rgba(208, 213, 221, 1);
+}
+
+@mixin secondaryButton($fontSize, $lineHeight) {
+	@include textStyle.semiBold($fontSize, $lineHeight);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	text-transform: uppercase;
+	color: colorStyle.$diorGrey;
+	gap: 12px;
+	background: colorStyle.$white;
+	cursor: pointer;
+	box-sizing: border-box;
+	border: 1px solid rgba(208, 213, 221, 1);
+}

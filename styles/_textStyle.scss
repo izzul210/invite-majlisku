@@ -1,0 +1,51 @@
+/** @format */
+
+$letterSpacing: -0.01em;
+
+@mixin semiBold($fontSize, $lineHeight) {
+	font-family: 'Poppins', sans-serif;
+	font-size: $fontSize;
+	font-weight: 600;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin regular($fontSize, $lineHeight) {
+	font-family: 'Poppins', sans-serif;
+	font-size: $fontSize;
+	font-weight: 400;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin bold($fontSize, $lineHeight) {
+	font-family: 'Poppins', sans-serif;
+	font-size: $fontSize;
+	font-weight: 700;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin medium($fontSize, $lineHeight) {
+	font-family: 'Poppins', sans-serif;
+	font-size: $fontSize;
+	font-weight: 500;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin playfair($fontSize, $lineHeight) {
+	font-family: 'Playfair Display', serif;
+	font-size: $fontSize;
+	font-weight: 400;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin playfairSemiBold($fontSize, $lineHeight) {
+	font-family: 'Playfair Display', serif;
+	font-size: $fontSize;
+	font-weight: 600;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}

@@ -1,0 +1,171 @@
+/** @format */
+
+@use './textStyle';
+@use './variables';
+@use './colorStyle';
+@use './stylesType';
+
+$grey700: rgba(55, 63, 71, 1);
+$grey600: rgba(79, 91, 103, 1);
+$grey400: rgba(152, 162, 179, 1);
+$grey500: #667085;
+$grey900: #101828;
+$grey6005: rgba(79, 91, 103, 0.5);
+$darkGrey: rgba(29, 70, 72, 1);
+
+.accordian-card {
+	.summary-title {
+		@include stylesType.loraRegular(16px, 20px);
+		color: $grey600;
+		text-transform: uppercase;
+	}
+
+	////////Address
+	.address-details {
+		@include stylesType.loraRegular(16px, 20px);
+		color: $grey500;
+
+		.content-details {
+			margin-bottom: 50px;
+		}
+
+		.button-section {
+			display: flex;
+			gap: 10px;
+			margin-top: 15px;
+
+			.waze-button,
+			.googleMap-button {
+				flex: 1;
+				padding: 7px;
+				box-sizing: border-box;
+				text-align: center;
+				border: 1px solid $grey400;
+				border-radius: 20px;
+				cursor: pointer;
+			}
+
+			.waze-button img {
+				width: 25px;
+			}
+
+			.googleMap-button img {
+				width: 15px;
+			}
+		}
+	}
+
+	////////Contact
+	.contact-details {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		@include stylesType.loraRegular(15px, 20px);
+		color: $grey500;
+
+		.groom-contact,
+		.bride-contact {
+			display: flex;
+			justify-content: space-between;
+			text-transform: uppercase;
+		}
+
+		.phone-call {
+			@include stylesType.loraRegular(15px, 20px);
+			.phone-text {
+				text-align: end;
+			}
+
+			.phome-actions {
+				display: flex;
+				gap: 12px;
+				justify-content: flex-end;
+				padding: 10px;
+			}
+		}
+	}
+
+	.add-to-calendar {
+		width: min(400px, 100%);
+		text-align: center;
+		padding: 12px;
+		box-sizing: border-box;
+		@include stylesType.loraRegular(16px, 21px);
+		color: $grey600;
+		text-transform: uppercase;
+		border: 1px solid $grey400;
+		border-radius: 25px;
+		cursor: pointer;
+	}
+
+	.activityContent {
+		padding: 0px 10px;
+	}
+
+	.yes_activity {
+		display: flex;
+		flex-direction: row-reverse;
+
+		.date {
+			flex: 2;
+			display: flex;
+			justify-content: flex-start;
+			margin-right: 0px;
+
+			.bold {
+				@include stylesType.loraRegular(14px, 18px);
+				color: $grey500;
+			}
+		}
+
+		.activity_detail {
+			flex: 5;
+			padding-left: 30px;
+			padding-bottom: 20px;
+			border-left: 2px solid rgba(241, 191, 190, 1);
+			cursor: pointer;
+
+			&::before {
+				content: '';
+				display: block;
+				width: 15px;
+				height: 15px;
+				border-radius: 50%;
+				background-color: rgba(241, 191, 190, 1);
+				transform: translateX(-38.4px);
+			}
+
+			.activity_title {
+				@include stylesType.loraBold(14px, 18px);
+				color: $darkGrey;
+				transform: translateY(-15px);
+			}
+
+			.activity_description {
+				max-height: 100px;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: pre-wrap;
+				color: $grey600;
+				margin-top: 5px;
+				@include stylesType.loraRegular(14px, 18px);
+				transform: translateY(-15px);
+			}
+
+			// .blurryBottom {
+			// 	transform: translateY(-18px);
+			// 	opacity: 0.8;
+			// 	height: 8px;
+			// 	width: 100%;
+			// 	filter: blur(5px);
+			// 	background: rgb(255, 255, 255);
+			// }
+		}
+
+		&:last-child {
+			.activity_detail {
+				border-left: 2px solid rgba(241, 191, 190, 0);
+			}
+		}
+	}
+}

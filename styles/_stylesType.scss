@@ -1,0 +1,55 @@
+/** @format */
+
+/////////Fonts
+@mixin loraItalic($fontSize, $lineHeight) {
+	font-family: lora, serif;
+	font-weight: 400;
+	font-style: italic;
+	font-size: $fontSize;
+	line-height: $lineHeight;
+}
+
+@mixin loraBoldItalic($fontSize, $lineHeight) {
+	font-family: lora, serif;
+	font-weight: 700;
+	font-style: italic;
+	font-size: $fontSize;
+	line-height: $lineHeight;
+}
+
+@mixin loraBold($fontSize, $lineHeight) {
+	font-family: lora, serif;
+	font-weight: 700;
+	font-style: normal;
+	font-size: $fontSize;
+	line-height: $lineHeight;
+	letter-spacing: 0.035em;
+}
+
+@mixin loraRegular($fontSize, $lineHeight) {
+	font-family: Lora, serif;
+	font-weight: 400;
+	font-style: normal;
+	font-size: $fontSize;
+	line-height: $lineHeight;
+	letter-spacing: 0.035em;
+}
+
+@mixin playfair($fontSize, $lineHeight) {
+	font-family: 'Playfair Display', serif;
+	font-size: $fontSize;
+	font-weight: 400;
+	line-height: $lineHeight;
+}
+
+@mixin centuryGothic400($fontSize, $lineHeight) {
+	font-family: 'Century Gothic', sans-serif;
+	font-size: $fontSize;
+	font-weight: 400;
+	line-height: $lineHeight;
+}
+
+///////////Colors
+$backgroundColor: #e5e5e5;
+$gray700: rgba(55, 63, 71, 1);
+$gray600: rgba(79, 91, 103, 1);

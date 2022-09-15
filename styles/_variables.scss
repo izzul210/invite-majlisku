@@ -1,0 +1,25 @@
+/** @format */
+
+$neutralGrey100: rgba(252, 252, 253, 1);
+$neutralGrey200: rgba(228, 231, 236, 1);
+$neutralGrey300: rgba(208, 213, 221, 1);
+$neutralGrey400: rgba(152, 162, 179, 1);
+$neutralGrey500: rgba(102, 112, 133, 1);
+$neutralGrey600: rgba(102, 112, 133, 1);
+$neutralGrey25: rgba(252, 252, 253, 1);
+$neutralDarkGrey: rgba(29, 70, 72, 1);
+$globalBody: rgba(51, 51, 51, 1);
+$green: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+	linear-gradient(0deg, #f1bfbe, #f1bfbe);
+$warmBlack: rgba(29, 70, 72, 1);
+$brandColor-2: rgba(48, 52, 55, 1);
+//Sizing
+$phone-width: 600px;
+$mid-width: 1200px;
+//Margin-top Phone
+$marginTopContainer: 65px;
+
+@mixin mainContainer {
+	margin-top: $marginTopContainer;
+	padding: 0px 15px 50px 15px;
+}

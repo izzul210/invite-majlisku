@@ -1,0 +1,678 @@
+/** @format */
+@use './stylesType';
+@use './textStyle';
+
+$grey700: rgba(55, 63, 71, 1);
+$grey600: rgba(79, 91, 103, 1);
+$grey400: rgba(152, 162, 179, 1);
+$grey500: #667085;
+$grey900: #101828;
+$grey6005: rgba(79, 91, 103, 0.5);
+$darkGrey: rgba(29, 70, 72, 1);
+
+.rsvp-main {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	box-sizing: border-box;
+	padding-bottom: 56px;
+
+	.main-desc {
+		margin-top: 20px;
+		text-align: center;
+		width: 100%;
+
+		.invite-text {
+			@include stylesType.loraRegular(16px, 21px);
+			color: $grey700;
+			padding: 10px 0px;
+			text-transform: uppercase;
+		}
+
+		.background-image {
+			display: flex;
+			justify-content: center;
+			margin: 15px 0px;
+			.image {
+				// width: min(564px, 100%);
+				width: 100%;
+				height: 400px;
+				background-size: cover;
+				background-position: center;
+
+				@media screen and (max-width: 900px) {
+					height: 200px;
+				}
+			}
+		}
+
+		.walimatul-text {
+			@include stylesType.loraRegular(20px, 26px);
+			color: $grey600;
+			padding: 10px 0px;
+			width: 100%;
+			border-top: 1px solid $grey6005;
+			border-bottom: 1px solid $grey6005;
+			text-transform: uppercase;
+		}
+
+		.bride-groom {
+			@include stylesType.playfair(32px, 42px);
+			color: $darkGrey;
+			padding: 10px 0px;
+			text-transform: uppercase;
+		}
+
+		.wedding-date {
+			@include stylesType.loraRegular(16px, 20px);
+			padding: 10px 0px;
+			border-top: 1px solid $grey6005;
+			border-bottom: 1px solid $grey6005;
+			color: $grey700;
+			text-transform: uppercase;
+		}
+
+		.wedding-detail {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+			padding: 15px 0px;
+
+			.wedding-detail-text {
+				width: min(483px, 95%);
+				text-align: center;
+				@include stylesType.loraRegular(16px, 17px);
+				color: $grey500;
+			}
+		}
+
+		.hosted-by {
+			border-top: 1px dotted $grey600;
+			border-bottom: 1px dotted $grey600;
+			padding: 15px 0px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+
+			.top-text {
+				@include stylesType.loraRegular(14px, 21px);
+				color: $darkGrey;
+				text-transform: uppercase;
+			}
+
+			.parent {
+				@include stylesType.loraRegular(14px, 22px);
+				// text-transform: uppercase;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				row-gap: 2px;
+				column-gap: 6px;
+				width: min(300px, 100%);
+				color: $grey500;
+			}
+		}
+	}
+
+	.buttons-section {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin-top: 15px;
+
+		@media screen and (max-width: 900px) {
+			flex-direction: column;
+		}
+
+		.rsvp-button,
+		.guest-button {
+			cursor: pointer;
+			flex: 1;
+			width: 100%;
+			border-radius: 20px;
+			box-sizing: border-box;
+			padding: 10px;
+			text-align: center;
+			@include stylesType.loraRegular(20px, 25px);
+			border: 1px solid $grey900;
+		}
+
+		// .guest-button {
+		// 	opacity: 0.1;
+		// }
+
+		.rsvp-button {
+			color: white;
+			background: $grey900;
+		}
+
+		.guest-button {
+			color: $grey900;
+		}
+	}
+
+	.wedding-more-details {
+		margin-top: 20px;
+		width: 100%;
+	}
+}
+
+.rsvp-guest {
+	padding: 30px 5px 0px 5px;
+	.top-section {
+		.title {
+			margin-top: 20px;
+			@include stylesType.loraBold(24px, 30px);
+			color: $darkGrey;
+			text-transform: uppercase;
+		}
+	}
+
+	.input-section {
+		padding: 40px 0px;
+		display: flex;
+		flex-direction: column;
+		gap: 22px;
+		width: 100%;
+
+		.full-name,
+		.phone-number {
+			input {
+				width: 100%;
+				background: none;
+				border: none;
+				border-radius: 0px;
+				border-bottom: 1px solid $grey400;
+				padding: 10px 0px;
+				@include stylesType.loraRegular(16px, 18px);
+				color: $darkGrey;
+				outline: none;
+				text-transform: uppercase;
+			}
+		}
+
+		.rsvp-input,
+		.pax-input,
+		.wish-input {
+			.name {
+				@include stylesType.loraRegular(16px, 18px);
+				color: $grey600;
+			}
+		}
+
+		.rsvp-input {
+			.rsvp-buttons {
+				display: flex;
+				gap: 10px;
+				align-items: center;
+				margin-top: 7px;
+
+				.yes-button,
+				.no-button {
+					text-align: center;
+					padding: 10px;
+					flex: 1;
+					@include stylesType.loraRegular(16px, 21px);
+					border: 1px solid $grey400;
+					border-radius: 20px;
+				}
+
+				.yes-button {
+					color: white;
+					background: rgba(16, 24, 40, 1);
+				}
+
+				.no-button {
+					color: $darkGrey;
+					cursor: pointer;
+				}
+			}
+		}
+
+		.wish-input {
+			textarea {
+				margin-top: 7px;
+				border: 1px solid $grey400;
+				border-radius: 7px;
+				min-height: 100px;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 5px 10px;
+				@include stylesType.loraRegular(16px, 18px);
+			}
+		}
+
+		.pax-input {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			.pax-buttons {
+				display: flex;
+				gap: 15px;
+				align-items: center;
+
+				.pax-value {
+					@include stylesType.loraBold(16px, auto);
+					width: 25px;
+					text-align: center;
+				}
+
+				.minus,
+				.plus {
+					border: 1px solid $grey400;
+					@include stylesType.loraRegular(20px, auto);
+					width: 27px;
+					height: 27px;
+					text-align: center;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 5px;
+					color: $grey400;
+					cursor: pointer;
+				}
+			}
+		}
+	}
+
+	.submit-section {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+
+		.submit-button {
+			position: relative;
+			padding: 12px;
+			text-align: center;
+			box-sizing: border-box;
+			width: min(340px, 100%);
+			border-radius: 40px;
+			color: white;
+			background: rgba(16, 24, 40, 1);
+			@include stylesType.loraBold(16px, auto);
+			cursor: pointer;
+		}
+	}
+}
+
+.rsvp-thankyou {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 35px 0px;
+
+	.top-section {
+		@include stylesType.loraRegular(32px, 41px);
+		text-transform: uppercase;
+		padding-bottom: 12px;
+		border-bottom: 1px solid $grey400;
+		text-align: center;
+		color: $darkGrey;
+	}
+
+	.top-detail {
+		text-align: center;
+		padding: 12px 0px;
+		border-bottom: 1px solid $grey400;
+		text-transform: uppercase;
+		@include stylesType.loraRegular(20px, 26px);
+		color: $darkGrey;
+	}
+
+	.background-image {
+		display: flex;
+		justify-content: center;
+		margin: 15px 0px;
+		.image {
+			width: min(564px, 100%);
+			height: 290px;
+			background-size: cover;
+			background-position: center;
+		}
+	}
+
+	.rsvp-detail {
+		border-top: 1px solid $grey400;
+		border-bottom: 1px solid $grey400;
+		padding: 10px 0px;
+		text-align: center;
+		@include stylesType.loraRegular(16px, 21px);
+		text-transform: uppercase;
+		color: $grey700;
+	}
+
+	.add-calendar {
+		margin-top: 20px;
+		.add-to-calendar {
+			width: min(400px, 100%);
+			text-align: center;
+			padding: 12px;
+			box-sizing: border-box;
+			@include stylesType.loraRegular(16px, 21px);
+			color: $grey600;
+			text-transform: uppercase;
+			border: 1px solid $grey400;
+			border-radius: 25px;
+			cursor: pointer;
+		}
+	}
+
+	.home-button {
+		margin-top: 10px;
+
+		.button {
+			width: min(400px, 100%);
+			text-align: center;
+			padding: 12px;
+			box-sizing: border-box;
+			@include stylesType.loraRegular(16px, 21px);
+			color: white;
+			background: rgba(16, 24, 40, 1);
+			text-transform: uppercase;
+			border: 1px solid $grey400;
+			border-radius: 25px;
+			cursor: pointer;
+		}
+	}
+}
+
+.gift-registry {
+	padding: 0px 5px 0px 5px;
+	.top-section {
+		position: sticky;
+		top: 0;
+		padding-top: 30px;
+		padding-bottom: 7px;
+		background: white;
+		z-index: 10000;
+		.title {
+			margin-top: 20px;
+			@include stylesType.loraBold(24px, 30px);
+			color: $darkGrey;
+			text-transform: uppercase;
+		}
+
+		.description {
+			margin-top: 15px;
+			@include stylesType.loraRegular(14px, 18px);
+			color: $darkGrey;
+			width: 90%;
+		}
+	}
+
+	.gift-list {
+		margin-top: 25px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 30px;
+		padding-top: 5px;
+		padding-bottom: 30px;
+
+		@media screen and (max-width: 900px) {
+			gap: 20px;
+			padding-right: 10px;
+		}
+	}
+
+	.white-fade {
+		width: 100%;
+		height: 40px;
+		background: white;
+		transform: translateY(-25px);
+		filter: blur(10px);
+	}
+
+	.gift-card {
+		width: 200px;
+		height: 320px;
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+		cursor: pointer;
+
+		.gift-image {
+			width: 100%;
+			border: 0.5px solid $grey400;
+			height: 220px;
+			background-position: center;
+		}
+
+		.gift-category {
+			@include textStyle.regular(13px, 15px);
+			text-transform: capitalize;
+			color: $darkGrey;
+		}
+		.gift-name {
+			@include stylesType.loraRegular(14px, 18px);
+			color: $darkGrey;
+			margin-top: 3px;
+		}
+
+		.gift-reserved {
+			@include textStyle.regular(15px, 18px);
+			text-transform: uppercase;
+			color: $grey400;
+		}
+	}
+}
+
+.gift-reserve {
+	padding: 30px 5px 0px 5px;
+
+	.top-section {
+		.title {
+			margin-top: 20px;
+			@include stylesType.loraBold(24px, 30px);
+			color: $darkGrey;
+			text-transform: uppercase;
+		}
+
+		.description {
+			margin-top: 15px;
+			@include stylesType.loraRegular(14px, 18px);
+			color: $darkGrey;
+			width: 90%;
+		}
+	}
+
+	.content-section {
+		padding-top: 40px;
+		padding-bottom: 20px;
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		flex-direction: column;
+		height: min(72vh, 550px);
+
+		@media screen and (max-width: 900px) {
+			padding-top: 50px;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+	}
+
+	.gift-card {
+		width: 300px;
+		height: 360px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		cursor: pointer;
+
+		.gift-image {
+			width: 100%;
+			border: 0.5px solid $grey400;
+			height: 300px;
+			background-position: center;
+		}
+		.gift-name {
+			@include stylesType.loraRegular(14px, 18px);
+			color: $darkGrey;
+			margin-top: 3px;
+		}
+
+		.gift-reserved {
+			@include textStyle.regular(15px, 18px);
+			text-transform: uppercase;
+			color: $grey400;
+		}
+	}
+
+	.input-section {
+		width: 100%;
+		.instruction {
+			@include stylesType.loraRegular(16px, 21px);
+			color: $grey600;
+			text-transform: uppercase;
+		}
+
+		input {
+			margin-top: 5px;
+			border: none;
+			border-bottom: 1px solid $darkGrey;
+			border-radius: 0px;
+			width: 100%;
+			box-sizing: border-box;
+			@include stylesType.loraRegular(14px, 18px);
+			color: $grey900;
+			outline: none;
+			padding: 10px 0px;
+		}
+	}
+
+	.buttons {
+		width: 100%;
+		text-align: center;
+		align-items: center;
+
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		.reserve-button,
+		.cancel-button {
+			cursor: pointer;
+			margin-top: 0px;
+			padding: 17px;
+			box-sizing: border-box;
+			@include stylesType.loraRegular(16px, 21px);
+			width: min(400px, 100%);
+			text-align: center;
+			text-transform: uppercase;
+			border-radius: 50px;
+			border: 1px solid rgba(16, 24, 40, 1);
+		}
+
+		.reserve-button {
+			color: white;
+			background: rgba(16, 24, 40, 1);
+		}
+
+		.cancel-button {
+			color: rgba(16, 24, 40, 1);
+		}
+
+		.view-shop-button {
+			margin-top: 12px;
+			text-transform: uppercase;
+			@include stylesType.loraRegular(16px, 21px);
+			color: rgba(16, 24, 40, 1);
+			cursor: pointer;
+			text-decoration: underline;
+		}
+	}
+}
+
+.giftModal {
+	padding: 15px;
+	box-sizing: border-box;
+	width: min(400px, 90vw);
+
+	.top-modal {
+		padding-top: 15px;
+		padding-bottom: 5px;
+		gap: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		border-bottom: 1px solid $grey400;
+
+		.text-top {
+			@include stylesType.loraRegular(15px, 20px);
+			color: $darkGrey;
+			text-transform: uppercase;
+			width: 90%;
+			text-align: center;
+		}
+	}
+
+	.bottom-modal {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: 20px;
+		padding-top: 20px;
+		text-align: center;
+
+		.note {
+			@include stylesType.loraItalic(14px, 18px);
+			color: $darkGrey;
+			width: 90%;
+		}
+
+		.thankyou-text {
+			@include stylesType.loraRegular(20px, 25px);
+			color: $darkGrey;
+			text-transform: uppercase;
+			width: 90%;
+			text-align: center;
+			padding: 6px 0px;
+		}
+
+		.cancel-input {
+			width: 100%;
+			textarea {
+				width: 95%;
+				box-sizing: border-box;
+				min-height: 90px;
+				border-radius: 10px;
+				border: 1px solid $grey400;
+				padding: 10px;
+				@include stylesType.loraRegular(16px, 21px);
+				color: $darkGrey;
+			}
+		}
+
+		.buttons {
+			display: flex;
+			gap: 10px;
+			width: 100%;
+
+			.cancel-button,
+			.confirm-button {
+				cursor: pointer;
+				width: 100%;
+				flex: 1;
+				padding: 15px;
+				border-radius: 30px;
+				@include stylesType.loraRegular(16px, 21px);
+				text-transform: uppercase;
+				border: 1px solid $grey400;
+			}
+
+			.confirm-button {
+				color: white;
+				background: rgba(16, 24, 40, 1);
+			}
+		}
+	}
+}
