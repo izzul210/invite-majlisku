@@ -130,12 +130,14 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 							<a
 								href={`https://waze.com/ul?q=${weddingDetails?.address}`}
 								target='_blank'
+								rel='noreferrer'
 								className='waze-button'>
 								<Image src={wazeIcon} alt='' width='25px' height='25px'></Image>
 							</a>
 							<a
 								href={`http://maps.google.com/?q=1200 ${weddingDetails?.address}`}
 								target='_blank'
+								rel='noreferrer'
 								className='googleMap-button'>
 								<Image src={googleMapIcon} alt='' width='18px' height='23px'></Image>
 							</a>
@@ -161,10 +163,11 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 										<a
 											href={`https://wa.me/6${contact?.phone}`}
 											target='_blank'
+											rel='noreferrer'
 											className='contact'>
 											<WhatsappIcon width='22px' height='22px' />
 										</a>
-										<a href={`tel:+${contact?.phone}`}>
+										<a href={`tel:+${contact?.phone}`} rel='noreferrer'>
 											<PhoneIcon width='22px' height='22px' fillColor='#1E1E1E' />
 										</a>
 									</div>

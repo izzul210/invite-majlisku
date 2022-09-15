@@ -682,7 +682,11 @@ const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 					)}
 
 					{giftReserve.link ? (
-						<a href={giftReserve.link} target='_blank' className='view-shop-button'>
+						<a
+							href={giftReserve.link}
+							target='_blank'
+							rel='noreferrer'
+							className='view-shop-button'>
 							View Shop
 						</a>
 					) : (
