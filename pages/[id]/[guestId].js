@@ -973,11 +973,11 @@ export async function getServerSideProps(context) {
 			console.log(err.message);
 		});
 
-	const title = `The Wedding of ${userInfo.brideName} & ${userInfo.groomName} | ${moment(
-		userInfo?.weddingDate
-	).format('Do MMMM YYYY')}`;
+	const title = `You're coridally invited to The Wedding of ${userInfo.brideName} & ${
+		userInfo.groomName
+	} | ${moment(userInfo?.weddingDate).format('DD.MM.YY')}`;
 	const imageUrl = userInfo.whatsappImg;
-	const description = `You are cordially invited to the event. *Kindly RSVP by the link `;
+	const description = `Kindly click to RSVP `;
 	const userId = id;
 
 	return { props: { title, imageUrl, description, userId, guestId, userInfo } };
