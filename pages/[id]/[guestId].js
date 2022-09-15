@@ -973,7 +973,7 @@ export async function getServerSideProps(context) {
 			console.log(err.message);
 		});
 
-	const title = `You're coridally invited to The Wedding of ${userInfo.brideName} & ${
+	const title = `You're cordially invited to The Wedding of ${userInfo.brideName} & ${
 		userInfo.groomName
 	} | ${moment(userInfo?.weddingDate).format('DD.MM.YY')}`;
 	const imageUrl = userInfo.whatsappImg;
