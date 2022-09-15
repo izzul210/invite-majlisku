@@ -483,7 +483,7 @@ const ThankYouPage = ({ state, dispatch }) => {
 						<div className='top-section'>Thank you!</div>
 						{going ? (
 							<div className='top-detail'>
-								You're Coming to Our <br />
+								You are Coming to Our <br />
 								Special Day!
 							</div>
 						) : (
