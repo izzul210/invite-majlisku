@@ -488,7 +488,8 @@ const GuestRSVP = ({ state, dispatch, postGuestResponse }) => {
 };
 
 const ThankYouPage = ({ state, dispatch }) => {
-	const { userData, going, guestDetails, time } = state;
+	const { userData, going, guestDetails, time, weddingDetails } = state;
+	const { rsvpImage } = weddingDetails;
 
 	const goHomeFunc = () => {
 		dispatch({ type: 'RESET_THE_CLOCK' });
@@ -523,11 +524,7 @@ const ThankYouPage = ({ state, dispatch }) => {
 						<div className='background-image'>
 							<div
 								className='image'
-								style={
-									userData?.dashboardImg
-										? { backgroundImage: `url(${userData?.dashboardImg})` }
-										: {}
-								}></div>
+								style={rsvpImage ? { backgroundImage: `url(${rsvpImage})` } : {}}></div>
 						</div>
 						{going && (
 							<div className='rsvp-detail'>
