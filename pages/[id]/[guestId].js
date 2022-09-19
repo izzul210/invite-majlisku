@@ -349,7 +349,7 @@ const GuestPage = ({ state, dispatch, postGuestResponse }) => {
 };
 
 const GuestRSVP = ({ state, dispatch, postGuestResponse }) => {
-	const { loading, guestDetails } = state;
+	const { loading, guestDetails, weddingDetails } = state;
 	const [fullName, setFullName] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [rsvp, setRsvp] = useState('');
@@ -366,7 +366,10 @@ const GuestRSVP = ({ state, dispatch, postGuestResponse }) => {
 			setPax(guestDetails?.response.pax);
 		}
 
-		if (guestDetails?.allocatedPax) setMaxPax(guestDetails?.allocatedPax);
+		if (weddingDetails?.maxPax) {
+			if (guestDetails?.allocatedPax) setMaxPax(guestDetails?.allocatedPax);
+			else setMaxPax(weddingDetails?.maxPax);
+		}
 	}, [guestDetails]);
 
 	function prevStep() {
