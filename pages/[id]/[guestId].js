@@ -488,7 +488,7 @@ const GuestRSVP = ({ state, dispatch, postGuestResponse }) => {
 };
 
 const ThankYouPage = ({ state, dispatch }) => {
-	const { userData, going, guestDetails } = state;
+	const { userData, going, guestDetails, time } = state;
 
 	const goHomeFunc = () => {
 		dispatch({ type: 'RESET_THE_CLOCK' });
