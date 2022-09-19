@@ -53,7 +53,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 	padding: theme.spacing(2),
 }));
 
-export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDetails }) => {
+export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDetails, time }) => {
 	const [expanded, setExpanded] = React.useState('');
 	const itineraryRef = useRef(null);
 	const addressRef = useRef(null);
@@ -68,8 +68,13 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 		startDate = '13:30';
 		endDate = '15:30';
 	} else {
-		startDate = '11:00';
-		endDate = '13:30';
+		if (time.start !== '' && time.end !== '') {
+			startDate = `${moment(time.start).format('HH:mm')}`;
+			endDate = `${moment(time.end).format('HH:mm')}`;
+		} else {
+			startDate = '11:00';
+			endDate = '13:30';
+		}
 	}
 
 	const handleChange = (panel) => (event, newExpanded) => {
@@ -212,7 +217,7 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 	);
 };
 
-export const AddToCalendar = ({ weddingDetails, userData, guestDetails }) => {
+export const AddToCalendar = ({ weddingDetails, userData, guestDetails, time }) => {
 	let startDate = '11:00';
 	let endDate = '13:30';
 
@@ -220,8 +225,13 @@ export const AddToCalendar = ({ weddingDetails, userData, guestDetails }) => {
 		startDate = '13:30';
 		endDate = '15:30';
 	} else {
-		startDate = '11:00';
-		endDate = '13:30';
+		if (time.start !== '' && time.end !== '') {
+			startDate = `${moment(time.start).format('HH:mm')}`;
+			endDate = `${moment(time.end).format('HH:mm')}`;
+		} else {
+			startDate = '11:00';
+			endDate = '13:30';
+		}
 	}
 
 	return (

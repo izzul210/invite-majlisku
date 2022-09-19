@@ -28,6 +28,7 @@ let initialStates = {
 	itinerary: null,
 	weddingDetails: {},
 	guestDetails: null,
+	time: { start: '12:00', end: '15:00' },
 	page: 0,
 	giftPage: 0,
 	loading: false,
@@ -89,6 +90,8 @@ const rsvpReducer = (state, action) => {
 			return { ...state, loading_gift: action.payload };
 		case 'RESET_THE_CLOCK':
 			return { ...state, resetTheClock: !state.resetTheClock };
+		case 'INIT_TIME_SLOT':
+			return { ...state, time: action.payload };
 	}
 };
 
@@ -126,6 +129,14 @@ function Rsvp({ title, imageUrl, description, userId, guestId, userInfo }) {
 		getGuestInfo(userInfo.id);
 		getGiftList(userInfo.id);
 		getItineraryList(userInfo.id);
+		//Init time
+		dispatch({
+			type: 'INIT_TIME_SLOT',
+			payload: {
+				start: userInfo.rsvpDetails.timeSlot.start,
+				end: userInfo.rsvpDetails.timeSlot.end,
+			},
+		});
 	}
 
 	function getGuestInfo(userID) {
@@ -216,48 +227,14 @@ function Rsvp({ title, imageUrl, description, userId, guestId, userInfo }) {
 					)}
 				</Container>
 			</main>
-			<footer>
-				<div
-					style={{
-						textAlign: 'center',
-						padding: '16px',
-						color: 'white',
-						display: 'flex',
-						flexDirection: 'column',
-						gap: '5px',
-						fontFamily: 'Lora',
-						fontSize: '15px',
-						background: '#1E1E1E',
-					}}>
-					<div>
-						© 2022{' '}
-						<a style={{ color: 'white', textDecoration: 'none' }} href='https://majlisku.app'>
-							Majlisku.app
-						</a>
-					</div>
-					<div>
-						by{' '}
-						<a
-							style={{ color: 'white', textDecoration: 'underline' }}
-							href='https://www.instagram.com/izzul_023/'>
-							Izzul
-						</a>{' '}
-						&{' '}
-						<a
-							style={{ color: 'white', textDecoration: 'underline' }}
-							href='https://twitter.com/theizzulsyazwan'>
-							Izzul
-						</a>{' '}
-					</div>
-				</div>
-			</footer>
+			<Footer />
 		</div>
 	);
 }
 
 const MainRSVP = ({ state, dispatch }) => {
-	const { userData, guestDetails, weddingDetails, itinerary } = state;
-	const { eventInfo } = weddingDetails;
+	const { userData, guestDetails, weddingDetails, itinerary, time } = state;
+	const { eventInfo, rsvpImage } = weddingDetails;
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -284,9 +261,7 @@ const MainRSVP = ({ state, dispatch }) => {
 				<div className='background-image'>
 					<div
 						className='image'
-						style={
-							userData?.dashboardImg ? { backgroundImage: `url(${userData?.dashboardImg})` } : {}
-						}></div>
+						style={rsvpImage ? { backgroundImage: `url(${rsvpImage})` } : {}}></div>
 				</div>
 				{userData ? (
 					<div className='bride-groom'>
@@ -299,6 +274,10 @@ const MainRSVP = ({ state, dispatch }) => {
 					<div>{moment(userData?.weddingDate).format('dddd, Do MMMM YYYY')}</div>
 					{guestDetails?.selectedSlot && guestDetails?.selectedSlot == '2' ? (
 						<div style={{ marginTop: '8px' }}>1:30PM - 3:30PM</div>
+					) : time ? (
+						<div style={{ marginTop: '8px' }}>
+							{moment(time.start).format('h:mma')} - {moment(time.end).format('h:mma')}
+						</div>
 					) : (
 						<div style={{ marginTop: '8px' }}>11:00AM - 1:30PM</div>
 					)}
@@ -343,6 +322,7 @@ const MainRSVP = ({ state, dispatch }) => {
 					userData={userData}
 					itinerary={itinerary}
 					guestDetails={guestDetails}
+					time={time}
 				/>
 			</div>
 		</div>
@@ -559,6 +539,7 @@ const ThankYouPage = ({ state, dispatch }) => {
 									weddingDetails={userData.rsvpDetails}
 									userData={userData}
 									guestDetails={guestDetails}
+									time={time}
 								/>
 							</div>
 						)}
@@ -953,6 +934,46 @@ const SorryModal = ({ state, dispatch }) => {
 				</div>
 			</div>
 		</Dialog>
+	);
+};
+
+const Footer = () => {
+	return (
+		<footer>
+			<div
+				style={{
+					textAlign: 'center',
+					padding: '16px',
+					color: 'white',
+					display: 'flex',
+					flexDirection: 'column',
+					gap: '5px',
+					fontFamily: 'Lora',
+					fontSize: '15px',
+					background: '#1E1E1E',
+				}}>
+				<div>
+					© 2022{' '}
+					<a style={{ color: 'white', textDecoration: 'none' }} href='https://majlisku.app'>
+						Majlisku.app
+					</a>
+				</div>
+				<div>
+					by{' '}
+					<a
+						style={{ color: 'white', textDecoration: 'underline' }}
+						href='https://www.instagram.com/izzul_023/'>
+						Izzul
+					</a>{' '}
+					&{' '}
+					<a
+						style={{ color: 'white', textDecoration: 'underline' }}
+						href='https://twitter.com/theizzulsyazwan'>
+						Izzul
+					</a>{' '}
+				</div>
+			</div>
+		</footer>
 	);
 };
 
