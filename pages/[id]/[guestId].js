@@ -728,7 +728,7 @@ const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 };
 
 const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
-	const { confirmModal, loading_gift, guestDetails } = state;
+	const { confirmModal, loading_gift, guestDetails, giftReserve } = state;
 
 	const closeModal = () => {
 		dispatch({ type: 'SET_CONFIRM_MODAL', payload: false });
@@ -737,6 +737,7 @@ const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
 	const confirmAction = () => {
 		const body = {
 			reserved: guestDetails.id,
+			giftReserved: giftReserve?.name,
 		};
 		guestReserveFunc(body, true);
 	};
@@ -790,6 +791,7 @@ const CancelModal = ({ state, dispatch, guestReserveFunc }) => {
 				guestId: guestDetails.id,
 				date: moment().format('MMMM Do YYYY, h:mm:ss a'),
 				reason: cancelReason,
+				giftReserved: giftReserve.name,
 			};
 
 			let cancellationMessages = [];
