@@ -335,7 +335,7 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 					{guestDetails?.rsvp === 'attending' ? (
 						<>
 							<button className='default-button before-button' onClick={() => setGoingModal(true)}>
-								<GoingIcon /> I'm Going
+								<GoingIcon /> I am Going
 							</button>
 							<button className='default-button' onClick={() => setNotGoingModal(true)}>
 								Not Going
@@ -349,7 +349,7 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 							<button
 								className='default-button before-button'
 								onClick={() => setNotGoingModal(true)}>
-								<NotGoingIcon /> I'm Not Going
+								<NotGoingIcon /> I am Not Going
 							</button>
 						</>
 					) : (
@@ -456,7 +456,7 @@ const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGuestRespo
 					</div>
 					<WishIcon width='60px' height='60px' />
 					<div className='text-top'>
-						WE'RE LOOKING FORWARD TO SEEING YOU THERE, {guestDetails.name}!
+						WE ARE LOOKING FORWARD TO SEEING YOU THERE, {guestDetails.name}!
 					</div>
 				</div>
 				<div className='modal-content'>
@@ -559,7 +559,7 @@ const NotGoingModal = ({ state, dispatch, notGoingModal, setNotGoingModal, postG
 					</div>
 					<WishIcon2 width='60px' height='60px' />
 					<div className='text-top'>
-						WE'RE SORRY TO HEAR THAT BUT THANK YOU FOR THE THOUGHTFUL RESPONSE.
+						WE ARE SORRY TO HEAR THAT BUT THANK YOU FOR THE THOUGHTFUL RESPONSE.
 					</div>
 				</div>
 				<div className='modal-content'>
