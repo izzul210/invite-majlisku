@@ -14,7 +14,18 @@ import Dialog from '@mui/material/Dialog';
 import axios from 'axios';
 import moment from 'moment';
 //Icons
-import { GiftIcon, BackIcon, TickIcon } from '../../components/icons';
+import {
+	GiftIcon,
+	BackIcon,
+	TickIcon,
+	NewGiftIcon,
+	GoingIcon,
+	NotGoingIcon,
+	WishIcon,
+	WishIcon2,
+	CloseIcon,
+} from '../../components/icons';
+import wishIcon from '../../public/icons/wish.png';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 // const API = process.env.REACT_APP_TEST_API;
@@ -161,13 +172,14 @@ function Rsvp({ title, imageUrl, description, userId, guestId, userInfo }) {
 		});
 	}
 
-	function postGuestResponse(body) {
+	function postGuestResponse(body, postReqFunc) {
 		dispatch({ type: 'LOADING', payload: true });
 		axios
 			.post(`${API}/guestresponse/${state.userData.id}/${state.guestDetails.id}`, body)
 			.then((res) => {
 				dispatch({ type: 'LOADING', payload: false });
 				dispatch({ type: 'GUEST_SUBMIT' });
+				postReqFunc();
 			});
 	}
 
@@ -211,7 +223,7 @@ function Rsvp({ title, imageUrl, description, userId, guestId, userInfo }) {
 					{userData && guestDetails ? (
 						<>
 							{state.page === 0 ? (
-								<MainRSVP state={state} dispatch={dispatch} />
+								<MainRSVP state={state} dispatch={dispatch} postGuestResponse={postGuestResponse} />
 							) : state.page === 1 ? (
 								<GuestPage
 									state={state}
@@ -232,9 +244,11 @@ function Rsvp({ title, imageUrl, description, userId, guestId, userInfo }) {
 	);
 }
 
-const MainRSVP = ({ state, dispatch }) => {
+const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 	const { userData, guestDetails, weddingDetails, itinerary, time } = state;
 	const { eventInfo, rsvpImage } = weddingDetails;
+	const [goingModal, setGoingModal] = useState(false);
+	const [notGoingModal, setNotGoingModal] = useState(false);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -303,7 +317,7 @@ const MainRSVP = ({ state, dispatch }) => {
 				</div>
 			</div>
 
-			<div className='buttons-section'>
+			{/* <div className='buttons-section'>
 				<div className='rsvp-button' onClick={() => nextPage()}>
 					{guestDetails.rsvp === 'attending'
 						? `RSVP'D - I'M GOING`
@@ -314,6 +328,46 @@ const MainRSVP = ({ state, dispatch }) => {
 				<div className='guest-button' onClick={() => goToGiftPage()}>
 					SEND GIFT
 				</div>
+			</div> */}
+
+			<div className='buttons-area'>
+				<div className='rsvp-buttons'>
+					{guestDetails?.rsvp === 'attending' ? (
+						<>
+							<button className='default-button before-button' onClick={() => setGoingModal(true)}>
+								<GoingIcon /> I'm Going
+							</button>
+							<button className='default-button' onClick={() => setNotGoingModal(true)}>
+								Not Going
+							</button>
+						</>
+					) : guestDetails?.rsvp === 'notattending' ? (
+						<>
+							<button className='default-button' onClick={() => setGoingModal(true)}>
+								Going
+							</button>
+							<button
+								className='default-button before-button'
+								onClick={() => setNotGoingModal(true)}>
+								<NotGoingIcon /> I'm Not Going
+							</button>
+						</>
+					) : (
+						<>
+							<button className='default-button before-button' onClick={() => setGoingModal(true)}>
+								Going
+							</button>
+							<button
+								className='default-button before-button'
+								onClick={() => setNotGoingModal(true)}>
+								Not Going
+							</button>
+						</>
+					)}
+				</div>
+				<button className='default-button gift-button' onClick={() => goToGiftPage()}>
+					<NewGiftIcon /> Send Gift
+				</button>
 			</div>
 
 			<div className='wedding-more-details'>
@@ -325,7 +379,209 @@ const MainRSVP = ({ state, dispatch }) => {
 					time={time}
 				/>
 			</div>
+
+			<GoingModal
+				state={state}
+				dispatch={dispatch}
+				goingModal={goingModal}
+				setGoingModal={setGoingModal}
+				postGuestResponse={postGuestResponse}
+			/>
+			<NotGoingModal
+				state={state}
+				dispatch={dispatch}
+				notGoingModal={notGoingModal}
+				setNotGoingModal={setNotGoingModal}
+				postGuestResponse={postGuestResponse}
+			/>
 		</div>
+	);
+};
+
+const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGuestResponse }) => {
+	const { loading, guestDetails, weddingDetails } = state;
+	const [rsvp, setRsvp] = useState('attending');
+	const [pax, setPax] = useState(1);
+	const [wish, setWish] = useState('');
+	const [maxPax, setMaxPax] = useState(1);
+
+	useEffect(() => {
+		if (guestDetails?.response && guestDetails.rsvp !== 'invited' && guestDetails.rsvp !== '') {
+			setWish(guestDetails?.response.wish);
+			setPax(guestDetails?.response.pax);
+		}
+
+		if (weddingDetails?.maxPax) {
+			if (guestDetails?.allocatedPax) setMaxPax(guestDetails?.allocatedPax);
+			else setMaxPax(weddingDetails?.maxPax);
+		}
+	}, [guestDetails]);
+
+	const closeModal = () => {
+		setGoingModal(false);
+	};
+
+	const submitResponseFunc = () => {
+		const guestRes = {
+			rsvp: rsvp,
+			pax: pax,
+			wish: wish ? wish : '',
+		};
+
+		dispatch({ type: 'UPDATE_GOING', payload: rsvp === 'attending' ? true : false });
+		postGuestResponse(guestRes, () => {
+			closeModal();
+			dispatch({ type: 'NEXT_PAGE' });
+		});
+	};
+
+	return (
+		<Dialog
+			open={goingModal}
+			TransitionComponent={Transition}
+			PaperProps={{
+				style: { borderRadius: 10, margin: '32px 12px' },
+			}}
+			keepMounted
+			onClose={() => {
+				closeModal();
+			}}>
+			<div className='goingModal-card' style={{ position: 'relative' }}>
+				{/* <CardLoadingState loadingState={loading_gift} /> */}
+				<div className='top-modal' style={{ padding: '8px 0px' }}>
+					<div className='close-button-area'>
+						<div className='close-button' onClick={() => closeModal()}>
+							<CloseIcon />
+						</div>
+					</div>
+					<WishIcon width='60px' height='60px' />
+					<div className='text-top'>
+						WE'RE LOOKING FORWARD TO SEEING YOU THERE, {guestDetails.name}!
+					</div>
+				</div>
+				<div className='modal-content'>
+					<div className='pax-input'>
+						<div className='name'>TOTAL PAX (MAX {maxPax})</div>
+						<div className='pax-buttons'>
+							<div
+								className='minus'
+								onClick={() => {
+									pax > 1 && setPax((prev) => prev - 1);
+								}}>
+								-
+							</div>
+							<div className='pax-value'>{pax}</div>
+							<div
+								className='plus'
+								onClick={() => {
+									pax < maxPax && setPax((prev) => prev + 1);
+								}}>
+								+
+							</div>
+						</div>
+					</div>
+					<div className='wish-input'>
+						<div className='name'>YOUR WISH</div>
+						<textarea
+							value={wish}
+							onChange={(e) => setWish(e.target.value)}
+							placeholder='ENTER WISH'></textarea>
+					</div>
+				</div>
+				<div className='bottom-modal'>
+					<div className='cancel-button' onClick={() => closeModal()}>
+						CANCEL
+					</div>
+					<div className='confirm-button' onClick={() => submitResponseFunc()}>
+						<CardLoadingState loadingState={loading} />
+						CONFIRM
+					</div>
+				</div>
+			</div>
+		</Dialog>
+	);
+};
+
+const NotGoingModal = ({ state, dispatch, notGoingModal, setNotGoingModal, postGuestResponse }) => {
+	const { loading, guestDetails, weddingDetails } = state;
+	const [rsvp, setRsvp] = useState('notattending');
+	const [pax, setPax] = useState(1);
+	const [wish, setWish] = useState('');
+	const [maxPax, setMaxPax] = useState(1);
+
+	useEffect(() => {
+		if (guestDetails?.response && guestDetails.rsvp !== 'invited' && guestDetails.rsvp !== '') {
+			setWish(guestDetails?.response.wish);
+		}
+
+		if (weddingDetails?.maxPax) {
+			if (guestDetails?.allocatedPax) setMaxPax(guestDetails?.allocatedPax);
+			else setMaxPax(weddingDetails?.maxPax);
+		}
+	}, [guestDetails]);
+
+	const closeModal = () => {
+		setNotGoingModal(false);
+	};
+
+	const submitResponseFunc = () => {
+		const guestRes = {
+			rsvp: rsvp,
+			pax: pax,
+			wish: wish ? wish : '',
+		};
+
+		dispatch({ type: 'UPDATE_GOING', payload: rsvp === 'attending' ? true : false });
+		postGuestResponse(guestRes, () => {
+			closeModal();
+			dispatch({ type: 'NEXT_PAGE' });
+		});
+	};
+
+	return (
+		<Dialog
+			open={notGoingModal}
+			TransitionComponent={Transition}
+			PaperProps={{
+				style: { borderRadius: 10, margin: '32px 12px' },
+			}}
+			keepMounted
+			onClose={() => {
+				closeModal();
+			}}>
+			<div className='goingModal-card' style={{ position: 'relative' }}>
+				{/* <CardLoadingState loadingState={loading_gift} /> */}
+				<div className='top-modal' style={{ padding: '8px 0px' }}>
+					<div className='close-button-area'>
+						<div className='close-button' onClick={() => closeModal()}>
+							<CloseIcon />
+						</div>
+					</div>
+					<WishIcon2 width='60px' height='60px' />
+					<div className='text-top'>
+						WE'RE SORRY TO HEAR THAT BUT THANK YOU FOR THE THOUGHTFUL RESPONSE.
+					</div>
+				</div>
+				<div className='modal-content'>
+					<div className='wish-input'>
+						<div className='name'>YOUR WISH</div>
+						<textarea
+							value={wish}
+							onChange={(e) => setWish(e.target.value)}
+							placeholder='ENTER WISH'></textarea>
+					</div>
+				</div>
+				<div className='bottom-modal'>
+					<div className='cancel-button' onClick={() => closeModal()}>
+						CANCEL
+					</div>
+					<div className='confirm-button' onClick={() => submitResponseFunc()}>
+						<CardLoadingState loadingState={loading} />
+						CONFIRM
+					</div>
+				</div>
+			</div>
+		</Dialog>
 	);
 };
 
@@ -508,7 +764,9 @@ const ThankYouPage = ({ state, dispatch }) => {
 						height: '100%',
 					}}>
 					<div>
-						<div className='top-section'>Thank you!</div>
+						<div className='top-section'>
+							Thank you, <br /> <div style={{ fontSize: '24px' }}>{guestDetails.name}</div>
+						</div>
 						{going ? (
 							<div className='top-detail'>
 								You are Coming to Our <br />

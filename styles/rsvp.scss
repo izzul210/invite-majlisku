@@ -116,43 +116,94 @@ $darkGrey: rgba(29, 70, 72, 1);
 		}
 	}
 
-	.buttons-section {
-		width: 100%;
+	.buttons-area {
 		display: flex;
-		align-items: center;
+		flex-direction: column;
 		gap: 10px;
-		margin-top: 15px;
+		width: 100%;
+		padding: 20px 0px;
 
-		@media screen and (max-width: 900px) {
-			flex-direction: column;
-		}
-
-		.rsvp-button,
-		.guest-button {
+		.default-button {
+			flex: 1;
+			padding: 15px;
 			cursor: pointer;
 			flex: 1;
 			width: 100%;
-			border-radius: 20px;
+			border-radius: 30px;
 			box-sizing: border-box;
-			padding: 10px;
 			text-align: center;
 			@include stylesType.loraRegular(20px, 25px);
 			border: 1px solid $grey900;
+			text-transform: uppercase;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			justify-content: center;
+			background: white;
 		}
 
-		// .guest-button {
-		// 	opacity: 0.1;
-		// }
+		.rsvp-buttons {
+			display: flex;
+			flex-direction: row;
+			gap: 10px;
+			@media screen and (max-width: 900px) {
+				flex-direction: column;
+			}
 
-		.rsvp-button {
-			color: white;
-			background: $grey900;
+			.before-button {
+				color: white;
+				background: $grey900;
+			}
 		}
 
-		.guest-button {
+		.gift-button {
 			color: $grey900;
+			background: white;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			justify-content: center;
 		}
 	}
+
+	// .buttons-section {
+	// 	width: 100%;
+	// 	display: flex;
+	// 	align-items: center;
+	// 	gap: 10px;
+	// 	margin-top: 15px;
+
+	// 	@media screen and (max-width: 900px) {
+	// 		flex-direction: column;
+	// 	}
+
+	// 	.rsvp-button,
+	// 	.guest-button {
+	// 		cursor: pointer;
+	// 		flex: 1;
+	// 		width: 100%;
+	// 		border-radius: 20px;
+	// 		box-sizing: border-box;
+	// 		padding: 10px;
+	// 		text-align: center;
+	// 		@include stylesType.loraRegular(20px, 25px);
+	// 		border: 1px solid $grey900;
+	// 		text-transform: uppercase;
+	// 	}
+
+	// 	// .guest-button {
+	// 	// 	opacity: 0.1;
+	// 	// }
+
+	// 	.rsvp-button {
+	// 		color: white;
+	// 		background: $grey900;
+	// 	}
+
+	// 	.guest-button {
+	// 		color: $grey900;
+	// 	}
+	// }
 
 	.wedding-more-details {
 		margin-top: 20px;
@@ -308,7 +359,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 	padding: 35px 0px;
 
 	.top-section {
-		@include stylesType.loraRegular(32px, 41px);
+		@include stylesType.loraRegular(28px, 32px);
 		text-transform: uppercase;
 		padding-bottom: 12px;
 		border-bottom: 1px solid $grey400;
@@ -673,6 +724,127 @@ $darkGrey: rgba(29, 70, 72, 1);
 				color: white;
 				background: rgba(16, 24, 40, 1);
 			}
+		}
+	}
+}
+
+.goingModal-card {
+	padding: 15px;
+	box-sizing: border-box;
+	width: min(600px, 90vw);
+
+	.top-modal {
+		padding-bottom: 5px;
+		gap: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		border-bottom: 1px solid $grey400;
+
+		.close-button-area {
+			display: flex;
+			justify-content: flex-end;
+			width: 100%;
+			padding: 0px 10px;
+			.close-button {
+				cursor: pointer;
+			}
+		}
+
+		.text-top {
+			@include stylesType.loraRegular(15px, 20px);
+			color: $darkGrey;
+			text-transform: uppercase;
+			width: 90%;
+			text-align: center;
+			padding: 10px 0px;
+		}
+	}
+
+	.modal-content {
+		padding: 20px 5px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+
+		.pax-input,
+		.wish-input {
+			.name {
+				@include stylesType.loraRegular(16px, 18px);
+				color: $grey600;
+			}
+		}
+
+		.wish-input {
+			textarea {
+				margin-top: 7px;
+				border: 1px solid $grey400;
+				border-radius: 7px;
+				min-height: 100px;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 5px 10px;
+				@include stylesType.loraRegular(16px, 18px);
+			}
+		}
+
+		.pax-input {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			.pax-buttons {
+				display: flex;
+				gap: 15px;
+				align-items: center;
+
+				.pax-value {
+					@include stylesType.loraBold(16px, auto);
+					width: 25px;
+					text-align: center;
+				}
+
+				.minus,
+				.plus {
+					border: 1px solid $grey400;
+					@include stylesType.loraRegular(20px, auto);
+					width: 27px;
+					height: 27px;
+					text-align: center;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 5px;
+					color: $grey400;
+					cursor: pointer;
+				}
+			}
+		}
+	}
+
+	.bottom-modal {
+		display: flex;
+		gap: 5px;
+		width: 100%;
+		padding: 10px 0px;
+
+		.cancel-button,
+		.confirm-button {
+			cursor: pointer;
+			width: 100%;
+			flex: 1;
+			text-align: center;
+			padding: 15px;
+			border-radius: 30px;
+			@include stylesType.loraRegular(16px, 21px);
+			text-transform: uppercase;
+			border: 1px solid $grey400;
+		}
+
+		.confirm-button {
+			color: white;
+			background: rgba(16, 24, 40, 1);
 		}
 	}
 }

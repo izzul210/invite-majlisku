@@ -13,10 +13,28 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<main>
-				<h1 className={styles.title}>
-					Welcome to <a href='https://majlisku.app'>Majlisku.ap!</a>
+			<main
+				style={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					fontFamily: 'Lora, serif',
+					flexDirection: 'column',
+					padding: '0px 10px',
+				}}>
+				<h1 className={styles.title} style={{ color: 'rgba(55, 63, 71, 1)', fontSize: 35 }}>
+					Welcome to <a href='https://majlisku.app'>Majlisku.app!</a>
 				</h1>
+				<p>
+					by{' '}
+					<a style={{ textDecoration: 'underline' }} href='https://www.instagram.com/izzul_023/'>
+						Izzul Syahmi
+					</a>{' '}
+					&{' '}
+					<a style={{ textDecoration: 'underline' }} href='https://twitter.com/theizzulsyazwan'>
+						Izzul Syazwan
+					</a>{' '}
+				</p>
 			</main>
 
 			<footer>
