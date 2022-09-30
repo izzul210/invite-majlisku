@@ -262,6 +262,50 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 		dispatch({ type: 'GIFT_PAGE' });
 	}
 
+	const displayGroomParents = () => {
+		if (eventInfo?.groomFather && !eventInfo?.groomMother) {
+			return (
+				<div className='parent'>
+					<div>{eventInfo?.groomFather}</div>
+				</div>
+			);
+		} else if (!eventInfo?.groomFather && eventInfo?.groomMother) {
+			return (
+				<div className='parent'>
+					<div>{eventInfo?.groomMother}</div>
+				</div>
+			);
+		} else {
+			return (
+				<div className='parent'>
+					<div>{eventInfo?.groomFather}</div>& <div>{eventInfo?.groomMother}</div>
+				</div>
+			);
+		}
+	};
+
+	const displayBrideParents = () => {
+		if (eventInfo?.brideFather && !eventInfo?.brideMother) {
+			return (
+				<div className='parent'>
+					<div>{eventInfo?.brideFather}</div>
+				</div>
+			);
+		} else if (!eventInfo?.brideFather && eventInfo?.brideMother) {
+			return (
+				<div className='parent'>
+					<div>{eventInfo?.brideMother}</div>
+				</div>
+			);
+		} else {
+			return (
+				<div className='parent'>
+					<div>{eventInfo?.brideFather}</div>& <div>{eventInfo?.brideMother}</div>
+				</div>
+			);
+		}
+	};
+
 	return (
 		<div className='rsvp-main'>
 			<div className='main-desc'>
@@ -301,20 +345,18 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 						<p>{eventInfo?.description}</p>
 					</div>
 				</div>
-				<div className='hosted-by'>
-					<div className='top-text'>Hosted By:</div>
-
-					<div className='parent'>
-						<div>{eventInfo?.groomFather}</div>& <div>{eventInfo?.groomMother}</div>
+				{eventInfo?.groomFather ||
+				eventInfo?.groomMother ||
+				eventInfo?.brideFather ||
+				eventInfo?.brideMother ? (
+					<div className='hosted-by'>
+						<div className='top-text'>Hosted By:</div>
+						{eventInfo.groomFather || eventInfo.groomMother ? displayGroomParents() : <></>}
+						{eventInfo.brideFather || eventInfo.brideMother ? displayBrideParents() : <></>}
 					</div>
-					{eventInfo.brideFather && eventInfo.brideMother ? (
-						<div className='parent'>
-							<div>{eventInfo?.brideFather}</div>& <div>{eventInfo?.brideMother}</div>
-						</div>
-					) : (
-						<></>
-					)}
-				</div>
+				) : (
+					<></>
+				)}
 			</div>
 
 			{/* <div className='buttons-section'>
