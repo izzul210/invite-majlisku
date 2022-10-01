@@ -409,9 +409,13 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 				</div>
 
 				{gifts?.length > 0 ? (
-					<button className='default-button gift-button' onClick={() => goToGiftPage()}>
-						<NewGiftIcon /> Send Gift
-					</button>
+					weddingDetails?.giftRegistryEnable ? (
+						<button className='default-button gift-button' onClick={() => goToGiftPage()}>
+							<NewGiftIcon /> Send Gift
+						</button>
+					) : (
+						<></>
+					)
 				) : (
 					<></>
 				)}
