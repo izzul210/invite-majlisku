@@ -85,7 +85,7 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 		<div className='accordian-card'>
 			{guestDetails?.selectedSlot && guestDetails?.selectedSlot == '2' ? (
 				<></>
-			) : (
+			) : weddingDetails?.itineraryEnable ? (
 				<Accordion expanded={expanded === 'panel0'} onChange={handleChange('panel0')}>
 					<AccordionSummary aria-controls='panel0d-content' id='panel0d-header'>
 						<div className='summary-title'>ITINERARY</div>
@@ -119,6 +119,8 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 						)}
 					</AccordionDetails>
 				</Accordion>
+			) : (
+				<></>
 			)}
 
 			<Accordion

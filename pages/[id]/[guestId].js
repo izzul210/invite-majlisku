@@ -245,7 +245,7 @@ function Rsvp({ title, imageUrl, description, userId, guestId, userInfo }) {
 }
 
 const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
-	const { userData, guestDetails, weddingDetails, itinerary, time } = state;
+	const { userData, guestDetails, weddingDetails, itinerary, time, gifts } = state;
 	const { eventInfo, rsvpImage } = weddingDetails;
 	const [goingModal, setGoingModal] = useState(false);
 	const [notGoingModal, setNotGoingModal] = useState(false);
@@ -407,9 +407,14 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 						</>
 					)}
 				</div>
-				<button className='default-button gift-button' onClick={() => goToGiftPage()}>
-					<NewGiftIcon /> Send Gift
-				</button>
+
+				{gifts?.length > 0 ? (
+					<button className='default-button gift-button' onClick={() => goToGiftPage()}>
+						<NewGiftIcon /> Send Gift
+					</button>
+				) : (
+					<></>
+				)}
 			</div>
 
 			<div className='wedding-more-details'>
