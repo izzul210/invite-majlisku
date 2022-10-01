@@ -23,7 +23,10 @@ export default function Home() {
 					padding: '0px 10px',
 				}}>
 				<h1 className={styles.title} style={{ color: 'rgba(55, 63, 71, 1)', fontSize: 35 }}>
-					Welcome to <a href='https://majlisku.app'>Majlisku.app!</a>
+					Welcome to{' '}
+					<a href='https://majlisku.app/landing' style={{ textDecoration: 'underline' }}>
+						majlisku.app!
+					</a>
 				</h1>
 				<p>
 					by{' '}
