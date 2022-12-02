@@ -16,7 +16,7 @@ function Car2({ title, imageUrl, description }) {
 				<meta property='og:image' content={imageUrl}></meta>
 			</Head>
 			<main>
-				<h1>{title}</h1>
+				<h1 style={{ textAlign: 'center' }}>{title}</h1>
 			</main>
 		</div>
 	);
