@@ -768,8 +768,30 @@ $darkGrey: rgba(29, 70, 72, 1);
 		flex-direction: column;
 		gap: 20px;
 
+		.guest-info {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		.full-name,
+		.phone-number {
+			input {
+				margin-top: 7px;
+				border: 1px solid $grey400;
+				border-radius: 7px;
+				width: 100%;
+				box-sizing: border-box;
+				height: 40px;
+				padding: 5px 10px;
+				@include stylesType.loraRegular(16px, 18px);
+			}
+		}
+
 		.pax-input,
-		.wish-input {
+		.wish-input,
+		.full-name,
+		.phone-number {
 			.name {
 				@include stylesType.loraRegular(16px, 18px);
 				color: $grey600;

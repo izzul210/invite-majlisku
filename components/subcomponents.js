@@ -1,17 +1,14 @@
 /** @format */
 
-import React, { useEffect, useState, useReducer } from 'react';
-import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
 //Components import
-import { DetailsAccordian, AddToCalendar } from '../../components/accordian';
-import CardLoadingState from '../../components/cardLoadingState';
-import WholePageLoadingState from '../../components/wholePageLoadingState';
+import { DetailsAccordian, AddToCalendar } from './accordian';
+import CardLoadingState from './cardLoadingState';
 //MUI import
 import Container from '@mui/material/Container';
 import Slide from '@mui/material/Slide';
 import Dialog from '@mui/material/Dialog';
 //Libraries
-import axios from 'axios';
 import moment from 'moment';
 //Icons
 import {
@@ -24,206 +21,13 @@ import {
 	WishIcon,
 	WishIcon2,
 	CloseIcon,
-} from '../../components/icons';
-
-const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
+} from './icons';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction='up' ref={ref} {...props} />;
 });
 
-let initialStates = {
-	userData: null,
-	itinerary: null,
-	weddingDetails: {},
-	guestDetails: null,
-	time: { start: '12:00', end: '15:00' },
-	page: 0,
-	giftPage: 0,
-	loading: false,
-	loading_gift: false,
-	submitted: false,
-	resetTheClock: false,
-	going: null,
-	gifts: null,
-	giftReserve: null,
-	confirmModal: false,
-	cancelModal: false,
-	thakyouModal: false,
-	sorryModal: false,
-};
-
-const rsvpReducer = (state, action) => {
-	switch (action.type) {
-		case 'SET_CONFIRM_MODAL':
-			return { ...state, confirmModal: action.payload };
-		case 'SET_CANCEL_MODAL':
-			return { ...state, cancelModal: action.payload };
-		case 'SET_THANK_YOU_MODAL':
-			return { ...state, thakyouModal: action.payload };
-		case 'SET_SORRY_MODAL':
-			return { ...state, sorryModal: action.payload };
-		case 'INIT_USER_DATA':
-			return { ...state, userData: action.payload };
-		case 'INIT_ITINERARY':
-			return { ...state, itinerary: action.payload };
-		case 'INIT_WEDDING_DETAILS':
-			return { ...state, weddingDetails: action.payload };
-		case 'INIT_GUEST_DETAILS':
-			return { ...state, guestDetails: action.payload };
-		case 'INIT_GIFT_RESERVE':
-			return { ...state, giftReserve: action.payload };
-		case 'GET_GIFTS':
-			return { ...state, gifts: action.payload };
-		case 'RESET_SUBMIT':
-			return { ...state, submitted: false };
-		case 'UPDATE_GOING':
-			return { ...state, going: action.payload };
-		case 'GUEST_SUBMIT':
-			return { ...state, submitted: true };
-		case 'GO_HOME_PAGE':
-			return { ...state, page: 0 };
-		case 'NEXT_PAGE':
-			return { ...state, page: state.page + 1 };
-		case 'GIFT_PAGE':
-			return { ...state, page: 2 };
-		case 'RESERVE_GIFT_PAGE':
-			return { ...state, giftPage: 1 };
-		case 'REGISTRY_GIFT_PAGE':
-			return { ...state, giftPage: 0 };
-		case 'PREVIOUS_PAGE':
-			return { ...state, page: state.page - 1 };
-		case 'LOADING':
-			return { ...state, loading: action.payload };
-		case 'LOADING_GIFT':
-			return { ...state, loading_gift: action.payload };
-		case 'RESET_THE_CLOCK':
-			return { ...state, resetTheClock: !state.resetTheClock };
-		case 'INIT_TIME_SLOT':
-			return { ...state, time: action.payload };
-	}
-};
-
-function Rsvp({ title, imageUrl, description, userId, guestId, userInfo }) {
-	const [state, dispatch] = useReducer(rsvpReducer, initialStates);
-	const { userData, guestDetails, resetTheClock } = state;
-
-	useEffect(() => {
-		getThemAll();
-	}, [resetTheClock]);
-
-	function getThemAll() {
-		dispatch({ type: 'INIT_USER_DATA', payload: userInfo });
-		dispatch({ type: 'INIT_WEDDING_DETAILS', payload: userInfo.rsvpDetails });
-		getGuestInfo(userInfo.id);
-		getGiftList(userInfo.id);
-		getItineraryList(userInfo.id);
-
-		//Init time
-		dispatch({
-			type: 'INIT_TIME_SLOT',
-			payload: {
-				start: userInfo.rsvpDetails.timeSlot.start,
-				end: userInfo.rsvpDetails.timeSlot.end,
-			},
-		});
-	}
-
-	function getGuestInfo(userID) {
-		axios
-			.get(`${API}/getguestlist/${userID}/${guestId}`)
-			.then((res) => {
-				let guestInfo = res.data[0];
-				// console.log('guestInfo:', guestInfo);
-				dispatch({ type: 'INIT_GUEST_DETAILS', payload: guestInfo });
-			})
-			.catch((err) => {
-				console.log('timeout!');
-				console.log(err.message);
-			});
-	}
-
-	function getGiftList(userID) {
-		axios.get(`${API}/getgifts/${userID}`).then((res) => {
-			let giftlist = res.data;
-			// console.log('giftlist:', giftlist);
-			dispatch({ type: 'GET_GIFTS', payload: giftlist });
-		});
-	}
-
-	function postGuestResponse(body, postReqFunc) {
-		dispatch({ type: 'LOADING', payload: true });
-		axios
-			.post(`${API}/guestresponse/${state.userData.id}/${state.guestDetails.id}`, body)
-			.then((res) => {
-				dispatch({ type: 'LOADING', payload: false });
-				dispatch({ type: 'GUEST_SUBMIT' });
-				postReqFunc();
-			});
-	}
-
-	function guestReserveFunc(body, reserved) {
-		dispatch({ type: 'LOADING_GIFT', payload: true });
-		axios
-			.post(`${API}/updategift/${state.userData.id}/${state.giftReserve.id}`, body)
-			.then((res) => {
-				dispatch({ type: 'LOADING_GIFT', payload: false });
-				if (reserved) {
-					dispatch({ type: 'SET_CONFIRM_MODAL', payload: false });
-					dispatch({ type: 'SET_THANK_YOU_MODAL', payload: true });
-				} else {
-					dispatch({ type: 'SET_CANCEL_MODAL', payload: false });
-					dispatch({ type: 'SET_SORRY_MODAL', payload: true });
-				}
-
-				dispatch({ type: 'RESET_THE_CLOCK' });
-			});
-	}
-
-	function getItineraryList(userID) {
-		axios.get(`${API}/getitinerary/${userID}`).then((res) => {
-			let itineraryList = res.data;
-			// console.log('itineraryList:', itineraryList);
-			dispatch({ type: 'INIT_ITINERARY', payload: itineraryList });
-		});
-	}
-
-	return (
-		<div>
-			<Head>
-				<title>{title}</title>
-				<meta name='description' content={description}></meta>
-				<meta property='og:title' content={title}></meta>
-				<meta property='og:description' content={description}></meta>
-				<meta property='og:image' content={imageUrl}></meta>
-			</Head>
-			<main>
-				<Container maxWidth='md'>
-					{userData && guestDetails ? (
-						<>
-							{state.page === 0 ? (
-								<MainRSVP state={state} dispatch={dispatch} postGuestResponse={postGuestResponse} />
-							) : state.page === 1 ? (
-								<GuestPage
-									state={state}
-									dispatch={dispatch}
-									postGuestResponse={postGuestResponse}
-								/>
-							) : (
-								<GiftPage state={state} dispatch={dispatch} guestReserveFunc={guestReserveFunc} />
-							)}
-						</>
-					) : (
-						<WholePageLoadingState height_vh='80vh' />
-					)}
-				</Container>
-			</main>
-			<Footer />
-		</div>
-	);
-}
-
-const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
+export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 	const { userData, guestDetails, weddingDetails, itinerary, time, gifts } = state;
 	const { eventInfo, rsvpImage } = weddingDetails;
 	const [goingModal, setGoingModal] = useState(false);
@@ -289,9 +93,13 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 		<div className='rsvp-main'>
 			<div className='main-desc'>
 				<div className='invite-text'>
-					<div style={{ marginBottom: '8px', fontSize: '24px', fontWeight: 400 }}>
-						{guestDetails?.name},
-					</div>{' '}
+					{guestDetails ? (
+						<div style={{ marginBottom: '8px', fontSize: '24px', fontWeight: 400 }}>
+							{guestDetails?.name},
+						</div>
+					) : (
+						<></>
+					)}
 					You are cordially invited to the
 				</div>
 				<div className='walimatul-text'>{eventInfo?.eventName}</div>
@@ -338,19 +146,6 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 				)}
 			</div>
 
-			{/* <div className='buttons-section'>
-				<div className='rsvp-button' onClick={() => nextPage()}>
-					{guestDetails.rsvp === 'attending'
-						? `RSVP'D - I'M GOING`
-						: guestDetails.rsvp === 'notattending'
-						? `RSVP'D - I'M NOT GOING`
-						: `RSVP`}
-				</div>
-				<div className='guest-button' onClick={() => goToGiftPage()}>
-					SEND GIFT
-				</div>
-			</div> */}
-
 			<div className='buttons-area'>
 				<div className='rsvp-buttons'>
 					{guestDetails?.rsvp === 'attending' ? (
@@ -386,13 +181,6 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 						</>
 					)}
 				</div>
-				{weddingDetails?.giftRegistryEnable ? (
-					<button className='default-button gift-button' onClick={() => goToGiftPage()}>
-						<NewGiftIcon /> Send Gift
-					</button>
-				) : (
-					<></>
-				)}
 			</div>
 
 			<div className='wedding-more-details'>
@@ -423,9 +211,11 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 	);
 };
 
-const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGuestResponse }) => {
+export const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGuestResponse }) => {
 	const { loading, guestDetails, weddingDetails } = state;
 	const [rsvp, setRsvp] = useState('attending');
+	const [name, setName] = useState('');
+	const [phone, setPhone] = useState('');
 	const [pax, setPax] = useState(1);
 	const [wish, setWish] = useState('');
 	const [maxPax, setMaxPax] = useState(1);
@@ -448,11 +238,12 @@ const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGuestRespo
 
 	const submitResponseFunc = () => {
 		const guestRes = {
+			name: name,
+			phone: phone,
 			rsvp: rsvp,
 			pax: pax,
 			wish: wish ? wish : '',
 		};
-
 		dispatch({ type: 'UPDATE_GOING', payload: rsvp === 'attending' ? true : false });
 		postGuestResponse(guestRes, () => {
 			closeModal();
@@ -472,7 +263,6 @@ const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGuestRespo
 				closeModal();
 			}}>
 			<div className='goingModal-card' style={{ position: 'relative' }}>
-				{/* <CardLoadingState loadingState={loading_gift} /> */}
 				<div className='top-modal' style={{ padding: '8px 0px' }}>
 					<div className='close-button-area'>
 						<div className='close-button' onClick={() => closeModal()}>
@@ -480,13 +270,32 @@ const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGuestRespo
 						</div>
 					</div>
 					<WishIcon width='60px' height='60px' />
-					<div className='text-top'>
-						WE ARE LOOKING FORWARD TO SEEING YOU THERE, {guestDetails.name}!
-					</div>
+					<div className='text-top'>WE ARE LOOKING FORWARD TO SEEING YOU THERE!</div>
 				</div>
 				<div className='modal-content'>
+					{!guestDetails ? (
+						<div className='guest-info'>
+							<div className='full-name'>
+								<div className='name'>NAME *</div>
+								<input
+									placeholder='ENTER NAME'
+									value={name}
+									onChange={(e) => setName(e.target.value)}></input>
+							</div>
+							<div className='phone-number'>
+								<div className='name'>CONTACT *</div>
+								<input
+									placeholder='ENTER PHONE NUMBER'
+									type='tek'
+									value={phone}
+									onChange={(e) => setPhone(e.target.value)}></input>
+							</div>
+						</div>
+					) : (
+						<></>
+					)}
 					<div className='pax-input'>
-						<div className='name'>TOTAL PAX (MAX {maxPax})</div>
+						<div className='name'>TOTAL PAX (MAX {maxPax}) *</div>
 						<div className='pax-buttons'>
 							<div
 								className='minus'
@@ -517,31 +326,45 @@ const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGuestRespo
 					<div className='cancel-button' onClick={() => closeModal()}>
 						CANCEL
 					</div>
-					<div className='confirm-button' onClick={() => submitResponseFunc()}>
-						<CardLoadingState loadingState={loading} />
-						CONFIRM
-					</div>
+					{guestDetails ? (
+						<div className='confirm-button' onClick={() => submitResponseFunc()}>
+							<CardLoadingState loadingState={loading} />
+							CONFIRM
+						</div>
+					) : (
+						<div
+							className='confirm-button'
+							style={name && phone ? { opacity: 1 } : { opacity: 0.5 }}
+							onClick={() => {
+								if (name && phone) submitResponseFunc();
+							}}>
+							<CardLoadingState loadingState={loading} />
+							CONFIRM
+						</div>
+					)}
 				</div>
 			</div>
 		</Dialog>
 	);
 };
 
-const NotGoingModal = ({ state, dispatch, notGoingModal, setNotGoingModal, postGuestResponse }) => {
+export const NotGoingModal = ({
+	state,
+	dispatch,
+	notGoingModal,
+	setNotGoingModal,
+	postGuestResponse,
+}) => {
 	const { loading, guestDetails, weddingDetails } = state;
 	const [rsvp, setRsvp] = useState('notattending');
+	const [name, setName] = useState('');
+	const [phone, setPhone] = useState('');
 	const [pax, setPax] = useState(1);
 	const [wish, setWish] = useState('');
-	const [maxPax, setMaxPax] = useState(1);
 
 	useEffect(() => {
 		if (guestDetails?.response && guestDetails.rsvp !== 'invited' && guestDetails.rsvp !== '') {
 			setWish(guestDetails?.response.wish);
-		}
-
-		if (weddingDetails?.maxPax) {
-			if (guestDetails?.allocatedPax) setMaxPax(guestDetails?.allocatedPax);
-			else setMaxPax(weddingDetails?.maxPax);
 		}
 	}, [guestDetails]);
 
@@ -552,10 +375,11 @@ const NotGoingModal = ({ state, dispatch, notGoingModal, setNotGoingModal, postG
 	const submitResponseFunc = () => {
 		const guestRes = {
 			rsvp: rsvp,
+			name: name,
+			phone: phone,
 			pax: pax,
 			wish: wish ? wish : '',
 		};
-
 		dispatch({ type: 'UPDATE_GOING', payload: rsvp === 'attending' ? true : false });
 		postGuestResponse(guestRes, () => {
 			closeModal();
@@ -588,6 +412,27 @@ const NotGoingModal = ({ state, dispatch, notGoingModal, setNotGoingModal, postG
 					</div>
 				</div>
 				<div className='modal-content'>
+					{!guestDetails ? (
+						<div className='guest-info'>
+							<div className='full-name'>
+								<div className='name'>NAME *</div>
+								<input
+									placeholder='ENTER NAME'
+									value={name}
+									onChange={(e) => setName(e.target.value)}></input>
+							</div>
+							<div className='phone-number'>
+								<div className='name'>CONTACT *</div>
+								<input
+									placeholder='ENTER PHONE NUMBER'
+									type='tek'
+									value={phone}
+									onChange={(e) => setPhone(e.target.value)}></input>
+							</div>
+						</div>
+					) : (
+						<></>
+					)}
 					<div className='wish-input'>
 						<div className='name'>YOUR WISH</div>
 						<textarea
@@ -600,10 +445,22 @@ const NotGoingModal = ({ state, dispatch, notGoingModal, setNotGoingModal, postG
 					<div className='cancel-button' onClick={() => closeModal()}>
 						CANCEL
 					</div>
-					<div className='confirm-button' onClick={() => submitResponseFunc()}>
-						<CardLoadingState loadingState={loading} />
-						CONFIRM
-					</div>
+					{guestDetails ? (
+						<div className='confirm-button' onClick={() => submitResponseFunc()}>
+							<CardLoadingState loadingState={loading} />
+							CONFIRM
+						</div>
+					) : (
+						<div
+							className='confirm-button'
+							style={name && phone ? { opacity: 1 } : { opacity: 0.5 }}
+							onClick={() => {
+								if (name && phone) submitResponseFunc();
+							}}>
+							<CardLoadingState loadingState={loading} />
+							CONFIRM
+						</div>
+					)}
 				</div>
 			</div>
 		</Dialog>
@@ -611,7 +468,7 @@ const NotGoingModal = ({ state, dispatch, notGoingModal, setNotGoingModal, postG
 };
 
 //////////////////////////////Start: GUEST RSVP
-const GuestPage = ({ state, dispatch, postGuestResponse }) => {
+export const GuestPage = ({ state, dispatch, postGuestResponse }) => {
 	const { submitted } = state;
 
 	useEffect(() => {
@@ -629,7 +486,7 @@ const GuestPage = ({ state, dispatch, postGuestResponse }) => {
 	);
 };
 
-const GuestRSVP = ({ state, dispatch, postGuestResponse }) => {
+export const GuestRSVP = ({ state, dispatch, postGuestResponse }) => {
 	const { loading, guestDetails, weddingDetails } = state;
 	const [fullName, setFullName] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('');
@@ -768,7 +625,7 @@ const GuestRSVP = ({ state, dispatch, postGuestResponse }) => {
 	);
 };
 
-const ThankYouPage = ({ state, dispatch }) => {
+export const ThankYouPage = ({ state, dispatch }) => {
 	const { userData, going, guestDetails, time, weddingDetails } = state;
 	const { rsvpImage } = weddingDetails;
 
@@ -789,9 +646,14 @@ const ThankYouPage = ({ state, dispatch }) => {
 						height: '100%',
 					}}>
 					<div>
-						<div className='top-section'>
-							Thank you, <br /> <div style={{ fontSize: '24px' }}>{guestDetails.name}</div>
-						</div>
+						{guestDetails ? (
+							<div className='top-section'>
+								Thank you, <br /> <div style={{ fontSize: '24px' }}>{guestDetails?.name}</div>
+							</div>
+						) : (
+							<div className='top-section'>Thank you</div>
+						)}
+
 						{going ? (
 							<div className='top-detail'>
 								You are Coming to Our <br />
@@ -840,7 +702,7 @@ const ThankYouPage = ({ state, dispatch }) => {
 };
 
 /////////////////////////////Start: GIFT REGISTRY
-const GiftPage = ({ state, dispatch, guestReserveFunc }) => {
+export const GiftPage = ({ state, dispatch, guestReserveFunc }) => {
 	const { giftPage } = state;
 
 	useEffect(() => {
@@ -858,7 +720,7 @@ const GiftPage = ({ state, dispatch, guestReserveFunc }) => {
 	);
 };
 
-const GiftRegistry = ({ state, dispatch }) => {
+export const GiftRegistry = ({ state, dispatch }) => {
 	const { gifts, guestDetails } = state;
 
 	function goHomePage() {
@@ -866,16 +728,16 @@ const GiftRegistry = ({ state, dispatch }) => {
 	}
 
 	const reserveGift = (gift) => {
-		if (gift?.reserved === guestDetails.id || !gift.reserved) {
+		if (gift?.reserved === guestDetails?.id || !gift.reserved) {
 			dispatch({ type: 'INIT_GIFT_RESERVE', payload: gift });
 			dispatch({ type: 'RESERVE_GIFT_PAGE' });
 		}
 	};
 
 	const reserveStatus = (gift) => {
-		if (gift?.reserved && gift?.reserved !== guestDetails.id) {
+		if (gift?.reserved && gift?.reserved !== guestDetails?.id) {
 			return '1 out of 1 reserved';
-		} else if (gift?.reserved === guestDetails.id) {
+		} else if (gift?.reserved === guestDetails?.id) {
 			return (
 				<>
 					<TickIcon fillColor={'#98A2B3'} /> Reserved by you
@@ -925,9 +787,8 @@ const GiftRegistry = ({ state, dispatch }) => {
 	);
 };
 
-const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
+export const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 	const { giftReserve, guestDetails } = state;
-	// const [guestEmail, setGuestEmail] = useState('');
 
 	function goBackPage() {
 		dispatch({ type: 'REGISTRY_GIFT_PAGE' });
@@ -947,7 +808,7 @@ const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 				<div style={{ cursor: 'pointer' }} onClick={() => goBackPage()}>
 					<BackIcon />
 				</div>
-				{giftReserve?.reserved === guestDetails.id ? (
+				{giftReserve?.reserved === guestDetails?.id ? (
 					<div className='title'>YOU RESERVED THIS GIFT</div>
 				) : (
 					<>
@@ -979,7 +840,7 @@ const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 						onChange={(e) => setGuestEmail(e.target.value)}></input>
 				</div> */}
 				<div className='buttons'>
-					{giftReserve?.reserved === guestDetails.id ? (
+					{giftReserve?.reserved === guestDetails?.id ? (
 						<div className='cancel-button' onClick={() => submitCancel()}>
 							Cancel Reservation
 						</div>
@@ -1010,7 +871,7 @@ const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 	);
 };
 
-const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
+export const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
 	const { confirmModal, loading_gift, guestDetails, giftReserve } = state;
 
 	const closeModal = () => {
@@ -1060,7 +921,7 @@ const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
 	);
 };
 
-const CancelModal = ({ state, dispatch, guestReserveFunc }) => {
+export const CancelModal = ({ state, dispatch, guestReserveFunc }) => {
 	const { cancelModal, loading_gift, guestDetails, giftReserve } = state;
 	const [cancelReason, setCancelReason] = useState('');
 
@@ -1135,7 +996,7 @@ const CancelModal = ({ state, dispatch, guestReserveFunc }) => {
 	);
 };
 
-const ThankYouModal = ({ state, dispatch }) => {
+export const ThankYouModal = ({ state, dispatch }) => {
 	const { thakyouModal, loading_gift, guestDetails } = state;
 
 	const closeModal = () => {
@@ -1163,9 +1024,13 @@ const ThankYouModal = ({ state, dispatch }) => {
 				<CardLoadingState loadingState={loading_gift} />
 				<div className='top-modal'>
 					<GiftIcon />
-					<div className='text-top'>
-						Thank you {guestDetails.name}! The Item Has Been reserved as gift
-					</div>
+					{guestDetails ? (
+						<div className='text-top'>
+							Thank you {guestDetails?.name}! The Item Has Been reserved as gift
+						</div>
+					) : (
+						<div className='text-top'>Thank you! The Item Has Been reserved as gift</div>
+					)}
 				</div>
 				<div className='bottom-modal'>
 					<div className='thankyou-text'>The Bride Will Be Very Grateful!</div>
@@ -1180,7 +1045,7 @@ const ThankYouModal = ({ state, dispatch }) => {
 	);
 };
 
-const SorryModal = ({ state, dispatch }) => {
+export const SorryModal = ({ state, dispatch }) => {
 	const { sorryModal, loading_gift, guestDetails } = state;
 
 	const closeModal = () => {
@@ -1207,7 +1072,11 @@ const SorryModal = ({ state, dispatch }) => {
 			<div className='giftModal' style={{ position: 'relative' }}>
 				<CardLoadingState loadingState={loading_gift} />
 				<div className='top-modal'>
-					<div className='text-top'>Sorry to let you go {guestDetails.name}!</div>
+					{guestDetails ? (
+						<div className='text-top'>Sorry to let you go {guestDetails?.name}!</div>
+					) : (
+						<div className='text-top'>Sorry to let you go!</div>
+					)}
 				</div>
 				<div className='bottom-modal'>
 					<div className='thankyou-text'>The Bride and Groom Appreciate Your Thoughts!</div>
@@ -1222,7 +1091,7 @@ const SorryModal = ({ state, dispatch }) => {
 	);
 };
 
-const Footer = () => {
+export const Footer = () => {
 	return (
 		<footer>
 			<div
@@ -1261,32 +1130,3 @@ const Footer = () => {
 		</footer>
 	);
 };
-
-export async function getServerSideProps(context) {
-	let id = context.query.id;
-	let guestId = context.query.guestId;
-	let userInfo;
-
-	console.log('context.query:', context.query);
-
-	await axios
-		.get(`${API}/weddingdetails/${id}`)
-		.then((res) => {
-			userInfo = res.data[0];
-		})
-		.catch((err) => {
-			console.log('timeout!');
-			console.log(err.message);
-		});
-
-	const title = `You're cordially invited to The Wedding of ${userInfo.brideName} & ${
-		userInfo.groomName
-	} | ${moment(userInfo?.weddingDate).format('DD.MM.YY')}`;
-	const imageUrl = userInfo.whatsappImg;
-	const description = `Kindly click to RSVP `;
-	const userId = id;
-
-	return { props: { title, imageUrl, description, userId, guestId, userInfo } };
-}
-
-export default Rsvp;
