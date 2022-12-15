@@ -388,7 +388,7 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 				</div>
 				{weddingDetails?.giftRegistryEnable ? (
 					<button className='default-button gift-button' onClick={() => goToGiftPage()}>
-						<NewGiftIcon /> Send Gift
+						<NewGiftIcon /> Reserve Gift
 					</button>
 				) : (
 					<></>
@@ -908,10 +908,13 @@ const GiftRegistry = ({ state, dispatch }) => {
 				</div>
 				<div className='title'>GIFT REGISTRY</div>
 				<div className='description'>
-					<p>Please know that your presence at our wedding is present enough!</p>
+					{/* <p>Please know that your presence at our wedding is present enough!</p>
 					<p>
 						However, for friends and family who have been asking for gift ideas, this is a guidance
 						registry (optional price and shop):
+					</p> */}
+					<p>
+						For friends and family who have been asking for gift ideas, this is a guidance registry:
 					</p>
 				</div>
 			</div>

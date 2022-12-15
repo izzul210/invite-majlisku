@@ -15,6 +15,7 @@ const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user'
 
 let initialStates = {
 	userData: null,
+	guestInput: null,
 	itinerary: null,
 	weddingDetails: {},
 	guestDetails: null,
@@ -46,6 +47,8 @@ const mainReducer = (state, action) => {
 			return { ...state, sorryModal: action.payload };
 		case 'INIT_USER_DATA':
 			return { ...state, userData: action.payload };
+		case 'SET_GUEST_INFO':
+			return { ...state, guestInput: action.payload };
 		case 'INIT_ITINERARY':
 			return { ...state, itinerary: action.payload };
 		case 'INIT_WEDDING_DETAILS':
@@ -127,23 +130,27 @@ function GeneralRsvp({ title, imageUrl, description, userId, userInfo }) {
 
 	function guestReserveFunc(body, reserved) {
 		dispatch({ type: 'LOADING_GIFT', payload: true });
-		dispatch({ type: 'LOADING_GIFT', payload: false });
-		console.log('guestReserveFunc.body', body);
-		if (reserved) {
-			dispatch({ type: 'SET_CONFIRM_MODAL', payload: false });
-			dispatch({ type: 'SET_THANK_YOU_MODAL', payload: true });
-		} else {
-			dispatch({ type: 'SET_CANCEL_MODAL', payload: false });
-			dispatch({ type: 'SET_SORRY_MODAL', payload: true });
-		}
-	}
+		axios
+			.post(`${API}/updategift/${state.userData.id}/${state.giftReserve.id}`, body)
+			.then((res) => {
+				dispatch({ type: 'LOADING_GIFT', payload: false });
+				if (reserved) {
+					dispatch({ type: 'SET_CONFIRM_MODAL', payload: false });
+					dispatch({ type: 'SET_THANK_YOU_MODAL', payload: true });
+				} else {
+					dispatch({ type: 'SET_CANCEL_MODAL', payload: false });
+					dispatch({ type: 'SET_SORRY_MODAL', payload: true });
+				}
 
+				dispatch({ type: 'RESET_THE_CLOCK' });
+			});
+	}
 	function postGuestResponse(body, postReqFunc) {
 		dispatch({ type: 'LOADING', payload: true });
 		axios.post(`${API}/newguest/${state.userData.id}`, body).then((res) => {
+			dispatch({ type: 'SET_GUEST_INFO', payload: res.data });
 			dispatch({ type: 'LOADING', payload: false });
 			dispatch({ type: 'GUEST_SUBMIT' });
-			console.log('response:', res);
 			postReqFunc();
 		});
 	}

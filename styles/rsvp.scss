@@ -403,7 +403,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 		.add-to-calendar {
 			width: min(400px, 100%);
 			text-align: center;
-			padding: 12px;
+			padding: 15px;
 			box-sizing: border-box;
 			@include stylesType.loraRegular(16px, 21px);
 			color: $grey600;
@@ -414,13 +414,32 @@ $darkGrey: rgba(29, 70, 72, 1);
 		}
 	}
 
+	.send-gift-button {
+		width: min(400px, 100%);
+		margin-top: 10px;
+		text-align: center;
+		padding: 13px;
+		background: white;
+		@include stylesType.loraRegular(16px, 21px);
+		color: $grey600;
+		text-transform: uppercase;
+		border: 1px solid $grey400;
+		border-radius: 25px;
+		display: flex;
+		gap: 10px;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		box-sizing: border-box;
+	}
+
 	.home-button {
 		margin-top: 10px;
 
 		.button {
 			width: min(400px, 100%);
 			text-align: center;
-			padding: 12px;
+			padding: 15px;
 			box-sizing: border-box;
 			@include stylesType.loraRegular(16px, 21px);
 			color: white;
@@ -660,7 +679,15 @@ $darkGrey: rgba(29, 70, 72, 1);
 			@include stylesType.loraRegular(15px, 20px);
 			color: $darkGrey;
 			text-transform: uppercase;
-			width: 90%;
+			width: 85%;
+			margin: 10px 0px 5px 0px;
+			text-align: center;
+		}
+
+		.smol-text {
+			@include stylesType.loraRegular(15px, 20px);
+			color: $darkGrey;
+			margin: 10px 0px;
 			text-align: center;
 		}
 	}

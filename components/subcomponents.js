@@ -181,6 +181,13 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 						</>
 					)}
 				</div>
+				{weddingDetails?.giftRegistryEnable ? (
+					<button className='default-button gift-button' onClick={() => goToGiftPage()}>
+						<NewGiftIcon /> Reserve Gift
+					</button>
+				) : (
+					<></>
+				)}
 			</div>
 
 			<div className='wedding-more-details'>
@@ -626,8 +633,12 @@ export const GuestRSVP = ({ state, dispatch, postGuestResponse }) => {
 };
 
 export const ThankYouPage = ({ state, dispatch }) => {
-	const { userData, going, guestDetails, time, weddingDetails } = state;
+	const { userData, going, guestInput, time, weddingDetails } = state;
 	const { rsvpImage } = weddingDetails;
+
+	function goToGiftPage() {
+		dispatch({ type: 'GIFT_PAGE' });
+	}
 
 	const goHomeFunc = () => {
 		dispatch({ type: 'RESET_THE_CLOCK' });
@@ -646,9 +657,9 @@ export const ThankYouPage = ({ state, dispatch }) => {
 						height: '100%',
 					}}>
 					<div>
-						{guestDetails ? (
+						{guestInput ? (
 							<div className='top-section'>
-								Thank you, <br /> <div style={{ fontSize: '24px' }}>{guestDetails?.name}</div>
+								Thank you, <br /> <div style={{ fontSize: '24px' }}>{guestInput?.name}</div>
 							</div>
 						) : (
 							<div className='top-section'>Thank you</div>
@@ -683,12 +694,18 @@ export const ThankYouPage = ({ state, dispatch }) => {
 								<AddToCalendar
 									weddingDetails={userData.rsvpDetails}
 									userData={userData}
-									guestDetails={guestDetails}
+									guestDetails={guestInput}
 									time={time}
 								/>
 							</div>
 						)}
-
+						{weddingDetails?.giftRegistryEnable ? (
+							<button className='send-gift-button' onClick={() => goToGiftPage()}>
+								<NewGiftIcon /> Reserve Gift
+							</button>
+						) : (
+							<></>
+						)}
 						<div className='home-button'>
 							<div className='button' onClick={() => goHomeFunc()}>
 								Home
@@ -737,12 +754,6 @@ export const GiftRegistry = ({ state, dispatch }) => {
 	const reserveStatus = (gift) => {
 		if (gift?.reserved && gift?.reserved !== guestDetails?.id) {
 			return '1 out of 1 reserved';
-		} else if (gift?.reserved === guestDetails?.id) {
-			return (
-				<>
-					<TickIcon fillColor={'#98A2B3'} /> Reserved by you
-				</>
-			);
 		} else {
 			return '0 out of 1 reserved';
 		}
@@ -770,10 +781,9 @@ export const GiftRegistry = ({ state, dispatch }) => {
 				</div>
 				<div className='title'>GIFT REGISTRY</div>
 				<div className='description'>
-					<p>Please know that your presence at our wedding is present enough!</p>
+					{/* <p>Please know that your presence at our wedding is present enough!</p> */}
 					<p>
-						However, for friends and family who have been asking for gift ideas, this is a guidance
-						registry (optional price and shop):
+						For friends and family who have been asking for gift ideas, this is a guidance registry:
 					</p>
 				</div>
 			</div>
@@ -788,7 +798,7 @@ export const GiftRegistry = ({ state, dispatch }) => {
 };
 
 export const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
-	const { giftReserve, guestDetails } = state;
+	const { giftReserve, guestInput } = state;
 
 	function goBackPage() {
 		dispatch({ type: 'REGISTRY_GIFT_PAGE' });
@@ -798,26 +808,18 @@ export const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 		dispatch({ type: 'SET_CONFIRM_MODAL', payload: true });
 	}
 
-	function submitCancel() {
-		dispatch({ type: 'SET_CANCEL_MODAL', payload: true });
-	}
-
 	return (
 		<div className='gift-reserve'>
 			<div className='top-section'>
 				<div style={{ cursor: 'pointer' }} onClick={() => goBackPage()}>
 					<BackIcon />
 				</div>
-				{giftReserve?.reserved === guestDetails?.id ? (
-					<div className='title'>YOU RESERVED THIS GIFT</div>
-				) : (
-					<>
-						<div className='title'>RESERVE GIFT</div>
-						<div className='description'>
-							Please note that you don’t have to buy the exact price and brand.{' '}
-						</div>
-					</>
-				)}
+				<>
+					<div className='title'>RESERVE GIFT </div>
+					<div className='description'>
+						Please note that you don’t have to buy the exact price and brand.{' '}
+					</div>
+				</>
 			</div>
 			<div className='content-section'>
 				<div className='gift-card'>
@@ -832,23 +834,10 @@ export const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 						{giftReserve?.reserved ? '1 out of 1 reserved' : '0 out of 1 reserved'}
 					</div>
 				</div>
-				{/* <div className='input-section'>
-					<div className='instruction'>Enter Email Address To Reserve</div>
-					<input
-						placeholder='guest@gmail.com'
-						value={guestEmail}
-						onChange={(e) => setGuestEmail(e.target.value)}></input>
-				</div> */}
 				<div className='buttons'>
-					{giftReserve?.reserved === guestDetails?.id ? (
-						<div className='cancel-button' onClick={() => submitCancel()}>
-							Cancel Reservation
-						</div>
-					) : (
-						<div className='reserve-button' onClick={() => submitReserve()}>
-							Reserve
-						</div>
-					)}
+					<div className='reserve-button' onClick={() => submitReserve()}>
+						Reserve
+					</div>
 
 					{giftReserve.link ? (
 						<a
@@ -863,7 +852,11 @@ export const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 					)}
 				</div>
 			</div>
-			<ConfirmModal state={state} dispatch={dispatch} guestReserveFunc={guestReserveFunc} />
+			{guestInput ? (
+				<ConfirmModal state={state} dispatch={dispatch} guestReserveFunc={guestReserveFunc} />
+			) : (
+				<PreRSVPModal state={state} dispatch={dispatch} />
+			)}
 			<CancelModal state={state} dispatch={dispatch} guestReserveFunc={guestReserveFunc} />
 			<ThankYouModal state={state} dispatch={dispatch} />
 			<SorryModal state={state} dispatch={dispatch} />
@@ -872,7 +865,7 @@ export const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 };
 
 export const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
-	const { confirmModal, loading_gift, guestDetails, giftReserve } = state;
+	const { confirmModal, loading_gift, guestDetails, giftReserve, guestInput } = state;
 
 	const closeModal = () => {
 		dispatch({ type: 'SET_CONFIRM_MODAL', payload: false });
@@ -880,7 +873,7 @@ export const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
 
 	const confirmAction = () => {
 		const body = {
-			reserved: guestDetails.id,
+			reserved: guestInput?.id,
 			giftReserved: giftReserve?.name,
 		};
 		guestReserveFunc(body, true);
@@ -902,17 +895,62 @@ export const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
 				<div className='top-modal'>
 					<GiftIcon />
 					<div className='text-top'>Confirm Reserve this item as gift?</div>
+					<div className='smol-text'>
+						From: <b>{guestInput?.name}</b>
+					</div>
 				</div>
 				<div className='bottom-modal'>
-					{/* <div className='note'>
+					<div className='note'>
 						[IMPORTANT] Please note that once confirmed, the action is irreversible
-					</div> */}
+					</div>
 					<div className='buttons'>
 						<div className='cancel-button' onClick={() => closeModal()}>
 							Cancel
 						</div>
 						<div className='confirm-button' onClick={() => confirmAction()}>
 							Confirm
+						</div>
+					</div>
+				</div>
+			</div>
+		</Dialog>
+	);
+};
+
+export const PreRSVPModal = ({ state, dispatch }) => {
+	const { confirmModal, loading_gift, guestDetails, giftReserve } = state;
+
+	const closeModal = () => {
+		dispatch({ type: 'SET_CONFIRM_MODAL', payload: false });
+	};
+
+	const goBackHome = () => {
+		dispatch({ type: 'GO_HOME_PAGE' });
+		dispatch({ type: 'REGISTRY_GIFT_PAGE' });
+		closeModal();
+	};
+
+	return (
+		<Dialog
+			open={confirmModal}
+			TransitionComponent={Transition}
+			PaperProps={{
+				style: { borderRadius: 10, margin: '32px 12px' },
+			}}
+			keepMounted
+			onClose={() => {
+				closeModal();
+			}}>
+			<div className='giftModal' style={{ position: 'relative' }}>
+				<CardLoadingState loadingState={loading_gift} />
+				<div className='top-modal'>
+					<GiftIcon />
+					<div className='text-top'>Hey, kindly RSVP to reserve this item as gift</div>
+				</div>
+				<div className='bottom-modal'>
+					<div className='buttons'>
+						<div className='confirm-button' onClick={() => goBackHome()}>
+							Return Home
 						</div>
 					</div>
 				</div>
