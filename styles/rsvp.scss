@@ -26,8 +26,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 		.invite-text {
 			@include stylesType.loraRegular(16px, 21px);
 			color: $grey700;
-			padding: 10px 0px;
-			text-transform: uppercase;
+			padding: 10px;
 		}
 
 		.background-image {
@@ -60,8 +59,13 @@ $darkGrey: rgba(29, 70, 72, 1);
 		.bride-groom {
 			@include stylesType.playfair(32px, 42px);
 			color: $darkGrey;
-			padding: 10px 0px;
+			padding: 10px 0px 20px 0px;
 			text-transform: uppercase;
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
 		}
 
 		.wedding-date {
@@ -70,7 +74,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 			border-top: 1px solid $grey6005;
 			border-bottom: 1px solid $grey6005;
 			color: $grey700;
-			text-transform: uppercase;
+			// text-transform: uppercase;
 		}
 
 		.wedding-detail {
@@ -104,7 +108,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 
 			.parent {
 				@include stylesType.loraRegular(14px, 22px);
-				// text-transform: uppercase;
+				text-transform: uppercase;
 				display: flex;
 				flex-wrap: wrap;
 				justify-content: center;
@@ -584,7 +588,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 			background-position: center;
 		}
 		.gift-name {
-			@include stylesType.loraRegular(14px, 18px);
+			@include stylesType.loraRegular(20px, 25px);
 			color: $darkGrey;
 			margin-top: 3px;
 		}
@@ -629,7 +633,6 @@ $darkGrey: rgba(29, 70, 72, 1);
 		.reserve-button,
 		.cancel-button {
 			cursor: pointer;
-			margin-top: 0px;
 			padding: 17px;
 			box-sizing: border-box;
 			@include stylesType.loraRegular(16px, 21px);
@@ -638,6 +641,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 			text-transform: uppercase;
 			border-radius: 50px;
 			border: 1px solid rgba(16, 24, 40, 1);
+			margin: 16px 0px;
 		}
 
 		.reserve-button {
@@ -756,13 +760,13 @@ $darkGrey: rgba(29, 70, 72, 1);
 }
 
 .goingModal-card {
-	padding: 15px;
+	padding: 10px 15px;
 	box-sizing: border-box;
 	width: min(600px, 90vw);
 
 	.top-modal {
 		padding-bottom: 5px;
-		gap: 12px;
+		gap: 8px;
 		display: flex;
 		align-items: center;
 		justify-content: center;

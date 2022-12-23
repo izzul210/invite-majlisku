@@ -99,7 +99,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 	}
 
 	.activityContent {
-		padding: 0px 10px;
+		padding: 0px 6px;
 	}
 
 	.yes_activity {
@@ -110,7 +110,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 			flex: 2;
 			display: flex;
 			justify-content: flex-start;
-			margin-right: 0px;
+			margin-right: 12px;
 
 			.bold {
 				@include stylesType.loraRegular(14px, 18px);
@@ -124,6 +124,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 			padding-bottom: 20px;
 			border-left: 2px solid rgba(241, 191, 190, 1);
 			cursor: pointer;
+			text-transform: uppercase;
 
 			&::before {
 				content: '';

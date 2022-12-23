@@ -10,6 +10,8 @@ import Slide from '@mui/material/Slide';
 import Dialog from '@mui/material/Dialog';
 //Libraries
 import moment from 'moment';
+import 'moment/locale/ms-my';
+import 'moment/locale/en-ca';
 //Icons
 import {
 	GiftIcon,
@@ -89,6 +91,12 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 		}
 	};
 
+	if (weddingDetails?.bahasa) {
+		moment.locale('ms-my');
+	} else {
+		moment.locale('en-ca');
+	}
+
 	return (
 		<div className='rsvp-main'>
 			<div className='main-desc'>
@@ -100,7 +108,9 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 					) : (
 						<></>
 					)}
-					You are cordially invited to the
+					{weddingDetails?.bahasa
+						? 'Undangan kami seikhlas hati, harap sudi datang menyeri ke'
+						: 'You are cordially invited to the'}
 				</div>
 				<div className='walimatul-text'>{eventInfo?.eventName}</div>
 				<div className='background-image'>
@@ -110,7 +120,9 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 				</div>
 				{userData ? (
 					<div className='bride-groom'>
-						{userData?.groomName} & {userData?.brideName}
+						<div>{userData?.brideName}</div>
+						<div>&</div>
+						<div>{userData?.groomName}</div>
 					</div>
 				) : (
 					<div className='bride-groom'></div>
@@ -121,7 +133,7 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 						<div style={{ marginTop: '8px' }}>1:30PM - 3:30PM</div>
 					) : time ? (
 						<div style={{ marginTop: '8px' }}>
-							{moment(time.start).format('h:mma')} - {moment(time.end).format('h:mma')}
+							{moment(time.start).format('h:mm a')} - {moment(time.end).format('h:mm a')}
 						</div>
 					) : (
 						<div style={{ marginTop: '8px' }}>11:00AM - 1:30PM</div>
@@ -137,7 +149,7 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 				eventInfo?.brideFather ||
 				eventInfo?.brideMother ? (
 					<div className='hosted-by'>
-						<div className='top-text'>Hosted By:</div>
+						<div className='top-text'>{weddingDetails?.bahasa ? 'Oleh:' : 'Hosted By:'}</div>
 						{eventInfo.groomFather || eventInfo.groomMother ? displayGroomParents() : <></>}
 						{eventInfo.brideFather || eventInfo.brideMother ? displayBrideParents() : <></>}
 					</div>
@@ -171,19 +183,19 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 					) : (
 						<>
 							<button className='default-button before-button' onClick={() => setGoingModal(true)}>
-								Going
+								{weddingDetails?.bahasa ? 'Hadir' : 'Going'}
 							</button>
 							<button
 								className='default-button before-button'
 								onClick={() => setNotGoingModal(true)}>
-								Not Going
+								{weddingDetails?.bahasa ? 'Tidak Hadir' : 'Not Going'}
 							</button>
 						</>
 					)}
 				</div>
 				{weddingDetails?.giftRegistryEnable ? (
 					<button className='default-button gift-button' onClick={() => goToGiftPage()}>
-						<NewGiftIcon /> Reserve Gift
+						<NewGiftIcon /> {weddingDetails?.bahasa ? 'Bawa Hadiah' : 'Reserve Gift'}
 					</button>
 				) : (
 					<></>
@@ -277,22 +289,26 @@ export const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGue
 						</div>
 					</div>
 					<WishIcon width='60px' height='60px' />
-					<div className='text-top'>WE ARE LOOKING FORWARD TO SEEING YOU THERE!</div>
+					<div className='text-top'>
+						{weddingDetails?.bahasa
+							? 'KAMI SEDIA MENANTI KETIBAAN ANDA DI SANA'
+							: 'WE ARE LOOKING FORWARD TO SEEING YOU THERE!'}
+					</div>
 				</div>
 				<div className='modal-content'>
 					{!guestDetails ? (
 						<div className='guest-info'>
 							<div className='full-name'>
-								<div className='name'>NAME *</div>
+								<div className='name'>{weddingDetails?.bahasa ? 'NAMA*' : 'NAME*'}</div>
 								<input
-									placeholder='ENTER NAME'
+									placeholder={weddingDetails?.bahasa ? 'ISI NAMA' : 'ENTER NAME'}
 									value={name}
 									onChange={(e) => setName(e.target.value)}></input>
 							</div>
 							<div className='phone-number'>
-								<div className='name'>CONTACT *</div>
+								<div className='name'>{weddingDetails?.bahasa ? 'TELEFON*' : 'CONTACT*'}</div>
 								<input
-									placeholder='ENTER PHONE NUMBER'
+									placeholder={weddingDetails?.bahasa ? 'ISI NO TEL' : 'ENTER PHONE NUMBER'}
 									type='tek'
 									value={phone}
 									onChange={(e) => setPhone(e.target.value)}></input>
@@ -302,7 +318,9 @@ export const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGue
 						<></>
 					)}
 					<div className='pax-input'>
-						<div className='name'>TOTAL PAX (MAX {maxPax}) *</div>
+						<div className='name'>
+							{weddingDetails?.bahasa ? 'BILANGAN KEHADIRAN' : 'TOTAL PAX'} (MAX {maxPax})*
+						</div>
 						<div className='pax-buttons'>
 							<div
 								className='minus'
@@ -322,21 +340,21 @@ export const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGue
 						</div>
 					</div>
 					<div className='wish-input'>
-						<div className='name'>YOUR WISH</div>
+						<div className='name'>{weddingDetails?.bahasa ? 'UCAPAN' : 'YOUR WISH'}</div>
 						<textarea
 							value={wish}
 							onChange={(e) => setWish(e.target.value)}
-							placeholder='ENTER WISH'></textarea>
+							placeholder={weddingDetails?.bahasa ? 'ISI UCAPAN' : 'ENTER WISH'}></textarea>
 					</div>
 				</div>
 				<div className='bottom-modal'>
 					<div className='cancel-button' onClick={() => closeModal()}>
-						CANCEL
+						{weddingDetails?.bahasa ? 'BATAL' : 'CANCEL'}
 					</div>
 					{guestDetails ? (
 						<div className='confirm-button' onClick={() => submitResponseFunc()}>
 							<CardLoadingState loadingState={loading} />
-							CONFIRM
+							{weddingDetails?.bahasa ? 'SETUJU' : 'CONFIRM'}
 						</div>
 					) : (
 						<div
@@ -346,7 +364,7 @@ export const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGue
 								if (name && phone) submitResponseFunc();
 							}}>
 							<CardLoadingState loadingState={loading} />
-							CONFIRM
+							{weddingDetails?.bahasa ? 'SETUJU' : 'CONFIRM'}
 						</div>
 					)}
 				</div>
@@ -415,24 +433,26 @@ export const NotGoingModal = ({
 					</div>
 					<WishIcon2 width='60px' height='60px' />
 					<div className='text-top'>
-						WE ARE SORRY TO HEAR THAT BUT THANK YOU FOR THE THOUGHTFUL RESPONSE.
+						{weddingDetails?.bahasa
+							? 'KAMI MEMOHON MAAF ATAS KESULITAN, TERIMA KASIH KERANA MEMBALAS'
+							: 'WE ARE SORRY TO HEAR THAT BUT THANK YOU FOR THE THOUGHTFUL RESPONSE'}
 					</div>
 				</div>
 				<div className='modal-content'>
 					{!guestDetails ? (
 						<div className='guest-info'>
 							<div className='full-name'>
-								<div className='name'>NAME *</div>
+								<div className='name'>{weddingDetails?.bahasa ? 'NAMA*' : 'NAME*'}</div>
 								<input
-									placeholder='ENTER NAME'
+									placeholder={weddingDetails?.bahasa ? 'ISI NAMA' : 'ENTER NAME'}
 									value={name}
 									onChange={(e) => setName(e.target.value)}></input>
 							</div>
 							<div className='phone-number'>
-								<div className='name'>CONTACT *</div>
+								<div className='name'>{weddingDetails?.bahasa ? 'TELEFON*' : 'CONTACT*'}</div>
 								<input
-									placeholder='ENTER PHONE NUMBER'
-									type='tek'
+									placeholder={weddingDetails?.bahasa ? 'ISI NO TEL' : 'ENTER PHONE NUMBER'}
+									type='tel'
 									value={phone}
 									onChange={(e) => setPhone(e.target.value)}></input>
 							</div>
@@ -441,21 +461,21 @@ export const NotGoingModal = ({
 						<></>
 					)}
 					<div className='wish-input'>
-						<div className='name'>YOUR WISH</div>
+						<div className='name'>{weddingDetails?.bahasa ? 'UCAPAN' : 'YOUR WISH'}</div>
 						<textarea
 							value={wish}
 							onChange={(e) => setWish(e.target.value)}
-							placeholder='ENTER WISH'></textarea>
+							placeholder={weddingDetails?.bahasa ? 'ISI UCAPAN' : 'ENTER WISH'}></textarea>
 					</div>
 				</div>
 				<div className='bottom-modal'>
 					<div className='cancel-button' onClick={() => closeModal()}>
-						CANCEL
+						{weddingDetails?.bahasa ? 'BATAL' : 'CANCEL'}
 					</div>
 					{guestDetails ? (
 						<div className='confirm-button' onClick={() => submitResponseFunc()}>
 							<CardLoadingState loadingState={loading} />
-							CONFIRM
+							{weddingDetails?.bahasa ? 'SETUJU' : 'CONFIRM'}
 						</div>
 					) : (
 						<div
@@ -465,7 +485,7 @@ export const NotGoingModal = ({
 								if (name && phone) submitResponseFunc();
 							}}>
 							<CardLoadingState loadingState={loading} />
-							CONFIRM
+							{weddingDetails?.bahasa ? 'SETUJU' : 'CONFIRM'}
 						</div>
 					)}
 				</div>
@@ -659,7 +679,8 @@ export const ThankYouPage = ({ state, dispatch }) => {
 					<div>
 						{guestInput ? (
 							<div className='top-section'>
-								Thank you, <br /> <div style={{ fontSize: '24px' }}>{guestInput?.name}</div>
+								{weddingDetails?.bahasa ? 'Terima Kasih,' : 'Thank you,'} <br />{' '}
+								<div style={{ fontSize: '24px' }}>{guestInput?.name}</div>
 							</div>
 						) : (
 							<div className='top-section'>Thank you</div>
@@ -667,14 +688,26 @@ export const ThankYouPage = ({ state, dispatch }) => {
 
 						{going ? (
 							<div className='top-detail'>
-								You are Coming to Our <br />
-								Special Day!
+								{weddingDetails?.bahasa ? (
+									'Kami menanti kehadiran anda!'
+								) : (
+									<>
+										You are Coming to Our <br />
+										Special Day!
+									</>
+								)}
 							</div>
 						) : (
 							<div className='top-detail'>
-								Your Response Has Kindly
-								<br />
-								Been Submitted!
+								{weddingDetails?.bahasa ? (
+									'Kami telah menerima respon anda'
+								) : (
+									<>
+										Your Response Has Kindly
+										<br />
+										Been Submitted!
+									</>
+								)}
 							</div>
 						)}
 						<div className='background-image'>
@@ -701,14 +734,14 @@ export const ThankYouPage = ({ state, dispatch }) => {
 						)}
 						{weddingDetails?.giftRegistryEnable ? (
 							<button className='send-gift-button' onClick={() => goToGiftPage()}>
-								<NewGiftIcon /> Reserve Gift
+								<NewGiftIcon /> {weddingDetails?.bahasa ? 'Bawa Hadiah' : 'Reserve Gift'}
 							</button>
 						) : (
 							<></>
 						)}
 						<div className='home-button'>
 							<div className='button' onClick={() => goHomeFunc()}>
-								Home
+								{weddingDetails?.bahasa ? 'Halaman Utama' : 'Home'}
 							</div>
 						</div>
 					</div>
@@ -722,10 +755,6 @@ export const ThankYouPage = ({ state, dispatch }) => {
 export const GiftPage = ({ state, dispatch, guestReserveFunc }) => {
 	const { giftPage } = state;
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
-
 	return (
 		<>
 			{giftPage === 0 ? (
@@ -738,7 +767,11 @@ export const GiftPage = ({ state, dispatch, guestReserveFunc }) => {
 };
 
 export const GiftRegistry = ({ state, dispatch }) => {
-	const { gifts, guestDetails } = state;
+	const { gifts, guestDetails, weddingDetails } = state;
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	function goHomePage() {
 		dispatch({ type: 'GO_HOME_PAGE' });
@@ -779,12 +812,16 @@ export const GiftRegistry = ({ state, dispatch }) => {
 				<div style={{ cursor: 'pointer' }} onClick={() => goHomePage()}>
 					<BackIcon />
 				</div>
-				<div className='title'>GIFT REGISTRY</div>
+				<div className='title'>{weddingDetails?.bahasa ? 'SENARAI HADIAH' : 'GIFT REGISTRY'}</div>
 				<div className='description'>
-					{/* <p>Please know that your presence at our wedding is present enough!</p> */}
-					<p>
-						For friends and family who have been asking for gift ideas, this is a guidance registry:
-					</p>
+					{weddingDetails?.bahasa ? (
+						<p>Hadiah-hadiah yang tersenarai hanya sekadar panduan:</p>
+					) : (
+						<p>
+							For friends and family who have been asking for gift ideas, this is a guidance
+							registry:
+						</p>
+					)}
 				</div>
 			</div>
 
@@ -798,7 +835,11 @@ export const GiftRegistry = ({ state, dispatch }) => {
 };
 
 export const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
-	const { giftReserve, guestInput } = state;
+	const { giftReserve, guestInput, weddingDetails } = state;
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	function goBackPage() {
 		dispatch({ type: 'REGISTRY_GIFT_PAGE' });
@@ -815,9 +856,11 @@ export const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 					<BackIcon />
 				</div>
 				<>
-					<div className='title'>RESERVE GIFT </div>
+					<div className='title'>{weddingDetails?.bahasa ? 'SIMPAN HADIAH' : 'RESERVE GIFT'} </div>
 					<div className='description'>
-						Please note that you don’t have to buy the exact price and brand.{' '}
+						{weddingDetails?.bahasa
+							? 'Anda boleh membeli jenama atau harga lain dari yang dinyatakan.'
+							: 'Please note that you don’t have to buy the exact price and brand.'}
 					</div>
 				</>
 			</div>
@@ -836,7 +879,7 @@ export const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 				</div>
 				<div className='buttons'>
 					<div className='reserve-button' onClick={() => submitReserve()}>
-						Reserve
+						{weddingDetails?.bahasa ? 'Simpan' : 'Reserve'}
 					</div>
 
 					{giftReserve.link ? (
@@ -845,7 +888,7 @@ export const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 							target='_blank'
 							rel='noreferrer'
 							className='view-shop-button'>
-							View Shop
+							{weddingDetails?.bahasa ? 'Lihat Kedai' : 'View Shop'}
 						</a>
 					) : (
 						<></>
@@ -865,7 +908,8 @@ export const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 };
 
 export const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
-	const { confirmModal, loading_gift, guestDetails, giftReserve, guestInput } = state;
+	const { confirmModal, loading_gift, guestDetails, giftReserve, guestInput, weddingDetails } =
+		state;
 
 	const closeModal = () => {
 		dispatch({ type: 'SET_CONFIRM_MODAL', payload: false });
@@ -894,9 +938,13 @@ export const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
 				<CardLoadingState loadingState={loading_gift} />
 				<div className='top-modal'>
 					<GiftIcon />
-					<div className='text-top'>Confirm Reserve this item as gift?</div>
+					<div className='text-top'>
+						{weddingDetails?.bahasa
+							? 'Anda bersetuju untuk simpan hadiah ini?'
+							: 'Confirm Reserve this item as gift?'}
+					</div>
 					<div className='smol-text'>
-						From: <b>{guestInput?.name}</b>
+						{weddingDetails?.bahasa ? 'Daripada:' : 'From:'} <b>{guestInput?.name}</b>
 					</div>
 				</div>
 				<div className='bottom-modal'>
@@ -905,10 +953,10 @@ export const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
 					</div>
 					<div className='buttons'>
 						<div className='cancel-button' onClick={() => closeModal()}>
-							Cancel
+							{weddingDetails?.bahasa ? 'Batal' : 'Cancel'}
 						</div>
 						<div className='confirm-button' onClick={() => confirmAction()}>
-							Confirm
+							{weddingDetails?.bahasa ? 'Setuju' : 'Confirm'}
 						</div>
 					</div>
 				</div>
@@ -918,7 +966,7 @@ export const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
 };
 
 export const PreRSVPModal = ({ state, dispatch }) => {
-	const { confirmModal, loading_gift, guestDetails, giftReserve } = state;
+	const { confirmModal, loading_gift, weddingDetails } = state;
 
 	const closeModal = () => {
 		dispatch({ type: 'SET_CONFIRM_MODAL', payload: false });
@@ -945,12 +993,16 @@ export const PreRSVPModal = ({ state, dispatch }) => {
 				<CardLoadingState loadingState={loading_gift} />
 				<div className='top-modal'>
 					<GiftIcon />
-					<div className='text-top'>Hey, kindly RSVP to reserve this item as gift</div>
+					<div className='text-top' style={{ marginBottom: '16px' }}>
+						{weddingDetails?.bahasa
+							? 'Sila nyatakan kehadiran anda sebelum menempah hadiah'
+							: 'Hey, kindly RSVP to reserve this item as gift'}
+					</div>
 				</div>
 				<div className='bottom-modal'>
 					<div className='buttons'>
 						<div className='confirm-button' onClick={() => goBackHome()}>
-							Return Home
+							{weddingDetails?.bahasa ? 'Kembali' : 'Return Home'}
 						</div>
 					</div>
 				</div>
@@ -1035,7 +1087,7 @@ export const CancelModal = ({ state, dispatch, guestReserveFunc }) => {
 };
 
 export const ThankYouModal = ({ state, dispatch }) => {
-	const { thakyouModal, loading_gift, guestDetails } = state;
+	const { thakyouModal, loading_gift, guestDetails, weddingDetails } = state;
 
 	const closeModal = () => {
 		dispatch({ type: 'SET_THANK_YOU_MODAL', payload: false });
@@ -1067,11 +1119,17 @@ export const ThankYouModal = ({ state, dispatch }) => {
 							Thank you {guestDetails?.name}! The Item Has Been reserved as gift
 						</div>
 					) : (
-						<div className='text-top'>Thank you! The Item Has Been reserved as gift</div>
+						<div className='text-top'>
+							{weddingDetails?.bahasa
+								? 'Terima kasih! Hadiah berjaya disimpan'
+								: 'Thank you! The Item Has Been reserved as gift'}
+						</div>
 					)}
 				</div>
 				<div className='bottom-modal'>
-					<div className='thankyou-text'>The Bride Will Be Very Grateful!</div>
+					<div className='thankyou-text'>
+						{weddingDetails?.bahasa ? '' : 'The Bride Will Be Very Grateful!'}
+					</div>
 					<div className='buttons'>
 						<div className='confirm-button' onClick={() => goHomePage()}>
 							OKAY
@@ -1155,13 +1213,13 @@ export const Footer = () => {
 					<a
 						style={{ color: 'white', textDecoration: 'underline' }}
 						href='https://www.instagram.com/izzul_023/'>
-						Izzul
+						Izzul Syahmi
 					</a>{' '}
 					&{' '}
 					<a
 						style={{ color: 'white', textDecoration: 'underline' }}
 						href='https://twitter.com/theizzulsyazwan'>
-						Izzul
+						Izzul Syazwan
 					</a>{' '}
 				</div>
 			</div>

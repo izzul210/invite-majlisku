@@ -302,7 +302,9 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 				</div>
 				{userData ? (
 					<div className='bride-groom'>
-						{userData?.groomName} & {userData?.brideName}
+						<div>{userData?.brideName}</div>
+						<div>&</div>
+						<div>{userData?.groomName}</div>
 					</div>
 				) : (
 					<div className='bride-groom'></div>
@@ -861,6 +863,10 @@ const GiftPage = ({ state, dispatch, guestReserveFunc }) => {
 const GiftRegistry = ({ state, dispatch }) => {
 	const { gifts, guestDetails } = state;
 
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
 	function goHomePage() {
 		dispatch({ type: 'GO_HOME_PAGE' });
 	}
@@ -930,7 +936,10 @@ const GiftRegistry = ({ state, dispatch }) => {
 
 const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 	const { giftReserve, guestDetails } = state;
-	// const [guestEmail, setGuestEmail] = useState('');
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	function goBackPage() {
 		dispatch({ type: 'REGISTRY_GIFT_PAGE' });
@@ -1251,13 +1260,13 @@ const Footer = () => {
 					<a
 						style={{ color: 'white', textDecoration: 'underline' }}
 						href='https://www.instagram.com/izzul_023/'>
-						Izzul
+						Izzul Syahmi
 					</a>{' '}
 					&{' '}
 					<a
 						style={{ color: 'white', textDecoration: 'underline' }}
 						href='https://twitter.com/theizzulsyazwan'>
-						Izzul
+						Izzul Syazwan
 					</a>{' '}
 				</div>
 			</div>

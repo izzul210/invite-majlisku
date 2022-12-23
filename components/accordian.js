@@ -88,7 +88,7 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 			) : weddingDetails?.itineraryEnable ? (
 				<Accordion expanded={expanded === 'panel0'} onChange={handleChange('panel0')}>
 					<AccordionSummary aria-controls='panel0d-content' id='panel0d-header'>
-						<div className='summary-title'>ITINERARY</div>
+						<div className='summary-title'>{weddingDetails?.bahasa ? 'ATURCARA' : 'ITINERARY'}</div>
 					</AccordionSummary>
 					<AccordionDetails>
 						{itinerary && itinerary.length !== 0 ? (
@@ -108,7 +108,7 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 													<div className='blurryBottom'></div>
 												</div>
 												<div className='date'>
-													<div className='bold'>{moment(activity.date).format('h:mm A')}</div>
+													<div className='bold'>{moment(activity.date).format('h:mm a')}</div>
 												</div>
 											</div>
 										);
@@ -128,7 +128,7 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 				expanded={expanded === 'panel1'}
 				onChange={handleChange('panel1')}>
 				<AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
-					<div className='summary-title'>Address</div>
+					<div className='summary-title'>{weddingDetails?.bahasa ? 'Lokasi' : 'Address'}</div>
 				</AccordionSummary>
 				<AccordionDetails>
 					<div className='address-details'>
@@ -157,7 +157,7 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 				expanded={expanded === 'panel2'}
 				onChange={handleChange('panel2')}>
 				<AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
-					<div className='summary-title'>Contact</div>
+					<div className='summary-title'>{weddingDetails?.bahasa ? 'Telefon' : 'Contact'}</div>
 				</AccordionSummary>
 				<AccordionDetails>
 					<div className='contact-details'>
@@ -186,7 +186,7 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 			</Accordion>
 			<Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
 				<AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
-					<div className='summary-title'>Calendar</div>
+					<div className='summary-title'>{weddingDetails?.bahasa ? 'Kalendar' : 'Calendar'}</div>
 				</AccordionSummary>
 				<AccordionDetails>
 					<div className='calendar-details'>
