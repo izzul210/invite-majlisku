@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 //Libraries
 import axios from 'axios';
 import moment from 'moment';
-import { MainRSVP, GuestPage, GiftPage, Footer } from '../components/subcomponents';
+import { MainRSVP, GuestPage, GiftPage, MoneyPage, Footer } from '../components/subcomponents';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 
@@ -71,6 +71,8 @@ const mainReducer = (state, action) => {
 			return { ...state, page: state.page + 1 };
 		case 'GIFT_PAGE':
 			return { ...state, page: 2 };
+		case 'MONEY_PAGE':
+			return { ...state, page: 3 };
 		case 'RESERVE_GIFT_PAGE':
 			return { ...state, giftPage: 1 };
 		case 'REGISTRY_GIFT_PAGE':
@@ -176,8 +178,10 @@ function GeneralRsvp({ title, imageUrl, description, userId, userInfo }) {
 									dispatch={dispatch}
 									postGuestResponse={postGuestResponse}
 								/>
-							) : (
+							) : state.page === 2 ? (
 								<GiftPage state={state} dispatch={dispatch} guestReserveFunc={guestReserveFunc} />
+							) : (
+								<MoneyPage state={state} dispatch={dispatch} />
 							)}
 						</>
 					) : (

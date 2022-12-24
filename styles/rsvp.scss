@@ -10,6 +10,93 @@ $grey900: #101828;
 $grey6005: rgba(79, 91, 103, 0.5);
 $darkGrey: rgba(29, 70, 72, 1);
 
+.money-gift {
+	padding: 30px 5px 0px 5px;
+	.top-section {
+		.title {
+			margin-top: 20px;
+			@include stylesType.loraBold(24px, 30px);
+			color: $darkGrey;
+			text-transform: uppercase;
+		}
+
+		.description {
+			margin-top: 15px;
+			@include stylesType.loraRegular(14px, 18px);
+			color: $darkGrey;
+			width: 90%;
+		}
+	}
+}
+
+.qr-modal-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+
+	img {
+		width: 266x;
+		height: 244px;
+		border: 1px solid rgba(0, 0, 0, 0.205);
+	}
+}
+
+.rsvp-money-detail {
+	margin-top: 20px;
+	padding: 20px;
+	border: 1px solid #d0d5dd;
+	border-radius: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+
+	.rsvp-money-name {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		text-transform: uppercase;
+		flex-wrap: wrap;
+
+		.money-title {
+			@include stylesType.loraRegular(14px, 18px);
+			color: #1d4648;
+		}
+
+		.money-value {
+			@include stylesType.loraBold(16px, 20px);
+			color: #1d4648;
+		}
+	}
+
+	.account-no {
+		.money-value {
+			text-decoration: underline;
+			@include stylesType.loraBold(16px, 20px);
+		}
+	}
+
+	.qr-code {
+		margin-top: 12px;
+		padding: 12px 16px;
+		border: 1px solid black;
+		border-radius: 20px;
+		display: flex;
+		width: 200px;
+		gap: 8px;
+		justify-content: center;
+		align-items: center;
+		@include stylesType.loraRegular(14px, 18px);
+		color: #1d4648;
+		text-transform: uppercase;
+		cursor: pointer;
+
+		@media screen and (max-width: 900px) {
+			width: 100%;
+		}
+	}
+}
+
 .rsvp-main {
 	display: flex;
 	justify-content: center;

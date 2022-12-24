@@ -24,6 +24,8 @@ import {
 	WishIcon,
 	WishIcon2,
 	CloseIcon,
+	MoneyIcon,
+	QRCode,
 } from '../../components/icons';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
@@ -83,6 +85,8 @@ const rsvpReducer = (state, action) => {
 			return { ...state, submitted: true };
 		case 'GO_HOME_PAGE':
 			return { ...state, page: 0 };
+		case 'MONEY_PAGE':
+			return { ...state, page: 3 };
 		case 'NEXT_PAGE':
 			return { ...state, page: state.page + 1 };
 		case 'GIFT_PAGE':
@@ -209,8 +213,10 @@ function Rsvp({ title, imageUrl, description, userId, guestId, userInfo }) {
 									dispatch={dispatch}
 									postGuestResponse={postGuestResponse}
 								/>
-							) : (
+							) : state.page === 2 ? (
 								<GiftPage state={state} dispatch={dispatch} guestReserveFunc={guestReserveFunc} />
+							) : (
+								<MoneyPage state={state} dispatch={dispatch} />
 							)}
 						</>
 					) : (
@@ -239,6 +245,10 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 
 	function goToGiftPage() {
 		dispatch({ type: 'GIFT_PAGE' });
+	}
+
+	function goToMoneyPage() {
+		dispatch({ type: 'MONEY_PAGE' });
 	}
 
 	const displayGroomParents = () => {
@@ -388,13 +398,22 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 						</>
 					)}
 				</div>
-				{weddingDetails?.giftRegistryEnable ? (
-					<button className='default-button gift-button' onClick={() => goToGiftPage()}>
-						<NewGiftIcon /> Reserve Gift
-					</button>
-				) : (
-					<></>
-				)}
+				<div className='rsvp-buttons'>
+					{weddingDetails?.giftRegistryEnable ? (
+						<button className='default-button gift-button' onClick={() => goToGiftPage()}>
+							<NewGiftIcon /> Reserve Gift
+						</button>
+					) : (
+						<></>
+					)}
+					{weddingDetails?.moneyGiftEnable ? (
+						<button className='default-button gift-button' onClick={() => goToMoneyPage()}>
+							<MoneyIcon /> Money Gift
+						</button>
+					) : (
+						<></>
+					)}
+				</div>
 			</div>
 
 			<div className='wedding-more-details'>
@@ -774,6 +793,14 @@ const ThankYouPage = ({ state, dispatch }) => {
 	const { userData, going, guestDetails, time, weddingDetails } = state;
 	const { rsvpImage } = weddingDetails;
 
+	function goToGiftPage() {
+		dispatch({ type: 'GIFT_PAGE' });
+	}
+
+	function goToMoneyPage() {
+		dispatch({ type: 'MONEY_PAGE' });
+	}
+
 	const goHomeFunc = () => {
 		dispatch({ type: 'RESET_THE_CLOCK' });
 		dispatch({ type: 'PREVIOUS_PAGE' });
@@ -828,7 +855,20 @@ const ThankYouPage = ({ state, dispatch }) => {
 								/>
 							</div>
 						)}
-
+						{weddingDetails?.giftRegistryEnable ? (
+							<button className='send-gift-button' onClick={() => goToGiftPage()}>
+								<NewGiftIcon /> Reserve Gift
+							</button>
+						) : (
+							<></>
+						)}
+						{weddingDetails?.moneyGiftEnable ? (
+							<button className='send-gift-button' onClick={() => goToMoneyPage()}>
+								<MoneyIcon /> Money Gift
+							</button>
+						) : (
+							<></>
+						)}
 						<div className='home-button'>
 							<div className='button' onClick={() => goHomeFunc()}>
 								Home
@@ -1271,6 +1311,83 @@ const Footer = () => {
 				</div>
 			</div>
 		</footer>
+	);
+};
+
+////////////////////////////Start: MONEY REGISTRY
+export const MoneyPage = ({ state, dispatch }) => {
+	const { weddingDetails } = state;
+	const [openModal, setOpenModal] = useState(false);
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
+	function goHomePage() {
+		dispatch({ type: 'GO_HOME_PAGE' });
+	}
+
+	const openModalFunc = () => {
+		setOpenModal(true);
+	};
+
+	const closeModal = () => {
+		setOpenModal(false);
+	};
+
+	return (
+		<div className='money-gift'>
+			<div className='top-section'>
+				<div style={{ cursor: 'pointer' }} onClick={() => goHomePage()}>
+					<BackIcon />
+				</div>
+				<div className='title'>{weddingDetails?.bahasa ? 'BANK TRANSFER' : 'SEND MONEY GIFT'}</div>
+				<div className='rsvp-money-detail'>
+					<div className='rsvp-money-name'>
+						<div className='money-title'>Name:</div>
+						<div className='money-value'>{weddingDetails?.moneyGiftDetails?.name}</div>
+					</div>
+					<div className='rsvp-money-name'>
+						<div className='money-title'>Bank:</div>
+						<div className='money-value'>{weddingDetails?.moneyGiftDetails?.bankName}</div>
+					</div>
+					<div className='rsvp-money-name account-no'>
+						<div className='money-title'>Account No:</div>
+						<div className='money-value'>{weddingDetails?.moneyGiftDetails?.accountNum}</div>
+					</div>
+					{weddingDetails?.moneyGiftDetails?.qrCodeUrl ? (
+						<div className='qr-code' onClick={() => openModalFunc()}>
+							<QRCode />
+							View QR Code
+						</div>
+					) : null}
+				</div>
+			</div>
+			<QrCodeModal state={state} openState={openModal} closeFunc={closeModal} />
+		</div>
+	);
+};
+
+const QrCodeModal = ({ state, openState, closeFunc }) => {
+	const { weddingDetails } = state;
+
+	return (
+		<Dialog
+			open={openState}
+			TransitionComponent={Transition}
+			PaperProps={{
+				style: { borderRadius: 10, margin: '32px 12px' },
+			}}
+			keepMounted
+			onClose={() => {
+				closeFunc();
+			}}>
+			<div className='giftModal' style={{ position: 'relative' }}>
+				<div className='qr-modal-content'>
+					<img src={weddingDetails?.moneyGiftDetails?.qrCodeUrl}></img>
+				</div>
+			</div>
+		</Dialog>
 	);
 };
 
