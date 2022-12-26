@@ -298,7 +298,14 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 	};
 
 	if (weddingDetails?.bahasa) {
-		moment.locale('ms-my');
+		moment.locale('ms-my', {
+			// Specify the callback function for
+			// customizing the values
+			meridiem: function (hour, minute, isLowercase) {
+				if (hour >= 12) return isLowercase ? 'p.m.' : 'P.M.';
+				else return isLowercase ? 'a.m.' : 'A.M.';
+			},
+		});
 	} else {
 		moment.locale('en-ca');
 	}
@@ -331,11 +338,9 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 				)}
 				<div className='wedding-date'>
 					<div>{moment(userData?.weddingDate).format('dddd, Do MMMM YYYY')}</div>
-					{guestDetails?.selectedSlot && guestDetails?.selectedSlot == '2' ? (
-						<div style={{ marginTop: '8px' }}>1:30PM - 3:30PM</div>
-					) : time ? (
+					{time ? (
 						<div style={{ marginTop: '8px' }}>
-							{moment(time.start).format('h:mm a')} - {moment(time.end).format('h:mm a')}
+							{moment(time.start).format('h:mm A')} - {moment(time.end).format('h:mm A')}
 						</div>
 					) : (
 						<div style={{ marginTop: '8px' }}>11:00AM - 1:30PM</div>
