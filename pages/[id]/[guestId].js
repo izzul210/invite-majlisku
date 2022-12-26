@@ -13,6 +13,8 @@ import Dialog from '@mui/material/Dialog';
 //Libraries
 import axios from 'axios';
 import moment from 'moment';
+import 'moment/locale/ms-my';
+import 'moment/locale/en-ca';
 //Icons
 import {
 	GiftIcon,
@@ -295,6 +297,12 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 		}
 	};
 
+	if (weddingDetails?.bahasa) {
+		moment.locale('ms-my');
+	} else {
+		moment.locale('en-ca');
+	}
+
 	return (
 		<div className='rsvp-main'>
 			<div className='main-desc'>
@@ -302,7 +310,9 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 					<div style={{ marginBottom: '8px', fontSize: '24px', fontWeight: 400 }}>
 						{guestDetails?.name},
 					</div>{' '}
-					You are cordially invited to the
+					{weddingDetails?.bahasa
+						? 'Undangan kami seikhlas hati, harap sudi datang menyeri ke'
+						: 'You are cordially invited to the'}
 				</div>
 				<div className='walimatul-text'>{eventInfo?.eventName}</div>
 				<div className='background-image'>
@@ -325,7 +335,7 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 						<div style={{ marginTop: '8px' }}>1:30PM - 3:30PM</div>
 					) : time ? (
 						<div style={{ marginTop: '8px' }}>
-							{moment(time.start).format('h:mma')} - {moment(time.end).format('h:mma')}
+							{moment(time.start).format('h:mm a')} - {moment(time.end).format('h:mm a')}
 						</div>
 					) : (
 						<div style={{ marginTop: '8px' }}>11:00AM - 1:30PM</div>
@@ -341,7 +351,7 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 				eventInfo?.brideFather ||
 				eventInfo?.brideMother ? (
 					<div className='hosted-by'>
-						<div className='top-text'>Hosted By:</div>
+						<div className='top-text'>{weddingDetails?.bahasa ? 'Oleh:' : 'Hosted By:'}</div>
 						{eventInfo.groomFather || eventInfo.groomMother ? displayGroomParents() : <></>}
 						{eventInfo.brideFather || eventInfo.brideMother ? displayBrideParents() : <></>}
 					</div>
@@ -368,32 +378,32 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 					{guestDetails?.rsvp === 'attending' ? (
 						<>
 							<button className='default-button before-button' onClick={() => setGoingModal(true)}>
-								<GoingIcon /> I am Going
+								<GoingIcon /> {weddingDetails?.bahasa ? 'Saya Hadir' : 'I am going'}
 							</button>
 							<button className='default-button' onClick={() => setNotGoingModal(true)}>
-								Not Going
+								{weddingDetails?.bahasa ? 'Tidak Hadir' : 'Not Going'}
 							</button>
 						</>
 					) : guestDetails?.rsvp === 'notattending' ? (
 						<>
 							<button className='default-button' onClick={() => setGoingModal(true)}>
-								Going
+								{weddingDetails?.bahasa ? 'Hadir' : 'Going'}
 							</button>
 							<button
 								className='default-button before-button'
 								onClick={() => setNotGoingModal(true)}>
-								<NotGoingIcon /> I am Not Going
+								<NotGoingIcon /> {weddingDetails?.bahasa ? 'Saya Tidak Hadir' : 'I am Not Going'}
 							</button>
 						</>
 					) : (
 						<>
 							<button className='default-button before-button' onClick={() => setGoingModal(true)}>
-								Going
+								{weddingDetails?.bahasa ? 'Hadir' : 'Going'}
 							</button>
 							<button
 								className='default-button before-button'
 								onClick={() => setNotGoingModal(true)}>
-								Not Going
+								{weddingDetails?.bahasa ? 'Tidak Hadir' : 'Not Going'}
 							</button>
 						</>
 					)}
@@ -401,14 +411,14 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 				<div className='rsvp-buttons'>
 					{weddingDetails?.giftRegistryEnable ? (
 						<button className='default-button gift-button' onClick={() => goToGiftPage()}>
-							<NewGiftIcon /> Reserve Gift
+							<NewGiftIcon /> {weddingDetails?.bahasa ? 'Bawa Hadiah' : 'Reserve Gift'}
 						</button>
 					) : (
 						<></>
 					)}
 					{weddingDetails?.moneyGiftEnable ? (
 						<button className='default-button gift-button' onClick={() => goToMoneyPage()}>
-							<MoneyIcon /> Money Gift
+							<MoneyIcon /> {weddingDetails?.bahasa ? 'Salam Kaut' : 'Money Gift'}
 						</button>
 					) : (
 						<></>
@@ -502,12 +512,18 @@ const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGuestRespo
 					</div>
 					<WishIcon width='60px' height='60px' />
 					<div className='text-top'>
-						WE ARE LOOKING FORWARD TO SEEING YOU THERE, {guestDetails.name}!
+						{weddingDetails?.bahasa
+							? 'KAMI SEDIA MENANTI KETIBAAN ANDA DI SANA'
+							: 'WE ARE LOOKING FORWARD TO SEEING YOU THERE!'}
+						{', '}
+						{guestDetails.name}!
 					</div>
 				</div>
 				<div className='modal-content'>
 					<div className='pax-input'>
-						<div className='name'>TOTAL PAX (MAX {maxPax})</div>
+						<div className='name'>
+							{weddingDetails?.bahasa ? 'BILANGAN KEHADIRAN' : 'TOTAL PAX'} (MAX {maxPax})
+						</div>
 						<div className='pax-buttons'>
 							<div
 								className='minus'
@@ -527,7 +543,7 @@ const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGuestRespo
 						</div>
 					</div>
 					<div className='wish-input'>
-						<div className='name'>YOUR WISH</div>
+						<div className='name'>{weddingDetails?.bahasa ? 'UCAPAN' : 'YOUR WISH'}</div>
 						<textarea
 							value={wish}
 							onChange={(e) => setWish(e.target.value)}
@@ -536,11 +552,11 @@ const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGuestRespo
 				</div>
 				<div className='bottom-modal'>
 					<div className='cancel-button' onClick={() => closeModal()}>
-						CANCEL
+						{weddingDetails?.bahasa ? 'BATAL' : 'CANCEL'}
 					</div>
 					<div className='confirm-button' onClick={() => submitResponseFunc()}>
 						<CardLoadingState loadingState={loading} />
-						CONFIRM
+						{weddingDetails?.bahasa ? 'SETUJU' : 'CONFIRM'}
 					</div>
 				</div>
 			</div>
@@ -605,12 +621,14 @@ const NotGoingModal = ({ state, dispatch, notGoingModal, setNotGoingModal, postG
 					</div>
 					<WishIcon2 width='60px' height='60px' />
 					<div className='text-top'>
-						WE ARE SORRY TO HEAR THAT BUT THANK YOU FOR THE THOUGHTFUL RESPONSE.
+						{weddingDetails?.bahasa
+							? 'KAMI MEMOHON MAAF ATAS KESULITAN, TERIMA KASIH KERANA MEMBALAS'
+							: 'WE ARE SORRY TO HEAR THAT BUT THANK YOU FOR THE THOUGHTFUL RESPONSE'}
 					</div>
 				</div>
 				<div className='modal-content'>
 					<div className='wish-input'>
-						<div className='name'>YOUR WISH</div>
+						<div className='name'>{weddingDetails?.bahasa ? 'UCAPAN' : 'YOUR WISH'}</div>
 						<textarea
 							value={wish}
 							onChange={(e) => setWish(e.target.value)}
@@ -619,11 +637,11 @@ const NotGoingModal = ({ state, dispatch, notGoingModal, setNotGoingModal, postG
 				</div>
 				<div className='bottom-modal'>
 					<div className='cancel-button' onClick={() => closeModal()}>
-						CANCEL
+						{weddingDetails?.bahasa ? 'BATAL' : 'CANCEL'}
 					</div>
 					<div className='confirm-button' onClick={() => submitResponseFunc()}>
 						<CardLoadingState loadingState={loading} />
-						CONFIRM
+						{weddingDetails?.bahasa ? 'SETUJU' : 'CONFIRM'}
 					</div>
 				</div>
 			</div>
@@ -819,18 +837,31 @@ const ThankYouPage = ({ state, dispatch }) => {
 					}}>
 					<div>
 						<div className='top-section'>
-							Thank you, <br /> <div style={{ fontSize: '24px' }}>{guestDetails.name}</div>
+							{weddingDetails?.bahasa ? 'Terima Kasih,' : 'Thank you,'} <br />
+							<div style={{ fontSize: '24px' }}>{guestDetails.name}</div>
 						</div>
 						{going ? (
 							<div className='top-detail'>
-								You are Coming to Our <br />
-								Special Day!
+								{weddingDetails?.bahasa ? (
+									'Kami menanti kehadiran anda!'
+								) : (
+									<>
+										You are Coming to Our <br />
+										Special Day!
+									</>
+								)}
 							</div>
 						) : (
 							<div className='top-detail'>
-								Your Response Has Kindly
-								<br />
-								Been Submitted!
+								{weddingDetails?.bahasa ? (
+									'Kami telah menerima respon anda'
+								) : (
+									<>
+										Your Response Has Kindly
+										<br />
+										Been Submitted!
+									</>
+								)}
 							</div>
 						)}
 						<div className='background-image'>
@@ -857,21 +888,21 @@ const ThankYouPage = ({ state, dispatch }) => {
 						)}
 						{weddingDetails?.giftRegistryEnable ? (
 							<button className='send-gift-button' onClick={() => goToGiftPage()}>
-								<NewGiftIcon /> Reserve Gift
+								<NewGiftIcon /> {weddingDetails?.bahasa ? 'Bawa Hadiah' : 'Reserve Gift'}
 							</button>
 						) : (
 							<></>
 						)}
 						{weddingDetails?.moneyGiftEnable ? (
 							<button className='send-gift-button' onClick={() => goToMoneyPage()}>
-								<MoneyIcon /> Money Gift
+								<MoneyIcon /> {weddingDetails?.bahasa ? 'Salam Kaut' : 'Money Gift'}
 							</button>
 						) : (
 							<></>
 						)}
 						<div className='home-button'>
 							<div className='button' onClick={() => goHomeFunc()}>
-								Home
+								{weddingDetails?.bahasa ? 'Halaman Utama' : 'Home'}
 							</div>
 						</div>
 					</div>
@@ -901,7 +932,7 @@ const GiftPage = ({ state, dispatch, guestReserveFunc }) => {
 };
 
 const GiftRegistry = ({ state, dispatch }) => {
-	const { gifts, guestDetails } = state;
+	const { gifts, guestDetails, weddingDetails } = state;
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -952,16 +983,16 @@ const GiftRegistry = ({ state, dispatch }) => {
 				<div style={{ cursor: 'pointer' }} onClick={() => goHomePage()}>
 					<BackIcon />
 				</div>
-				<div className='title'>GIFT REGISTRY</div>
+				<div className='title'>{weddingDetails?.bahasa ? 'SENARAI HADIAH' : 'GIFT REGISTRY'}</div>
 				<div className='description'>
-					{/* <p>Please know that your presence at our wedding is present enough!</p>
-					<p>
-						However, for friends and family who have been asking for gift ideas, this is a guidance
-						registry (optional price and shop):
-					</p> */}
-					<p>
-						For friends and family who have been asking for gift ideas, this is a guidance registry:
-					</p>
+					{weddingDetails?.bahasa ? (
+						<p>Hadiah-hadiah yang tersenarai hanya sekadar panduan:</p>
+					) : (
+						<p>
+							For friends and family who have been asking for gift ideas, this is a guidance
+							registry:
+						</p>
+					)}
 				</div>
 			</div>
 
@@ -975,7 +1006,7 @@ const GiftRegistry = ({ state, dispatch }) => {
 };
 
 const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
-	const { giftReserve, guestDetails } = state;
+	const { giftReserve, guestDetails, weddingDetails } = state;
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -1003,9 +1034,13 @@ const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 					<div className='title'>YOU RESERVED THIS GIFT</div>
 				) : (
 					<>
-						<div className='title'>RESERVE GIFT</div>
+						<div className='title'>
+							{weddingDetails?.bahasa ? 'SIMPAN HADIAH' : 'RESERVE GIFT'}{' '}
+						</div>
 						<div className='description'>
-							Please note that you don’t have to buy the exact price and brand.{' '}
+							{weddingDetails?.bahasa
+								? 'Anda boleh membeli jenama atau harga lain dari yang dinyatakan.'
+								: 'Please note that you don’t have to buy the exact price and brand.'}
 						</div>
 					</>
 				)}
@@ -1033,11 +1068,11 @@ const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 				<div className='buttons'>
 					{giftReserve?.reserved === guestDetails.id ? (
 						<div className='cancel-button' onClick={() => submitCancel()}>
-							Cancel Reservation
+							{weddingDetails?.bahasa ? 'Batal' : 'Cancel Reservation'}
 						</div>
 					) : (
 						<div className='reserve-button' onClick={() => submitReserve()}>
-							Reserve
+							{weddingDetails?.bahasa ? 'Simpan' : 'Reserve'}
 						</div>
 					)}
 
@@ -1047,7 +1082,7 @@ const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 							target='_blank'
 							rel='noreferrer'
 							className='view-shop-button'>
-							View Shop
+							{weddingDetails?.bahasa ? 'Lihat Kedai' : 'View Shop'}
 						</a>
 					) : (
 						<></>
@@ -1063,7 +1098,7 @@ const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 };
 
 const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
-	const { confirmModal, loading_gift, guestDetails, giftReserve } = state;
+	const { confirmModal, loading_gift, guestDetails, giftReserve, weddingDetails } = state;
 
 	const closeModal = () => {
 		dispatch({ type: 'SET_CONFIRM_MODAL', payload: false });
@@ -1092,7 +1127,11 @@ const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
 				<CardLoadingState loadingState={loading_gift} />
 				<div className='top-modal'>
 					<GiftIcon />
-					<div className='text-top'>Confirm Reserve this item as gift?</div>
+					<div className='text-top'>
+						{weddingDetails?.bahasa
+							? 'Anda bersetuju untuk simpan hadiah ini?'
+							: 'Confirm Reserve this item as gift?'}
+					</div>
 				</div>
 				<div className='bottom-modal'>
 					{/* <div className='note'>
@@ -1100,10 +1139,10 @@ const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
 					</div> */}
 					<div className='buttons'>
 						<div className='cancel-button' onClick={() => closeModal()}>
-							Cancel
+							{weddingDetails?.bahasa ? 'Batal' : 'Cancel'}
 						</div>
 						<div className='confirm-button' onClick={() => confirmAction()}>
-							Confirm
+							{weddingDetails?.bahasa ? 'Setuju' : 'Confirm'}
 						</div>
 					</div>
 				</div>
@@ -1188,7 +1227,7 @@ const CancelModal = ({ state, dispatch, guestReserveFunc }) => {
 };
 
 const ThankYouModal = ({ state, dispatch }) => {
-	const { thakyouModal, loading_gift, guestDetails } = state;
+	const { thakyouModal, loading_gift, guestDetails, weddingDetails } = state;
 
 	const closeModal = () => {
 		dispatch({ type: 'SET_THANK_YOU_MODAL', payload: false });
@@ -1216,7 +1255,9 @@ const ThankYouModal = ({ state, dispatch }) => {
 				<div className='top-modal'>
 					<GiftIcon />
 					<div className='text-top'>
-						Thank you {guestDetails.name}! The Item Has Been reserved as gift
+						{weddingDetails?.bahasa
+							? `Terima kasih ${guestDetails.name}! Hadiah berjaya disimpan`
+							: `Thank you ${guestDetails.name}! The Item Has Been reserved as gift`}
 					</div>
 				</div>
 				<div className='bottom-modal'>
