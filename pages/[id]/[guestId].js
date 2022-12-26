@@ -1157,7 +1157,7 @@ const ConfirmModal = ({ state, dispatch, guestReserveFunc }) => {
 };
 
 const CancelModal = ({ state, dispatch, guestReserveFunc }) => {
-	const { cancelModal, loading_gift, guestDetails, giftReserve } = state;
+	const { cancelModal, loading_gift, guestDetails, giftReserve, weddingDetails } = state;
 	const [cancelReason, setCancelReason] = useState('');
 
 	const closeModal = () => {
@@ -1205,11 +1205,15 @@ const CancelModal = ({ state, dispatch, guestReserveFunc }) => {
 			<div className='giftModal' style={{ position: 'relative' }}>
 				<CardLoadingState loadingState={loading_gift} />
 				<div className='top-modal' style={{ padding: '20px 0px' }}>
-					<div className='text-top'>CANCEL GIFT RESERVATION?</div>
+					<div className='text-top'>
+						{weddingDetails?.bahasa ? 'BATAL SIMPAN HADIAH?' : 'CANCEL GIFT RESERVATION?'}
+					</div>
 				</div>
 				<div className='bottom-modal'>
 					<div className='note'>
-						Why are you cancelling? Help the bride and groom understand the reasons.
+						{weddingDetails?.bahasa
+							? 'Sila nyatakan sebab pembatalan'
+							: 'Why are you cancelling? Help the bride and groom understand the reasons'}
 					</div>
 					<div className='cancel-input'>
 						<textarea
@@ -1222,7 +1226,7 @@ const CancelModal = ({ state, dispatch, guestReserveFunc }) => {
 							style={cancelReason ? { opacity: 1 } : { opacity: 0.5 }}
 							className='cancel-button'
 							onClick={() => confirmAction()}>
-							Cancel Reservation
+							{weddingDetails?.bahasa ? 'Batal' : 'Cancel Reservation'}
 						</div>
 					</div>
 				</div>
@@ -1266,7 +1270,7 @@ const ThankYouModal = ({ state, dispatch }) => {
 					</div>
 				</div>
 				<div className='bottom-modal'>
-					<div className='thankyou-text'>The Bride Will Be Very Grateful!</div>
+					{/* <div className='thankyou-text'>The Bride Will Be Very Grateful!</div> */}
 					<div className='buttons'>
 						<div className='confirm-button' onClick={() => goHomePage()}>
 							OKAY
@@ -1279,7 +1283,7 @@ const ThankYouModal = ({ state, dispatch }) => {
 };
 
 const SorryModal = ({ state, dispatch }) => {
-	const { sorryModal, loading_gift, guestDetails } = state;
+	const { sorryModal, loading_gift, guestDetails, weddingDetails } = state;
 
 	const closeModal = () => {
 		dispatch({ type: 'SET_SORRY_MODAL', payload: false });
@@ -1308,7 +1312,11 @@ const SorryModal = ({ state, dispatch }) => {
 					<div className='text-top'>Sorry to let you go {guestDetails.name}!</div>
 				</div>
 				<div className='bottom-modal'>
-					<div className='thankyou-text'>The Bride and Groom Appreciate Your Thoughts!</div>
+					<div className='thankyou-text'>
+						{weddingDetails?.bahasa
+							? 'Pengantin hargai keputusan anda'
+							: 'The Bride and Groom Appreciate Your Thoughts!'}
+					</div>
 					<div className='buttons'>
 						<div className='confirm-button' onClick={() => goHomePage()}>
 							OKAY
