@@ -1036,7 +1036,9 @@ const ReserveGift = ({ state, dispatch, guestReserveFunc }) => {
 					<BackIcon />
 				</div>
 				{giftReserve?.reserved === guestDetails.id ? (
-					<div className='title'>YOU RESERVED THIS GIFT</div>
+					<div className='title'>
+						{weddingDetails?.bahasa ? 'ANDA TELAH MENYIMPAN HADIAH INI' : 'YOU RESERVED THIS GIFT'}
+					</div>
 				) : (
 					<>
 						<div className='title'>
@@ -1309,7 +1311,7 @@ const SorryModal = ({ state, dispatch }) => {
 			<div className='giftModal' style={{ position: 'relative' }}>
 				<CardLoadingState loadingState={loading_gift} />
 				<div className='top-modal'>
-					<div className='text-top'>Sorry to let you go {guestDetails.name}!</div>
+					<div className='text-top'></div>
 				</div>
 				<div className='bottom-modal'>
 					<div className='thankyou-text'>
@@ -1395,7 +1397,9 @@ export const MoneyPage = ({ state, dispatch }) => {
 				<div style={{ cursor: 'pointer' }} onClick={() => goHomePage()}>
 					<BackIcon />
 				</div>
-				<div className='title'>{weddingDetails?.bahasa ? 'BANK TRANSFER' : 'SEND MONEY GIFT'}</div>
+				<div className='title'>
+					{weddingDetails?.bahasa ? 'KIRIM SALAM KAUT' : 'SEND MONEY GIFT'}
+				</div>
 				<div className='rsvp-money-detail'>
 					<div className='rsvp-money-name'>
 						<div className='money-title'>Name:</div>

@@ -209,8 +209,7 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 									iCalFileName: 'Reminder-Event',
 								})
 							}>
-							{' '}
-							Add To Calendar
+							{weddingDetails?.bahasa ? 'Simpan Di Kalendar' : 'Add to Calendar'}
 						</div>
 					</div>
 				</AccordionDetails>
@@ -253,7 +252,7 @@ export const AddToCalendar = ({ weddingDetails, userData, guestDetails, time }) 
 						iCalFileName: 'Reminder-Event',
 					})
 				}>
-				Add To Calendar
+				{weddingDetails?.bahasa ? 'Simpan di Kalendar' : 'Add to Calendar'}
 			</div>
 		</div>
 	);

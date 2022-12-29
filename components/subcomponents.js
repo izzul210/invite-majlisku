@@ -1145,7 +1145,9 @@ export const MoneyPage = ({ state, dispatch }) => {
 				<div style={{ cursor: 'pointer' }} onClick={() => goHomePage()}>
 					<BackIcon />
 				</div>
-				<div className='title'>{weddingDetails?.bahasa ? 'BANK TRANSFER' : 'SEND MONEY GIFT'}</div>
+				<div className='title'>
+					{weddingDetails?.bahasa ? 'KIRIM SALAM KAUT' : 'SEND MONEY GIFT'}
+				</div>
 				<div className='rsvp-money-detail'>
 					<div className='rsvp-money-name'>
 						<div className='money-title'>Name:</div>
