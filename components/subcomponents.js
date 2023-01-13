@@ -340,7 +340,8 @@ export const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGue
 					)}
 					<div className='pax-input'>
 						<div className='name'>
-							{weddingDetails?.bahasa ? 'BILANGAN KEHADIRAN' : 'TOTAL PAX'} (MAX {maxPax})*
+							{weddingDetails?.bahasa ? 'BILANGAN KEHADIRAN' : 'TOTAL PAX'}{' '}
+							{weddingDetails?.unlimitedPax ? '' : `MAX ${maxPax}`}*
 						</div>
 						<div className='pax-buttons'>
 							<div
@@ -354,7 +355,11 @@ export const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGue
 							<div
 								className='plus'
 								onClick={() => {
-									pax < maxPax && setPax((prev) => prev + 1);
+									if (weddingDetails?.unlimitedPax) {
+										setPax((prev) => prev + 1);
+									} else {
+										if (pax < maxPax) setPax((prev) => prev + 1);
+									}
 								}}>
 								+
 							</div>
