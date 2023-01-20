@@ -323,9 +323,10 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 				</div>
 				<div className='walimatul-text'>{eventInfo?.eventName}</div>
 				<div className='background-image'>
-					<div
+					{/* <div
 						className='image'
-						style={rsvpImage ? { backgroundImage: `url(${rsvpImage})` } : {}}></div>
+						style={rsvpImage ? { backgroundImage: `url(${rsvpImage})` } : {}}></div> */}
+					<img className='image-2' src={rsvpImage} alt='Wallpaper'></img>
 				</div>
 				{userData ? (
 					<div className='bride-groom'>
