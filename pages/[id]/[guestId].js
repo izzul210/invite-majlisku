@@ -330,9 +330,15 @@ const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 				</div>
 				{userData ? (
 					<div className='bride-groom'>
-						<div>{userData?.brideName}</div>
-						<div>&</div>
-						<div>{userData?.groomName}</div>
+						{userData?.weddingTitle ? (
+							<div>{userData?.weddingTitle}</div>
+						) : (
+							<>
+								<div>{userData?.brideName}</div>
+								<div>&</div>
+								<div>{userData?.groomName}</div>
+							</>
+						)}
 					</div>
 				) : (
 					<div className='bride-groom'></div>

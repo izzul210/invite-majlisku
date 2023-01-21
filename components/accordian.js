@@ -198,7 +198,9 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 							className='add-to-calendar'
 							onClick={() =>
 								atcb_action({
-									name: `${userData.brideName} & ${userData.groomName} Wedding`,
+									name: userData?.weddingTitle
+										? userData?.weddingTitle
+										: `Wedding ${userData.brideName} & ${userData.groomName}`,
 									startDate: moment(userData.weddingDate).format('YYYY-MM-DD'),
 									endDate: moment(userData.weddingDate).format('YYYY-MM-DD'),
 									startTime: `${startDate}`,
@@ -241,7 +243,9 @@ export const AddToCalendar = ({ weddingDetails, userData, guestDetails, time }) 
 				className='add-to-calendar'
 				onClick={() =>
 					atcb_action({
-						name: `${userData.brideName} & ${userData.groomName} Wedding`,
+						name: userData?.weddingTitle
+							? userData?.weddingTitle
+							: `${userData.brideName} & ${userData.groomName} Wedding`,
 						startDate: moment(userData.weddingDate).format('YYYY-MM-DD'),
 						endDate: moment(userData.weddingDate).format('YYYY-MM-DD'),
 						startTime: `${startDate}`,
