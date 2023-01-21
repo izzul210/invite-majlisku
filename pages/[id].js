@@ -198,7 +198,9 @@ export async function getServerSideProps(context) {
 	let id = context.query.id;
 	let userInfo;
 
-	console.log('context.query:', context.query);
+	let title = `You're cordially invited to our Wedding!`;
+	let weddingText = '';
+	let description = `Kindly click to RSVP `;
 
 	await axios
 		.get(`${API}/weddingdetails/${id}`)
@@ -210,11 +212,24 @@ export async function getServerSideProps(context) {
 			console.log(err.message);
 		});
 
-	const title = `You're cordially invited to The Wedding of ${userInfo.brideName} & ${
-		userInfo.groomName
-	} | ${moment(userInfo?.weddingDate).format('DD.MM.YY')}`;
+	if (userInfo.weddingTitle) {
+		weddingText = userInfo.weddingTitle;
+	} else {
+		weddingText = `${userInfo.brideName} & ${userInfo.groomName}`;
+	}
+
+	if (userInfo.rsvpDetails.bahasa) {
+		description = `Sila tekan untuk sampaikan kehadiran anda`;
+		title = `Anda dijemput dengan hormat ke Majlis Perkahwinan ${weddingText} | ${moment(
+			userInfo?.weddingDate
+		).format('DD.MM.YY')}`;
+	} else {
+		title = `You're cordially invited to the Wedding of ${weddingText} | ${moment(
+			userInfo?.weddingDate
+		).format('DD.MM.YY')}`;
+	}
+
 	const imageUrl = userInfo.whatsappImg;
-	const description = `Kindly click to RSVP `;
 	const userId = id;
 
 	return { props: { title, imageUrl, description, userId, userInfo } };
