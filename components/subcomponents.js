@@ -110,6 +110,21 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 		moment.locale('en-ca');
 	}
 
+	const displayTitle = (textTitle) => {
+		if (textTitle.includes('&')) {
+			let chars = textTitle.split('&');
+			return (
+				<>
+					<div>{chars[0]}</div>
+					<div>&</div>
+					<div>{chars[1]}</div>
+				</>
+			);
+		} else {
+			return textTitle;
+		}
+	};
+
 	return (
 		<div className='rsvp-main'>
 			<div className='main-desc'>
@@ -135,7 +150,7 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 				{userData ? (
 					<div className='bride-groom'>
 						{userData?.weddingTitle ? (
-							<div>{userData?.weddingTitle}</div>
+							<div>{displayTitle(userData?.weddingTitle)}</div>
 						) : (
 							<>
 								<div>{userData?.brideName}</div>
