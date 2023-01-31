@@ -1342,10 +1342,14 @@ export const Footer = () => {
 				}}>
 				<div>
 					© 2022{' '}
-					<a style={{ color: 'white', textDecoration: 'none' }} href='https://majlisku.com'>
-						Majlisku.app
+					<a
+						style={{ color: 'white', textDecoration: 'none' }}
+						target='_blank'
+						href='https://majlisku.com'>
+						Majlisku.com
 					</a>
 				</div>
+
 				<div>
 					by{' '}
 					<a
@@ -1359,6 +1363,15 @@ export const Footer = () => {
 						href='https://twitter.com/theizzulsyazwan'>
 						Izzul Syazwan
 					</a>{' '}
+				</div>
+				<div style={{ fontSize: '0.8rem', marginTop: 10, opacity: 0.9 }}>
+					Create Digital Invite for FREE with{' '}
+					<a
+						style={{ color: 'white', textDecoration: 'underline' }}
+						target='_blank'
+						href='https://majlisku.com'>
+						Majlisku.com
+					</a>
 				</div>
 			</div>
 		</footer>
