@@ -1374,7 +1374,7 @@ const Footer = () => {
 				}}>
 				<div>
 					© 2022{' '}
-					<a style={{ color: 'white', textDecoration: 'none' }} href='https://majlisku.app'>
+					<a style={{ color: 'white', textDecoration: 'none' }} href='https://majlisku.com'>
 						Majlisku.app
 					</a>
 				</div>
