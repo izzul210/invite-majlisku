@@ -1345,6 +1345,7 @@ export const Footer = () => {
 					<a
 						style={{ color: 'white', textDecoration: 'none' }}
 						target='_blank'
+						rel='noreferrer'
 						href='https://majlisku.com'>
 						Majlisku.com
 					</a>
@@ -1369,6 +1370,7 @@ export const Footer = () => {
 					<a
 						style={{ color: 'white', textDecoration: 'underline' }}
 						target='_blank'
+						rel='noreferrer'
 						href='https://majlisku.com'>
 						Majlisku.com
 					</a>
