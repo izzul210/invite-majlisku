@@ -229,6 +229,10 @@ export async function getServerSideProps(context) {
 		).format('DD.MM.YY')}`;
 	}
 
+	if (userInfo.metadata) {
+		if (userInfo?.metadata?.title) title = userInfo.metadata.title;
+	}
+
 	const imageUrl = userInfo.whatsappImg;
 	const userId = id;
 
