@@ -41,7 +41,6 @@ const AccordionSummary = styled((props) => (
 		{...props}
 	/>
 ))(({ theme }) => ({
-	// borderBottom: '1px solid rgba(12, 17, 22, 0.4)',
 	flexDirection: 'row',
 	'& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
 		transform: 'rotate(180deg)',
@@ -53,28 +52,29 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 	padding: theme.spacing(2),
 }));
 
-export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDetails, time }) => {
+export const DetailsAccordian = ({ itinerary, guestDetails, time, rsvp_details }) => {
+	const {
+		enable_itinerary,
+		enable_bahasa,
+		event_address,
+		contact_info,
+		event_title_2,
+		event_date,
+	} = rsvp_details;
 	const [expanded, setExpanded] = React.useState('');
-	const itineraryRef = useRef(null);
 	const addressRef = useRef(null);
 	const contactRef = useRef(null);
 	const calendarRef = useRef(null);
-	const bottomRef = useRef(null);
 
 	let startDate = '11:00';
 	let endDate = '13:30';
 
-	if (guestDetails?.selectedSlot && guestDetails?.selectedSlot == '2') {
-		startDate = '13:30';
-		endDate = '15:30';
+	if (time.start !== '' && time.end !== '') {
+		startDate = `${moment(time.start).format('HH:mm')}`;
+		endDate = `${moment(time.end).format('HH:mm')}`;
 	} else {
-		if (time.start !== '' && time.end !== '') {
-			startDate = `${moment(time.start).format('HH:mm')}`;
-			endDate = `${moment(time.end).format('HH:mm')}`;
-		} else {
-			startDate = '11:00';
-			endDate = '13:30';
-		}
+		startDate = '11:00';
+		endDate = '13:30';
 	}
 
 	const handleChange = (panel) => (event, newExpanded) => {
@@ -85,10 +85,10 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 		<div className='accordian-card'>
 			{guestDetails?.selectedSlot && guestDetails?.selectedSlot == '2' ? (
 				<></>
-			) : weddingDetails?.itineraryEnable ? (
+			) : enable_itinerary ? (
 				<Accordion expanded={expanded === 'panel0'} onChange={handleChange('panel0')}>
 					<AccordionSummary aria-controls='panel0d-content' id='panel0d-header'>
-						<div className='summary-title'>{weddingDetails?.bahasa ? 'ATURCARA' : 'ITINERARY'}</div>
+						<div className='summary-title'>{enable_bahasa ? 'ATURCARA' : 'ITINERARY'}</div>
 					</AccordionSummary>
 					<AccordionDetails>
 						{itinerary && itinerary.length !== 0 ? (
@@ -128,21 +128,21 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 				expanded={expanded === 'panel1'}
 				onChange={handleChange('panel1')}>
 				<AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
-					<div className='summary-title'>{weddingDetails?.bahasa ? 'Lokasi' : 'Address'}</div>
+					<div className='summary-title'>{enable_bahasa ? 'Lokasi' : 'Address'}</div>
 				</AccordionSummary>
 				<AccordionDetails>
 					<div className='address-details'>
-						<div className='content-details'>{weddingDetails?.address}</div>
+						<div className='content-details'>{event_address}</div>
 						<div className='button-section'>
 							<a
-								href={`https://waze.com/ul?q=${weddingDetails?.address}`}
+								href={`https://waze.com/ul?q=${event_address}`}
 								target='_blank'
 								rel='noreferrer'
 								className='waze-button'>
 								<Image src={wazeIcon} alt='' width='25px' height='25px'></Image>
 							</a>
 							<a
-								href={`http://maps.google.com/?q=1200 ${weddingDetails?.address}`}
+								href={`http://maps.google.com/?q=1200 ${event_address}`}
 								target='_blank'
 								rel='noreferrer'
 								className='googleMap-button'>
@@ -157,11 +157,11 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 				expanded={expanded === 'panel2'}
 				onChange={handleChange('panel2')}>
 				<AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
-					<div className='summary-title'>{weddingDetails?.bahasa ? 'Telefon' : 'Contact'}</div>
+					<div className='summary-title'>{enable_bahasa ? 'Telefon' : 'Contact'}</div>
 				</AccordionSummary>
 				<AccordionDetails>
 					<div className='contact-details'>
-						{weddingDetails?.contact.map((contact, id) => (
+						{contact_info.map((contact, id) => (
 							<div className='bride-contact' key={id}>
 								<div className='name'>{contact?.name}</div>
 								<div className='phone-call'>
@@ -186,11 +186,11 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 			</Accordion>
 			<Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
 				<AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
-					<div className='summary-title'>{weddingDetails?.bahasa ? 'Kalendar' : 'Calendar'}</div>
+					<div className='summary-title'>{enable_bahasa ? 'Kalendar' : 'Calendar'}</div>
 				</AccordionSummary>
 				<AccordionDetails>
 					<div className='calendar-details'>
-						<StaticDatePickerLandscape userData={userData} />
+						<StaticDatePickerLandscape eventDetails={rsvp_details} />
 					</div>
 					<div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
 						<div
@@ -198,20 +198,18 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 							className='add-to-calendar'
 							onClick={() =>
 								atcb_action({
-									name: userData?.weddingTitle
-										? userData?.weddingTitle
-										: `Wedding ${userData.brideName} & ${userData.groomName}`,
-									startDate: moment(userData.weddingDate).format('YYYY-MM-DD'),
-									endDate: moment(userData.weddingDate).format('YYYY-MM-DD'),
+									name: event_title_2 ? event_title_2 : `The Wedding`,
+									startDate: moment(event_date).format('YYYY-MM-DD'),
+									endDate: moment(event_date).format('YYYY-MM-DD'),
 									startTime: `${startDate}`,
 									endTime: `${endDate}`,
-									location: weddingDetails?.address,
+									location: event_address,
 									options: ['Apple', 'Google'],
 									timeZone: 'Asia/Singapore',
 									iCalFileName: 'Reminder-Event',
 								})
 							}>
-							{weddingDetails?.bahasa ? 'Simpan Di Kalendar' : 'Add to Calendar'}
+							{enable_bahasa ? 'Simpan Di Kalendar' : 'Add to Calendar'}
 						</div>
 					</div>
 				</AccordionDetails>
@@ -220,21 +218,17 @@ export const DetailsAccordian = ({ weddingDetails, userData, itinerary, guestDet
 	);
 };
 
-export const AddToCalendar = ({ weddingDetails, userData, guestDetails, time }) => {
+export const AddToCalendar = ({ time, rsvp_details }) => {
+	const { event_title_2, event_date, event_address, enable_bahasa } = rsvp_details;
 	let startDate = '11:00';
 	let endDate = '13:30';
 
-	if (guestDetails?.selectedSlot && guestDetails?.selectedSlot == '2') {
-		startDate = '13:30';
-		endDate = '15:30';
+	if (time.start !== '' && time.end !== '') {
+		startDate = `${moment(time.start).format('HH:mm')}`;
+		endDate = `${moment(time.end).format('HH:mm')}`;
 	} else {
-		if (time.start !== '' && time.end !== '') {
-			startDate = `${moment(time.start).format('HH:mm')}`;
-			endDate = `${moment(time.end).format('HH:mm')}`;
-		} else {
-			startDate = '11:00';
-			endDate = '13:30';
-		}
+		startDate = '11:00';
+		endDate = '13:30';
 	}
 
 	return (
@@ -243,31 +237,29 @@ export const AddToCalendar = ({ weddingDetails, userData, guestDetails, time }) 
 				className='add-to-calendar'
 				onClick={() =>
 					atcb_action({
-						name: userData?.weddingTitle
-							? userData?.weddingTitle
-							: `${userData.brideName} & ${userData.groomName} Wedding`,
-						startDate: moment(userData.weddingDate).format('YYYY-MM-DD'),
-						endDate: moment(userData.weddingDate).format('YYYY-MM-DD'),
+						name: event_title_2 ? event_title_2 : `The Wedding`,
+						startDate: moment(event_date).format('YYYY-MM-DD'),
+						endDate: moment(event_date).format('YYYY-MM-DD'),
 						startTime: `${startDate}`,
 						endTime: `${endDate}`,
-						location: weddingDetails?.address,
+						location: event_address,
 						options: ['Apple', 'Google'],
 						timeZone: 'Asia/Singapore',
 						iCalFileName: 'Reminder-Event',
 					})
 				}>
-				{weddingDetails?.bahasa ? 'Simpan di Kalendar' : 'Add to Calendar'}
+				{enable_bahasa ? 'Simpan di Kalendar' : 'Add to Calendar'}
 			</div>
 		</div>
 	);
 };
 
-export function StaticDatePickerLandscape({ userData }) {
-	const [value, setValue] = React.useState(userData?.weddingDate);
+export function StaticDatePickerLandscape({ eventDetails }) {
+	const [value, setValue] = React.useState(eventDetails?.event_date);
 
 	useEffect(() => {
-		setValue(userData?.weddingDate);
-	}, [userData]);
+		setValue(eventDetails?.event_date);
+	}, [eventDetails]);
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterMoment}>

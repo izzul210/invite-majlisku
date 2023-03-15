@@ -9,15 +9,15 @@ import Container from '@mui/material/Container';
 //Libraries
 import axios from 'axios';
 import moment from 'moment';
-import { MainRSVP, GuestPage, GiftPage, MoneyPage, Footer } from '../components/subcomponents';
+import { MainRSVP, ThankYouPage, GiftPage, MoneyPage, Footer } from '../components/subcomponents';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
+// const API = 'http://localhost:5000/myweddingapp-25712/asia-southeast1/user';
 
 let initialStates = {
-	userData: null,
+	rsvp_details: null,
 	guestInput: null,
 	itinerary: null,
-	weddingDetails: {},
 	guestDetails: null,
 	time: { start: '12:00', end: '15:00' },
 	page: 0,
@@ -37,6 +37,8 @@ let initialStates = {
 
 const mainReducer = (state, action) => {
 	switch (action.type) {
+		case 'GET_RSVP_DETAILS':
+			return { ...state, rsvp_details: action.payload };
 		case 'SET_CONFIRM_MODAL':
 			return { ...state, confirmModal: action.payload };
 		case 'SET_CANCEL_MODAL':
@@ -45,14 +47,10 @@ const mainReducer = (state, action) => {
 			return { ...state, thakyouModal: action.payload };
 		case 'SET_SORRY_MODAL':
 			return { ...state, sorryModal: action.payload };
-		case 'INIT_USER_DATA':
-			return { ...state, userData: action.payload };
 		case 'SET_GUEST_INFO':
 			return { ...state, guestInput: action.payload };
 		case 'INIT_ITINERARY':
 			return { ...state, itinerary: action.payload };
-		case 'INIT_WEDDING_DETAILS':
-			return { ...state, weddingDetails: action.payload };
 		case 'INIT_GUEST_DETAILS':
 			return { ...state, guestDetails: action.payload };
 		case 'INIT_GIFT_RESERVE':
@@ -90,26 +88,25 @@ const mainReducer = (state, action) => {
 	}
 };
 
-function GeneralRsvp({ title, imageUrl, description, userId, userInfo }) {
+function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 	const [state, dispatch] = useReducer(mainReducer, initialStates);
-	const { userData, resetTheClock } = state;
+	const { rsvp_details, resetTheClock } = state;
 
 	useEffect(() => {
 		getThemAll();
 	}, [resetTheClock]);
 
 	function getThemAll() {
-		dispatch({ type: 'INIT_USER_DATA', payload: userInfo });
-		dispatch({ type: 'INIT_WEDDING_DETAILS', payload: userInfo.rsvpDetails });
-		getGiftList(userInfo.id);
-		getItineraryList(userInfo.id);
+		dispatch({ type: 'GET_RSVP_DETAILS', payload: rsvpDetails });
+		getGiftList(rsvpDetails.user_id);
+		getItineraryList(rsvpDetails.user_id);
 
 		//Init time
 		dispatch({
 			type: 'INIT_TIME_SLOT',
 			payload: {
-				start: userInfo.rsvpDetails.timeSlot.start,
-				end: userInfo.rsvpDetails.timeSlot.end,
+				start: rsvpDetails.event_time.start,
+				end: rsvpDetails.event_time.end,
 			},
 		});
 	}
@@ -117,7 +114,6 @@ function GeneralRsvp({ title, imageUrl, description, userId, userInfo }) {
 	function getGiftList(userID) {
 		axios.get(`${API}/getgifts/${userID}`).then((res) => {
 			let giftlist = res.data;
-			// console.log('giftlist:', giftlist);
 			dispatch({ type: 'GET_GIFTS', payload: giftlist });
 		});
 	}
@@ -125,7 +121,6 @@ function GeneralRsvp({ title, imageUrl, description, userId, userInfo }) {
 	function getItineraryList(userID) {
 		axios.get(`${API}/getitinerary/${userID}`).then((res) => {
 			let itineraryList = res.data;
-			// console.log('itineraryList:', itineraryList);
 			dispatch({ type: 'INIT_ITINERARY', payload: itineraryList });
 		});
 	}
@@ -133,7 +128,7 @@ function GeneralRsvp({ title, imageUrl, description, userId, userInfo }) {
 	function guestReserveFunc(body, reserved) {
 		dispatch({ type: 'LOADING_GIFT', payload: true });
 		axios
-			.post(`${API}/updategift/${state.userData.id}/${state.giftReserve.id}`, body)
+			.post(`${API}/updategift/${rsvp_details.user_id}/${state.giftReserve.id}`, body)
 			.then((res) => {
 				dispatch({ type: 'LOADING_GIFT', payload: false });
 				if (reserved) {
@@ -149,7 +144,7 @@ function GeneralRsvp({ title, imageUrl, description, userId, userInfo }) {
 	}
 	function postGuestResponse(body, postReqFunc) {
 		dispatch({ type: 'LOADING', payload: true });
-		axios.post(`${API}/newguest/${state.userData.id}`, body).then((res) => {
+		axios.post(`${API}/newguest/${rsvp_details.user_id}`, body).then((res) => {
 			dispatch({ type: 'SET_GUEST_INFO', payload: res.data });
 			dispatch({ type: 'LOADING', payload: false });
 			dispatch({ type: 'GUEST_SUBMIT' });
@@ -167,17 +162,13 @@ function GeneralRsvp({ title, imageUrl, description, userId, userInfo }) {
 				<meta property='og:image' content={imageUrl}></meta>
 			</Head>
 			<main>
-				<Container maxWidth='md'>
-					{userData ? (
+				<Container maxWidth='md' style={{ padding: '0px 8px' }}>
+					{rsvp_details ? (
 						<>
 							{state.page === 0 ? (
 								<MainRSVP state={state} dispatch={dispatch} postGuestResponse={postGuestResponse} />
 							) : state.page === 1 ? (
-								<GuestPage
-									state={state}
-									dispatch={dispatch}
-									postGuestResponse={postGuestResponse}
-								/>
+								<ThankYouPage state={state} dispatch={dispatch} />
 							) : state.page === 2 ? (
 								<GiftPage state={state} dispatch={dispatch} guestReserveFunc={guestReserveFunc} />
 							) : (
@@ -196,47 +187,47 @@ function GeneralRsvp({ title, imageUrl, description, userId, userInfo }) {
 
 export async function getServerSideProps(context) {
 	let id = context.query.id;
-	let userInfo;
+	let rsvpDetails;
 
 	let title = `You're cordially invited to our Wedding!`;
 	let weddingText = '';
 	let description = `Kindly click to RSVP `;
 
 	await axios
-		.get(`${API}/weddingdetails/${id}`)
+		.get(`${API}/rsvpdetails/${id}`)
 		.then((res) => {
-			userInfo = res.data[0];
+			rsvpDetails = res.data;
 		})
 		.catch((err) => {
-			console.log('timeout!');
+			console.log('Error for /rsvpdetails!');
 			console.log(err.message);
 		});
 
-	if (userInfo.weddingTitle) {
-		weddingText = userInfo.weddingTitle;
+	if (rsvpDetails.event_title_2) {
+		weddingText = rsvpDetails.event_title_2;
 	} else {
-		weddingText = `${userInfo.brideName} & ${userInfo.groomName}`;
+		if (rsvpDetails.bride_name && rsvpDetails.groom_name)
+			weddingText = `${rsvpDetails.groom_name} & ${rsvpDetails.bride_name}`;
 	}
 
-	if (userInfo.rsvpDetails.bahasa) {
+	if (rsvpDetails.enable_bahasa) {
 		description = `Sila tekan untuk sampaikan kehadiran anda`;
 		title = `Anda dijemput dengan hormat ke Majlis Perkahwinan ${weddingText} | ${moment(
-			userInfo?.weddingDate
+			rsvpDetails?.event_date
 		).format('DD.MM.YY')}`;
 	} else {
 		title = `You're cordially invited to the Wedding of ${weddingText} | ${moment(
-			userInfo?.weddingDate
+			rsvpDetails?.event_date
 		).format('DD.MM.YY')}`;
 	}
 
-	if (userInfo.metadata) {
-		if (userInfo?.metadata?.title) title = userInfo.metadata.title;
+	if (rsvpDetails.metadata) {
+		if (rsvpDetails?.metadata?.title) title = rsvpDetails.metadata.title;
 	}
 
-	const imageUrl = userInfo.whatsappImg;
-	const userId = id;
+	const imageUrl = rsvpDetails.whatsapp_metadata_img;
 
-	return { props: { title, imageUrl, description, userId, userInfo } };
+	return { props: { title, imageUrl, description, rsvpDetails } };
 }
 
 export default GeneralRsvp;

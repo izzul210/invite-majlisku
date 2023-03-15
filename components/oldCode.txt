@@ -1,0 +1,159 @@
+/** @format */
+
+//////////////////////////////Start: GUEST RSVP
+// export const GuestPage = ({ state, dispatch, postGuestResponse }) => {
+// 	const { submitted } = state;
+
+// 	useEffect(() => {
+// 		window.scrollTo(0, 0);
+// 	}, []);
+
+// 	return (
+// 		<>
+// 			{!submitted ? (
+// 				<GuestRSVP state={state} dispatch={dispatch} postGuestResponse={postGuestResponse} />
+// 			) : (
+// 				<ThankYouPage state={state} dispatch={dispatch} />
+// 			)}
+// 		</>
+// 	);
+// };
+
+// export const GuestRSVP = ({ state, dispatch, postGuestResponse }) => {
+// 	const { loading, guestDetails, weddingDetails } = state;
+// 	const [fullName, setFullName] = useState('');
+// 	const [phoneNumber, setPhoneNumber] = useState('');
+// 	const [rsvp, setRsvp] = useState('');
+// 	const [pax, setPax] = useState(1);
+// 	const [wish, setWish] = useState('');
+// 	const [maxPax, setMaxPax] = useState(1);
+
+// 	useEffect(() => {
+// 		if (guestDetails?.response && guestDetails.rsvp !== 'invited' && guestDetails.rsvp !== '') {
+// 			setFullName(guestDetails?.response.fullName);
+// 			setPhoneNumber(guestDetails?.response.phoneNumber);
+// 			setRsvp(guestDetails?.rsvp);
+// 			setWish(guestDetails?.response.wish);
+// 			setPax(guestDetails?.response.pax);
+// 		}
+
+// 		if (weddingDetails?.maxPax) {
+// 			if (guestDetails?.allocatedPax) setMaxPax(guestDetails?.allocatedPax);
+// 			else setMaxPax(weddingDetails?.maxPax);
+// 		}
+// 	}, [guestDetails]);
+
+// 	function prevStep() {
+// 		dispatch({ type: 'PREVIOUS_PAGE' });
+// 	}
+
+// 	const submitChecked = () => {
+// 		if (fullName !== '' && phoneNumber !== '' && rsvp !== '') {
+// 			return true;
+// 		} else {
+// 			return false;
+// 		}
+// 	};
+
+// 	const submitResponseFunc = () => {
+// 		const guestRes = {
+// 			fullName: fullName,
+// 			phoneNumber: phoneNumber,
+// 			rsvp: rsvp,
+// 			pax: pax,
+// 			wish: wish ? wish : '',
+// 		};
+
+// 		dispatch({ type: 'UPDATE_GOING', payload: rsvp === 'attending' ? true : false });
+// 		postGuestResponse(guestRes);
+// 	};
+
+// 	return (
+// 		<div className='rsvp-guest'>
+// 			<div className='top-section'>
+// 				<div style={{ cursor: 'pointer' }} onClick={() => prevStep()}>
+// 					<BackIcon />
+// 				</div>
+// 				<div className='title'>Can You Make It?</div>
+// 			</div>
+// 			<div className='input-section'>
+// 				{/* Full Name */}
+// 				<div className='full-name'>
+// 					<input
+// 						value={fullName}
+// 						onChange={(e) => setFullName(e.target.value)}
+// 						placeholder='*FULL NAME'></input>
+// 				</div>
+// 				{/* Phone Number */}
+// 				<div className='phone-number'>
+// 					<input
+// 						type='tel'
+// 						value={phoneNumber}
+// 						onChange={(e) => setPhoneNumber(e.target.value)}
+// 						pattern='[0-9]{3}-[0-9]{2}-[0-9]{3}'
+// 						placeholder='*PHONE NUMBER'></input>
+// 				</div>
+// 				{/* RSVP */}
+// 				<div className='rsvp-input'>
+// 					<div className='name'>RSVP</div>
+// 					<div className='rsvp-buttons'>
+// 						<div
+// 							className={rsvp === 'attending' ? 'yes-button' : 'no-button'}
+// 							onClick={() => setRsvp('attending')}>
+// 							GOING
+// 						</div>
+// 						<div
+// 							className={rsvp === 'notattending' ? 'yes-button' : 'no-button'}
+// 							onClick={() => setRsvp('notattending')}>
+// 							NOT GOING
+// 						</div>
+// 					</div>
+// 				</div>
+// 				{/* Pax */}
+// 				{rsvp === 'attending' ? (
+// 					<div className='pax-input'>
+// 						<div className='name'>TOTAL PAX (MAX {maxPax})</div>
+// 						<div className='pax-buttons'>
+// 							<div
+// 								className='minus'
+// 								onClick={() => {
+// 									pax > 1 && setPax((prev) => prev - 1);
+// 								}}>
+// 								-
+// 							</div>
+// 							<div className='pax-value'>{pax}</div>
+// 							<div
+// 								className='plus'
+// 								onClick={() => {
+// 									pax < maxPax && setPax((prev) => prev + 1);
+// 								}}>
+// 								+
+// 							</div>
+// 						</div>
+// 					</div>
+// 				) : (
+// 					<div className='pax-input'></div>
+// 				)}
+// 				{/* WISH */}
+// 				<div className='wish-input'>
+// 					<div className='name'>WISH</div>
+// 					<textarea
+// 						value={wish}
+// 						onChange={(e) => setWish(e.target.value)}
+// 						placeholder='ENTER WISH'></textarea>
+// 				</div>
+// 			</div>
+// 			<div className='submit-section'>
+// 				<div
+// 					className='submit-button'
+// 					onClick={() => {
+// 						if (submitChecked()) submitResponseFunc();
+// 					}}
+// 					style={submitChecked() ? { opacity: 1 } : { opacity: 0.2 }}>
+// 					<CardLoadingState loadingState={loading} />
+// 					SUBMIT
+// 				</div>
+// 			</div>
+// 		</div>
+// 	);
+// };

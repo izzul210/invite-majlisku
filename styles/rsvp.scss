@@ -220,7 +220,11 @@ $darkGrey: rgba(29, 70, 72, 1);
 		flex-direction: column;
 		gap: 10px;
 		width: 100%;
-		padding: 20px 0px;
+		padding: 20px 16px;
+
+		@media screen and (max-width: 900px) {
+			padding: 20px 0px;
+		}
 
 		.default-button {
 			flex: 1;

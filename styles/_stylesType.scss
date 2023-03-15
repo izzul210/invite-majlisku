@@ -42,6 +42,20 @@
 	line-height: $lineHeight;
 }
 
+@mixin playfair400($fontSize, $lineHeight) {
+	font-family: Playfair Display, serif;
+	font-size: $fontSize;
+	font-weight: 400;
+	line-height: $lineHeight;
+}
+
+@mixin playfair500($fontSize, $lineHeight) {
+	font-family: Playfair Display, serif;
+	font-size: $fontSize;
+	font-weight: 500;
+	line-height: $lineHeight;
+}
+
 @mixin centuryGothic400($fontSize, $lineHeight) {
 	font-family: 'Century Gothic', sans-serif;
 	font-size: $fontSize;
