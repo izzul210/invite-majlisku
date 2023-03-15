@@ -228,6 +228,13 @@ export async function getServerSideProps(context) {
 			console.log(err.message);
 		});
 
+	if (rsvpDetails.event_title_2) {
+		weddingText = rsvpDetails.event_title_2;
+	} else {
+		if (rsvpDetails.bride_name && rsvpDetails.groom_name)
+			weddingText = `${rsvpDetails.groom_name} & ${rsvpDetails.bride_name}`;
+	}
+
 	if (rsvpDetails.enable_bahasa) {
 		description = `Sila tekan untuk sampaikan kehadiran anda`;
 		title = `Anda dijemput dengan hormat ke Majlis Perkahwinan ${weddingText} | ${moment(
@@ -245,7 +252,7 @@ export async function getServerSideProps(context) {
 
 	const imageUrl = rsvpDetails.whatsapp_metadata_img;
 
-	return { props: { title, imageUrl, guestId, rsvpDetails } };
+	return { props: { title, imageUrl, description, guestId, rsvpDetails } };
 }
 
 export default GuestRsvp;
