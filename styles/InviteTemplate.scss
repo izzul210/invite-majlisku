@@ -47,7 +47,7 @@ $diorGrey: #1e1e1e;
 		flex-direction: column;
 		box-shadow: -5px 14px 25px 0px #0000001a;
 
-		@media screen and (max-width: 400px) {
+		@media screen and (max-width: 600px) {
 			box-shadow: none;
 		}
 	}
@@ -58,7 +58,7 @@ $diorGrey: #1e1e1e;
 	text-align: center;
 	padding: 24px 5px;
 
-	@media screen and (max-width: 400px) {
+	@media screen and (max-width: 600px) {
 		padding: 12px 0px;
 	}
 	.event-title-1 {
