@@ -14,10 +14,12 @@ $grey6005: rgba(79, 91, 103, 0.5);
 $darkGrey: rgba(29, 70, 72, 1);
 
 .accordian-card {
+	margin-top: 20px;
 	.summary-title {
-		@include stylesType.loraRegular(16px, 20px);
+		@include stylesType.loraBold(16px, 20px);
 		color: $grey600;
 		text-transform: uppercase;
+		margin: 8px 0px;
 	}
 
 	////////Address

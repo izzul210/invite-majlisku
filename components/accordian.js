@@ -60,6 +60,7 @@ export const DetailsAccordian = ({ itinerary, guestDetails, time, rsvp_details }
 		contact_info,
 		event_title_2,
 		event_date,
+		location_info,
 	} = rsvp_details;
 	const [expanded, setExpanded] = React.useState('');
 	const addressRef = useRef(null);
@@ -81,12 +82,18 @@ export const DetailsAccordian = ({ itinerary, guestDetails, time, rsvp_details }
 		setExpanded(newExpanded ? panel : false);
 	};
 
+	function checkContacts() {
+		if (rsvp_details.contact_info[0].name !== '' || rsvp_details.contact_info[0].phone !== '') {
+			return true;
+		} else return false;
+	}
+
 	return (
 		<div className='accordian-card'>
 			{guestDetails?.selectedSlot && guestDetails?.selectedSlot == '2' ? (
 				<></>
 			) : enable_itinerary ? (
-				<Accordion expanded={expanded === 'panel0'} onChange={handleChange('panel0')}>
+				<Accordion defaultExpanded={true} onChange={handleChange('panel0')}>
 					<AccordionSummary aria-controls='panel0d-content' id='panel0d-header'>
 						<div className='summary-title'>{enable_bahasa ? 'ATURCARA' : 'ITINERARY'}</div>
 					</AccordionSummary>
@@ -123,68 +130,70 @@ export const DetailsAccordian = ({ itinerary, guestDetails, time, rsvp_details }
 				<></>
 			)}
 
-			<Accordion
-				ref={addressRef}
-				expanded={expanded === 'panel1'}
-				onChange={handleChange('panel1')}>
+			<Accordion ref={addressRef} defaultExpanded={true} onChange={handleChange('panel1')}>
 				<AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
 					<div className='summary-title'>{enable_bahasa ? 'Lokasi' : 'Address'}</div>
 				</AccordionSummary>
 				<AccordionDetails>
 					<div className='address-details'>
-						<div className='content-details'>{event_address}</div>
+						<div className='content-details'>{location_info?.address}</div>
 						<div className='button-section'>
-							<a
-								href={`https://waze.com/ul?q=${event_address}`}
-								target='_blank'
-								rel='noreferrer'
-								className='waze-button'>
-								<Image src={wazeIcon} alt='' width='25px' height='25px'></Image>
-							</a>
-							<a
-								href={`http://maps.google.com/?q=1200 ${event_address}`}
-								target='_blank'
-								rel='noreferrer'
-								className='googleMap-button'>
-								<Image src={googleMapIcon} alt='' width='18px' height='23px'></Image>
-							</a>
+							{location_info?.wazeLink ? (
+								<a
+									href={location_info?.wazeLink}
+									target='_blank'
+									rel='noreferrer'
+									className='waze-button'>
+									<Image src={wazeIcon} alt='' width='25px' height='25px'></Image>
+								</a>
+							) : null}
+
+							{location_info?.googleLink ? (
+								<a
+									href={location_info?.googleLink}
+									target='_blank'
+									rel='noreferrer'
+									className='googleMap-button'>
+									<Image src={googleMapIcon} alt='' width='18px' height='23px'></Image>
+								</a>
+							) : null}
 						</div>
 					</div>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion
-				ref={contactRef}
-				expanded={expanded === 'panel2'}
-				onChange={handleChange('panel2')}>
-				<AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
-					<div className='summary-title'>{enable_bahasa ? 'Telefon' : 'Contact'}</div>
-				</AccordionSummary>
-				<AccordionDetails>
-					<div className='contact-details'>
-						{contact_info.map((contact, id) => (
-							<div className='bride-contact' key={id}>
-								<div className='name'>{contact?.name}</div>
-								<div className='phone-call'>
-									<div className='phone-text'>{contact?.phone}</div>
-									<div className='phome-actions'>
-										<a
-											href={`https://wa.me/6${contact?.phone}`}
-											target='_blank'
-											rel='noreferrer'
-											className='contact'>
-											<WhatsappIcon width='22px' height='22px' />
-										</a>
-										<a href={`tel:+${contact?.phone}`} rel='noreferrer'>
-											<PhoneIcon width='22px' height='22px' fillColor='#1E1E1E' />
-										</a>
+			{checkContacts() ? (
+				<Accordion ref={contactRef} defaultExpanded={true} onChange={handleChange('panel2')}>
+					<AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
+						<div className='summary-title'>{enable_bahasa ? 'Telefon' : 'Contact'}</div>
+					</AccordionSummary>
+					<AccordionDetails>
+						<div className='contact-details'>
+							{contact_info.map((contact, id) => (
+								<div className='bride-contact' key={id}>
+									<div className='name'>{contact?.name}</div>
+									<div className='phone-call'>
+										<div className='phone-text'>{contact?.phone}</div>
+										<div className='phome-actions'>
+											<a
+												href={`https://wa.me/6${contact?.phone}`}
+												target='_blank'
+												rel='noreferrer'
+												className='contact'>
+												<WhatsappIcon width='22px' height='22px' />
+											</a>
+											<a href={`tel:+${contact?.phone}`} rel='noreferrer'>
+												<PhoneIcon width='22px' height='22px' fillColor='#1E1E1E' />
+											</a>
+										</div>
 									</div>
 								</div>
-							</div>
-						))}
-					</div>
-				</AccordionDetails>
-			</Accordion>
-			<Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+							))}
+						</div>
+					</AccordionDetails>
+				</Accordion>
+			) : null}
+
+			<Accordion defaultExpanded={true} onChange={handleChange('panel3')}>
 				<AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
 					<div className='summary-title'>{enable_bahasa ? 'Kalendar' : 'Calendar'}</div>
 				</AccordionSummary>

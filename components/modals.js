@@ -497,7 +497,7 @@ export const QrCodeModal = ({ state, openState, closeFunc }) => {
 
 export const ThankYouModal = ({ state, dispatch }) => {
 	const { thakyouModal, loading_gift, guestDetails, rsvp_details } = state;
-	const { enable_bahasa } = rsvp_details;
+	const { enable_bahasa, thankyou_text } = rsvp_details;
 
 	const closeModal = () => {
 		dispatch({ type: 'SET_THANK_YOU_MODAL', payload: false });
@@ -530,7 +530,9 @@ export const ThankYouModal = ({ state, dispatch }) => {
 						</div>
 					) : (
 						<div className='text-top'>
-							{enable_bahasa
+							{thankyou_text
+								? thankyou_text
+								: enable_bahasa
 								? 'Terima kasih! Hadiah berjaya disimpan'
 								: 'Thank you! The Item Has Been reserved as gift'}
 						</div>

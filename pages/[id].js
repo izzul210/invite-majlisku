@@ -12,7 +12,6 @@ import moment from 'moment';
 import { MainRSVP, ThankYouPage, GiftPage, MoneyPage, Footer } from '../components/subcomponents';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
-// const API = 'http://localhost:5000/myweddingapp-25712/asia-southeast1/user';
 
 let initialStates = {
 	rsvp_details: null,
@@ -193,6 +192,9 @@ export async function getServerSideProps(context) {
 	let weddingText = '';
 	let description = `Kindly click to RSVP `;
 
+	let imageUrl =
+		'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fmetadata_img.png?alt=media&token=769f323f-8ad3-4ab3-a742-d45d959b4da2';
+
 	await axios
 		.get(`${API}/rsvpdetails/${id}`)
 		.then((res) => {
@@ -203,7 +205,7 @@ export async function getServerSideProps(context) {
 			console.log(err.message);
 		});
 
-	if (rsvpDetails.event_title_2) {
+	if (rsvpDetails?.event_title_2) {
 		weddingText = rsvpDetails.event_title_2;
 	} else {
 		if (rsvpDetails.bride_name && rsvpDetails.groom_name)
@@ -221,11 +223,12 @@ export async function getServerSideProps(context) {
 		).format('DD.MM.YY')}`;
 	}
 
+	if (rsvpDetails?.whatsapp_metadata_img) imageUrl = rsvpDetails.whatsapp_metadata_img;
+
 	if (rsvpDetails.metadata) {
 		if (rsvpDetails?.metadata?.title) title = rsvpDetails.metadata.title;
+		if (rsvpDetails?.metadata?.photoURL) imageUrl = rsvpDetails.metadata.photoURL;
 	}
-
-	const imageUrl = rsvpDetails.whatsapp_metadata_img;
 
 	return { props: { title, imageUrl, description, rsvpDetails } };
 }

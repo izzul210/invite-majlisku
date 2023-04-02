@@ -18,6 +18,7 @@ import {
 	NotGoingIcon,
 	MoneyIcon,
 	QRCode,
+	MajliskuIcon,
 } from './icons';
 
 //Importing modals
@@ -43,14 +44,12 @@ const InviteTemplate = (props) => {
 		guestName = null,
 		eventDate = '2022-10-15',
 		dashboardImage = defaultImage,
-		hosts = [
-			'Mohd Rizal bin Johari & Zubaidah binti Mohd Isa',
-			'Othman bin Abdul Rahman & Nik Mahhasni Bt Jaffar',
-		],
+		hosts = null,
 		startTime = '2022-09-18 12:30',
 		endTime = '2022-09-18 15:00',
 		malay = false,
 		content,
+		description = null,
 	} = props;
 
 	if (malay) {
@@ -74,6 +73,13 @@ const InviteTemplate = (props) => {
 		</>
 	));
 
+	const updateEventDescription = description?.split('\n').map((line, index) => (
+		<>
+			{line}
+			<br />
+		</>
+	));
+
 	const formattedDate = moment(eventDate).format('dddd, Do MMMM YYYY');
 
 	return (
@@ -81,6 +87,7 @@ const InviteTemplate = (props) => {
 			<div className='invite-card'>
 				{/********* TOP CARD SECTION *****/}
 				<div className='invite-card-top'>
+					<MajliskuIcon />
 					<div className='event-title-1'>{eventTitle1}</div>
 					<div className='header-image'>
 						<img src={dashboardImage}></img>
@@ -103,16 +110,20 @@ const InviteTemplate = (props) => {
 							<div>{eventLocation}</div>
 						</div>
 					</div>
+					{description ? <div className='event-description'>{updateEventDescription}</div> : null}
 				</div>
 				{/********** Hosted By Section *******/}
-				<div className='invite-card-hosted-by'>
-					<div className='hosted-by'>{malay ? 'Oleh:' : 'Hosted By:'}</div>
-					{hosts?.map((host, index) => (
-						<div className='host' key={index}>
-							{host}
-						</div>
-					))}
-				</div>
+				{hosts?.length !== 0 ? (
+					<div className='invite-card-hosted-by'>
+						<div className='hosted-by'>{malay ? 'Oleh:' : 'Hosted By:'}</div>
+						{hosts?.map((host, index) => (
+							<div className='host' key={index}>
+								{host}
+							</div>
+						))}
+					</div>
+				) : null}
+
 				{content}
 			</div>
 		</div>
@@ -127,10 +138,11 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 		rsvp_header_image,
 		event_date,
 		eventInfo,
-		event_address,
 		enable_bahasa,
 		enable_gift_registry,
 		enable_money_gift,
+		description,
+		location_info,
 	} = rsvp_details;
 
 	const [hosts, setHosts] = useState([]);
@@ -142,6 +154,7 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 		window.scrollTo(0, 0);
 		getHosts();
 		checkWeddingTitle();
+		console.log('rsvp_details:', rsvp_details);
 	}, []);
 
 	function goToGiftPage() {
@@ -153,6 +166,11 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 	}
 
 	function getHosts() {
+		if (rsvp_details?.hosts) {
+			setHosts(rsvp_details.hosts);
+			return;
+		}
+
 		let tempHosts = [];
 		if (eventInfo?.groomFather && !eventInfo?.groomMother) {
 			tempHosts.push(eventInfo?.groomFather);
@@ -192,9 +210,10 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 			eventDate={event_date}
 			startTime={time.start}
 			endTime={time.end}
-			eventLocation={event_address}
+			eventLocation={location_info?.address}
 			hosts={hosts}
 			guestName={guestDetails?.name ? guestDetails?.name : null}
+			description={description}
 			content={
 				<div className='rsvp-main'>
 					{/*************************** ACTION AREA ****************/}
@@ -598,6 +617,12 @@ export const MoneyPage = ({ state, dispatch }) => {
 		setOpenModal(false);
 	};
 
+	const accountNumber = money_gift_details?.accNum
+		? money_gift_details?.accNum
+		: money_gift_details?.accountNum
+		? money_gift_details?.accountNum
+		: 'None';
+
 	return (
 		<div className='money-gift'>
 			<div className='top-section'>
@@ -616,7 +641,7 @@ export const MoneyPage = ({ state, dispatch }) => {
 					</div>
 					<div className='rsvp-money-name account-no'>
 						<div className='money-title'>Account No:</div>
-						<div className='money-value'>{money_gift_details?.accountNum}</div>
+						<div className='money-value'>{accountNumber}</div>
 					</div>
 					{money_gift_details?.qrCodeUrl ? (
 						<div className='qr-code' onClick={() => openModalFunc()}>

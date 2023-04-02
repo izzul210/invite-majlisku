@@ -6,9 +6,10 @@ $grey700: rgba(55, 63, 71, 1);
 $grey600: rgba(79, 91, 103, 1);
 $grey400: rgba(152, 162, 179, 1);
 $grey500: #667085;
-$grey900: #101828;
+$grey900: #1e1e1e;
 $grey6005: rgba(79, 91, 103, 0.5);
 $darkGrey: rgba(29, 70, 72, 1);
+$diorGrey: #1e1e1e;
 
 .money-gift {
 	padding: 30px 5px 0px 5px;
@@ -376,7 +377,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 
 				.yes-button {
 					color: white;
-					background: rgba(16, 24, 40, 1);
+					background: $diorGrey;
 				}
 
 				.no-button {
@@ -446,7 +447,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 			width: min(340px, 100%);
 			border-radius: 40px;
 			color: white;
-			background: rgba(16, 24, 40, 1);
+			background: $diorGrey;
 			@include stylesType.loraBold(16px, auto);
 			cursor: pointer;
 		}
@@ -546,7 +547,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 			box-sizing: border-box;
 			@include stylesType.loraRegular(16px, 21px);
 			color: white;
-			background: rgba(16, 24, 40, 1);
+			background: $diorGrey;
 			text-transform: uppercase;
 			border: 1px solid $grey400;
 			border-radius: 25px;
@@ -733,24 +734,24 @@ $darkGrey: rgba(29, 70, 72, 1);
 			text-align: center;
 			text-transform: uppercase;
 			border-radius: 50px;
-			border: 1px solid rgba(16, 24, 40, 1);
+			border: 1px solid $diorGrey;
 			margin: 16px 0px;
 		}
 
 		.reserve-button {
 			color: white;
-			background: rgba(16, 24, 40, 1);
+			background: $diorGrey;
 		}
 
 		.cancel-button {
-			color: rgba(16, 24, 40, 1);
+			color: $diorGrey;
 		}
 
 		.view-shop-button {
 			margin-top: 12px;
 			text-transform: uppercase;
 			@include stylesType.loraRegular(16px, 21px);
-			color: rgba(16, 24, 40, 1);
+			color: $diorGrey;
 			cursor: pointer;
 			text-decoration: underline;
 		}
@@ -846,7 +847,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 
 			.confirm-button {
 				color: white;
-				background: rgba(16, 24, 40, 1);
+				background: $diorGrey;
 			}
 		}
 	}
@@ -990,7 +991,7 @@ $darkGrey: rgba(29, 70, 72, 1);
 
 		.confirm-button {
 			color: white;
-			background: rgba(16, 24, 40, 1);
+			background: #1e1e1e;
 		}
 	}
 }
