@@ -138,25 +138,29 @@ export const DetailsAccordian = ({ itinerary, guestDetails, time, rsvp_details }
 					<div className='address-details'>
 						<div className='content-details'>{location_info?.address}</div>
 						<div className='button-section'>
-							{location_info?.wazeLink ? (
-								<a
-									href={location_info?.wazeLink}
-									target='_blank'
-									rel='noreferrer'
-									className='waze-button'>
-									<Image src={wazeIcon} alt='' width='25px' height='25px'></Image>
-								</a>
-							) : null}
+							<a
+								href={
+									location_info?.wazeLink
+										? location_info?.wazeLink
+										: `https://waze.com/ul?q=${location_info?.address}`
+								}
+								target='_blank'
+								rel='noreferrer'
+								className='waze-button'>
+								<Image src={wazeIcon} alt='' width='25px' height='25px'></Image>
+							</a>
 
-							{location_info?.googleLink ? (
-								<a
-									href={location_info?.googleLink}
-									target='_blank'
-									rel='noreferrer'
-									className='googleMap-button'>
-									<Image src={googleMapIcon} alt='' width='18px' height='23px'></Image>
-								</a>
-							) : null}
+							<a
+								href={
+									location_info?.googleLink
+										? location_info?.googleLink
+										: `http://maps.google.com/?q=1200 ${location_info?.address}`
+								}
+								target='_blank'
+								rel='noreferrer'
+								className='googleMap-button'>
+								<Image src={googleMapIcon} alt='' width='18px' height='23px'></Image>
+							</a>
 						</div>
 					</div>
 				</AccordionDetails>

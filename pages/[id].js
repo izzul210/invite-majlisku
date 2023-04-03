@@ -214,13 +214,9 @@ export async function getServerSideProps(context) {
 
 	if (rsvpDetails.enable_bahasa) {
 		description = `Sila tekan untuk sampaikan kehadiran anda`;
-		title = `Anda dijemput dengan hormat ke Majlis Perkahwinan ${weddingText} | ${moment(
-			rsvpDetails?.event_date
-		).format('DD.MM.YY')}`;
+		title = `${weddingText} | ${moment(rsvpDetails?.event_date).format('DD.MM.YY')}`;
 	} else {
-		title = `You're cordially invited to the Wedding of ${weddingText} | ${moment(
-			rsvpDetails?.event_date
-		).format('DD.MM.YY')}`;
+		title = `${weddingText} | ${moment(rsvpDetails?.event_date).format('DD.MM.YY')}`;
 	}
 
 	if (rsvpDetails?.whatsapp_metadata_img) imageUrl = rsvpDetails.whatsapp_metadata_img;
