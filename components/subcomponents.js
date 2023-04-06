@@ -82,6 +82,14 @@ const InviteTemplate = (props) => {
 
 	const formattedDate = moment(eventDate).format('dddd, Do MMMM YYYY');
 
+	function checkHost() {
+		if (hosts) {
+			if (hosts?.length !== 0 && hosts[0] !== '') return true;
+		} else {
+			return false;
+		}
+	}
+
 	return (
 		<div className='invite-canvas'>
 			<div className='invite-card'>
@@ -113,7 +121,7 @@ const InviteTemplate = (props) => {
 					{description ? <div className='event-description'>{updateEventDescription}</div> : null}
 				</div>
 				{/********** Hosted By Section *******/}
-				{hosts?.length !== 0 ? (
+				{checkHost() ? (
 					<div className='invite-card-hosted-by'>
 						<div className='hosted-by'>{malay ? 'Oleh:' : 'Hosted By:'}</div>
 						{hosts?.map((host, index) => (

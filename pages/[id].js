@@ -222,7 +222,10 @@ export async function getServerSideProps(context) {
 	if (rsvpDetails?.whatsapp_metadata_img) imageUrl = rsvpDetails.whatsapp_metadata_img;
 
 	if (rsvpDetails.metadata) {
-		if (rsvpDetails?.metadata?.title) title = rsvpDetails.metadata.title;
+		if (rsvpDetails?.metadata?.title)
+			title = `${rsvpDetails.metadata.title} | ${moment(rsvpDetails?.event_date).format(
+				'DD.MM.YY'
+			)}`;
 		if (rsvpDetails?.metadata?.photoURL) imageUrl = rsvpDetails.metadata.photoURL;
 	}
 
