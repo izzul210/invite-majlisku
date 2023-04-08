@@ -10,9 +10,20 @@ import Dialog from '@mui/material/Dialog';
 import moment from 'moment';
 import 'moment/locale/ms-my';
 import 'moment/locale/en-ca';
-
 //Icons
-import { GiftIcon, WishIcon, WishIcon2, CloseIcon } from './icons';
+import {
+	GiftIcon,
+	WishIcon,
+	WishIcon2,
+	CloseIcon,
+	MaybeIcon,
+	NotGoingIcon,
+	GoingIcon,
+} from './icons';
+import Image from 'next/image';
+import rsvpIcon from '../assets/icons/rsvpIcon.png';
+import goingIcon from '../assets/icons/goingIcon.svg';
+import notGoingIcon from '../assets/icons/notGoingIcon.svg';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction='up' ref={ref} {...props} />;
@@ -284,6 +295,196 @@ export const NotGoingModal = ({
 							{enable_bahasa ? 'SETUJU' : 'CONFIRM'}
 						</div>
 					)}
+				</div>
+			</div>
+		</Dialog>
+	);
+};
+
+export const MaybeModal = ({ state, dispatch, maybeModal, setMaybeModal, postGuestResponse }) => {
+	const { loading, guestDetails, rsvp_details } = state;
+	const { enable_bahasa } = rsvp_details;
+	const [rsvp, setRsvp] = useState('maybe');
+	const [name, setName] = useState('');
+	const [phone, setPhone] = useState('');
+	const [pax, setPax] = useState(1);
+	const [wish, setWish] = useState('');
+
+	useEffect(() => {
+		if (guestDetails?.response && guestDetails.rsvp !== 'invited' && guestDetails.rsvp !== '') {
+			setWish(guestDetails?.response.wish);
+		}
+	}, [guestDetails]);
+
+	const closeModal = () => {
+		setMaybeModal(false);
+	};
+
+	const submitResponseFunc = () => {
+		const guestRes = {
+			rsvp: rsvp,
+			name: name,
+			phone: phone,
+			pax: pax,
+			wish: wish ? wish : '',
+		};
+		dispatch({ type: 'UPDATE_GOING', payload: rsvp === 'attending' ? true : false });
+		postGuestResponse(guestRes, () => {
+			closeModal();
+			dispatch({ type: 'NEXT_PAGE' });
+		});
+	};
+
+	return (
+		<Dialog
+			open={maybeModal}
+			TransitionComponent={Transition}
+			PaperProps={{
+				style: { borderRadius: 10, margin: '32px 12px' },
+			}}
+			keepMounted
+			onClose={() => {
+				closeModal();
+			}}>
+			<div className='goingModal-card' style={{ position: 'relative' }}>
+				{/* <CardLoadingState loadingState={loading_gift} /> */}
+				<div className='top-modal' style={{ padding: '8px 0px' }}>
+					<div className='close-button-area'>
+						<div className='close-button' onClick={() => closeModal()}>
+							<CloseIcon />
+						</div>
+					</div>
+					<Image src={rsvpIcon} alt='' width={60} height={60} />
+					<div className='text-top'>
+						{enable_bahasa ? 'HARAP ANDA SUDI DATANG!' : 'LET US KNOW!'}
+					</div>
+				</div>
+				<div className='modal-content'>
+					{!guestDetails ? (
+						<div className='guest-info'>
+							<div className='full-name'>
+								<div className='name'>{enable_bahasa ? 'NAMA*' : 'NAME*'}</div>
+								<input
+									placeholder={enable_bahasa ? 'ISI NAMA' : 'ENTER NAME'}
+									value={name}
+									onChange={(e) => setName(e.target.value)}></input>
+							</div>
+							<div className='phone-number'>
+								<div className='name'>{enable_bahasa ? 'TELEFON*' : 'CONTACT*'}</div>
+								<input
+									placeholder={enable_bahasa ? 'ISI NO TEL' : 'ENTER PHONE NUMBER'}
+									type='tel'
+									value={phone}
+									onChange={(e) => setPhone(e.target.value)}></input>
+							</div>
+						</div>
+					) : (
+						<></>
+					)}
+					<div className='wish-input'>
+						<div className='name'>{enable_bahasa ? 'UCAPAN' : 'YOUR WISH'}</div>
+						<textarea
+							value={wish}
+							onChange={(e) => setWish(e.target.value)}
+							placeholder={enable_bahasa ? 'ISI UCAPAN' : 'ENTER WISH'}></textarea>
+					</div>
+				</div>
+				<div className='bottom-modal'>
+					<div className='cancel-button' onClick={() => closeModal()}>
+						{enable_bahasa ? 'BATAL' : 'CANCEL'}
+					</div>
+					{guestDetails ? (
+						<div className='confirm-button' onClick={() => submitResponseFunc()}>
+							<CardLoadingState loadingState={loading} />
+							{enable_bahasa ? 'SETUJU' : 'CONFIRM'}
+						</div>
+					) : (
+						<div
+							className='confirm-button'
+							style={name && phone ? { opacity: 1 } : { opacity: 0.5 }}
+							onClick={() => {
+								if (name && phone) submitResponseFunc();
+							}}>
+							<CardLoadingState loadingState={loading} />
+							{enable_bahasa ? 'SETUJU' : 'CONFIRM'}
+						</div>
+					)}
+				</div>
+			</div>
+		</Dialog>
+	);
+};
+
+export const RSVPModal = ({
+	state,
+	dispatch,
+	rsvpModal,
+	setRsvpModal,
+	setGoingModal,
+	setNotGoingModal,
+	setMaybeModal,
+}) => {
+	const { rsvp_details } = state;
+	const { enable_bahasa } = rsvp_details;
+	function closeModal() {
+		setRsvpModal(false);
+	}
+
+	function goingAction() {
+		setRsvpModal(false);
+		setGoingModal(true);
+	}
+
+	function notGoingAction() {
+		setRsvpModal(false);
+		setNotGoingModal(true);
+	}
+
+	function maybeAction() {
+		setRsvpModal(false);
+		setMaybeModal(true);
+	}
+
+	return (
+		<Dialog
+			open={rsvpModal}
+			TransitionComponent={Transition}
+			PaperProps={{
+				style: { borderRadius: 10, margin: '32px 12px' },
+			}}
+			keepMounted
+			onClose={() => {
+				closeModal();
+			}}>
+			<div className='goingModal-card' style={{ position: 'relative' }}>
+				<div className='top-modal' style={{ padding: '8px 0px' }}>
+					<div className='close-button-area'>
+						<div className='close-button' onClick={() => closeModal()}>
+							<CloseIcon width={17} height={17} />
+						</div>
+					</div>
+					<Image src={rsvpIcon} alt='' width={100} height={100} />
+					<div className='text-top'>
+						{enable_bahasa
+							? 'Bolehkah Tuan/Puan Hadir ke Majlis ini?'
+							: 'Would you be able to attend the event?'}
+					</div>
+				</div>
+				<div className='modal-content'>
+					<div className='rsvp-buttons-2'>
+						<div className='rsvp-button-2' onClick={() => goingAction()}>
+							<Image src={goingIcon} alt='' width={24} height={24} />
+							{enable_bahasa ? 'Saya Hadir' : `I'm Attending`}
+						</div>
+						<div className='rsvp-button-2' onClick={() => notGoingAction()}>
+							<Image src={notGoingIcon} alt='' width={24} height={24} />{' '}
+							{enable_bahasa ? 'Tidak Hadir' : `Not Attending`}
+						</div>
+						<div className='rsvp-button-2' onClick={() => maybeAction()}>
+							<MaybeIcon fillColor='black' />
+							{enable_bahasa ? 'Tidak Pasti' : `Not Sure Yet`}
+						</div>
+					</div>
 				</div>
 			</div>
 		</Dialog>

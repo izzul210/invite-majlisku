@@ -853,6 +853,32 @@ $diorGrey: #1e1e1e;
 	}
 }
 
+.rsvp-buttons-2 {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	justify-content: space-around;
+	flex-direction: column;
+	padding: 10px;
+
+	.rsvp-button-2 {
+		flex: 1;
+		width: 100%;
+		@include stylesType.loraBold(14px, 20px);
+		color: #1d4648;
+		text-transform: uppercase;
+		border: 1px solid #f1bfbe;
+		border-radius: 30px;
+		text-align: center;
+		padding: 15px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 4px;
+		cursor: pointer;
+	}
+}
+
 .goingModal-card {
 	padding: 10px 15px;
 	box-sizing: border-box;
@@ -878,8 +904,8 @@ $diorGrey: #1e1e1e;
 		}
 
 		.text-top {
-			@include stylesType.loraRegular(15px, 20px);
-			color: $darkGrey;
+			@include stylesType.loraBold(15px, 20px);
+			color: #1d4648;
 			text-transform: uppercase;
 			width: 90%;
 			text-align: center;

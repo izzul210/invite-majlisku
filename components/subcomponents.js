@@ -31,6 +31,8 @@ import {
 	QrCodeModal,
 	ThankYouModal,
 	SorryModal,
+	RSVPModal,
+	MaybeModal,
 } from './modals';
 
 const defaultImage =
@@ -157,6 +159,8 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 	const [weddingTitle, setWeddingTitle] = useState('');
 	const [goingModal, setGoingModal] = useState(false);
 	const [notGoingModal, setNotGoingModal] = useState(false);
+	const [maybeModal, setMaybeModal] = useState(false);
+	const [rsvpModal, setRsvpModal] = useState(false);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -227,43 +231,49 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 					{/*************************** ACTION AREA ****************/}
 					<div className='buttons-area'>
 						<div className='rsvp-buttons'>
-							{guestDetails?.rsvp === 'attending' ? (
-								<>
-									<button
-										className='default-button before-button'
-										onClick={() => setGoingModal(true)}>
-										<GoingIcon /> {enable_bahasa ? 'Saya Hadir' : 'I am Going'}
-									</button>
-									<button className='default-button' onClick={() => setNotGoingModal(true)}>
-										{enable_bahasa ? 'Tidak Hadir' : 'NOT Going'}
-									</button>
-								</>
-							) : guestDetails?.rsvp === 'notattending' ? (
-								<>
-									<button className='default-button' onClick={() => setGoingModal(true)}>
-										{enable_bahasa ? 'Hadir' : 'Going'}
-									</button>
-									<button
-										className='default-button before-button'
-										onClick={() => setNotGoingModal(true)}>
-										<NotGoingIcon /> {enable_bahasa ? 'Saya Tidak Hadir' : 'I am NOT Going'}
-									</button>
-								</>
-							) : (
-								<>
-									<button
-										className='default-button before-button'
-										onClick={() => setGoingModal(true)}>
-										<GoingIcon />
-										{enable_bahasa ? 'Hadir' : 'Going'}
-									</button>
-									<button
-										className='default-button before-button'
-										onClick={() => setNotGoingModal(true)}>
-										<NotGoingIcon /> {enable_bahasa ? 'Tidak Hadir' : 'Not Going'}
-									</button>
-								</>
-							)}
+							{/* <>
+								{guestDetails?.rsvp === 'attending' ? (
+									<>
+										<button
+											className='default-button before-button'
+											onClick={() => setGoingModal(true)}>
+											<GoingIcon /> {enable_bahasa ? 'Saya Hadir' : 'I am Going'}
+										</button>
+										<button className='default-button' onClick={() => setNotGoingModal(true)}>
+											{enable_bahasa ? 'Tidak Hadir' : 'NOT Going'}
+										</button>
+									</>
+								) : guestDetails?.rsvp === 'notattending' ? (
+									<>
+										<button className='default-button' onClick={() => setGoingModal(true)}>
+											{enable_bahasa ? 'Hadir' : 'Going'}
+										</button>
+										<button
+											className='default-button before-button'
+											onClick={() => setNotGoingModal(true)}>
+											<NotGoingIcon /> {enable_bahasa ? 'Saya Tidak Hadir' : 'I am NOT Going'}
+										</button>
+									</>
+								) : (
+									<>
+										<button
+											className='default-button before-button'
+											onClick={() => setGoingModal(true)}>
+											<GoingIcon />
+											{enable_bahasa ? 'Hadir' : 'Going'}
+										</button>
+										<button
+											className='default-button before-button'
+											onClick={() => setNotGoingModal(true)}>
+											<NotGoingIcon /> {enable_bahasa ? 'Tidak Hadir' : 'Not Going'}
+										</button>
+									</>
+								)}
+							</> */}
+							<button className='default-button before-button' onClick={() => setRsvpModal(true)}>
+								<GoingIcon />
+								RSVP
+							</button>
 						</div>
 						<div className='rsvp-buttons'>
 							{enable_gift_registry ? (
@@ -305,6 +315,22 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 						notGoingModal={notGoingModal}
 						setNotGoingModal={setNotGoingModal}
 						postGuestResponse={postGuestResponse}
+					/>
+					<MaybeModal
+						state={state}
+						dispatch={dispatch}
+						maybeModal={maybeModal}
+						setMaybeModal={setMaybeModal}
+						postGuestResponse={postGuestResponse}
+					/>
+					<RSVPModal
+						state={state}
+						dispatch={dispatch}
+						rsvpModal={rsvpModal}
+						setRsvpModal={setRsvpModal}
+						setGoingModal={setGoingModal}
+						setNotGoingModal={setNotGoingModal}
+						setMaybeModal={setMaybeModal}
 					/>
 				</div>
 			}></InviteTemplate>
