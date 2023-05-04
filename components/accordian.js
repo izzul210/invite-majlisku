@@ -185,7 +185,11 @@ export const DetailsAccordian = ({ itinerary, guestDetails, time, rsvp_details }
 												className='contact'>
 												<WhatsappIcon width='22px' height='22px' />
 											</a>
-											<a href={`tel:+${contact?.phone}`} rel='noreferrer'>
+											<a
+												href={`tel:${contact?.phone
+													.replace(/^0/, '+60 ')
+													.replace(/(\d{2})(\d{3})(\d{3})/, '$1-$2 $3')}`}
+												rel='noreferrer'>
 												<PhoneIcon width='22px' height='22px' fillColor='#1E1E1E' />
 											</a>
 										</div>

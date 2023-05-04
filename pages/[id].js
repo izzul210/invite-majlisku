@@ -188,7 +188,7 @@ export async function getServerSideProps(context) {
 	let id = context.query.id;
 	let rsvpDetails;
 
-	let title = `You're cordially invited to our Wedding!`;
+	let title = `You're cordially invited to our Event!`;
 	let weddingText = '';
 	let description = `Kindly click to RSVP `;
 
@@ -228,6 +228,8 @@ export async function getServerSideProps(context) {
 			)}`;
 		if (rsvpDetails?.metadata?.photoURL) imageUrl = rsvpDetails.metadata.photoURL;
 	}
+
+	title = title.replace(/\n/g, ' ');
 
 	return { props: { title, imageUrl, description, rsvpDetails } };
 }
