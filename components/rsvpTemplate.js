@@ -67,8 +67,7 @@ export const InviteTemplate = (props) => {
 		}
 	}
 
-	const eventTime = () =>
-		`${moment(startTime).format('h:mm A')} - ${moment(endTime).format('h:mm A')}`;
+	const eventTime = `${moment(startTime).format('h:mm A')} - ${moment(endTime).format('h:mm A')}`;
 
 	return (
 		<div className='invite-canvas'>

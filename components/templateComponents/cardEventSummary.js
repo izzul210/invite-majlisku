@@ -12,6 +12,7 @@ export const EventSummaryCard = ({
 	malay,
 	updateEventDescription,
 }) => {
+	console.log('eventTime', eventTime);
 	return (
 		<div className='invite-card-middle'>
 			<div className='guest-name'>{guestName}</div>

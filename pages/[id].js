@@ -101,11 +101,12 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 		getItineraryList(rsvpDetails.user_id);
 
 		//Init time
+		console.log(rsvpDetails);
 		dispatch({
 			type: 'INIT_TIME_SLOT',
 			payload: {
-				start: rsvpDetails.event_time.start,
-				end: rsvpDetails.event_time.end,
+				start: rsvpDetails.event_time?.start,
+				end: rsvpDetails.event_time?.end,
 			},
 		});
 	}
