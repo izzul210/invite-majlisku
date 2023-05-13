@@ -17,6 +17,7 @@ let initialStates = {
 	rsvp_details: null,
 	guestInput: null,
 	itinerary: null,
+	wishlist: [],
 	guestDetails: null,
 	time: { start: '12:00', end: '15:00' },
 	page: 0,
@@ -44,6 +45,8 @@ const mainReducer = (state, action) => {
 			return { ...state, cancelModal: action.payload };
 		case 'SET_THANK_YOU_MODAL':
 			return { ...state, thakyouModal: action.payload };
+		case 'GET_WISHLIST':
+			return { ...state, wishlist: action.payload };
 		case 'SET_SORRY_MODAL':
 			return { ...state, sorryModal: action.payload };
 		case 'SET_GUEST_INFO':
@@ -99,15 +102,20 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 		dispatch({ type: 'GET_RSVP_DETAILS', payload: rsvpDetails });
 		getGiftList(rsvpDetails.user_id);
 		getItineraryList(rsvpDetails.user_id);
-
-		//Init time
-		console.log(rsvpDetails);
+		getWishList(rsvpDetails.user_id);
 		dispatch({
 			type: 'INIT_TIME_SLOT',
 			payload: {
 				start: rsvpDetails.event_time?.start,
 				end: rsvpDetails.event_time?.end,
 			},
+		});
+	}
+
+	function getWishList(userID) {
+		axios.get(`${API}/getguestwishes/${userID}`).then((res) => {
+			let wishlist = res.data;
+			dispatch({ type: 'GET_WISHLIST', payload: wishlist });
 		});
 	}
 
@@ -162,7 +170,7 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 				<meta property='og:image' content={imageUrl}></meta>
 			</Head>
 			<main>
-				<Container maxWidth='md' style={{ padding: '0px 8px' }}>
+				<Container maxWidth='md' style={{ padding: '0px 0px' }}>
 					{rsvp_details ? (
 						<>
 							{state.page === 0 ? (

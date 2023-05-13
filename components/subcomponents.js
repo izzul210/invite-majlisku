@@ -2,7 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 //Components import
-import { DetailsAccordian, AddToCalendar } from './accordian';
+import { AddToCalendar } from './accordian';
+import InviteTemplateDefault from './invite/inviteTemplates/InviteTemplateDefault';
+//Import hooks
+import { initOldUsersHosts } from './invite/hooks/useInviteFunc';
 //MUI import
 import Container from '@mui/material/Container';
 //Libraries
@@ -20,7 +23,6 @@ import {
 	QRCode,
 	MajliskuIcon,
 } from './icons';
-
 //Importing modals
 import {
 	GoingModal,
@@ -35,28 +37,33 @@ import {
 	MaybeModal,
 } from './modals';
 
-import { InviteTemplate } from './rsvpTemplate';
-
-const defaultImage =
-	'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/thumbnails%2Fxxg05Isu0bTG09OF7qbezUi8Gzm2%2Frsvp%2FrsvpImage?alt=media&token=d24710b3-74ae-49ba-a76e-4b4567dbf12f';
-
 export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
-	const { guestDetails, itinerary, time, rsvp_details } = state;
+	const { guestDetails, itinerary, time, rsvp_details, wishlist } = state;
 	const {
 		event_title_1,
 		event_title_2,
+		italic_title,
+		event_location,
 		rsvp_header_image,
 		event_date,
+		event_time,
 		eventInfo,
+		location_info,
 		enable_bahasa,
+		enable_itinerary,
 		enable_gift_registry,
+		enable_wishes,
 		enable_money_gift,
 		description,
-		location_info,
+		weddingImage,
+		contact_info,
+		host_details,
+		hosts,
+		greeting_1,
+		greeting_2,
+		greeting_title,
 	} = rsvp_details;
 
-	const [hosts, setHosts] = useState([]);
-	const [weddingTitle, setWeddingTitle] = useState('');
 	const [goingModal, setGoingModal] = useState(false);
 	const [notGoingModal, setNotGoingModal] = useState(false);
 	const [maybeModal, setMaybeModal] = useState(false);
@@ -64,8 +71,6 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		getHosts();
-		checkWeddingTitle();
 		console.log('rsvp_details:', rsvp_details);
 	}, []);
 
@@ -77,163 +82,82 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 		dispatch({ type: 'MONEY_PAGE' });
 	}
 
-	function getHosts() {
-		if (rsvp_details?.hosts) {
-			setHosts(rsvp_details.hosts);
-			return;
-		}
-
-		let tempHosts = [];
-		if (eventInfo?.groomFather && !eventInfo?.groomMother) {
-			tempHosts.push(eventInfo?.groomFather);
-		} else if (!eventInfo?.groomFather && eventInfo?.groomMother) {
-			tempHosts.push(eventInfo?.groomMother);
-		} else if (eventInfo?.groomFather && eventInfo?.groomMother) {
-			tempHosts.push(`${eventInfo?.groomFather} & ${eventInfo?.groomMother}`);
-		}
-
-		if (eventInfo?.brideFather && !eventInfo?.brideMother) {
-			tempHosts.push(eventInfo?.brideFather);
-		} else if (!eventInfo?.brideFather && eventInfo?.brideMother) {
-			tempHosts.push(eventInfo?.brideMother);
-		} else if (eventInfo?.brideFather && eventInfo?.brideMother) {
-			tempHosts.push(`${eventInfo?.brideFather} & ${eventInfo?.brideMother}`);
-		}
-
-		setHosts(tempHosts);
-	}
-
-	function checkWeddingTitle() {
-		if (event_title_2) {
-			setWeddingTitle(event_title_2);
-		} else {
-			if (rsvp_details?.bride_name && rsvp_details?.groom_name) {
-				setWeddingTitle(`${rsvp_details.bride_name} & ${rsvp_details.groom_name}`);
-			}
-		}
-	}
-
 	return (
-		<InviteTemplate
-			malay={enable_bahasa}
-			eventTitle1={event_title_1}
-			eventTitle2={weddingTitle}
-			dashboardImage={rsvp_header_image}
-			eventDate={event_date}
-			startTime={time.start}
-			endTime={time.end}
-			eventLocation={location_info?.address}
-			hosts={hosts}
-			guestName={guestDetails?.name ? guestDetails?.name : null}
-			description={description}
-			content={
-				<div className='rsvp-main'>
-					{/*************************** ACTION AREA ****************/}
-					<div className='buttons-area'>
-						<div className='rsvp-buttons'>
-							{/* <>
-								{guestDetails?.rsvp === 'attending' ? (
-									<>
-										<button
-											className='default-button before-button'
-											onClick={() => setGoingModal(true)}>
-											<GoingIcon /> {enable_bahasa ? 'Saya Hadir' : 'I am Going'}
-										</button>
-										<button className='default-button' onClick={() => setNotGoingModal(true)}>
-											{enable_bahasa ? 'Tidak Hadir' : 'NOT Going'}
-										</button>
-									</>
-								) : guestDetails?.rsvp === 'notattending' ? (
-									<>
-										<button className='default-button' onClick={() => setGoingModal(true)}>
-											{enable_bahasa ? 'Hadir' : 'Going'}
-										</button>
-										<button
-											className='default-button before-button'
-											onClick={() => setNotGoingModal(true)}>
-											<NotGoingIcon /> {enable_bahasa ? 'Saya Tidak Hadir' : 'I am NOT Going'}
-										</button>
-									</>
-								) : (
-									<>
-										<button
-											className='default-button before-button'
-											onClick={() => setGoingModal(true)}>
-											<GoingIcon />
-											{enable_bahasa ? 'Hadir' : 'Going'}
-										</button>
-										<button
-											className='default-button before-button'
-											onClick={() => setNotGoingModal(true)}>
-											<NotGoingIcon /> {enable_bahasa ? 'Tidak Hadir' : 'Not Going'}
-										</button>
-									</>
-								)}
-							</> */}
-							<button className='default-button before-button' onClick={() => setRsvpModal(true)}>
-								<GoingIcon />
-								RSVP
-							</button>
-						</div>
-						<div className='rsvp-buttons'>
-							{enable_gift_registry ? (
-								<button className='default-button gift-button' onClick={() => goToGiftPage()}>
-									<NewGiftIcon /> {enable_bahasa ? 'Bawa Hadiah' : 'Reserve Gift'}
-								</button>
-							) : (
-								<></>
-							)}
-							{enable_money_gift ? (
-								<button className='default-button gift-button' onClick={() => goToMoneyPage()}>
-									<MoneyIcon /> {enable_bahasa ? 'Salam Kaut' : 'Money Gift'}
-								</button>
-							) : (
-								<></>
-							)}
-						</div>
-					</div>
-
-					<div className='wedding-more-details'>
-						<DetailsAccordian
-							itinerary={itinerary}
-							guestDetails={guestDetails}
-							time={time}
-							rsvp_details={rsvp_details}
-						/>
-					</div>
-
-					<GoingModal
-						state={state}
-						dispatch={dispatch}
-						goingModal={goingModal}
-						setGoingModal={setGoingModal}
-						postGuestResponse={postGuestResponse}
-					/>
-					<NotGoingModal
-						state={state}
-						dispatch={dispatch}
-						notGoingModal={notGoingModal}
-						setNotGoingModal={setNotGoingModal}
-						postGuestResponse={postGuestResponse}
-					/>
-					<MaybeModal
-						state={state}
-						dispatch={dispatch}
-						maybeModal={maybeModal}
-						setMaybeModal={setMaybeModal}
-						postGuestResponse={postGuestResponse}
-					/>
-					<RSVPModal
-						state={state}
-						dispatch={dispatch}
-						rsvpModal={rsvpModal}
-						setRsvpModal={setRsvpModal}
-						setGoingModal={setGoingModal}
-						setNotGoingModal={setNotGoingModal}
-						setMaybeModal={setMaybeModal}
-					/>
-				</div>
-			}></InviteTemplate>
+		<>
+			<InviteTemplateDefault
+				malay={enable_bahasa}
+				event_title_1={event_title_1}
+				italic_title={italic_title}
+				event_title_2={event_title_2 ? event_title_2 : null}
+				enable_itinerary={enable_itinerary}
+				rsvp_header_image={weddingImage ? URL.createObjectURL(weddingImage) : rsvp_header_image}
+				event_date={event_date}
+				event_start={event_time.start}
+				event_end={event_time.end}
+				event_address={location_info.address}
+				waze_link={location_info.wazeLink}
+				google_link={location_info.googleLink}
+				hosts={host_details ? host_details : hosts ? initOldUsersHosts(hosts) : null}
+				guest={guestDetails?.name ? guestDetails?.name : null}
+				event_theme_title={''}
+				event_theme_description={description}
+				tentative={itinerary}
+				contacts={contact_info}
+				event_location={event_location}
+				enable_gift_registry={enable_gift_registry}
+				enable_money_gift={enable_money_gift}
+				enable_wishes={enable_wishes}
+				wishlist={wishlist}
+				greeting_1={
+					greeting_1 !== ''
+						? greeting_1
+						: enable_bahasa
+						? 'Dengan segala hormatnya kami\n mempersilakan'
+						: 'We warmly invite you'
+				}
+				greeting_2={
+					greeting_2 !== ''
+						? greeting_2
+						: enable_bahasa
+						? 'untuk meraikan majlis'
+						: 'to join us in celebrating our special day'
+				}
+				greeting_title={greeting_title}
+				onClickRSVP={() => setRsvpModal(true)}
+				onClickGiftRegistry={() => goToGiftPage()}
+				onClickMoneyGifts={() => goToMoneyPage()}
+			/>
+			<GoingModal
+				state={state}
+				dispatch={dispatch}
+				goingModal={goingModal}
+				setGoingModal={setGoingModal}
+				postGuestResponse={postGuestResponse}
+			/>
+			<NotGoingModal
+				state={state}
+				dispatch={dispatch}
+				notGoingModal={notGoingModal}
+				setNotGoingModal={setNotGoingModal}
+				postGuestResponse={postGuestResponse}
+			/>
+			<MaybeModal
+				state={state}
+				dispatch={dispatch}
+				maybeModal={maybeModal}
+				setMaybeModal={setMaybeModal}
+				postGuestResponse={postGuestResponse}
+			/>
+			<RSVPModal
+				state={state}
+				dispatch={dispatch}
+				rsvpModal={rsvpModal}
+				setRsvpModal={setRsvpModal}
+				setGoingModal={setGoingModal}
+				setNotGoingModal={setNotGoingModal}
+				setMaybeModal={setMaybeModal}
+			/>
+		</>
 	);
 };
 
@@ -601,11 +525,12 @@ export const Footer = () => {
 					display: 'flex',
 					flexDirection: 'column',
 					gap: '5px',
-					fontFamily: 'Lora',
+					fontFamily: 'Source Sans Pro',
 					fontSize: '15px',
-					background: '#1E1E1E',
+					background: 'rgba(30, 30, 30, 1)',
 				}}>
-				<div>
+				<div>Send e-invite and manage guestlist</div>
+				<div style={{ fontWeight: 600 }}>
 					© 2022{' '}
 					<a
 						style={{ color: 'white', textDecoration: 'none' }}
@@ -616,29 +541,15 @@ export const Footer = () => {
 					</a>
 				</div>
 
-				<div>
+				<div style={{ color: 'rgba(102, 112,133,1)' }}>
 					by{' '}
-					<a
-						style={{ color: 'white', textDecoration: 'underline' }}
-						href='https://www.instagram.com/izzul_023/'>
+					<a style={{ textDecoration: 'underline' }} href='https://www.instagram.com/izzul_023/'>
 						Izzul Syahmi
 					</a>{' '}
 					&{' '}
-					<a
-						style={{ color: 'white', textDecoration: 'underline' }}
-						href='https://twitter.com/theizzulsyazwan'>
+					<a style={{ textDecoration: 'underline' }} href='https://twitter.com/theizzulsyazwan'>
 						Izzul Syazwan
 					</a>{' '}
-				</div>
-				<div style={{ fontSize: '0.8rem', marginTop: 10, opacity: 0.9 }}>
-					Create Digital Invite for FREE with{' '}
-					<a
-						style={{ color: 'white', textDecoration: 'underline' }}
-						target='_blank'
-						rel='noreferrer'
-						href='https://majlisku.com'>
-						Majlisku.com
-					</a>
 				</div>
 			</div>
 		</footer>

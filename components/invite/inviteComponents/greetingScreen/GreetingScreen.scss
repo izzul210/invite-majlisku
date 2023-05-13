@@ -1,0 +1,173 @@
+/** @format */
+
+@use '../../../../styles/variables';
+
+$color-darkGrey: #1d4648;
+$color-grey400: #98a2b3;
+$color-diorGrey: #1e1e1e;
+$color-nude: #f1bfbe;
+$color-nude-txt: #6f5858;
+$color-nude-bg: #f1bfbe2e;
+$color-emerald: #173729;
+
+.greeting-screen {
+	padding: 100px 24px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.greeting-content-container {
+		width: min(400px, 100%);
+	}
+
+	@media screen and (max-width: variables.$phone-width) {
+		// padding: 32px 20px 76px 20px;
+		min-height: 100vh;
+		box-sizing: border-box;
+	}
+
+	.event-hosts-section {
+		text-align: center;
+		text-transform: uppercase;
+		font-size: 14px;
+		line-height: 20px;
+		letter-spacing: 0.025em;
+		padding: 16px 0px 24px 0px;
+		font-weight: 500;
+		font-family: 'EB Garamond', serif;
+	}
+
+	.edit-event-hosts {
+		font-size: 14px;
+		line-height: 20px;
+		letter-spacing: 0.025em;
+		border: none;
+		text-align: center;
+		text-transform: uppercase;
+		width: 100%;
+		font-family: 'EB Garamond', serif;
+		margin-bottom: 4px;
+	}
+
+	.greeting-section {
+		padding: 24px 0px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		text-align: center;
+		font-size: 16px;
+		font-weight: 400;
+		letter-spacing: 0.025em;
+		font-family: 'EB Garamond', serif;
+
+		.greeting-guest {
+			font-weight: 600;
+			padding-bottom: 8px;
+		}
+
+		.greeting-public {
+			font-weight: 500;
+			font-size: 14px;
+			color: $color-diorGrey;
+			letter-spacing: 0.01em;
+			font-family: 'Playfair', serif;
+			display: flex;
+			justify-content: center;
+
+			textarea {
+				font-weight: 600;
+				font-size: 14px;
+				color: $color-diorGrey;
+				letter-spacing: 0.01em;
+				font-family: 'Playfair', serif;
+				display: flex;
+				text-align: center;
+				justify-content: center;
+			}
+		}
+	}
+
+	.event-title-section {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		justify-content: center;
+		align-items: center;
+		font-weight: 600;
+		text-transform: uppercase;
+		text-align: center;
+		letter-spacing: 0.01em;
+		padding: 0px 8px;
+		font-size: 18px;
+		font-family: 'EB Garamond', serif;
+	}
+
+	.event-action-buttons {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin-top: 72px;
+
+		.event-rsvp-button,
+		.event-gift-button,
+		.event-money-button {
+			text-align: center;
+			padding: 14px 0px;
+			border: 1px solid #d0d5dd;
+			border-radius: 100px;
+			font-weight: 500;
+			cursor: pointer;
+			font-family: 'Lora', serif;
+		}
+
+		.event-gift-button,
+		.event-money-button {
+			background: white;
+			display: flex;
+			gap: 8px;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
+	.event-rsvp-button {
+		background-color: $color-emerald;
+		color: white;
+	}
+}
+
+.edit-hosts {
+	textarea {
+		text-align: center;
+		font-size: 14px;
+		line-height: 20px;
+		letter-spacing: 0.025em;
+		border: none;
+		text-align: center;
+		text-transform: uppercase;
+		width: 100%;
+		font-family: 'EB Garamond', serif;
+	}
+}
+
+.edit-greeting-content {
+	textarea {
+		text-align: center;
+		font-size: 16px;
+		font-weight: 400;
+		letter-spacing: 0.025em;
+		font-family: 'EB Garamond', serif;
+	}
+}
+
+.edit-event-title2 {
+	textarea {
+		font-weight: 500;
+		text-transform: uppercase;
+		text-align: center;
+		letter-spacing: 1px;
+		padding: 0px 8px;
+		font-size: 18px;
+		font-family: 'EB Garamond', serif;
+	}
+}

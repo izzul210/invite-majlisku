@@ -22,12 +22,12 @@ import {
 } from '../../components/subcomponents';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
-// const API = 'http://localhost:5000/myweddingapp-25712/asia-southeast1/user';
 
 let initialStates = {
 	rsvp_details: null,
 	guestInput: null,
 	itinerary: null,
+	wishlist: [],
 	guestDetails: null,
 	time: { start: '12:00', end: '15:00' },
 	page: 0,
@@ -57,6 +57,8 @@ const rsvpReducer = (state, action) => {
 			return { ...state, thakyouModal: action.payload };
 		case 'SET_SORRY_MODAL':
 			return { ...state, sorryModal: action.payload };
+		case 'GET_WISHLIST':
+			return { ...state, wishlist: action.payload };
 		case 'INIT_ITINERARY':
 			return { ...state, itinerary: action.payload };
 		case 'INIT_GUEST_DETAILS':
@@ -109,14 +111,21 @@ function GuestRsvp({ title, imageUrl, description, guestId, rsvpDetails }) {
 		getGuestInfo(rsvpDetails.user_id);
 		getGiftList(rsvpDetails.user_id);
 		getItineraryList(rsvpDetails.user_id);
-
+		getWishList(rsvpDetails.user_id);
 		//Init time
 		dispatch({
 			type: 'INIT_TIME_SLOT',
 			payload: {
-				start: rsvpDetails.event_time.start,
-				end: rsvpDetails.event_time.end,
+				start: rsvpDetails.event_time?.start,
+				end: rsvpDetails.event_time?.end,
 			},
+		});
+	}
+
+	function getWishList(userID) {
+		axios.get(`${API}/getguestwishes/${userID}`).then((res) => {
+			let wishlist = res.data;
+			dispatch({ type: 'GET_WISHLIST', payload: wishlist });
 		});
 	}
 
@@ -186,7 +195,7 @@ function GuestRsvp({ title, imageUrl, description, guestId, rsvpDetails }) {
 				<meta property='og:image' content={imageUrl}></meta>
 			</Head>
 			<main>
-				<Container maxWidth='md' style={{ padding: '0px 8px' }}>
+				<Container maxWidth='md' style={{ padding: '0px 0px' }}>
 					{rsvp_details && guestDetails ? (
 						<>
 							{state.page === 0 ? (
