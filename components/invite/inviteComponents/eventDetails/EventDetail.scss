@@ -11,7 +11,7 @@ $color-nude-bg: #f1bfbe2e;
 $color-emerald: #173729;
 
 .event-details {
-	padding: 100px 24px;
+	padding: 80px 24px 100px 24px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -22,7 +22,7 @@ $color-emerald: #173729;
 
 	@media screen and (max-width: variables.$phone-width) {
 		// padding: 32px 20px 76px 20px;
-		min-height: 100vh;
+		// min-height: 100vh;
 		box-sizing: border-box;
 	}
 
