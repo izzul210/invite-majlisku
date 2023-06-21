@@ -41,7 +41,7 @@ export const FirstScreenWithImage = ({
 	const { useConvertText } = useConvert();
 
 	//Formatting title to be displayed
-	const formattedTitle = main_title ? useConvertText(main_title) : useConvertText(italic_title);
+	const formattedTitle = useConvertText(italic_title);
 
 	const RenderTopTitle = () => {
 		if (type === 'default') {
