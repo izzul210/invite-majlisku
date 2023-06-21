@@ -1,6 +1,7 @@
 /** @format */
 
 @use '../../../../styles/variables';
+@use '../../../../styles/textStyle';
 
 $color-emerald: #244637;
 $color-nude: #f1bfbe;
@@ -115,5 +116,127 @@ $background-emerald: #295541;
 				width: 100%;
 			}
 		}
+	}
+}
+
+.first-screen-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 48px 20px;
+	box-sizing: border-box;
+
+	@media screen and (max-width: variables.$phone-width) {
+		min-height: 100vh;
+	}
+
+	.top-title-section {
+		display: flex;
+		flex-direction: column;
+		gap: 17px;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		text-align: center;
+
+		.title-1 {
+			@include textStyle.ebGaramondSemiBold(16px, 20px);
+			text-transform: uppercase;
+		}
+
+		.title-2 {
+			@include textStyle.playfairMedium(18px, 20px);
+			text-transform: uppercase;
+		}
+
+		.edit-title {
+			textarea {
+				font-weight: 600;
+				font-family: 'EB Garamond', serif;
+				font-size: 16px;
+				letter-spacing: 0.01em;
+				border: none;
+				text-align: center;
+				text-transform: uppercase;
+				width: 100%;
+			}
+		}
+	}
+
+	.image-section {
+		display: flex;
+		justify-content: center;
+		margin-top: 18px;
+		img {
+			max-height: 500px;
+			width: 100%;
+
+			@media screen and (max-width: variables.$phone-width) {
+				width: 100%;
+			}
+		}
+	}
+
+	///////////////EVENT TITLE/////////////////////
+	/// //Default
+	.default-card-title {
+		margin: 24px 0px;
+		@include textStyle.playfair(28px, 52px);
+		text-align: center;
+		text-transform: uppercase;
+	}
+	/// Version 1
+	.italic-card-title {
+		margin-top: 16px;
+		@include textStyle.greatVibes(40px, 40px);
+		text-align: center;
+	}
+
+	///////////////EVENT DETAILS/////////////////////
+	/// V1
+	.bottom-section-1 {
+		margin-top: 12px;
+		display: flex;
+		gap: 8px;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		text-transform: uppercase;
+		@include textStyle.ebGaramond(16px, 24px);
+
+		.italic-title {
+			textarea {
+				font-size: 22px;
+				font-weight: 400;
+				font-style: italic;
+				max-width: 100%;
+				text-align: center;
+				margin-bottom: 4px;
+			}
+		}
+
+		.event-location {
+			textarea {
+				text-align: center;
+				font-weight: 600;
+				letter-spacing: 0.01em;
+				text-transform: uppercase;
+				font-size: 16px;
+				font-family: 'EB Garamond', serif;
+				width: 100%;
+			}
+		}
+	}
+
+	//V2
+	.bottom-section-2 {
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		text-transform: uppercase;
+		@include textStyle.ebGaramondMedium(16px, 24px);
 	}
 }

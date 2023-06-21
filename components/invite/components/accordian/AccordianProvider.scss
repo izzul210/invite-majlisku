@@ -1,0 +1,8 @@
+/** @format */
+
+@use '../../../../styles/textStyle';
+
+.summary-title {
+	@include textStyle.loraSemibold(16px, 21px);
+	letter-spacing: 0.035em;
+}

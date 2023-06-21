@@ -1,0 +1,14 @@
+/** @format */
+
+@use './textStyle';
+@use './variables';
+@use './colorStyle';
+
+@mixin accordianContainer {
+	padding: 18px 24px;
+
+	@media screen and (max-width: variables.$phone-width) {
+		padding: 8px 18px;
+		box-sizing: border-box;
+	}
+}

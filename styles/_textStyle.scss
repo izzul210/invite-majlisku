@@ -49,3 +49,75 @@ $letterSpacing: -0.01em;
 	line-height: $lineHeight;
 	letter-spacing: $letterSpacing;
 }
+
+@mixin playfairMedium($fontSize, $lineHeight) {
+	font-family: 'Playfair Display', serif;
+	font-size: $fontSize;
+	font-weight: 500;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin loraBold($fontSize, $lineHeight) {
+	font-family: 'Lora', serif;
+	font-size: $fontSize;
+	font-weight: 700;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin loraSemibold($fontSize, $lineHeight) {
+	font-family: 'Lora', serif;
+	font-size: $fontSize;
+	font-weight: 600;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin loraMediun($fontSize, $lineHeight) {
+	font-family: 'Lora', serif;
+	font-size: $fontSize;
+	font-weight: 500;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin loraRegular($fontSize, $lineHeight) {
+	font-family: 'Lora', serif;
+	font-size: $fontSize;
+	font-weight: 400;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin ebGaramond($fontSize, $lineHeight) {
+	font-family: 'EB Garamond', serif;
+	font-size: $fontSize;
+	font-weight: 400;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin ebGaramondMedium($fontSize, $lineHeight) {
+	font-family: 'EB Garamond', serif;
+	font-size: $fontSize;
+	font-weight: 500;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin ebGaramondSemiBold($fontSize, $lineHeight) {
+	font-family: 'EB Garamond', serif;
+	font-size: $fontSize;
+	font-weight: 600;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}
+
+@mixin greatVibes($fontSize, $lineHeight) {
+	font-family: 'Great Vibes', cursive;
+	font-size: $fontSize;
+	font-weight: 400;
+	line-height: $lineHeight;
+	letter-spacing: $letterSpacing;
+}

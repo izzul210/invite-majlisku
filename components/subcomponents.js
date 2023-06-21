@@ -62,6 +62,7 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 		greeting_1,
 		greeting_2,
 		greeting_title,
+		type,
 	} = rsvp_details;
 
 	const [goingModal, setGoingModal] = useState(false);
@@ -85,6 +86,7 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 	return (
 		<>
 			<InviteTemplateDefault
+				type={type ? type : 'default'}
 				malay={enable_bahasa}
 				event_title_1={event_title_1}
 				italic_title={italic_title}

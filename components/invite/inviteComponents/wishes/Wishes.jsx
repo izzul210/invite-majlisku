@@ -5,12 +5,14 @@ import React, { useState } from 'react';
 import { Pagination } from '@mui/material';
 //Data import
 import { wishlistData } from '../../hooks/useFakeInviteData';
+import AccordianProvider from '../../components/accordian/AccordianProvider';
+import DetailsContainer from '../../components/DetailsContainer/DetailsContainer';
 //Styling import
 //Icon import
-import { LineLogo } from '../../components/LineLogo';
 import { QuoteIcon } from '../../../icons';
 
 export const Wishes = ({
+	type = 'default',
 	malay = false,
 	wishlist = wishlistData,
 	theme = {
@@ -31,37 +33,98 @@ export const Wishes = ({
 
 	const wishList = wishlist.slice((page - 1) * wishPerPage, page * wishPerPage);
 
-	return (
-		<div className='wish-main' style={{ background: backgroundColor }}>
-			<div className='wish-title' style={{ color: titleColor }}>
-				{malay ? 'Ucapan' : 'Wishes'}
+	// return (
+	// 	<div className='wish-main' style={{ background: backgroundColor }}>
+	// 		<div className='wish-title' style={{ color: titleColor }}>
+	// 			{malay ? 'Ucapan' : 'Wishes'}
+	// 		</div>
+	// 		<LineLogo height={lineHeight} color={lineColor} />
+	// 		<div className='wish-list'>
+	// 			{wishList?.length > 0
+	// 				? wishList.map((wish, index) => (
+	// 						<div
+	// 							key={index}
+	// 							className='wish-card'
+	// 							style={{ borderBottom: `1px solid ${lineColor}` }}>
+	// 							<div>
+	// 								<QuoteIcon />
+	// 							</div>
+	// 							<WishCard wish={wish} textColor={textColor} />
+	// 						</div>
+	// 				  ))
+	// 				: null}
+	// 		</div>
+	// 		<div style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}>
+	// 			<Pagination
+	// 				count={Math.ceil(wishlist.length / wishPerPage)}
+	// 				page={page}
+	// 				onChange={handleChange}
+	// 				size='small'
+	// 			/>
+	// 		</div>
+	// 	</div>
+	// );
+	if (type === 'default') {
+		return (
+			<div className='wish-main wish-default-container' style={{ background: backgroundColor }}>
+				<DetailsContainer title={malay ? 'UCAPAN' : 'WISHES'} theme={theme}>
+					<div className='wish-list'>
+						{wishList?.length > 0
+							? wishList.map((wish, index) => (
+									<div
+										key={index}
+										className='wish-card'
+										style={{ borderBottom: `1px solid rgba(228, 231, 236, 1)` }}>
+										<div>
+											<QuoteIcon />
+										</div>
+										<WishCard wish={wish} textColor={textColor} />
+									</div>
+							  ))
+							: null}
+					</div>
+					<div style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}>
+						<Pagination
+							count={Math.ceil(wishlist.length / wishPerPage)}
+							page={page}
+							onChange={handleChange}
+							size='small'
+						/>
+					</div>
+				</DetailsContainer>
 			</div>
-			<LineLogo height={lineHeight} color={lineColor} />
-			<div className='wish-list'>
-				{wishList?.length > 0
-					? wishList.map((wish, index) => (
-							<div
-								key={index}
-								className='wish-card'
-								style={{ borderBottom: `1px solid ${lineColor}` }}>
-								<div>
-									<QuoteIcon />
-								</div>
-								<WishCard wish={wish} textColor={textColor} />
-							</div>
-					  ))
-					: null}
+		);
+	} else {
+		return (
+			<div className='wish-main wish-accordian-container' style={{ background: backgroundColor }}>
+				<AccordianProvider title={malay ? 'UCAPAN' : 'WISHES'} theme={theme}>
+					<div className='wish-list'>
+						{wishList?.length > 0
+							? wishList.map((wish, index) => (
+									<div
+										key={index}
+										className='wish-card'
+										style={{ borderBottom: `1px solid rgba(228, 231, 236, 1)` }}>
+										<div>
+											<QuoteIcon />
+										</div>
+										<WishCard wish={wish} textColor={textColor} />
+									</div>
+							  ))
+							: null}
+					</div>
+					<div style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}>
+						<Pagination
+							count={Math.ceil(wishlist.length / wishPerPage)}
+							page={page}
+							onChange={handleChange}
+							size='small'
+						/>
+					</div>
+				</AccordianProvider>
 			</div>
-			<div style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}>
-				<Pagination
-					count={Math.ceil(wishlist.length / wishPerPage)}
-					page={page}
-					onChange={handleChange}
-					size='small'
-				/>
-			</div>
-		</div>
-	);
+		);
+	}
 };
 
 export const WishCard = ({ wish, textColor }) => {

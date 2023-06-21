@@ -1,16 +1,55 @@
 /** @format */
 
 @use '../../../../styles/variables';
+@use '../../../../styles/textStyle';
+@use '../../../../styles/container';
+
+// .contact-main {
+// 	padding: 42px 32px 105px 32px;
+
+// 	@media screen and (max-width: variables.$phone-width) {
+// 		padding: 42px 20px 76px 20px;
+// 		box-sizing: border-box;
+// 		// min-height: 100vh;
+// 	}
+
+// 	.contact-title {
+// 		text-align: center;
+// 		text-transform: uppercase;
+// 		font-weight: 600;
+// 		font-size: 24px;
+// 		line-height: 24px;
+// 		color: rgb(120, 94, 93);
+// 		font-family: 'EB Garamond', serif;
+// 	}
+
+// 	.contact-card {
+// 		display: flex;
+// 		justify-content: space-between;
+// 		align-items: center;
+// 		padding: 14px 0px;
+// 		font-family: 'EB Garamond', serif;
+
+// 		.contact-info {
+// 			display: flex;
+// 			flex-direction: column;
+// 			gap: 4px;
+// 			font-size: 14px;
+// 			line-height: 20px;
+
+// 			.contact-phone {
+// 				opacity: 0.8;
+// 			}
+// 		}
+
+// 		.contact-action {
+// 			display: flex;
+// 			gap: 8px;
+// 		}
+// 	}
+// }
 
 .contact-main {
-	padding: 42px 32px 105px 32px;
-
-	@media screen and (max-width: variables.$phone-width) {
-		padding: 42px 20px 76px 20px;
-		box-sizing: border-box;
-		// min-height: 100vh;
-	}
-
 	.contact-title {
 		text-align: center;
 		text-transform: uppercase;
@@ -18,7 +57,6 @@
 		font-size: 24px;
 		line-height: 24px;
 		color: rgb(120, 94, 93);
-		font-family: 'EB Garamond', serif;
 	}
 
 	.contact-card {
@@ -26,14 +64,12 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 14px 0px;
-		font-family: 'EB Garamond', serif;
 
 		.contact-info {
 			display: flex;
 			flex-direction: column;
 			gap: 4px;
-			font-size: 14px;
-			line-height: 20px;
+			@include textStyle.ebGaramondMedium(14px, 20px);
 
 			.contact-phone {
 				opacity: 0.8;
@@ -45,4 +81,17 @@
 			gap: 8px;
 		}
 	}
+}
+
+.contact-default-container {
+	padding: 42px 32px 105px 32px;
+
+	@media screen and (max-width: variables.$phone-width) {
+		padding: 42px 20px 76px 20px;
+		box-sizing: border-box;
+	}
+}
+
+.contact-accordian-container {
+	@include container.accordianContainer();
 }

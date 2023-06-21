@@ -11,9 +11,11 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import TextField from '@mui/material/TextField';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 //Icon import
-import { LineLogo } from '../../components/LineLogo';
+import AccordianProvider from '../../components/accordian/AccordianProvider';
+import DetailsContainer from '../../components/DetailsContainer/DetailsContainer';
 
 export const Calendar = ({
+	type = 'default',
 	event_title_2 = 'Izzul Syazwan\n & \nNurul Syafiqah',
 	event_date = '2023-07-19',
 	event_address = 'Plaza Alam Sentral,\nShah Alam, Selangor',
@@ -30,27 +32,42 @@ export const Calendar = ({
 }) => {
 	const { textColor, backgroundColor, lineColor, titleColor, lineHeight } = theme;
 
-	return (
-		<div className='calendar-main' style={{ background: backgroundColor }}>
-			<div className='calendar-top'>
-				<div className='calendar-title' style={{ color: titleColor }}>
-					{malay ? 'Kalendar' : 'Calendar'}
-				</div>
-				<LineLogo height={lineHeight} color={lineColor} />
+	if (type === 'default')
+		return (
+			<div className='calendar-main' style={{ background: backgroundColor }}>
+				<DetailsContainer title={malay ? 'KALENDAR' : 'CALENDAR'} theme={theme}>
+					<div className='calendar-details'>
+						<StaticDatePickerLandscape event_date={event_date} backgroundColor={backgroundColor} />
+					</div>
+					<AddToCalendar
+						event_title_2={event_title_2}
+						event_date={event_date}
+						event_address={event_address}
+						startTime={event_start}
+						endTime={event_end}
+					/>
+				</DetailsContainer>
 			</div>
-
-			<div className='calendar-details'>
-				<StaticDatePickerLandscape event_date={event_date} backgroundColor={backgroundColor} />
+		);
+	else
+		return (
+			<div
+				className='calendar-main calendar-accordian-container'
+				style={{ background: backgroundColor }}>
+				<AccordianProvider withoutBorder title={malay ? 'KALENDAR' : 'CALENDAR'} theme={theme}>
+					<div className='calendar-details'>
+						<StaticDatePickerLandscape event_date={event_date} backgroundColor={backgroundColor} />
+					</div>
+					<AddToCalendar
+						event_title_2={event_title_2}
+						event_date={event_date}
+						event_address={event_address}
+						startTime={event_start}
+						endTime={event_end}
+					/>
+				</AccordianProvider>
 			</div>
-			<AddToCalendar
-				event_title_2={event_title_2}
-				event_date={event_date}
-				event_address={event_address}
-				startTime={event_start}
-				endTime={event_end}
-			/>
-		</div>
-	);
+		);
 };
 
 const theme = createTheme({

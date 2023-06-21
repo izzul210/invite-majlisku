@@ -34,14 +34,16 @@ const InviteTemplateDefault = ({
 	event_end = '2022-09-18 15:00',
 	event_theme_title = 'Dress Code',
 	event_theme_description = 'Lelaki: Baju Melayu/Batik\nPerempuan: Baju Kurung/Bersesuaian',
+	top_greeting,
 	greeting_1 = 'Dengan segala hormatnya kami\n mempersilakan',
 	greeting_2 = 'ke majlis resepsi untuk meraikan majlis kami',
 	greeting_title = `Ybhg Tun/ Toh Puan/ Tan Sri/ Puan Sri/ Dato's Sri/ Datin Sri/ Dato'/ Datin/ Tuan/ Puan`,
 	malay = false,
 	enable_itinerary = false,
+	type = 'default',
 	first_screen_design = 1,
 	greeting_screen_design = 1,
-	event_details_design = 4,
+	event_details_design = 1,
 	tentative_design = 1,
 	contact_design = 1,
 	wishes_design = 1,
@@ -77,10 +79,13 @@ const InviteTemplateDefault = ({
 	const wishesProps = styleProps.find((obj) => obj.id === wishes_design);
 	const calendarProps = styleProps.find((obj) => obj.id === calendar_design);
 
+	const detailType = type === 'default' ? 'default' : 'minimal';
+
 	return (
 		<div className='invite-canvas'>
 			<div className='invite-card'>
 				<FirstScreenWithImage
+					type={type}
 					event_title_1={event_title_1}
 					italic_title={italic_title}
 					rsvp_header_image={rsvp_header_image}
@@ -89,6 +94,7 @@ const InviteTemplateDefault = ({
 					theme={firstScreenProps}
 				/>
 				<GreetingScreenDefault
+					type={type}
 					theme={greetingScreenProps}
 					hosts={hosts}
 					guest={guest}
@@ -104,6 +110,7 @@ const InviteTemplateDefault = ({
 					onClickMoneyGifts={onClickMoneyGifts}
 				/>
 				<EventDetails
+					type={type === 'minimal2' ? 'minimal' : 'default'}
 					event_date={event_date}
 					event_start={event_start}
 					event_end={event_end}
@@ -115,15 +122,21 @@ const InviteTemplateDefault = ({
 					theme={eventDetailsProps}
 				/>
 				{enable_itinerary && tentative?.length > 0 ? (
-					<Tentative tentative={tentative} theme={tentativeProps} malay={malay} />
+					<Tentative type={detailType} tentative={tentative} theme={tentativeProps} malay={malay} />
 				) : null}
 				{contacts[0]?.name !== '' || contacts[0]?.phone !== '' ? (
-					<ContactDetails theme={contactProps} contacts={contacts} malay={malay} />
+					<ContactDetails
+						type={detailType}
+						theme={contactProps}
+						contacts={contacts}
+						malay={malay}
+					/>
 				) : null}
 				{enable_wishes && wishlist?.length > 0 ? (
-					<Wishes theme={wishesProps} wishlist={wishlist} malay={malay} />
+					<Wishes type={detailType} theme={wishesProps} wishlist={wishlist} malay={malay} />
 				) : null}
 				<Calendar
+					type={detailType}
 					theme={calendarProps}
 					event_title_2={event_title_2}
 					event_start={event_start}

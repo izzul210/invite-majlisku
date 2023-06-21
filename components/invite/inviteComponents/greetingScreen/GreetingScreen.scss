@@ -1,6 +1,7 @@
 /** @format */
 
 @use '../../../../styles/variables';
+@use '../../../../styles/textStyle';
 
 $color-darkGrey: #1d4648;
 $color-grey400: #98a2b3;
@@ -11,30 +12,23 @@ $color-nude-bg: #f1bfbe2e;
 $color-emerald: #173729;
 
 .greeting-screen {
-	padding: 100px 24px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	.greeting-content-container {
-		width: min(400px, 100%);
-	}
+	padding: 32px 32px 105px 32px;
 
 	@media screen and (max-width: variables.$phone-width) {
-		// padding: 32px 20px 76px 20px;
-		min-height: 100vh;
+		padding: 32px 20px 76px 20px;
+		min-height: 85vh;
 		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 
 	.event-hosts-section {
 		text-align: center;
 		text-transform: uppercase;
-		font-size: 14px;
-		line-height: 20px;
 		letter-spacing: 0.025em;
-		padding: 16px 0px 24px 0px;
-		font-weight: 500;
-		font-family: 'EB Garamond', serif;
+		padding: 8px 0px;
+		@include textStyle.ebGaramondMedium(14px, 20px);
 	}
 
 	.edit-event-hosts {
@@ -46,7 +40,6 @@ $color-emerald: #173729;
 		text-transform: uppercase;
 		width: 100%;
 		font-family: 'EB Garamond', serif;
-		margin-bottom: 4px;
 	}
 
 	.greeting-section {
@@ -55,35 +48,22 @@ $color-emerald: #173729;
 		flex-direction: column;
 		gap: 20px;
 		text-align: center;
-		font-size: 16px;
-		font-weight: 400;
-		letter-spacing: 0.025em;
-		font-family: 'EB Garamond', serif;
+
+		.greeting-salutation {
+			@include textStyle.ebGaramond(16px, 20px);
+			letter-spacing: 0.025em;
+		}
 
 		.greeting-guest {
-			font-weight: 600;
+			@include textStyle.ebGaramondSemiBold(18px, 32px);
+			letter-spacing: 0.01em;
 			padding-bottom: 8px;
 		}
 
 		.greeting-public {
-			font-weight: 500;
-			font-size: 14px;
-			color: $color-diorGrey;
+			@include textStyle.playfairMedium(14px, 21px);
 			letter-spacing: 0.01em;
-			font-family: 'Playfair', serif;
-			display: flex;
-			justify-content: center;
-
-			textarea {
-				font-weight: 600;
-				font-size: 14px;
-				color: $color-diorGrey;
-				letter-spacing: 0.01em;
-				font-family: 'Playfair', serif;
-				display: flex;
-				text-align: center;
-				justify-content: center;
-			}
+			color: $color-diorGrey;
 		}
 	}
 
@@ -93,13 +73,12 @@ $color-emerald: #173729;
 		gap: 16px;
 		justify-content: center;
 		align-items: center;
-		font-weight: 600;
 		text-transform: uppercase;
 		text-align: center;
-		letter-spacing: 0.01em;
 		padding: 0px 8px;
-		font-size: 18px;
-		font-family: 'EB Garamond', serif;
+		margin: 8px 0px;
+		@include textStyle.ebGaramondMedium(20px, 32px);
+		letter-spacing: 0.01em;
 	}
 
 	.event-action-buttons {
@@ -116,17 +95,16 @@ $color-emerald: #173729;
 			border: 1px solid #d0d5dd;
 			border-radius: 100px;
 			font-weight: 500;
-			cursor: pointer;
-			font-family: 'Lora', serif;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			@include textStyle.ebGaramondMedium(16px, 22px);
+			gap: 8px;
 		}
 
 		.event-gift-button,
 		.event-money-button {
 			background: white;
-			display: flex;
-			gap: 8px;
-			align-items: center;
-			justify-content: center;
 		}
 	}
 

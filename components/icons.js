@@ -699,3 +699,17 @@ export const QuoteIcon = ({ width = 10, height = 10 }) => (
 		/>
 	</svg>
 );
+
+export const DropDownIcon = ({ width = 12, height = 8, fillColor = '#1E1E1E' }) => (
+	<svg
+		width={width}
+		height={height}
+		viewBox='0 0 12 8'
+		fill='none'
+		xmlns='http://www.w3.org/2000/svg'>
+		<path
+			d='M10.59 0.590088L6 5.17009L1.41 0.590088L0 2.00009L6 8.00009L12 2.00009L10.59 0.590088Z'
+			fill={fillColor}
+		/>
+	</svg>
+);
