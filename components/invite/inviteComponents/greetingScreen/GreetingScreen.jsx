@@ -59,7 +59,14 @@ export const GreetingScreenDefault = ({
 					</div>
 				) : (
 					<div className='greeting-public' style={{ fontWeight: 600 }}>
-						Ybhg Tun/ Toh Puan/ Tan Sri/ Puan Sri/ Dato’s Sri/ Datin Sri/ Dato’/ Datin/ Tuan/ Puan
+						{greeting_title ? (
+							greeting_title
+						) : (
+							<>
+								Ybhg Tun/ Toh Puan/ Tan Sri/ Puan Sri/ Dato’s Sri/ Datin Sri/ Dato’/ Datin/ Tuan/
+								Puan
+							</>
+						)}
 					</div>
 				)}
 				<div className='greeting-salutation' style={greetingColorStyle}>

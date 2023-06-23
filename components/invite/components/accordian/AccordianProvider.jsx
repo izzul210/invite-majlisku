@@ -50,7 +50,7 @@ function AccordianProvider({ title, children, theme, withoutBorder = false }) {
 	if (!withoutBorder)
 		return (
 			<>
-				<Accordion defaultExpanded={false}>
+				<Accordion defaultExpanded={true}>
 					<AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
 						<div
 							className='summary-title'
@@ -67,7 +67,7 @@ function AccordianProvider({ title, children, theme, withoutBorder = false }) {
 	else
 		return (
 			<>
-				<AccordionWithoutBorder defaultExpanded={false}>
+				<AccordionWithoutBorder defaultExpanded={true}>
 					<AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
 						<div
 							className='summary-title'
