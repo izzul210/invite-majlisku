@@ -53,7 +53,7 @@ export default function Error() {
 							marginTop: 16,
 							textTransform: 'uppercase',
 						}}>
-						Oops! It appears you're not on the guest list for this event
+						Oops! It appears you are not on the guest list for this event
 					</h1>
 					<h3
 						style={{
