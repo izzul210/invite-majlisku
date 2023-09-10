@@ -66,6 +66,7 @@ $color-emerald: #173729;
 
 .event-details {
 	padding: 36px 32px 36px 32px;
+	width: 100%;
 
 	@media screen and (max-width: variables.$phone-width) {
 		padding: 36px 20px 36px 20px;
@@ -97,10 +98,10 @@ $color-emerald: #173729;
 	}
 
 	.event-detail-container {
+		flex: 1;
 		padding: 24px 0px;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
 		justify-content: center;
 		text-align: center;
 		gap: 16px;
@@ -121,6 +122,8 @@ $color-emerald: #173729;
 	align-items: center;
 	gap: 8px;
 	margin-top: 12px;
+	width: 100%;
+	flex: 1;
 
 	.waze-button,
 	.googleMap-button {

@@ -72,7 +72,6 @@ export const MainRSVP = ({ state, dispatch, postGuestResponse }) => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		console.log('rsvp_details:', rsvp_details);
 	}, []);
 
 	function goToGiftPage() {

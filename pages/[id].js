@@ -194,48 +194,51 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 }
 
 export async function getServerSideProps(context) {
-	let id = context.query.id;
+	const id = context.query.id;
 	let rsvpDetails;
 
-	let title = `You're cordially invited to our Event!`;
-	let weddingText = '';
-	let description = `Kindly click to RSVP `;
-
-	let imageUrl =
-		'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fmetadata_img.png?alt=media&token=769f323f-8ad3-4ab3-a742-d45d959b4da2';
-
-	await axios
-		.get(`${API}/rsvpdetails/${id}`)
-		.then((res) => {
-			rsvpDetails = res.data;
-		})
-		.catch((err) => {
-			console.log('Error for /rsvpdetails!');
-			console.log(err.message);
-		});
-
-	if (rsvpDetails?.event_title_2) {
-		weddingText = rsvpDetails.event_title_2;
-	} else {
-		if (rsvpDetails.bride_name && rsvpDetails.groom_name)
-			weddingText = `${rsvpDetails.groom_name} & ${rsvpDetails.bride_name}`;
+	try {
+		const res = await axios.get(`${API}/rsvpdetails/${id}`);
+		rsvpDetails = res.data;
+	} catch (err) {
+		console.log('Error for /rsvpdetails!');
+		console.log(err.message);
+		return {
+			redirect: {
+				destination: '/error', // Replace '/error-page' with the URL of the page you want to redirect to
+				permanent: false,
+			},
+		};
 	}
 
-	if (rsvpDetails.enable_bahasa) {
-		description = `Sila tekan untuk sampaikan kehadiran anda`;
-		title = `${weddingText} | ${moment(rsvpDetails?.event_date).format('DD.MM.YY')}`;
+	//Assign title
+	let title;
+	const formattedDate = moment(rsvpDetails?.event_date).format('DD.MM.YY');
+	if (rsvpDetails?.metadata?.title) {
+		title = rsvpDetails.metadata.title;
+	} else if (rsvpDetails?.event_title_2) {
+		title = rsvpDetails.event_title_2;
+	} else if (rsvpDetails?.bride_name && rsvpDetails?.groom_name) {
+		title = `${rsvpDetails.groom_name} & ${rsvpDetails.bride_name}`;
 	} else {
-		title = `${weddingText} | ${moment(rsvpDetails?.event_date).format('DD.MM.YY')}`;
+		title = `You're cordially invited to our Event!`;
 	}
+	title = `${title} | ${formattedDate}`;
 
-	if (rsvpDetails?.whatsapp_metadata_img) imageUrl = rsvpDetails.whatsapp_metadata_img;
+	//Assign description
+	let description = rsvpDetails?.enable_bahasa
+		? `Sila tekan untuk sampaikan kehadiran anda`
+		: `Kindly click to RSVP`;
 
-	if (rsvpDetails.metadata) {
-		if (rsvpDetails?.metadata?.title)
-			title = `${rsvpDetails.metadata.title} | ${moment(rsvpDetails?.event_date).format(
-				'DD.MM.YY'
-			)}`;
-		if (rsvpDetails?.metadata?.photoURL) imageUrl = rsvpDetails.metadata.photoURL;
+	//Assign image
+	let imageUrl;
+	if (rsvpDetails?.metadata?.photoURL) {
+		imageUrl = rsvpDetails.metadata.photoURL;
+	} else if (rsvpDetails?.whatsapp_metadata_img) {
+		imageUrl = rsvpDetails.whatsapp_metadata_img;
+	} else {
+		imageUrl =
+			'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fmetadata_img.png?alt=media&token=769f323f-8ad3-4ab3-a742-d45d959b4da2';
 	}
 
 	title = title.replace(/\n/g, ' ');

@@ -79,17 +79,23 @@ export const GreetingScreenDefault = ({
 				{/* <MajliksuIconV3 fillColor={lineColor} /> */}
 			</div>
 			<div className='event-action-buttons'>
-				<div className='event-rsvp-button' onClick={onClickRSVP}>
+				<div className='event-rsvp-button' style={{ cursor: 'pointer' }} onClick={onClickRSVP}>
 					RSVP
 				</div>
 				{enable_gift_registry ? (
-					<div className='event-gift-button' onClick={onClickGiftRegistry}>
+					<div
+						className='event-gift-button'
+						style={{ cursor: 'pointer' }}
+						onClick={onClickGiftRegistry}>
 						<NewGiftIcon />
 						{malay ? 'HADIAH' : 'GIFT REGISTRY'}
 					</div>
 				) : null}
 				{enable_money_gift ? (
-					<div className='event-money-button' onClick={onClickMoneyGifts}>
+					<div
+						className='event-money-button'
+						style={{ cursor: 'pointer' }}
+						onClick={onClickMoneyGifts}>
 						<MoneyIcon />
 						{malay ? 'SALAM KAUT' : 'MONEY GIFT'}
 					</div>

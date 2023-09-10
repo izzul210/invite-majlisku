@@ -30,50 +30,6 @@ export const Tentative = ({
 		}
 	};
 
-	// return (
-	// 	<div className='tentative-main' style={{ background: backgroundColor }}>
-	// 		<div className='tentative-title' style={{ color: titleColor }}>
-	// 			{malay ? 'Aturcara' : 'Tentative'}
-	// 		</div>
-	// 		<LineLogo height={lineHeight} color={lineColor} />
-	// 		<div className='tentative-activities'>
-	// 			{tentative?.length !== 0 ? (
-	// 				<div className='activity-content'>
-	// 					{tentative
-	// 						.sort(function (a, b) {
-	// 							var c = new Date(a.date);
-	// 							var d = new Date(b.date);
-	// 							return d < c ? 1 : d > c ? -1 : 0;
-	// 						})
-	// 						.map((activity, index) => {
-	// 							return (
-	// 								<div key={index}>
-	// 									<div className='yes_activity'>
-	// 										<div className='activity_detail' style={{ color: textColor }}>
-	// 											{activity.title || activity.title !== '' ? (
-	// 												<div className='activity_title'>{activity.title}</div>
-	// 											) : null}
-	// 											<div className='activity_description'>{activity.description}</div>
-	// 											<div className='blurryBottom'></div>
-	// 										</div>
-	// 										<div className='date'>
-	// 											<div className='bold'>{moment(activity.date).format('h:mm A')}</div>
-	// 										</div>
-	// 									</div>
-	// 									<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-	// 										<div style={{ width: '94%', height: '1px', background: lineColor }}></div>
-	// 									</div>
-	// 								</div>
-	// 							);
-	// 						})}
-	// 				</div>
-	// 			) : (
-	// 				<></>
-	// 			)}
-	// 		</div>
-	// 	</div>
-	// );
-
 	if (type === 'default') {
 		return (
 			<div
@@ -89,10 +45,10 @@ export const Tentative = ({
 										var d = new Date(b.date);
 										return d < c ? 1 : d > c ? -1 : 0;
 									})
-									.map((activity, index) => {
+									.map((activity) => {
 										return (
-											<>
-												<div className='yes_activity' key={index}>
+											<div key={activity.id}>
+												<div className='yes_activity'>
 													<div className='activity_detail' style={{ color: textColor }}>
 														{activity.title || activity.title !== '' ? (
 															<div className='activity_title'>{activity.title}</div>
@@ -111,7 +67,7 @@ export const Tentative = ({
 															background: 'rgba(228, 231, 236, 1)',
 														}}></div>
 												</div>
-											</>
+											</div>
 										);
 									})}
 							</div>

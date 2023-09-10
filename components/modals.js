@@ -31,13 +31,22 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGuestResponse }) => {
 	const { loading, guestDetails, rsvp_details } = state;
-	const { guest_pax_limit, enable_bahasa, enable_unlimited_pax } = rsvp_details;
+	const {
+		guest_pax_limit,
+		enable_bahasa,
+		enable_unlimited_pax,
+		event_time,
+		enable_multiple_slots = false,
+		event_time_slot_2 = null,
+	} = rsvp_details;
 	const [rsvp, setRsvp] = useState('attending');
 	const [name, setName] = useState('');
 	const [phone, setPhone] = useState('');
 	const [pax, setPax] = useState(1);
 	const [wish, setWish] = useState('');
 	const [maxPax, setMaxPax] = useState(1);
+	const [timeSlot, setTimeSlot] = useState(1);
+	const [actualTimeSlot, setActualTimeSlot] = useState(event_time?.start ? event_time.start : null);
 
 	useEffect(() => {
 		if (guestDetails?.response && guestDetails.rsvp !== 'invited' && guestDetails.rsvp !== '') {
@@ -56,13 +65,21 @@ export const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGue
 	};
 
 	const submitResponseFunc = () => {
-		const guestRes = {
+		let guestRes = {
 			name: name,
 			phone: phone,
 			rsvp: rsvp,
 			pax: pax,
 			wish: wish ? wish : '',
 		};
+
+		if (enable_multiple_slots) {
+			guestRes = {
+				...guestRes,
+				timeSlot: actualTimeSlot,
+			};
+		}
+
 		dispatch({ type: 'UPDATE_GOING', payload: rsvp === 'attending' ? true : false });
 		postGuestResponse(guestRes, () => {
 			closeModal();
@@ -118,6 +135,56 @@ export const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGue
 					) : (
 						<></>
 					)}
+					{enable_multiple_slots ? (
+						<div className='full-name'>
+							<div className='name'>{enable_bahasa ? 'PILIH WAKTU' : 'CHOOSE TIME'} </div>
+							<div
+								style={{
+									display: 'flex',
+									gap: '10px',
+									marginTop: 8,
+									fontFamily: 'Lora',
+									fontWeight: 500,
+								}}>
+								<div
+									style={{
+										flex: 1,
+										display: 'flex',
+										justifyContent: 'center',
+										alignItems: 'center',
+										padding: '12px 0px',
+										borderRadius: 51,
+										border: timeSlot === 1 ? '1px solid #98A2B3' : '1px solid #D0D5DD',
+										backgroundColor: timeSlot === 1 ? '#f5eded' : 'transparent',
+										cursor: 'pointer',
+									}}
+									onClick={() => {
+										setTimeSlot(1);
+										setActualTimeSlot(event_time?.start);
+									}}>
+									{moment(event_time?.start).format('h:mm A')}
+								</div>
+								<div
+									style={{
+										flex: 1,
+										display: 'flex',
+										justifyContent: 'center',
+										alignItems: 'center',
+										padding: '12px 0px',
+										borderRadius: 51,
+										border: timeSlot === 2 ? '1px solid #98A2B3' : '1px solid #D0D5DD',
+										backgroundColor: timeSlot === 2 ? '#f5eded' : 'transparent',
+										cursor: 'pointer',
+									}}
+									onClick={() => {
+										setTimeSlot(2);
+										setActualTimeSlot(event_time_slot_2);
+									}}>
+									{moment(event_time_slot_2).format('h:mm A')}
+								</div>
+							</div>
+						</div>
+					) : null}
 					<div className='pax-input'>
 						<div className='name'>
 							{enable_bahasa ? 'BILANGAN KEHADIRAN' : 'TOTAL PAX'}{' '}
