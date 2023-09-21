@@ -76,7 +76,7 @@ export const GoingModal = ({ state, dispatch, goingModal, setGoingModal, postGue
 		if (enable_multiple_slots) {
 			guestRes = {
 				...guestRes,
-				timeSlot: actualTimeSlot,
+				timeSlot: timeSlot,
 			};
 		}
 
