@@ -20,83 +20,6 @@ import { MainRSVP, ThankYouPage, GiftPage, MoneyPage, Footer } from '../componen
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 
-let initialStates = {
-	rsvp_details: null,
-	guestInput: null,
-	itinerary: null,
-	wishlist: [],
-	guestDetails: null,
-	time: { start: '12:00', end: '15:00' },
-	page: 0,
-	giftPage: 0,
-	loading: false,
-	loading_gift: false,
-	submitted: false,
-	resetTheClock: false,
-	going: null,
-	gifts: null,
-	giftReserve: null,
-	confirmModal: false,
-	cancelModal: false,
-	thakyouModal: false,
-	sorryModal: false,
-};
-
-const mainReducer = (state, action) => {
-	switch (action.type) {
-		case 'GET_RSVP_DETAILS':
-			return { ...state, rsvp_details: action.payload };
-		case 'SET_CONFIRM_MODAL':
-			return { ...state, confirmModal: action.payload };
-		case 'SET_CANCEL_MODAL':
-			return { ...state, cancelModal: action.payload };
-		case 'SET_THANK_YOU_MODAL':
-			return { ...state, thakyouModal: action.payload };
-		case 'GET_WISHLIST':
-			return { ...state, wishlist: action.payload };
-		case 'SET_SORRY_MODAL':
-			return { ...state, sorryModal: action.payload };
-		case 'SET_GUEST_INFO':
-			return { ...state, guestInput: action.payload };
-		case 'INIT_ITINERARY':
-			return { ...state, itinerary: action.payload };
-		case 'INIT_GUEST_DETAILS':
-			return { ...state, guestDetails: action.payload };
-		case 'INIT_GIFT_RESERVE':
-			return { ...state, giftReserve: action.payload };
-		case 'GET_GIFTS':
-			return { ...state, gifts: action.payload };
-		case 'RESET_SUBMIT':
-			return { ...state, submitted: false };
-		case 'UPDATE_GOING':
-			return { ...state, going: action.payload };
-		case 'GUEST_SUBMIT':
-			return { ...state, submitted: true };
-		case 'GO_HOME_PAGE':
-			return { ...state, page: 0 };
-		case 'NEXT_PAGE':
-			return { ...state, page: state.page + 1 };
-		case 'GIFT_PAGE':
-			return { ...state, page: 2 };
-		case 'MONEY_PAGE':
-			return { ...state, page: 3 };
-		case 'RESERVE_GIFT_PAGE':
-			return { ...state, giftPage: 1 };
-		case 'REGISTRY_GIFT_PAGE':
-			return { ...state, giftPage: 0 };
-		case 'PREVIOUS_PAGE':
-			return { ...state, page: state.page - 1 };
-		case 'LOADING':
-			return { ...state, loading: action.payload };
-		case 'LOADING_GIFT':
-			return { ...state, loading_gift: action.payload };
-		case 'RESET_THE_CLOCK':
-			return { ...state, resetTheClock: !state.resetTheClock };
-		case 'INIT_TIME_SLOT':
-			return { ...state, time: action.payload };
-	}
-};
-
 function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 	const rsvp_details = null;
 	const [loadingAnimation, setLoadingAnimation] = useState(true);
@@ -210,6 +133,70 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 	);
 }
 
+export async function generateMetadata({ params }) {
+	//read route params
+	const id = params.id;
+
+	//define metadata details
+	let title = `You're cordially invited to our Event!`;
+	let weddingText = '';
+	let description = `Kindly click to RSVP `;
+	let rsvpDetails = {};
+	let imageUrl;
+
+	//fetch data from api
+	try {
+		const res = await axios.get(`${API}/rsvpdetails/${id}`);
+		rsvpDetails = res.data;
+	} catch (err) {
+		console.log('Error in generateMetadata');
+	}
+
+	//Render title
+	if (rsvpDetails?.event_title_2) {
+		weddingText = rsvpDetails.event_title_2;
+	} else if (rsvpDetails?.bride_name && rsvpDetails?.groom_name) {
+		weddingText = `${rsvpDetails.groom_name} & ${rsvpDetails.bride_name}`;
+	}
+
+	if (rsvpDetails?.enable_bahasa) {
+		description = `Sila tekan untuk sampaikan kehadiran anda`;
+	}
+
+	const eventDate = moment(rsvpDetails?.event_date).format('DD.MM.YY');
+	title = `${weddingText} | ${eventDate}`;
+
+	if (rsvpDetails?.whatsapp_metadata_img) {
+		imageUrl = rsvpDetails.whatsapp_metadata_img;
+	}
+
+	if (rsvpDetails?.metadata) {
+		if (rsvpDetails?.metadata?.title) {
+			title = `${rsvpDetails.metadata.title} | ${eventDate}`;
+		}
+		if (rsvpDetails?.metadata?.photoURL) {
+			imageUrl = rsvpDetails.metadata.photoURL;
+		}
+	}
+
+	title = title.replace(/\n/g, ' ');
+
+	return {
+		title: title,
+		openGraph: {
+			title: title,
+			description: 'Description from generateMetadata',
+			images: [
+				{
+					url: imageUrl,
+					width: 800,
+					height: 600,
+				},
+			],
+		},
+	};
+}
+
 export async function getServerSideProps(context) {
 	const id = context.query.id;
 	let rsvpDetails;
@@ -223,8 +210,7 @@ export async function getServerSideProps(context) {
 		const res = await axios.get(`${API}/rsvpdetails/${id}`);
 		rsvpDetails = res.data;
 	} catch (err) {
-		console.log('Error for /rsvpdetails!');
-		console.log(err.message);
+		console.log('error in getServerSideProps');
 	}
 
 	if (rsvpDetails?.event_title_2) {
