@@ -106,14 +106,6 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 
 	return (
 		<div>
-			<Head>
-				<title>{title}</title>
-				<meta name='description' content={description}></meta>
-				<meta property='og:title' content={title}></meta>
-				<meta property='og:description' content={description}></meta>
-				<meta property='og:image' content={imageUrl}></meta>
-				<meta name='apple-mobile-web-app-status-bar-style' content='translucent'></meta>
-			</Head>
 			<main>
 				<div className='app-container'>
 					{state?.loading || loadingAnimation ? (
