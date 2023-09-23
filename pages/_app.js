@@ -34,7 +34,7 @@ export function useInviteDispatchContext() {
 
 const initialStates = {
 	design: 3,
-	premium_design: 7,
+	premium_design: 0,
 	loading: true,
 };
 
