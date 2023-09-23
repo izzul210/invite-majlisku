@@ -1,11 +1,18 @@
 /** @format */
 
-import React, { useEffect, useReducer } from 'react';
+'use client';
+import React, { useEffect, useState, useReducer, Suspense } from 'react';
+import { motion } from 'framer-motion';
+import { useInviteContext, useInviteDispatchContext } from './_app';
 import Head from 'next/head';
+//Icons import
+import { MajliskuLoadingIcon } from '../component/icons/icons';
+//Invite import
+import InviteTemplate from '../template/InviteTemplate';
 //Components Import
 import WholePageLoadingState from '../components/wholePageLoadingState';
-//MUI import
-import Container from '@mui/material/Container';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 //Libraries
 import axios from 'axios';
 import moment from 'moment';
@@ -91,12 +98,19 @@ const mainReducer = (state, action) => {
 };
 
 function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
-	const [state, dispatch] = useReducer(mainReducer, initialStates);
-	const { rsvp_details, resetTheClock } = state;
+	const rsvp_details = null;
+	const [loadingAnimation, setLoadingAnimation] = useState(true);
+	const { state } = useInviteContext();
+	const { dispatchEventDetails, dispatch } = useInviteDispatchContext();
 
 	useEffect(() => {
-		getThemAll();
-	}, [resetTheClock]);
+		dispatchEventDetails({ type: 'SET_EVENT_DETAILS', payload: rsvpDetails });
+		getItineraryList(rsvpDetails.user_id);
+		getWishList(rsvpDetails.user_id);
+		getGiftList(rsvpDetails.user_id);
+		dispatch({ type: 'SET_LOADING', payload: false });
+		handleLoadingAnimation();
+	}, []);
 
 	function getThemAll() {
 		dispatch({ type: 'GET_RSVP_DETAILS', payload: rsvpDetails });
@@ -112,24 +126,31 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 		});
 	}
 
+	const handleLoadingAnimation = () => {
+		setLoadingAnimation(true);
+		setTimeout(() => {
+			setLoadingAnimation(false);
+		}, 5000);
+	};
+
 	function getWishList(userID) {
 		axios.get(`${API}/getguestwishes/${userID}`).then((res) => {
 			let wishlist = res.data;
-			dispatch({ type: 'GET_WISHLIST', payload: wishlist });
+			dispatchEventDetails({ type: 'SET_WISHLIST', payload: wishlist });
 		});
 	}
 
 	function getGiftList(userID) {
 		axios.get(`${API}/getgifts/${userID}`).then((res) => {
 			let giftlist = res.data;
-			dispatch({ type: 'GET_GIFTS', payload: giftlist });
+			dispatchEventDetails({ type: 'SET_GIFTS', payload: giftlist });
 		});
 	}
 
 	function getItineraryList(userID) {
 		axios.get(`${API}/getitinerary/${userID}`).then((res) => {
 			let itineraryList = res.data;
-			dispatch({ type: 'INIT_ITINERARY', payload: itineraryList });
+			dispatchEventDetails({ type: 'SET_ITINERARY', payload: itineraryList });
 		});
 	}
 
@@ -168,25 +189,21 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 				<meta property='og:title' content={title}></meta>
 				<meta property='og:description' content={description}></meta>
 				<meta property='og:image' content={imageUrl}></meta>
+				<meta name='apple-mobile-web-app-status-bar-style' content='translucent'></meta>
 			</Head>
 			<main>
-				<Container maxWidth='md' style={{ padding: '0px 0px' }}>
-					{rsvp_details ? (
-						<>
-							{state.page === 0 ? (
-								<MainRSVP state={state} dispatch={dispatch} postGuestResponse={postGuestResponse} />
-							) : state.page === 1 ? (
-								<ThankYouPage state={state} dispatch={dispatch} />
-							) : state.page === 2 ? (
-								<GiftPage state={state} dispatch={dispatch} guestReserveFunc={guestReserveFunc} />
-							) : (
-								<MoneyPage state={state} dispatch={dispatch} />
-							)}
-						</>
-					) : (
-						<WholePageLoadingState height_vh='80vh' />
-					)}
-				</Container>
+				<div className='app-container'>
+					{state?.loading || loadingAnimation ? (
+						<motion.div
+							initial={{ opacity: 1, filter: 'blur(0)' }}
+							animate={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 3, delay: 1 } }}
+							className='loading-overlay'>
+							<MajliskuLoadingIcon />
+						</motion.div>
+					) : null}
+
+					<InviteTemplate />
+				</div>
 			</main>
 			<Footer />
 		</div>
@@ -194,48 +211,46 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 }
 
 export async function getServerSideProps(context) {
-	let id = context.query.id;
+	const id = context.query.id;
 	let rsvpDetails;
-
 	let title = `You're cordially invited to our Event!`;
 	let weddingText = '';
 	let description = `Kindly click to RSVP `;
-
 	let imageUrl =
 		'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fmetadata_img.png?alt=media&token=769f323f-8ad3-4ab3-a742-d45d959b4da2';
 
-	await axios
-		.get(`${API}/rsvpdetails/${id}`)
-		.then((res) => {
-			rsvpDetails = res.data;
-		})
-		.catch((err) => {
-			console.log('Error for /rsvpdetails!');
-			console.log(err.message);
-		});
+	try {
+		const res = await axios.get(`${API}/rsvpdetails/${id}`);
+		rsvpDetails = res.data;
+	} catch (err) {
+		console.log('Error for /rsvpdetails!');
+		console.log(err.message);
+	}
 
 	if (rsvpDetails?.event_title_2) {
 		weddingText = rsvpDetails.event_title_2;
-	} else {
-		if (rsvpDetails.bride_name && rsvpDetails.groom_name)
-			weddingText = `${rsvpDetails.groom_name} & ${rsvpDetails.bride_name}`;
+	} else if (rsvpDetails?.bride_name && rsvpDetails?.groom_name) {
+		weddingText = `${rsvpDetails.groom_name} & ${rsvpDetails.bride_name}`;
 	}
 
-	if (rsvpDetails.enable_bahasa) {
+	if (rsvpDetails?.enable_bahasa) {
 		description = `Sila tekan untuk sampaikan kehadiran anda`;
-		title = `${weddingText} | ${moment(rsvpDetails?.event_date).format('DD.MM.YY')}`;
-	} else {
-		title = `${weddingText} | ${moment(rsvpDetails?.event_date).format('DD.MM.YY')}`;
 	}
 
-	if (rsvpDetails?.whatsapp_metadata_img) imageUrl = rsvpDetails.whatsapp_metadata_img;
+	const eventDate = moment(rsvpDetails?.event_date).format('DD.MM.YY');
+	title = `${weddingText} | ${eventDate}`;
 
-	if (rsvpDetails.metadata) {
-		if (rsvpDetails?.metadata?.title)
-			title = `${rsvpDetails.metadata.title} | ${moment(rsvpDetails?.event_date).format(
-				'DD.MM.YY'
-			)}`;
-		if (rsvpDetails?.metadata?.photoURL) imageUrl = rsvpDetails.metadata.photoURL;
+	if (rsvpDetails?.whatsapp_metadata_img) {
+		imageUrl = rsvpDetails.whatsapp_metadata_img;
+	}
+
+	if (rsvpDetails?.metadata) {
+		if (rsvpDetails?.metadata?.title) {
+			title = `${rsvpDetails.metadata.title} | ${eventDate}`;
+		}
+		if (rsvpDetails?.metadata?.photoURL) {
+			imageUrl = rsvpDetails.metadata.photoURL;
+		}
 	}
 
 	title = title.replace(/\n/g, ' ');
