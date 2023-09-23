@@ -1,6 +1,6 @@
 /** @format */
 'use client';
-import React, { createContext, useReducer, useState, useEffect } from 'react';
+import React, { createContext, useReducer } from 'react';
 import Router from 'next/router';
 import '../styles/globals.css';
 import '../styles/rsvp.scss';
