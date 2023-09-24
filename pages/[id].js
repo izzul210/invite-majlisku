@@ -21,7 +21,6 @@ import { MainRSVP, ThankYouPage, GiftPage, MoneyPage, Footer } from '../componen
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 
 function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
-	const rsvp_details = null;
 	const [loadingAnimation, setLoadingAnimation] = useState(true);
 	const { state } = useInviteContext();
 	const { dispatchEventDetails, dispatch } = useInviteDispatchContext();
@@ -34,20 +33,6 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 		dispatch({ type: 'SET_LOADING', payload: false });
 		handleLoadingAnimation();
 	}, []);
-
-	function getThemAll() {
-		dispatch({ type: 'GET_RSVP_DETAILS', payload: rsvpDetails });
-		getGiftList(rsvpDetails.user_id);
-		getItineraryList(rsvpDetails.user_id);
-		getWishList(rsvpDetails.user_id);
-		dispatch({
-			type: 'INIT_TIME_SLOT',
-			payload: {
-				start: rsvpDetails.event_time?.start,
-				end: rsvpDetails.event_time?.end,
-			},
-		});
-	}
 
 	const handleLoadingAnimation = () => {
 		setLoadingAnimation(true);
@@ -77,35 +62,16 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 		});
 	}
 
-	function guestReserveFunc(body, reserved) {
-		dispatch({ type: 'LOADING_GIFT', payload: true });
-		axios
-			.post(`${API}/updategift/${rsvp_details.user_id}/${state.giftReserve.id}`, body)
-			.then((res) => {
-				dispatch({ type: 'LOADING_GIFT', payload: false });
-				if (reserved) {
-					dispatch({ type: 'SET_CONFIRM_MODAL', payload: false });
-					dispatch({ type: 'SET_THANK_YOU_MODAL', payload: true });
-				} else {
-					dispatch({ type: 'SET_CANCEL_MODAL', payload: false });
-					dispatch({ type: 'SET_SORRY_MODAL', payload: true });
-				}
-
-				dispatch({ type: 'RESET_THE_CLOCK' });
-			});
-	}
-	function postGuestResponse(body, postReqFunc) {
-		dispatch({ type: 'LOADING', payload: true });
-		axios.post(`${API}/newguest/${rsvp_details.user_id}`, body).then((res) => {
-			dispatch({ type: 'SET_GUEST_INFO', payload: res.data });
-			dispatch({ type: 'LOADING', payload: false });
-			dispatch({ type: 'GUEST_SUBMIT' });
-			postReqFunc();
-		});
-	}
-
 	return (
 		<div>
+			<Head>
+				<title>{title}</title>
+				<meta name='description' content={description}></meta>
+				<meta property='og:title' content={title}></meta>
+				<meta property='og:description' content={description}></meta>
+				<meta property='og:image' content={imageUrl}></meta>
+				<meta name='apple-mobile-web-app-status-bar-style' content='translucent'></meta>
+			</Head>
 			<main>
 				<div className='app-container'>
 					{state?.loading || loadingAnimation ? (
@@ -123,70 +89,6 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 			<Footer />
 		</div>
 	);
-}
-
-export async function generateMetadata({ params }) {
-	//read route params
-	const id = params.id;
-
-	//define metadata details
-	let title = `You're cordially invited to our Event!`;
-	let weddingText = '';
-	let description = `Kindly click to RSVP `;
-	let rsvpDetails = {};
-	let imageUrl;
-
-	//fetch data from api
-	try {
-		const res = await axios.get(`${API}/rsvpdetails/${id}`);
-		rsvpDetails = res.data;
-	} catch (err) {
-		console.log('Error in generateMetadata');
-	}
-
-	//Render title
-	if (rsvpDetails?.event_title_2) {
-		weddingText = rsvpDetails.event_title_2;
-	} else if (rsvpDetails?.bride_name && rsvpDetails?.groom_name) {
-		weddingText = `${rsvpDetails.groom_name} & ${rsvpDetails.bride_name}`;
-	}
-
-	if (rsvpDetails?.enable_bahasa) {
-		description = `Sila tekan untuk sampaikan kehadiran anda`;
-	}
-
-	const eventDate = moment(rsvpDetails?.event_date).format('DD.MM.YY');
-	title = `${weddingText} | ${eventDate}`;
-
-	if (rsvpDetails?.whatsapp_metadata_img) {
-		imageUrl = rsvpDetails.whatsapp_metadata_img;
-	}
-
-	if (rsvpDetails?.metadata) {
-		if (rsvpDetails?.metadata?.title) {
-			title = `${rsvpDetails.metadata.title} | ${eventDate}`;
-		}
-		if (rsvpDetails?.metadata?.photoURL) {
-			imageUrl = rsvpDetails.metadata.photoURL;
-		}
-	}
-
-	title = title.replace(/\n/g, ' ');
-
-	return {
-		title: title,
-		openGraph: {
-			title: title,
-			description: 'Description from generateMetadata',
-			images: [
-				{
-					url: imageUrl,
-					width: 800,
-					height: 600,
-				},
-			],
-		},
-	};
 }
 
 export async function getServerSideProps(context) {
