@@ -1,8 +1,0 @@
-/** @format */
-
-@use '../../../../styles/textStyle';
-
-.details-container-title {
-	@include textStyle.ebGaramondSemiBold(24px, 24px);
-	text-align: center;
-}

@@ -1,7 +1,4 @@
 /** @format */
-import Ellipse130 from '../../assets/images/ellipse-130.png';
-import Image from 'next/image';
-
 export const Graphic_1 = ({ fill = '#F1BFBE', width = '154', height = '155', ...props }) => (
 	<svg
 		xmlns='http://www.w3.org/2000/svg'

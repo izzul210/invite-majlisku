@@ -10,7 +10,6 @@ import { useInviteContext } from '../_app';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import { BackButton } from '../../component/icons/icons';
-import { Footer } from '../../components/subcomponents';
 
 const DetailContainer = ({ title, value }) => {
 	return (
@@ -80,7 +79,6 @@ function MoneyGift() {
 					)}
 				</div>
 			</main>
-			<Footer />
 		</div>
 	);
 }

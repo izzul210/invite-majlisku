@@ -1,22 +1,18 @@
 /** @format */
 
 'use client';
-import React, { useEffect, useState, useReducer, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInviteContext, useInviteDispatchContext } from './_app';
 import Head from 'next/head';
 //Icons import
 import { MajliskuLoadingIcon } from '../component/icons/icons';
+////////////////Importing components
 //Invite import
 import InviteTemplate from '../template/InviteTemplate';
-//Components Import
-import WholePageLoadingState from '../components/wholePageLoadingState';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
 //Libraries
 import axios from 'axios';
 import moment from 'moment';
-import { MainRSVP, ThankYouPage, GiftPage, MoneyPage, Footer } from '../components/subcomponents';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 
@@ -86,7 +82,6 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 					<InviteTemplate />
 				</div>
 			</main>
-			<Footer />
 		</div>
 	);
 }
@@ -104,7 +99,12 @@ export async function getServerSideProps(context) {
 		const res = await axios.get(`${API}/rsvpdetails/${id}`);
 		rsvpDetails = res.data;
 	} catch (err) {
-		console.log('error in getServerSideProps');
+		return {
+			redirect: {
+				destination: '/404', // Replace '/error-page' with the URL of the page you want to redirect to
+				permanent: false,
+			},
+		};
 	}
 
 	if (rsvpDetails?.event_title_2) {

@@ -1,25 +1,15 @@
 /** @format */
 
 import React, { useEffect, useReducer } from 'react';
+import { motion } from 'framer-motion';
 import Head from 'next/head';
-//Components import
-import WholePageLoadingState from '../../components/wholePageLoadingState';
-//MUI import
-import Container from '@mui/material/Container';
+//Invite import
+import InviteTemplate from '../../template/InviteTemplate';
 //Libraries
 import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/ms-my';
 import 'moment/locale/en-ca';
-
-////////////////Importing components
-import {
-	MainRSVP,
-	ThankYouPage,
-	GiftPage,
-	MoneyPage,
-	Footer,
-} from '../../components/subcomponents';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 
@@ -195,25 +185,10 @@ function GuestRsvp({ title, imageUrl, description, guestId, rsvpDetails }) {
 				<meta property='og:image' content={imageUrl}></meta>
 			</Head>
 			<main>
-				<Container maxWidth='md' style={{ padding: '0px 0px' }}>
-					{rsvp_details && guestDetails ? (
-						<>
-							{state.page === 0 ? (
-								<MainRSVP state={state} dispatch={dispatch} postGuestResponse={postGuestResponse} />
-							) : state.page === 1 ? (
-								<ThankYouPage state={state} dispatch={dispatch} />
-							) : state.page === 2 ? (
-								<GiftPage state={state} dispatch={dispatch} guestReserveFunc={guestReserveFunc} />
-							) : (
-								<MoneyPage state={state} dispatch={dispatch} />
-							)}
-						</>
-					) : (
-						<WholePageLoadingState height_vh='80vh' />
-					)}
-				</Container>
+				<div className='app-container'>
+					<h1>Guest</h1>
+				</div>
 			</main>
-			<Footer />
 		</div>
 	);
 }

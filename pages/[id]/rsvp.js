@@ -11,7 +11,6 @@ import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import ButtonProvider from '../../component/button/ButtonProvider';
 import { BackButton, MoneyGift, AttendingIcon } from '../../component/icons/icons';
-import { Footer } from '../../components/subcomponents';
 //Icons import
 import { MajliskuSmallIcon, GiftIcon } from '../../component/icons/icons';
 
@@ -97,7 +96,6 @@ function Rsvp() {
 					</div>
 				</div>
 			</main>
-			<Footer />
 		</div>
 	);
 }

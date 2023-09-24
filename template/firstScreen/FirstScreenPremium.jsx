@@ -7,7 +7,11 @@ import { premiumColorTheme } from '../colorThemes';
 import { EventTitle_Premium } from './components/EventTitle';
 import { RsvpHeaderImage_Premium } from './components/RsvpHeaderImage';
 import { ItalicTitle_Playfair } from './components/ItalicTitle';
-import { DateLocation_Premium } from './components/DateLocation';
+import {
+	DateLocation,
+	DateLocation_Playfair,
+	DateLocation_Premium,
+} from './components/DateLocation';
 
 export default function FirstScreenPremium({
 	event_title_1 = 'Event Title 1',

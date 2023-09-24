@@ -10,7 +10,6 @@ import { useInviteContext } from '../_app';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import { BackButton } from '../../component/icons/icons';
-import { Footer } from '../../components/subcomponents';
 
 const GiftCard = ({ gift }) => {
 	const { imageUrl, category, name, reserved } = gift;
@@ -87,8 +86,6 @@ function GiftRegistry() {
 
 	let queryId = router.query.id;
 
-	console.log('gifts', gifts);
-
 	//imageUrl
 	//name
 	//reserved
@@ -151,7 +148,6 @@ function GiftRegistry() {
 					</div>
 				</div>
 			</main>
-			<Footer />
 		</div>
 	);
 }
