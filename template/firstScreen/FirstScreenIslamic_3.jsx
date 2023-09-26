@@ -1,5 +1,6 @@
 /** @format */
 import moment from 'moment';
+import Image from 'next/image';
 //Components import
 import Bismillah from './components/Bismillah';
 import IslamicTitle from './components/titles/IslamicTitle';
@@ -17,23 +18,24 @@ const TextDetail = ({ children }) => {
 	);
 };
 
-export default function FirstScreenIslamic_2({
+export default function FirstScreenIslamic_3({
 	event_title_1 = 'Event Title 1',
 	event_date = '2023-10-21',
 	event_location = 'Location, City',
 	italic_title = 'Main Title',
 }) {
 	return (
-		<div
-			className='w-full min-h-[700px] md:min-h-[800px] flex justify-center items-center'
-			style={{
-				backgroundColor: '#F3F3F3',
-				backgroundImage: `url(${Nikah_13.src})`,
-				backgroundSize: 'cover',
-				backgroundPosition: 'center',
-			}}>
+		<div className='w-full relative  min-h-[700px] md:min-h-[800px]  flex justify-center items-center'>
+			<Image
+				className='h-[700px] md:h-[800px] z-0'
+				src={Nikah_13}
+				alt='Nikah 12'
+				layout='fill'
+				objectFit='cover'
+				objectPosition='center'
+			/>
 			<div
-				className='w-full flex justify-center items-center flex-col gap-12 mt-6 p-5'
+				className='w-full flex justify-center items-center flex-col gap-12 mt-6 p-5 z-0 relative'
 				style={{ maxWidth: '300px' }}>
 				<Bismillah />
 				<IslamicTitle color={fontColor}>{italic_title}</IslamicTitle>

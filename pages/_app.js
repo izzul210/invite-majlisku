@@ -25,7 +25,7 @@ export function useInviteDispatchContext() {
 }
 
 const initialStates = {
-	design: 7,
+	design: 5,
 	premium_design: 0,
 	loading: true,
 	inviteId: null,
