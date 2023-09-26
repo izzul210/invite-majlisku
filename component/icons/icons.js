@@ -1,12 +1,5 @@
 /** @format */
 import Image from 'next/image';
-//Assets import
-import majliskuLoadingIcon from '../../public/icons/majliskuLoadingIcon.png';
-import maybeIcon from '../../public/icons/maybeIcon.png';
-import notAttendingIcon from '../../public/icons/notAttendingIcon.png';
-import attendingIcon from '../../public/icons/attendingIcon.png';
-import openLetterIcon from '../../public/icons/openLetterIcon.png';
-import giftIcon from '../../public/icons/giftIcon.png';
 
 export const MajliskuIcon = ({ width = '33', height = '32', fill = '#231F20' }) => (
 	<svg
@@ -57,7 +50,7 @@ export const MajliskuIconV3 = ({ width = 32, height = 19, fillColor = '#98A2B3' 
 );
 
 export const GiftIcon = ({ width = '17', height = '21' }) => {
-	return <Image src={giftIcon} alt='Gift Icon' width={width} height={height} />;
+	return <Image src='/giftIcon.png' alt='Gift Icon' width={width} height={height} />;
 };
 
 export const MoneyGift = ({ width = '25', height = '24', fill = '#1D4648' }) => (
@@ -192,19 +185,21 @@ export const QuoteIcon = ({ width = 10, height = 10 }) => (
 );
 
 export const OpenLetterIcon = ({ width = 46, height = 46 }) => {
-	return <Image src={openLetterIcon} alt='Open Letter Icon' width={width} height={height} />;
+	return <Image src='/openLetterIcon.png' alt='Open Letter Icon' width={width} height={height} />;
 };
 
 export const AttendingIcon = ({ width = '19', height = '19' }) => {
-	return <Image src={attendingIcon} alt='Attending Icon' width={width} height={height} />;
+	return <Image src='/attendingIcon.png' alt='Attending Icon' width={width} height={height} />;
 };
 
 export const NotAttendingIcon = ({ width = '19', height = '18' }) => {
-	return <Image src={notAttendingIcon} alt='Not Attending Icon' width={width} height={height} />;
+	return (
+		<Image src='/notAttendingIcon.png' alt='Not Attending Icon' width={width} height={height} />
+	);
 };
 
 export const MaybeIcon = ({ width = '18', height = '18' }) => {
-	return <Image src={maybeIcon} alt='Maybe Icon' width={width} height={height} />;
+	return <Image src='/maybeIcon.png' alt='Maybe Icon' width={width} height={height} />;
 };
 
 export const BackButton = ({ width = '24', height = '24' }) => (
@@ -287,7 +282,7 @@ export const MajliskuLoadingIcon = ({ width = '94', height = '94' }) => {
 	return (
 		<Image
 			className='loading-text'
-			src={majliskuLoadingIcon}
+			src='/majliskuLoadingIcon.png'
 			alt='Loading Icon'
 			width={width}
 			height={height}

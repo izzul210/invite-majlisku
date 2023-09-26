@@ -5,8 +5,6 @@ import Image from 'next/image';
 import Bismillah from './components/Bismillah';
 import IslamicTitle from './components/titles/IslamicTitle';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
-//Bg import
-import Nikah_11 from '../../public/images/templates/nikah-11.png';
 
 const fontColor = '#A98F21';
 
@@ -28,7 +26,7 @@ export default function FirstScreenIslamic_2({
 		<div className='w-full relative  min-h-[700px] md:min-h-[800px]  flex justify-center items-center'>
 			<Image
 				className='h-[700px] md:h-[800px] z-0'
-				src={Nikah_11}
+				src='/nikah-11.png'
 				alt='Nikah 11'
 				layout='fill'
 				objectFit='cover'
