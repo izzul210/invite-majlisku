@@ -26,7 +26,7 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails, id }) {
 		dispatchEventDetails({ type: 'SET_EVENT_DETAILS', payload: rsvpDetails });
 		const timer = setTimeout(() => {
 			setLoadingAnimation(false);
-		}, 5000);
+		}, 4000);
 		return () => clearTimeout(timer);
 	}, []);
 
@@ -45,7 +45,7 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails, id }) {
 					{loadingAnimation && !isLoading ? (
 						<motion.div
 							initial={{ opacity: 1, filter: 'blur(0)' }}
-							animate={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 3, delay: 1 } }}
+							animate={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 2, delay: 1 } }}
 							className='loading-overlay'>
 							<MajliskuLoadingIcon />
 						</motion.div>

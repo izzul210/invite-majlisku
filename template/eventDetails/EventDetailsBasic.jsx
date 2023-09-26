@@ -18,6 +18,9 @@ export default function EventDetailsDefault({
 	description = 'Lelaki: Baju Melayu/Batik\n\nPerempuan: Baju Kurung/Bersesuaian',
 	waze_link = null,
 	google_link = null,
+	onClickRSVP = () => {},
+	onClickGiftRegistry = () => {},
+	onClickMoneyGift = () => {},
 }) {
 	const { useConvertText } = useInviteFunc();
 
@@ -55,14 +58,14 @@ export default function EventDetailsDefault({
 				<BasicEventTextProvider>{formatted_event_description}</BasicEventTextProvider>
 			</div>
 			<div className='w-full flex flex-col gap-2 items-center px-5'>
-				<BasicEventButtonProvider type='primary'>
+				<BasicEventButtonProvider type='primary' onClick={onClickRSVP}>
 					<ButtonTextProvider color='#FFF'>RSVP</ButtonTextProvider>
 				</BasicEventButtonProvider>
-				<BasicEventButtonProvider>
+				<BasicEventButtonProvider onClick={onClickGiftRegistry}>
 					<GiftIcon />
 					<ButtonTextProvider color='#1E1E1E'>BAWA HADIAH</ButtonTextProvider>
 				</BasicEventButtonProvider>
-				<BasicEventButtonProvider>
+				<BasicEventButtonProvider onClick={onClickMoneyGift}>
 					<MoneyIcon /> <ButtonTextProvider color='#1E1E1E'>SALAM KAUT</ButtonTextProvider>
 				</BasicEventButtonProvider>
 			</div>
