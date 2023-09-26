@@ -16,7 +16,7 @@ import {
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
 
-export const GreetingScreenDefaultNoAnimation = ({
+export default function GreetingScreenDefaultNoAnimation({
 	enable_bahasa = false,
 	host_details = `Simpulan bin Simpulan\n &\n Simpulan binti Simpulan`,
 	guest = null,
@@ -29,7 +29,7 @@ export const GreetingScreenDefaultNoAnimation = ({
 	onClickRSVP = () => {},
 	onClickGiftRegistry = () => {},
 	onClickMoneyGift = () => {},
-}) => {
+}) {
 	const { useConvertText } = useInviteFunc();
 
 	let renderHosts = useConvertText(host_details);
@@ -82,4 +82,4 @@ export const GreetingScreenDefaultNoAnimation = ({
 			</div>
 		</div>
 	);
-};
+}

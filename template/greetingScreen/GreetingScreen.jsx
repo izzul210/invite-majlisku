@@ -4,17 +4,26 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 //Context import
 import { useInviteContext } from '../../pages/_app';
+//API import
+import { useEventDetails } from '../../hooks/useApi';
 //Modals import
-import RsvpActionModal from '../modals/RsvpActionModal';
-import AttendingRsvpModal from '../modals/AttendingRsvpModal';
-import NotAttendingRsvpModal from '../modals/NotAttendingRsvpModal';
-import MaybeRsvpModal from '../modals/MaybeRsvpModal';
+const RsvpActionModal = dynamic(() => import('../modals/RsvpActionModal'));
+const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'));
+const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpModal'));
+const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
+
 //Template import
 const GreetingScreenDefault = dynamic(() => import('./GreetingScreenDefault'));
 const GreetingScreenPremium = dynamic(() => import('./GreetingScreenPremium'));
+const GreetingScreenDefaultNoAnimation = dynamic(() =>
+	import('./GreetingScreenDefaultNoAnimation')
+);
+const GreetingScreenIslamic_1 = dynamic(() => import('./GreetingScreenIslamic_1'));
+const GreetingScreenIslamic_2 = dynamic(() => import('./GreetingScreenIslamic_2'));
 
-export default function GreetingScreen() {
-	const { eventDetails, state } = useInviteContext();
+export default function GreetingScreen({ id }) {
+	const { state } = useInviteContext();
+	const { data: eventDetails, isLoading } = useEventDetails(id);
 	const {
 		enable_bahasa,
 		host_details,
@@ -24,7 +33,7 @@ export default function GreetingScreen() {
 		greet_content_2,
 		enable_gift_registry,
 		enable_money_gift,
-	} = eventDetails;
+	} = eventDetails || {};
 	const { design, premium_design } = state;
 
 	const [openModal, setOpenModal] = useState(false);
@@ -70,10 +79,15 @@ export default function GreetingScreen() {
 	switch (design) {
 		case 3:
 			return <GreetingScreenPremium premium_design={premium_design} {...greetingScreenProps} />;
+		case 5:
+		case 7:
+			return <GreetingScreenIslamic_1 premium_design={premium_design} {...greetingScreenProps} />;
+		case 6:
+			return <GreetingScreenIslamic_2 premium_design={premium_design} {...greetingScreenProps} />;
 		default:
 			return (
 				<>
-					<GreetingScreenDefault
+					<GreetingScreenDefaultNoAnimation
 						{...greetingScreenProps}
 						onClickRSVP={handleOnClickRsvp}
 						onClickGiftRegistry={handleOnClickGift}

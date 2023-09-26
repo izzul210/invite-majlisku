@@ -11,16 +11,10 @@ import { DateLocation_Playfair } from './components/DateLocation';
 
 export default function FirstScreenEmbossed({
 	event_title_1 = 'Event Title 1',
-	rsvp_header_image = '',
-	rsvp_header_image_file = null,
 	event_date = '2023-10-21',
 	event_location = null,
 	italic_title = '',
 }) {
-	let rsvpHeaderImage = rsvp_header_image_file
-		? URL.createObjectURL(rsvp_header_image_file)
-		: rsvp_header_image;
-
 	return (
 		<div
 			className='w-full flex justify-center items-center'

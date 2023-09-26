@@ -10,10 +10,14 @@ import { CalendarAccordian, CalendarDefault } from './calendar/Calendar';
 import FirstScreen from './firstScreen/FirstScreen';
 import GreetingScreen from './greetingScreen/GreetingScreen';
 import EventDetails from './eventDetails/EventDetails';
+//API import
+import { useEventDetails, useItineraryList, useWishList } from '../hooks/useApi';
 
 const Tentative = () => {
-	const { eventDetails, state } = useInviteContext();
-	const { enable_bahasa, itinerary } = eventDetails;
+	const { state } = useInviteContext();
+	const { data: eventDetails, isLoading } = useEventDetails();
+	const { data: itinerary } = useItineraryList();
+	const { enable_bahasa } = eventDetails || {};
 	const { design } = state;
 
 	const renderComponent = () => {
@@ -29,7 +33,8 @@ const Tentative = () => {
 };
 
 const Contacts = () => {
-	const { eventDetails, state } = useInviteContext();
+	const { state } = useInviteContext();
+	const { data: eventDetails, isLoading } = useEventDetails();
 	const { contact_info, enable_bahasa } = eventDetails;
 	const { design } = state;
 
@@ -46,8 +51,10 @@ const Contacts = () => {
 };
 
 const Wishlist = () => {
-	const { eventDetails, state } = useInviteContext();
-	const { wishlist, enable_bahasa } = eventDetails;
+	const { state } = useInviteContext();
+	const { data: eventDetails, isLoading } = useEventDetails();
+	const { data: wishlist } = useWishList(eventDetails.user_id);
+	const { enable_bahasa } = eventDetails;
 	const { design } = state;
 
 	const renderComponent = () => {
@@ -63,7 +70,8 @@ const Wishlist = () => {
 };
 
 const Calendar = () => {
-	const { eventDetails, state } = useInviteContext();
+	const { state } = useInviteContext();
+	const { data: eventDetails, isLoading } = useEventDetails();
 	const { enable_bahasa, event_date, location_info, event_time, event_title_1, italic_title } =
 		eventDetails;
 	const { design } = state;
@@ -103,7 +111,7 @@ function InviteTemplate() {
 				<FirstScreen />
 				<GreetingScreen />
 				<EventDetails />
-				<div className='w-full flex gap-6 flex-col px-4 sm:px-0 py-8' style={{ maxWidth: '400px' }}>
+				<div className='w-full flex gap-3 flex-col px-5 sm:px-0 py-8' style={{ maxWidth: '400px' }}>
 					<Tentative />
 					<Contacts />
 					<Wishlist />

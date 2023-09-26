@@ -41,10 +41,10 @@ export default function Error() {
 							margin: '15px 0px',
 							justifyContent: 'flex-end',
 						}}>
-						<Image src={majliskuIcon} width={40} height={40} />
+						<Image src={majliskuIcon} width={40} height={40} alt='majlisku icon' />
 					</div>
 					<div style={{ margin: '20px 0px' }}>
-						<Image src={errorPageImg} width={140} height={140} />
+						<Image src={errorPageImg} width={140} height={140} alt='404' />
 					</div>
 					<h1
 						className={styles.title}

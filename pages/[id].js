@@ -13,50 +13,22 @@ import InviteTemplate from '../template/InviteTemplate';
 //Libraries
 import axios from 'axios';
 import moment from 'moment';
+////////Updated Import
+import { useEventDetails } from '../hooks/useApi';
 
-const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
-
-function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
+function GeneralRsvp({ title, imageUrl, description, rsvpDetails, id }) {
 	const [loadingAnimation, setLoadingAnimation] = useState(true);
-	const { state } = useInviteContext();
 	const { dispatchEventDetails, dispatch } = useInviteDispatchContext();
+	const { isLoading } = useEventDetails();
 
 	useEffect(() => {
+		dispatch({ type: 'SET_INVITE_ID', payload: id });
 		dispatchEventDetails({ type: 'SET_EVENT_DETAILS', payload: rsvpDetails });
-		getItineraryList(rsvpDetails.user_id);
-		getWishList(rsvpDetails.user_id);
-		getGiftList(rsvpDetails.user_id);
-		dispatch({ type: 'SET_LOADING', payload: false });
-		handleLoadingAnimation();
-	}, []);
-
-	const handleLoadingAnimation = () => {
-		setLoadingAnimation(true);
-		setTimeout(() => {
+		const timer = setTimeout(() => {
 			setLoadingAnimation(false);
 		}, 5000);
-	};
-
-	function getWishList(userID) {
-		axios.get(`${API}/getguestwishes/${userID}`).then((res) => {
-			let wishlist = res.data;
-			dispatchEventDetails({ type: 'SET_WISHLIST', payload: wishlist });
-		});
-	}
-
-	function getGiftList(userID) {
-		axios.get(`${API}/getgifts/${userID}`).then((res) => {
-			let giftlist = res.data;
-			dispatchEventDetails({ type: 'SET_GIFTS', payload: giftlist });
-		});
-	}
-
-	function getItineraryList(userID) {
-		axios.get(`${API}/getitinerary/${userID}`).then((res) => {
-			let itineraryList = res.data;
-			dispatchEventDetails({ type: 'SET_ITINERARY', payload: itineraryList });
-		});
-	}
+		return () => clearTimeout(timer);
+	}, []);
 
 	return (
 		<div>
@@ -70,7 +42,7 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 			</Head>
 			<main>
 				<div className='app-container'>
-					{state?.loading || loadingAnimation ? (
+					{loadingAnimation && !isLoading ? (
 						<motion.div
 							initial={{ opacity: 1, filter: 'blur(0)' }}
 							animate={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 3, delay: 1 } }}
@@ -78,8 +50,7 @@ function GeneralRsvp({ title, imageUrl, description, rsvpDetails }) {
 							<MajliskuLoadingIcon />
 						</motion.div>
 					) : null}
-
-					<InviteTemplate />
+					{!isLoading && <InviteTemplate />}
 				</div>
 			</main>
 		</div>
@@ -94,6 +65,8 @@ export async function getServerSideProps(context) {
 	let description = `Kindly click to RSVP `;
 	let imageUrl =
 		'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fmetadata_img.png?alt=media&token=769f323f-8ad3-4ab3-a742-d45d959b4da2';
+
+	const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 
 	try {
 		const res = await axios.get(`${API}/rsvpdetails/${id}`);
@@ -135,7 +108,7 @@ export async function getServerSideProps(context) {
 
 	title = title.replace(/\n/g, ' ');
 
-	return { props: { title, imageUrl, description, rsvpDetails } };
+	return { props: { title, imageUrl, description, rsvpDetails, id } };
 }
 
 export default GeneralRsvp;

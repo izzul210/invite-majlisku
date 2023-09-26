@@ -33,10 +33,10 @@ export const TextContainer2 = ({ children }) => {
 	);
 };
 
-export const ButtonProvider = ({ type = null, children }) => {
+export const ButtonProvider = ({ type = null, className = '', children }) => {
 	return (
 		<div
-			className='w-full font-medium rounded-full py-2 px-8 flex flex-row justify-center items-center gap-2 cursor-pointer'
+			className={`${className} w-full font-medium rounded-full py-2 px-8 flex flex-row justify-center items-center gap-2 cursor-pointer`}
 			style={
 				type === 'primary'
 					? { color: 'white', backgroundColor: '#1E1E1E', border: ' 1px solid #1E1E1E' }

@@ -1,6 +1,9 @@
 /** @format */
+
 'use client';
 import React, { createContext, useReducer } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import '../styles/globals.css';
 import '../styles/rsvp.scss';
 import '../styles/accordian.scss';
@@ -22,9 +25,10 @@ export function useInviteDispatchContext() {
 }
 
 const initialStates = {
-	design: 0,
+	design: 7,
 	premium_design: 0,
 	loading: true,
+	inviteId: null,
 };
 
 const initialEventDetails = {
@@ -80,6 +84,7 @@ export const eventReducer = (state, action) => {
 				...initialEventDetails,
 				...action.payload,
 			};
+
 		case 'SET_WISHLIST':
 			return {
 				...state,
@@ -108,6 +113,11 @@ export const inviteReducer = (state, action) => {
 				...state,
 				rsvp_details: action.payload,
 			};
+		case 'SET_INVITE_ID':
+			return {
+				...state,
+				inviteId: action.payload,
+			};
 		case 'SET_LOADING':
 			return {
 				...state,
@@ -131,12 +141,18 @@ export const InviteProvider = ({ children }) => {
 	);
 };
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
+	/* Create a client */
+	const queryClient = new QueryClient();
+
 	return (
-		<InviteProvider>
-			<Component {...pageProps} />
-		</InviteProvider>
+		<>
+			<QueryClientProvider client={queryClient}>
+				<InviteProvider>
+					<Component {...pageProps} />
+					<ReactQueryDevtools initialIsOpen={false} />
+				</InviteProvider>
+			</QueryClientProvider>
+		</>
 	);
 }
-
-export default MyApp;
