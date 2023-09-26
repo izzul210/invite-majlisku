@@ -1,12 +1,12 @@
 /** @format */
 import Image from 'next/image';
 //Assets import
-import majliskuLoadingIcon from '../../public/images/icons/majliskuLoadingIcon.png';
-import maybeIcon from '../../public/images/icons/maybeIcon.png';
-import notAttendingIcon from '../../public/images/icons/notAttendingIcon.png';
-import attendingIcon from '../../public/images/icons/attendingIcon.png';
-import openLetterIcon from '../../public/images/icons/openLetterIcon.png';
-import giftIcon from '../../public/images/icons/giftIcon.png';
+import majliskuLoadingIcon from '../../public/icons/majliskuLoadingIcon.png';
+import maybeIcon from '../../public/icons/maybeIcon.png';
+import notAttendingIcon from '../../public/icons/notAttendingIcon.png';
+import attendingIcon from '../../public/icons/attendingIcon.png';
+import openLetterIcon from '../../public/icons/openLetterIcon.png';
+import giftIcon from '../../public/icons/giftIcon.png';
 
 export const MajliskuIcon = ({ width = '33', height = '32', fill = '#231F20' }) => (
 	<svg
