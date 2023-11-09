@@ -26,7 +26,8 @@ export async function generateMetadata({ params }) {
 
 	// fetch data
 	const rsvpDetails = await fetch(
-		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/rsvpdetails/${id}`
+		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/rsvpdetails/${id}`,
+		{ cache: 'no-store' }
 	).then((res) => res.json());
 
 	//Filter data
