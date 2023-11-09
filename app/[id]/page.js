@@ -6,7 +6,13 @@ import InviteTemplate from '../../template/InviteTemplate';
 
 async function getEventData(id) {
 	const res = await fetch(
-		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/rsvpdetails/${id}`
+		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/rsvpdetails/${id}`,
+		{
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+			},
+		}
 	);
 
 	if (!res.ok) {
