@@ -1,7 +1,6 @@
 /** @format */
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 //Components import
 import ModalProvider from '../../component/modal/ModalProvider';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
@@ -22,9 +21,6 @@ export default function AttendingRsvpModal({
 	const [pax, setPax] = useState(1);
 	const [wish, setWish] = useState('');
 	const [error, setError] = useState(null);
-
-	const router = useRouter();
-	let queryId = router.query.id;
 
 	const greetingText = enable_bahasa
 		? 'Kami menanti kedatangan anda!'
@@ -54,7 +50,6 @@ export default function AttendingRsvpModal({
 
 	const handleSubmit = () => {
 		if (checkForInputName()) {
-			router.push(`/${queryId}/rsvp`);
 		}
 	};
 

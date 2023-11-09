@@ -1,9 +1,7 @@
 /** @format */
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
-//Context import
-import { useInviteContext } from '../../pages/_app';
+import { initialStates } from '../initalStates';
 //Templates import
 const EventDetailsBasic = dynamic(() => import('./EventDetailsBasic'));
 const EventDetailsDefault = dynamic(() => import('./EventDetailsDefault'));
@@ -14,22 +12,15 @@ const RsvpActionModal = dynamic(() => import('../modals/RsvpActionModal'));
 const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'));
 const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpModal'));
 const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
-//API import
-import { useEventDetails } from '../../hooks/useApi';
 
-export default function EventDetails() {
-	const { state } = useInviteContext();
-	const { data: eventDetails } = useEventDetails();
+export default function EventDetails({ eventDetails }) {
 	const { event_date, event_time, description, enable_bahasa, location_info } = eventDetails || {};
-	const { design, premium_design } = state;
+	const { design, premium_design } = initialStates;
 
 	const [openModal, setOpenModal] = useState(false);
 	const [attendingModal, setAttendingModal] = useState(false);
 	const [notAttendingModal, setNotAttendingModal] = useState(false);
 	const [maybeModal, setMaybeModal] = useState(false);
-	const router = useRouter();
-
-	let queryId = router.query.id;
 
 	const eventDetailsProps = {
 		enable_bahasa,
@@ -45,12 +36,8 @@ export default function EventDetails() {
 	const handleOnClickRsvp = () => {
 		setOpenModal(true);
 	};
-	const handleOnClickGift = () => {
-		router.push(`/${queryId}/gift`);
-	};
-	const handleOnClickMoneyGift = () => {
-		router.push(`/${queryId}/moneygift`);
-	};
+	const handleOnClickGift = () => {};
+	const handleOnClickMoneyGift = () => {};
 
 	const handleOnClickRsvpResponse = (status) => {
 		setOpenModal(false);

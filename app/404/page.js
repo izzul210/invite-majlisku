@@ -1,20 +1,17 @@
 /** @format */
-
-import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Home.module.css';
-import errorPageImg from '../assets/images/404.png';
-import majliskuIcon from '../assets/images/majlisku-icon.png';
+import styles from '../../styles/Home.module.css';
+import errorPageImg from '../../assets/images/404.png';
+import majliskuIcon from '../../assets/images/majlisku-icon.png';
+
+export const metadata = {
+	title: 'URL Not Found | Majlisku',
+	description: 'Create e-invite with Majlisku.app',
+};
 
 export default function Error() {
 	return (
 		<div className={styles.container}>
-			<Head>
-				<title>URL Not Found | Majlisku</title>
-				<meta name='description' content='Create e-invite with Majlisku.app' />
-				<link rel='icon' href='/favicon.ico' />
-			</Head>
-
 			<main
 				style={{
 					display: 'flex',

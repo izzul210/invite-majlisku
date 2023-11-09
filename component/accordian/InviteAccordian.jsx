@@ -1,5 +1,5 @@
 /** @format */
-
+'use client';
 import React, { useEffect, useState } from 'react';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';

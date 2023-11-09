@@ -1,11 +1,7 @@
 /** @format */
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
-//Context import
-import { useInviteContext } from '../../pages/_app';
-//API import
-import { useEventDetails } from '../../hooks/useApi';
+import { initialStates } from '../initalStates';
 //Modals import
 const RsvpActionModal = dynamic(() => import('../modals/RsvpActionModal'));
 const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'));
@@ -21,9 +17,7 @@ const GreetingScreenDefaultNoAnimation = dynamic(() =>
 const GreetingScreenIslamic_1 = dynamic(() => import('./GreetingScreenIslamic_1'));
 const GreetingScreenIslamic_2 = dynamic(() => import('./GreetingScreenIslamic_2'));
 
-export default function GreetingScreen({ id }) {
-	const { state } = useInviteContext();
-	const { data: eventDetails, isLoading } = useEventDetails(id);
+export default function GreetingScreen({ eventDetails }) {
 	const {
 		enable_bahasa,
 		host_details,
@@ -34,25 +28,18 @@ export default function GreetingScreen({ id }) {
 		enable_gift_registry,
 		enable_money_gift,
 	} = eventDetails || {};
-	const { design, premium_design } = state;
+	const { design, premium_design } = initialStates;
 
 	const [openModal, setOpenModal] = useState(false);
 	const [attendingModal, setAttendingModal] = useState(false);
 	const [notAttendingModal, setNotAttendingModal] = useState(false);
 	const [maybeModal, setMaybeModal] = useState(false);
-	const router = useRouter();
-
-	let queryId = router.query.id;
 
 	const handleOnClickRsvp = () => {
 		setOpenModal(true);
 	};
-	const handleOnClickGift = () => {
-		router.push(`/${queryId}/gift`);
-	};
-	const handleOnClickMoneyGift = () => {
-		router.push(`/${queryId}/moneygift`);
-	};
+	const handleOnClickGift = () => {};
+	const handleOnClickMoneyGift = () => {};
 
 	const handleOnClickRsvpResponse = (status) => {
 		setOpenModal(false);

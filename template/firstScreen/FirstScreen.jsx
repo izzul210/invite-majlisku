@@ -1,10 +1,7 @@
 /** @format */
 import dynamic from 'next/dynamic';
+import { initialStates } from '../initalStates';
 import React, { useEffect } from 'react';
-//Context import
-import { useInviteContext } from '../../pages/_app';
-//API import
-import { useEventDetails } from '../../hooks/useApi';
 //Template imports
 const FirstScreenDefault = dynamic(() => import('./FirstScreenDefault'));
 const FirstScreenMinimal_2 = dynamic(() => import('./FirstScreenMinimal_2'));
@@ -15,9 +12,7 @@ const FirstScreenIslamic_1 = dynamic(() => import('./FirstScreenIslamic_1'));
 const FirstScreenIslamic_2 = dynamic(() => import('./FirstScreenIslamic_2'));
 const FirstScreenIslamic_3 = dynamic(() => import('./FirstScreenIslamic_3'));
 
-export default function FirstScreen({ id }) {
-	const { state } = useInviteContext();
-	const { data: eventDetails, isLoading } = useEventDetails(id);
+export default function FirstScreen({ eventDetails }) {
 	const {
 		event_title_1,
 		rsvp_header_image,
@@ -27,7 +22,7 @@ export default function FirstScreen({ id }) {
 		italic_title,
 		event_time,
 	} = eventDetails || {};
-	const { design, premium_design } = state;
+	const { design, premium_design } = initialStates;
 
 	useEffect(() => {}, [design]);
 
