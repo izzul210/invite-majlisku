@@ -8,7 +8,7 @@ async function getEventData(id) {
 	const res = await fetch(
 		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/rsvpdetails/${id}`,
 		{
-			method: 'POST',
+			method: 'GET',
 			headers: {
 				Accept: 'application/json',
 			},
