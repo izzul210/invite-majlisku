@@ -1,56 +1,12 @@
 /** @format */
 'use client';
 import React from 'react';
-import { initialStates, initialEventDetails } from './initalStates';
-//Context import
-// import { useInviteContext } from '../pages/_app';
-import { TentativeDefault, TentativeAccordian } from './tentative/Tentative';
-import { ContactAccordian, ContactDefault } from './contacts/Contacts';
-import { WishAccordian, WishDefault } from './wishlist/Wishlist';
-import { CalendarAccordian, CalendarDefault } from './calendar/Calendar';
 //Screen import
 import FirstScreen from './firstScreen/FirstScreen';
 import GreetingScreen from './greetingScreen/GreetingScreen';
 import EventDetails from './eventDetails/EventDetails';
+import Tentative from './tentative/Tentative';
 //API import
-// import { useEventDetails, useItineraryList, useWishList } from '../hooks/useApi';
-
-// const Tentative = () => {
-// 	const { state } = useInviteContext();
-// 	const { data: eventDetails, isLoading } = useEventDetails();
-// 	const { data: itinerary } = useItineraryList();
-// 	const { enable_bahasa } = eventDetails || {};
-// 	const { design } = state;
-
-// 	const renderComponent = () => {
-// 		switch (design) {
-// 			case 0:
-// 				return <TentativeDefault activities={itinerary} enable_bahasa={enable_bahasa} />;
-// 			default:
-// 				return <TentativeAccordian activities={itinerary} enable_bahasa={enable_bahasa} />;
-// 		}
-// 	};
-
-// 	return renderComponent();
-// };
-
-// const Contacts = () => {
-// 	const { state } = useInviteContext();
-// 	const { data: eventDetails, isLoading } = useEventDetails();
-// 	const { contact_info, enable_bahasa } = eventDetails;
-// 	const { design } = state;
-
-// 	const renderComponent = () => {
-// 		switch (design) {
-// 			case 0:
-// 				return <ContactDefault contact_info={contact_info} emable_bahasa={enable_bahasa} />;
-// 			default:
-// 				return <ContactAccordian contact_info={contact_info} emable_bahasa={enable_bahasa} />;
-// 		}
-// 	};
-
-// 	return renderComponent();
-// };
 
 // const Wishlist = () => {
 // 	const { state } = useInviteContext();
@@ -113,12 +69,12 @@ function InviteTemplate({ eventDetails }) {
 				<FirstScreen eventDetails={eventDetails} />
 				<GreetingScreen eventDetails={eventDetails} />
 				<EventDetails eventDetails={eventDetails} />
-				{/* <div className='w-full flex gap-3 flex-col px-5 sm:px-0 py-8' style={{ maxWidth: '400px' }}>
+				<div className='w-full flex gap-3 flex-col px-5 sm:px-0 py-8' style={{ maxWidth: '400px' }}>
 					<Tentative />
-					<Contacts />
+					{/* <Contacts />
 					<Wishlist />
-					<Calendar />
-				</div> */}
+					<Calendar /> */}
+				</div>
 			</div>
 		</div>
 	);

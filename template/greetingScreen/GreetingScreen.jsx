@@ -1,4 +1,5 @@
 /** @format */
+'use client';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { initialStates } from '../initalStates';

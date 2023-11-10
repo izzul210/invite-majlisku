@@ -1,4 +1,5 @@
 /** @format */
+'use client';
 import dynamic from 'next/dynamic';
 import { initialStates } from '../initalStates';
 import React, { useEffect } from 'react';

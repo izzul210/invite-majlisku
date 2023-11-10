@@ -5,8 +5,12 @@ import errorPageImg from '../../assets/images/404.png';
 import majliskuIcon from '../../assets/images/majlisku-icon.png';
 
 export const metadata = {
-	title: 'URL Not Found | Majlisku',
-	description: 'Create e-invite with Majlisku.app',
+	title: {
+		absolute: 'URL Not Found | Majlisku',
+	},
+	description: {
+		absolute: 'Create e-invite with Majlisku.app',
+	},
 };
 
 export default function Error() {
