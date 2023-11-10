@@ -84,6 +84,7 @@ export default function GreetingScreen({ eventDetails }) {
 						handleClose={() => setOpenModal(false)}
 						handleRsvp={handleOnClickRsvpResponse}
 						enable_bahasa={enable_bahasa}
+						eventDetails={eventDetails}
 					/>
 					<AttendingRsvpModal
 						isOpen={attendingModal}
@@ -93,6 +94,7 @@ export default function GreetingScreen({ eventDetails }) {
 							setOpenModal(true);
 						}}
 						enable_bahasa={enable_bahasa}
+						eventDetails={eventDetails}
 					/>
 					<NotAttendingRsvpModal
 						isOpen={notAttendingModal}
@@ -102,6 +104,7 @@ export default function GreetingScreen({ eventDetails }) {
 							setOpenModal(true);
 						}}
 						enable_bahasa={enable_bahasa}
+						eventDetails={eventDetails}
 					/>
 					<MaybeRsvpModal
 						isOpen={maybeModal}

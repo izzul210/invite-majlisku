@@ -19,8 +19,7 @@ export async function generateMetadata({ params }) {
 
 	//fetch data
 	const rsvpDetails = await fetch(
-		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/rsvpdetails/${id}`,
-		{ cache: 'no-store' }
+		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/rsvpdetails/${id}`
 	).then((res) => res.json());
 
 	//Filter data
@@ -59,10 +58,10 @@ export async function generateMetadata({ params }) {
 }
 
 /**************** Fetch API *******************/
-async function getEventData(id) {
+async function getEventDetails(id) {
 	const res = await fetch(
 		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/rsvpdetails/${id}`,
-		{ cache: 'no-store' }
+		{ next: { tags: ['eventDetails'] } }
 	);
 
 	if (!res.ok) {
@@ -73,8 +72,7 @@ async function getEventData(id) {
 }
 async function getEventItinerary(userId) {
 	const res = await fetch(
-		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/getitinerary/${userId}`,
-		{ cache: 'no-store' }
+		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/getitinerary/${userId}`
 	);
 
 	if (!res.ok) {
@@ -86,7 +84,7 @@ async function getEventItinerary(userId) {
 async function getWishlist(userId) {
 	const res = await fetch(
 		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/getguestwishes/${userId}`,
-		{ cache: 'no-store' }
+		{ next: { tags: ['wishlist'] } }
 	);
 
 	if (!res.ok) {
@@ -105,7 +103,7 @@ async function getWishlist(userId) {
  *
  * INVITE MAIN PAGE */
 export default async function Page({ params }) {
-	const data = await getEventData(params.id);
+	const data = await getEventDetails(params.id);
 
 	//Redirect to page 404 if user doesnt exist
 	if (!data) {

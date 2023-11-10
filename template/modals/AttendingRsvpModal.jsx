@@ -7,11 +7,14 @@ import InviteTextProvider from '../../component/textProvider/InviteTextProvider'
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import ButtonProvider from '../../component/button/ButtonProvider';
 import InputTextProvider from '../../component/input/InputTextProvider';
+//API import
+import { submitGuestResponse } from '../../hooks/usePostApi';
 //Assets import
 import { PhoneIcon, MinusIcon, PlusIcon, OpenLetterIcon } from '../../component/icons/icons';
 
 export default function AttendingRsvpModal({
 	isOpen,
+	eventDetails,
 	handleClose,
 	handleBackButton,
 	enable_bahasa = false,
@@ -50,6 +53,14 @@ export default function AttendingRsvpModal({
 
 	const handleSubmit = () => {
 		if (checkForInputName()) {
+			let guestRes = {
+				name: name,
+				phone: tel,
+				rsvp: 'attending',
+				pax: pax,
+				wish: wish ? wish : '',
+			};
+			submitGuestResponse(guestRes, eventDetails);
 		}
 	};
 
