@@ -1,18 +1,12 @@
 /** @format */
 
-import React from 'react';
-//MUI Import
-import Slide from '@mui/material/Slide';
-import Dialog from '@mui/material/Dialog';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Box } from '@mui/material';
 //Component import
 import CardLoadingState from '../../component/loading/CardLoadingState';
 import { BackButton } from '../icons/icons';
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-	return <Slide direction='up' ref={ref} {...props} />;
-});
 
 const CloseButton = () => (
 	<svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -25,7 +19,7 @@ const CloseButton = () => (
 	</svg>
 );
 
-function ModalProvider({
+export default function SwipeableTemporaryDrawer({
 	isOpen = false,
 	handleClose = () => {},
 	topBorder = false,
@@ -36,26 +30,24 @@ function ModalProvider({
 	children,
 	...props
 }) {
+	const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
 	return (
-		<Dialog
+		<SwipeableDrawer
+			anchor='bottom'
 			open={isOpen}
 			onClose={handleClose}
-			TransitionComponent={Transition}
-			aria-labelledby='dialog-title'
-			aria-describedby='dialog-description'
+			onOpen={() => {}}
+			disableBackdropTransition={!iOS}
+			disableDiscovery={iOS}
 			PaperProps={{
 				sx: {
-					display: 'flex',
-					flexDirection: 'column',
-					padding: '0px 0px 24px 0px',
-					borderRadius: '8px',
-					width: '400px',
-					'@media (max-width: 468px)': {
-						width: '100%',
-					},
+					zIndex: 200,
+					borderTopRightRadius: 15,
+					borderTopLeftRadius: 15,
+					maxHeight: '98dvh',
 				},
-			}}
-			{...props}>
+			}}>
 			<CardLoadingState loadingState={loading} />
 			<Box>
 				<DialogTitle
@@ -66,6 +58,7 @@ function ModalProvider({
 						position: 'sticky',
 						top: 0,
 						backgroundColor: 'white',
+						zIndex: 999,
 					}}>
 					{backButton ? (
 						<div className='w-full flex justify-between'>
@@ -96,10 +89,10 @@ function ModalProvider({
 						</div>
 					)}
 				</DialogTitle>
-				<div className='px-6'>{children}</div>
+				<div className='w-full flex justify-center items-center pb-12'>
+					<div className='px-6 max-w-[400px]'>{children}</div>
+				</div>
 			</Box>
-		</Dialog>
+		</SwipeableDrawer>
 	);
 }
-
-export default ModalProvider;

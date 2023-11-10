@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 //Components import
-import ModalProvider from '../../component/modal/ModalProvider';
+import ModalProvider from '../../component/drawer/DrawerProvider';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import ButtonProvider from '../../component/button/ButtonProvider';

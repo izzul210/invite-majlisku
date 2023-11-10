@@ -8,9 +8,7 @@ const RsvpActionModal = dynamic(() => import('../modals/RsvpActionModal'));
 const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'));
 const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpModal'));
 const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
-
 //Template import
-const GreetingScreenDefault = dynamic(() => import('./GreetingScreenDefault'));
 const GreetingScreenPremium = dynamic(() => import('./GreetingScreenPremium'));
 const GreetingScreenDefaultNoAnimation = dynamic(() =>
 	import('./GreetingScreenDefaultNoAnimation')

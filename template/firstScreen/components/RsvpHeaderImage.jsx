@@ -1,6 +1,6 @@
 /** @format */
 
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { Graphic_1, Ellipse_1 } from '../../../component/graphics/graphics';
 
 export const RsvpHeaderImage = ({ rsvp_header_image, curveTopBorder = false }) => {

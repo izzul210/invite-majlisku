@@ -1,5 +1,5 @@
 /** @format */
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import styles from '../../styles/Home.module.css';
 import errorPageImg from '../../assets/images/404.png';
 import majliskuIcon from '../../assets/images/majlisku-icon.png';

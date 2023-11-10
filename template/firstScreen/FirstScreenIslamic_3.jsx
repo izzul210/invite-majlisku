@@ -1,6 +1,6 @@
 /** @format */
 import moment from 'moment';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 //Components import
 import Bismillah from './components/Bismillah';
 import IslamicTitle from './components/titles/IslamicTitle';
