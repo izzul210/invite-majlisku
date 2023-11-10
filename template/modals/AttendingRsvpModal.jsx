@@ -1,6 +1,7 @@
 /** @format */
-
+'use client';
 import React, { useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 //Components import
 import ModalProvider from '../../component/drawer/DrawerProvider';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
@@ -8,7 +9,7 @@ import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import ButtonProvider from '../../component/button/ButtonProvider';
 import InputTextProvider from '../../component/input/InputTextProvider';
 //API import
-import { submitGuestResponse } from '../../hooks/usePostApi';
+import { postRequestHook } from '../../hooks/usePostApi';
 //Assets import
 import { PhoneIcon, MinusIcon, PlusIcon, OpenLetterIcon } from '../../component/icons/icons';
 
@@ -24,6 +25,11 @@ export default function AttendingRsvpModal({
 	const [pax, setPax] = useState(1);
 	const [wish, setWish] = useState('');
 	const [error, setError] = useState(null);
+
+	const { loading, submitGuestResponse } = postRequestHook();
+
+	const router = useRouter();
+	const pathname = usePathname();
 
 	const greetingText = enable_bahasa
 		? 'Kami menanti kedatangan anda!'
@@ -60,7 +66,10 @@ export default function AttendingRsvpModal({
 				pax: pax,
 				wish: wish ? wish : '',
 			};
-			submitGuestResponse(guestRes, eventDetails);
+			submitGuestResponse(guestRes, eventDetails, () => {
+				router.push(`${pathname}/thankyou`);
+				router.refresh();
+			});
 		}
 	};
 
@@ -78,6 +87,7 @@ export default function AttendingRsvpModal({
 
 	return (
 		<ModalProvider
+			loading={loading}
 			topBorder
 			backButton
 			isOpen={isOpen}
