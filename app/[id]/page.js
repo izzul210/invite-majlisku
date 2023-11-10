@@ -91,7 +91,7 @@ async function getEventItinerary(userId) {
 async function getWishlist(userId) {
 	const res = await fetch(
 		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/getguestwishes/${userId}`,
-		{ cache: 'no-store' }
+		{ next: { tags: ['wishlist'] } }
 	);
 
 	if (!res.ok) {

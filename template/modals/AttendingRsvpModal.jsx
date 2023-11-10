@@ -9,7 +9,7 @@ import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import ButtonProvider from '../../component/button/ButtonProvider';
 import InputTextProvider from '../../component/input/InputTextProvider';
 //API import
-import { postRequestHook } from '../../hooks/usePostApi';
+import { submitGuestResponse } from '../../hooks/usePostApi';
 //Assets import
 import { PhoneIcon, MinusIcon, PlusIcon, OpenLetterIcon } from '../../component/icons/icons';
 
@@ -25,8 +25,7 @@ export default function AttendingRsvpModal({
 	const [pax, setPax] = useState(1);
 	const [wish, setWish] = useState('');
 	const [error, setError] = useState(null);
-
-	const { loading, submitGuestResponse } = postRequestHook();
+	const [loading, setLoading] = useState(false);
 
 	const router = useRouter();
 	const pathname = usePathname();
@@ -57,8 +56,9 @@ export default function AttendingRsvpModal({
 		}
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (checkForInputName()) {
+			setLoading(true);
 			let guestRes = {
 				name: name,
 				phone: tel,
@@ -66,10 +66,17 @@ export default function AttendingRsvpModal({
 				pax: pax,
 				wish: wish ? wish : '',
 			};
-			submitGuestResponse(guestRes, eventDetails, () => {
+			const response = await submitGuestResponse(guestRes, eventDetails);
+			console.log('loading..........');
+			if (response) {
+				console.log('sukses');
+				handleClose();
 				router.push(`${pathname}/thankyou`);
-				router.refresh();
-			});
+				setLoading(false);
+			} else {
+				console.log('not sukses');
+				setLoading(false);
+			}
 		}
 	};
 
