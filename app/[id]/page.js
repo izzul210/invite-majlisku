@@ -4,6 +4,13 @@ import { redirect } from 'next/navigation';
 import moment from 'moment';
 //Screen import
 import InviteTemplate from '../../template/InviteTemplate';
+import FirstScreen from '../../template/firstScreen/FirstScreen';
+import GreetingScreen from '../../template/greetingScreen/GreetingScreen';
+import EventDetails from '../../template/eventDetails/EventDetails';
+import Tentative from '../../template/tentative/Tentative';
+import Contacts from '../../template/contacts/Contacts';
+import Wishlist from '../../template/wishlist/Wishlist';
+import { Suspense } from 'react';
 
 /**************** Generating Metadata **********/
 export async function generateMetadata({ params }) {
@@ -103,19 +110,36 @@ async function getWishlist(userId) {
  *
  * INVITE MAIN PAGE */
 export default async function Page({ params }) {
-	const data = await getEventDetails(params.id);
+	const eventDetails = await getEventDetails(params.id);
 
 	//Redirect to page 404 if user doesnt exist
-	if (!data) {
+	if (!eventDetails) {
 		redirect('/404');
 	}
 
-	const itinerary = await getEventItinerary(data.user_id);
-	const wishlist = await getWishlist(data.user_id);
+	const itinerary = await getEventItinerary(eventDetails.user_id);
+	const wishlist = await getWishlist(eventDetails.user_id);
 
 	return (
 		<main>
-			<InviteTemplate eventDetails={data} itinerary={itinerary} wishlist={wishlist} />
+			<div className='w-full px-0 pb-6 sm:px-4 h-full flex flex-col items-center pt-0 sm:pt-24 sm:bg-transparent'>
+				<div className='w-full flex flex-col items-center bg-white max-w-md sm:shadow-xl'>
+					<FirstScreen eventDetails={eventDetails} />
+					<GreetingScreen eventDetails={eventDetails} />
+					<EventDetails eventDetails={eventDetails} />
+					<div
+						className='w-full flex gap-3 flex-col px-5 sm:px-0 py-8'
+						style={{ maxWidth: '400px' }}>
+						<Suspense fallback={<p>Loading...</p>}>
+							<Tentative eventDetails={eventDetails} itinerary={itinerary} />
+						</Suspense>
+						<Contacts eventDetails={eventDetails} />
+						<Suspense fallback={<p>Loading...</p>}>
+							<Wishlist eventDetails={eventDetails} wishlist={wishlist} />
+						</Suspense>
+					</div>
+				</div>
+			</div>{' '}
 		</main>
 	);
 }
