@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 //Libraries import
 import moment from 'moment';
 //Screen import
+import SplashScreen from '../../template/SplashScreen';
 import FirstScreen from '../../template/firstScreen/FirstScreen';
 import GreetingScreen from '../../template/greetingScreen/GreetingScreen';
 import EventDetails from '../../template/eventDetails/EventDetails';

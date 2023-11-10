@@ -7,6 +7,8 @@ import '../template/tentative/Tentative.scss';
 //New import
 import '../component/textProvider/InviteTextProvider.scss';
 import '../template/firstScreen/FirstScreen.scss';
+//Splash screen import
+import Main from './main';
 
 export const metadata = {
 	title: {
