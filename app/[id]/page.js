@@ -3,13 +3,7 @@ import { redirect } from 'next/navigation';
 //Libraries import
 import moment from 'moment';
 //Screen import
-import SplashScreen from '../../template/SplashScreen';
-import FirstScreen from '../../template/firstScreen/FirstScreen';
-import GreetingScreen from '../../template/greetingScreen/GreetingScreen';
-import EventDetails from '../../template/eventDetails/EventDetails';
-import Tentative from '../../template/tentative/Tentative';
-import Contacts from '../../template/contacts/Contacts';
-import Wishlist from '../../template/wishlist/Wishlist';
+import InviteTemplate from '../../template/InviteTemplate';
 
 /**************** Generating Metadata **********/
 export async function generateMetadata({ params }) {
@@ -123,20 +117,7 @@ export default async function Page({ params }) {
 
 	return (
 		<main>
-			<div className='w-full px-0 pb-6 sm:px-4 h-full flex flex-col items-center pt-0 sm:pt-24 sm:bg-transparent'>
-				<div className='w-full flex flex-col items-center bg-white max-w-md sm:shadow-xl'>
-					<FirstScreen eventDetails={data} />
-					<GreetingScreen eventDetails={data} />
-					<EventDetails eventDetails={data} />
-					<div
-						className='w-full flex gap-3 flex-col px-5 sm:px-0 py-8'
-						style={{ maxWidth: '400px' }}>
-						<Tentative eventDetails={data} itinerary={itinerary} />
-						<Contacts eventDetails={data} />
-						<Wishlist eventDetails={data} wishlist={wishlist} />
-					</div>
-				</div>
-			</div>
+			<InviteTemplate eventDetails={data} itinerary={itinerary} wishlist={wishlist} />
 		</main>
 	);
 }

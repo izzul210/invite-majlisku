@@ -3,7 +3,7 @@
 86; /** @format */
 
 export const initialStates = {
-	design: 5,
+	design: 1,
 	premium_design: 0,
 	loading: true,
 	inviteId: null,
