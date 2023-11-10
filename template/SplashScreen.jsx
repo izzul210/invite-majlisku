@@ -1,17 +1,10 @@
 /** @format */
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { MajliskuLoadingIcon } from '../component/icons/icons';
 
-function SplashScreen({ setLoadingAnimation }) {
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setLoadingAnimation();
-		}, 4000);
-		return () => clearTimeout(timer);
-	}, []);
-
+function SplashScreen() {
 	return (
 		<motion.div
 			initial={{ opacity: 1, filter: 'blur(0)' }}
