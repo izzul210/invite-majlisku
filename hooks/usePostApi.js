@@ -3,6 +3,7 @@
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 
 import { revalidateTag } from 'next/cache';
+import { cookies } from 'next/headers';
 
 export async function submitGuestResponse(body, eventDetails) {
 	const response = await fetch(`${API}/newguest/${eventDetails.user_id}`, {
@@ -11,12 +12,19 @@ export async function submitGuestResponse(body, eventDetails) {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(body),
-	});
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			return data;
+		});
 
-	if (response.ok) {
+	console.log('response data', response);
+
+	if (response) {
 		// Handle successful response
 		revalidateTag('wishlist');
-		console.log('response ok', response.json());
+		cookies().set('guestName', response.name);
+		cookies().set('guestId', response.id);
 		return true;
 	} else {
 		// Handle error response

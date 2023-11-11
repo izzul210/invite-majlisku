@@ -1,4 +1,5 @@
 /** @format */
+import { Providers } from './providers';
 import '../styles/globals.css';
 import '../styles/rsvp.scss';
 import '../styles/accordian.scss';
@@ -7,7 +8,6 @@ import '../template/tentative/Tentative.scss';
 //New import
 import '../component/textProvider/InviteTextProvider.scss';
 import '../template/firstScreen/FirstScreen.scss';
-//Splash screen import
 
 export const metadata = {
 	title: {
@@ -21,7 +21,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang='en'>
-			<body>{children}</body>
+			<body>
+				<Providers>{children}</Providers>
+			</body>
 		</html>
 	);
 }

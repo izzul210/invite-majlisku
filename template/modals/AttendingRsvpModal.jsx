@@ -18,6 +18,7 @@ export default function AttendingRsvpModal({
 	eventDetails,
 	handleClose,
 	handleBackButton,
+	handlePostRequest,
 	enable_bahasa = false,
 }) {
 	const [name, setName] = useState('');
@@ -58,7 +59,7 @@ export default function AttendingRsvpModal({
 
 	const handleSubmit = async () => {
 		if (checkForInputName()) {
-			setLoading(true);
+			// setLoading(true);
 			let guestRes = {
 				name: name,
 				phone: tel,
@@ -67,16 +68,16 @@ export default function AttendingRsvpModal({
 				wish: wish ? wish : '',
 			};
 			const response = await submitGuestResponse(guestRes, eventDetails);
-			console.log('loading..........');
-			if (response) {
-				console.log('sukses');
-				handleClose();
-				router.push(`${pathname}/thankyou`);
-				setLoading(false);
-			} else {
-				console.log('not sukses');
-				setLoading(false);
-			}
+			// console.log('loading..........');
+			// if (response) {
+			// 	console.log('sukses');
+			// 	handleClose();
+			// 	handlePostRequest();
+			// 	setLoading(false);
+			// } else {
+			// 	console.log('not sukses');
+			// 	setLoading(false);
+			// }
 		}
 	};
 

@@ -93,6 +93,10 @@ export default function GreetingScreen({ eventDetails }) {
 							setAttendingModal(false);
 							setOpenModal(true);
 						}}
+						handlePostRequest={() => {
+							setAttendingModal(false);
+							setOpenModal(true);
+						}}
 						enable_bahasa={enable_bahasa}
 						eventDetails={eventDetails}
 					/>

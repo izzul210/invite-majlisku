@@ -1,7 +1,7 @@
 /** @format */
-
+'use client';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
-import { useInviteContext } from '../pages/_app';
+import { useRouter } from 'next/navigation';
 //Libraries
 import axios from 'axios';
 import moment from 'moment';
@@ -54,43 +54,23 @@ const initialEventDetails = {
 	gifts: [],
 };
 
-// export const useEventDetails = () => {
-// 	const { state } = useInviteContext();
-// 	const {
-// 		data = {},
-// 		isLoading,
-// 		error,
-// 	} = useQuery({
-// 		queryKey: ['eventDetails'],
-// 		queryFn: async () => {
-// 			const response = await axios.get(`${API}/rsvpdetails/${state?.inviteId}`).then((res) => {
-// 				return res.data;
-// 			});
-
-// 			return { initialEventDetails, ...response };
-// 		},
-// 		enable: state?.inviteId ? true : false,
-// 	});
-
-// 	return {
-// 		data,
-// 		isLoading,
-// 		error,
-// 	};
-// };
-
-export const useEventDetails = () => {
-	const { eventDetails } = useInviteContext();
+export const useEventDetails = (inviteId) => {
+	const router = useRouter();
 	const {
 		data = {},
 		isLoading,
 		error,
 	} = useQuery({
 		queryKey: ['eventDetails'],
-		queryFn: () => {
-			return eventDetails;
+		queryFn: async () => {
+			try {
+				const response = await axios.get(`${API}/rsvpdetails/${inviteId}`);
+				return { initialEventDetails, ...response.data };
+			} catch (error) {
+				router.push('/404');
+			}
 		},
-		enable: eventDetails?.user_id ? true : false,
+		enabled: !!inviteId,
 	});
 
 	return {
@@ -101,8 +81,7 @@ export const useEventDetails = () => {
 };
 
 export const useItineraryList = () => {
-	// const { data: eventDetails } = useEventDetails();
-	const { eventDetails } = useInviteContext();
+	const { data: eventDetails } = useEventDetails();
 	const { data, isLoading, error } = useQuery({
 		queryKey: ['itineraryList'],
 		queryFn: async () => {
@@ -114,7 +93,7 @@ export const useItineraryList = () => {
 
 			return response;
 		},
-		enable: eventDetails?.user_id ? true : false,
+		enabled: !!eventDetails.user_id,
 	});
 
 	return {
@@ -125,8 +104,7 @@ export const useItineraryList = () => {
 };
 
 export const useGiftList = () => {
-	// const { data: eventDetails } = useEventDetails();
-	const { eventDetails } = useInviteContext();
+	const { data: eventDetails } = useEventDetails();
 	const { data, isLoading, error } = useQuery({
 		queryKey: ['giftList'],
 		queryFn: async () => {
@@ -136,7 +114,7 @@ export const useGiftList = () => {
 
 			return response;
 		},
-		enable: eventDetails?.user_id ? true : false,
+		enabled: eventDetails?.user_id ? true : false,
 	});
 
 	return {
@@ -147,8 +125,7 @@ export const useGiftList = () => {
 };
 
 export const useWishList = () => {
-	// const { data: eventDetails } = useEventDetails();
-	const { eventDetails } = useInviteContext();
+	const { data: eventDetails } = useEventDetails();
 	const { data, isLoading, error } = useQuery({
 		queryKey: ['wishList'],
 		queryFn: async () => {
@@ -160,7 +137,7 @@ export const useWishList = () => {
 
 			return response;
 		},
-		enable: eventDetails?.user_id ? true : false,
+		enabled: !!eventDetails.user_id,
 	});
 
 	return {
