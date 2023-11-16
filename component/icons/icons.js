@@ -1,5 +1,5 @@
 /** @format */
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 
 export const MajliskuIcon = ({ width = '33', height = '32', fill = '#231F20' }) => (
 	<svg
@@ -277,6 +277,10 @@ export const MajliskuSmallIcon = ({ width = '25', height = '24' }) => (
 		</defs>
 	</svg>
 );
+
+export const MajliskuWhiteIcon = ({ width = '24', height = '24' }) => {
+	return <Image src='/majliskuWhite.png' alt='Majlisku White Icon' width={width} height={height} />;
+};
 
 export const MajliskuLoadingIcon = ({ width = '94', height = '94' }) => (
 	<svg

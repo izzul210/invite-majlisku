@@ -1,7 +1,7 @@
 /** @format */
 'use client';
 import React, { useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import moment from 'moment';
 //Components import
 import ModalProvider from '../../component/drawer/DrawerProvider';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
@@ -18,31 +18,33 @@ export default function AttendingRsvpModal({
 	handleClose,
 	handleBackButton,
 	handlePostRequest,
+	enable_multiple_slots,
 	enable_bahasa = false,
+	event_time,
+	event_time_slot_2 = null,
 }) {
 	const [name, setName] = useState('');
 	const [tel, setTel] = useState('');
 	const [pax, setPax] = useState(1);
 	const [wish, setWish] = useState('');
+	const [timeSlot, setTimeSlot] = useState(null);
 	const [error, setError] = useState(null);
-	const [loading, setLoading] = useState(false);
-
+	const [timeSlotError, setTimeSlotError] = useState(null);
 	//POST Request
 	const submitGuestResponse = useSubmitGuestResponse();
-
-	const router = useRouter();
-	const pathname = usePathname();
-
+	//Title Text
 	const greetingText = enable_bahasa
 		? 'Kami menanti kedatangan anda!'
 		: 'We are looking forward to seeing you there!';
 	const nameText = enable_bahasa ? 'Nama' : 'Name';
 	const telText = enable_bahasa ? 'No Tel' : 'Contact';
 	const paxText = enable_bahasa ? 'Bilangan Kehadiran' : 'Total Pax';
+	const timeslotText = enable_bahasa ? 'Pilih Waktu' : 'Time Slot';
 	const wishText = enable_bahasa ? 'Ucapan anda' : 'Your Wish';
 	const confirmText = enable_bahasa ? 'Setuju' : 'Confirm';
 	const cancelText = enable_bahasa ? 'Batal' : 'Cancel';
 	const nameInputErrorText = enable_bahasa ? 'Sila nyatakan nama anda' : 'Please enter your name';
+	const timeSlotInputErrorText = enable_bahasa ? 'Sila pilih waktu' : 'Please choose a timeslot';
 
 	const handleChangeName = (e) => {
 		setError(null);
@@ -54,6 +56,9 @@ export default function AttendingRsvpModal({
 		if (name === '') {
 			setError(nameInputErrorText);
 			return false;
+		} else if (!timeSlot && enable_multiple_slots) {
+			setTimeSlotError(timeSlotInputErrorText);
+			return false;
 		} else {
 			return true;
 		}
@@ -61,7 +66,6 @@ export default function AttendingRsvpModal({
 
 	const handleSubmit = async () => {
 		if (checkForInputName()) {
-			// setLoading(true);
 			let guestRes = {
 				name: name,
 				phone: tel,
@@ -70,11 +74,18 @@ export default function AttendingRsvpModal({
 				wish: wish ? wish : '',
 			};
 
+			if (enable_multiple_slots) {
+				guestRes = {
+					...guestRes,
+					timeSlot: timeSlot,
+				};
+			}
+
 			const response = await submitGuestResponse.mutateAsync(guestRes);
 			if (response) {
 				handlePostRequest();
 			} else {
-				window.alert('Erro please contact me!');
+				window.alert('Error please contact me!');
 			}
 		}
 	};
@@ -142,6 +153,37 @@ export default function AttendingRsvpModal({
 								icon={<PhoneIcon fill='#98A2B3' />}
 							/>
 						</div>
+						{enable_multiple_slots ? (
+							<div className='flex flex-col gap-1'>
+								<InviteTextProvider color='#475467' className='uppercase font-medium'>
+									{timeslotText}*
+								</InviteTextProvider>
+								<div className='flex flex-row gap-2'>
+									<TimeSlotButton
+										active={timeSlot === 1}
+										onClick={() => {
+											setTimeSlotError(null);
+											setTimeSlot(1);
+										}}>
+										{moment(event_time).format('h:mm A')}
+									</TimeSlotButton>
+									<TimeSlotButton
+										active={timeSlot === 2}
+										onClick={() => {
+											setTimeSlotError(null);
+											setTimeSlot(2);
+										}}>
+										{moment(event_time_slot_2).format('h:mm A')}
+									</TimeSlotButton>
+								</div>
+								{timeSlotError && (
+									<InviteTextProvider color='red' className='text-base'>
+										{timeSlotError}
+									</InviteTextProvider>
+								)}
+							</div>
+						) : null}
+
 						<div className='flex flex-col gap-2'>
 							<InviteTextProvider color='#475467' className='uppercase font-medium'>
 								{paxText}
@@ -186,3 +228,24 @@ export default function AttendingRsvpModal({
 		</ModalProvider>
 	);
 }
+
+const TimeSlotButton = ({ children, active, ...props }) => {
+	const styleProvider = active
+		? {
+				border: '1px solid #98A2B3',
+				background:
+					'var(--nude-tint-75, linear-gradient(0deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.75) 100%), #F1BFBE)',
+		  }
+		: {
+				border: '1px solid #D0D5DD',
+		  };
+
+	return (
+		<button
+			{...props}
+			className='flex-1 py-3 px-4 rounded-full'
+			style={{ ...styleProvider, fontFamily: 'Lora', color: '#1D4648' }}>
+			{children}
+		</button>
+	);
+};

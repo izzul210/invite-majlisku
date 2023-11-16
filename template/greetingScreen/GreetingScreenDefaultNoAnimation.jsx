@@ -2,13 +2,13 @@
 
 import React from 'react';
 //Components import
+import RsvpButton from '../RsvpButton';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import { MajliskuIconV3, GiftIcon, MoneyGift } from '../../component/icons/icons';
 import {
 	HostsText,
 	GreetingText,
-	GreetingText_Premium,
 	GreetingTitle,
 	MainTitle,
 	ButtonProvider,
@@ -58,11 +58,7 @@ export default function GreetingScreenDefaultNoAnimation({
 				</div>
 			</div>
 			<div className='w-full flex flex-col gap-2' style={{ maxWidth: '290px' }}>
-				<ButtonProvider type='primary' onClick={() => onClickRSVP()}>
-					<InviteTextProvider className='uppercase' color='white'>
-						RSVP
-					</InviteTextProvider>
-				</ButtonProvider>
+				<RsvpButton />
 				{enable_gift_registry && (
 					<ButtonProvider onClick={onClickGiftRegistry}>
 						<GiftIcon />

@@ -38,7 +38,6 @@ export default function RsvpActionModal({
 					<ButtonProvider className='w-full uppercase' onClick={() => handleRsvp(0)}>
 						<AttendingIcon /> {attendingButtonText}
 					</ButtonProvider>
-
 					<ButtonProvider className='w-full uppercase' onClick={() => handleRsvp(1)}>
 						<NotAttendingIcon /> {notAttendingButtonText}
 					</ButtonProvider>

@@ -3,12 +3,6 @@
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { initialStates } from '../initalStates';
-//Modals import
-const RsvpActionModal = dynamic(() => import('../modals/RsvpActionModal'));
-const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'));
-const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpModal'));
-const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
-const ThankYouModal = dynamic(() => import('../modals/ThankYouModal'));
 //Template import
 const GreetingScreenPremium = dynamic(() => import('./GreetingScreenPremium'));
 const GreetingScreenDefaultNoAnimation = dynamic(() =>
@@ -31,29 +25,8 @@ export default function GreetingScreen({ eventDetails }) {
 	} = eventDetails || {};
 	const { design, premium_design } = initialStates;
 
-	const [openModal, setOpenModal] = useState(false);
-	const [thankyouModal, setThankyouModal] = useState(false);
-	const [attendingModal, setAttendingModal] = useState(false);
-	const [notAttendingModal, setNotAttendingModal] = useState(false);
-	const [maybeModal, setMaybeModal] = useState(false);
-
-	const handleOnClickRsvp = () => {
-		// setOpenModal(true);
-		setThankyouModal(true);
-	};
 	const handleOnClickGift = () => {};
 	const handleOnClickMoneyGift = () => {};
-
-	const handleOnClickRsvpResponse = (status) => {
-		setOpenModal(false);
-		if (status === 0) {
-			setAttendingModal(true);
-		} else if (status === 1) {
-			setNotAttendingModal(true);
-		} else if (status === 2) {
-			setMaybeModal(true);
-		}
-	};
 
 	const greetingScreenProps = {
 		enable_bahasa,
@@ -79,54 +52,8 @@ export default function GreetingScreen({ eventDetails }) {
 				<>
 					<GreetingScreenDefaultNoAnimation
 						{...greetingScreenProps}
-						onClickRSVP={handleOnClickRsvp}
 						onClickGiftRegistry={handleOnClickGift}
 						onClickMoneyGift={handleOnClickMoneyGift}
-					/>
-					<RsvpActionModal
-						isOpen={openModal}
-						handleClose={() => setOpenModal(false)}
-						handleRsvp={handleOnClickRsvpResponse}
-						enable_bahasa={enable_bahasa}
-						eventDetails={eventDetails}
-					/>
-					<AttendingRsvpModal
-						isOpen={attendingModal}
-						handleClose={() => setAttendingModal(false)}
-						handleBackButton={() => {
-							setAttendingModal(false);
-							setOpenModal(true);
-						}}
-						handlePostRequest={() => {
-							setAttendingModal(false);
-							setOpenModal(true);
-						}}
-						enable_bahasa={enable_bahasa}
-						eventDetails={eventDetails}
-					/>
-					<NotAttendingRsvpModal
-						isOpen={notAttendingModal}
-						handleClose={() => setNotAttendingModal(false)}
-						handleBackButton={() => {
-							setNotAttendingModal(false);
-							setOpenModal(true);
-						}}
-						enable_bahasa={enable_bahasa}
-						eventDetails={eventDetails}
-					/>
-					<MaybeRsvpModal
-						isOpen={maybeModal}
-						handleClose={() => setMaybeModal(false)}
-						handleBackButton={() => {
-							setMaybeModal(false);
-							setOpenModal(true);
-						}}
-						enable_bahasa={enable_bahasa}
-					/>
-					<ThankYouModal
-						isOpen={thankyouModal}
-						event_date={event_date}
-						handleClose={() => setThankyouModal(false)}
 					/>
 				</>
 			);

@@ -8,18 +8,23 @@ import ButtonProvider from '../../component/button/ButtonProvider';
 import InputTextProvider from '../../component/input/InputTextProvider';
 //Assets import
 import { PhoneIcon, OpenLetterIcon } from '../../component/icons/icons';
+//API import
+import { useSubmitGuestResponse } from '../../hooks/usePostApi';
 
 export default function MaybeRsvpModal({
 	isOpen,
 	handleClose,
 	handleBackButton,
+	handlePostRequest,
 	enable_bahasa = false,
 }) {
 	const [name, setName] = useState('');
 	const [tel, setTel] = useState('');
 	const [wish, setWish] = useState('');
 	const [error, setError] = useState(null);
-
+	//POST Request
+	const submitGuestResponse = useSubmitGuestResponse();
+	//Title text
 	const greetingText = enable_bahasa
 		? 'Kami amat berbesar hati jika tuan/puan dapat hadir ke majlis kami'
 		: 'We are very happy if you could attend our event!';
@@ -45,13 +50,28 @@ export default function MaybeRsvpModal({
 		}
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (checkForInputName()) {
+			let guestRes = {
+				name: name,
+				phone: tel,
+				rsvp: 'maybe',
+				pax: 1,
+				wish: wish,
+			};
+
+			const response = await submitGuestResponse.mutateAsync(guestRes);
+			if (response) {
+				handlePostRequest();
+			} else {
+				window.alert('Error please contact me!');
+			}
 		}
 	};
 
 	return (
 		<ModalProvider
+			loading={submitGuestResponse.isLoading}
 			topBorder
 			backButton
 			isOpen={isOpen}

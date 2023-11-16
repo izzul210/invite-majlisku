@@ -18,7 +18,7 @@ export const useSubmitGuestResponse = () => {
 			return response.data;
 		},
 		onSuccess: (data) => {
-			queryClient.invalidateQueries('wishlist');
+			queryClient.invalidateQueries('wishList');
 			queryClient.setQueryData(['guestDetail'], data);
 		},
 		onError: (err) => {
