@@ -112,7 +112,7 @@ export const useGiftList = () => {
 
 			return response;
 		},
-		enabled: eventDetails?.user_id ? true : false,
+		enabled: !!eventDetails?.user_id,
 	});
 
 	return {

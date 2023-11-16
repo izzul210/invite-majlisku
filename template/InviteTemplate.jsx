@@ -12,8 +12,6 @@ import Wishlist from './wishlist/Wishlist';
 import Contacts from './contacts/Contacts';
 import { MajliskuLoadingIcon } from '../component/icons/icons';
 
-//API import
-
 function InviteTemplate({ inviteId }) {
 	const { data: eventDetails, isLoading } = useEventDetails(inviteId);
 	const { data: itinerary } = useItineraryList();

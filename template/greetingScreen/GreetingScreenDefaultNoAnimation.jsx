@@ -4,6 +4,7 @@ import React from 'react';
 //Components import
 import RsvpButton from '../RsvpButton';
 import MoneyGiftButton from '../MoneyGiftButton';
+import GiftRegistryButton from '../GiftRegistryButton';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import { MajliskuIconV3, GiftIcon, MoneyGift } from '../../component/icons/icons';
@@ -60,14 +61,7 @@ export default function GreetingScreenDefaultNoAnimation({
 			</div>
 			<div className='w-full flex flex-col gap-2' style={{ maxWidth: '290px' }}>
 				<RsvpButton />
-				{enable_gift_registry && (
-					<ButtonProvider onClick={onClickGiftRegistry}>
-						<GiftIcon />
-						<InviteTextProvider className='uppercase'>
-							{enable_bahasa ? 'Bawa Hadiah' : 'Gift Registry'}
-						</InviteTextProvider>
-					</ButtonProvider>
-				)}
+				{enable_gift_registry && <GiftRegistryButton />}
 				{enable_money_gift && <MoneyGiftButton />}
 			</div>
 		</div>
