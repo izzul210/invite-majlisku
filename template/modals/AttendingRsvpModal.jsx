@@ -9,13 +9,12 @@ import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import ButtonProvider from '../../component/button/ButtonProvider';
 import InputTextProvider from '../../component/input/InputTextProvider';
 //API import
-import { submitGuestResponse } from '../../hooks/usePostApi';
+import { useSubmitGuestResponse } from '../../hooks/usePostApi';
 //Assets import
 import { PhoneIcon, MinusIcon, PlusIcon, OpenLetterIcon } from '../../component/icons/icons';
 
 export default function AttendingRsvpModal({
 	isOpen,
-	eventDetails,
 	handleClose,
 	handleBackButton,
 	handlePostRequest,
@@ -27,6 +26,9 @@ export default function AttendingRsvpModal({
 	const [wish, setWish] = useState('');
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
+
+	//POST Request
+	const submitGuestResponse = useSubmitGuestResponse();
 
 	const router = useRouter();
 	const pathname = usePathname();
@@ -67,17 +69,13 @@ export default function AttendingRsvpModal({
 				pax: pax,
 				wish: wish ? wish : '',
 			};
-			const response = await submitGuestResponse(guestRes, eventDetails);
-			// console.log('loading..........');
-			// if (response) {
-			// 	console.log('sukses');
-			// 	handleClose();
-			// 	handlePostRequest();
-			// 	setLoading(false);
-			// } else {
-			// 	console.log('not sukses');
-			// 	setLoading(false);
-			// }
+
+			const response = await submitGuestResponse.mutateAsync(guestRes);
+			if (response) {
+				handlePostRequest();
+			} else {
+				window.alert('Erro please contact me!');
+			}
 		}
 	};
 
@@ -95,7 +93,7 @@ export default function AttendingRsvpModal({
 
 	return (
 		<ModalProvider
-			loading={loading}
+			loading={submitGuestResponse.isLoading}
 			topBorder
 			backButton
 			isOpen={isOpen}

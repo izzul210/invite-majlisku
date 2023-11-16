@@ -1,7 +1,5 @@
 /** @format */
 
-86; /** @format */
-
 export const initialStates = {
 	design: 1,
 	premium_design: 0,

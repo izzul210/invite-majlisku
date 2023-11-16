@@ -8,6 +8,7 @@ const RsvpActionModal = dynamic(() => import('../modals/RsvpActionModal'));
 const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'));
 const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpModal'));
 const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
+const ThankYouModal = dynamic(() => import('../modals/ThankYouModal'));
 //Template import
 const GreetingScreenPremium = dynamic(() => import('./GreetingScreenPremium'));
 const GreetingScreenDefaultNoAnimation = dynamic(() =>
@@ -26,16 +27,19 @@ export default function GreetingScreen({ eventDetails }) {
 		greet_content_2,
 		enable_gift_registry,
 		enable_money_gift,
+		event_date,
 	} = eventDetails || {};
 	const { design, premium_design } = initialStates;
 
 	const [openModal, setOpenModal] = useState(false);
+	const [thankyouModal, setThankyouModal] = useState(false);
 	const [attendingModal, setAttendingModal] = useState(false);
 	const [notAttendingModal, setNotAttendingModal] = useState(false);
 	const [maybeModal, setMaybeModal] = useState(false);
 
 	const handleOnClickRsvp = () => {
-		setOpenModal(true);
+		// setOpenModal(true);
+		setThankyouModal(true);
 	};
 	const handleOnClickGift = () => {};
 	const handleOnClickMoneyGift = () => {};
@@ -118,6 +122,11 @@ export default function GreetingScreen({ eventDetails }) {
 							setOpenModal(true);
 						}}
 						enable_bahasa={enable_bahasa}
+					/>
+					<ThankYouModal
+						isOpen={thankyouModal}
+						event_date={event_date}
+						handleClose={() => setThankyouModal(false)}
 					/>
 				</>
 			);
