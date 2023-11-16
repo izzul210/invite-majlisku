@@ -98,7 +98,7 @@ const ReservedTag = () => {
 const GiftCard = ({ giftDetails, ...props }) => {
 	const { name, imageUrl, link, category, reserved, id } = giftDetails || {};
 	return (
-		<div className='w-full max-w-[320px] p-3' {...props}>
+		<div className='w-full max-w-[320px] p-3 cursor-pointer' {...props}>
 			{reserved ? (
 				<ReservedImage imageUrl={imageUrl} />
 			) : (
@@ -138,11 +138,11 @@ const GiftCard = ({ giftDetails, ...props }) => {
 };
 
 function GiftList({ giftlist, giftIsLoading }) {
-	const [giftDetail, setGiftDetail] = useState({ name: 'Gift Name' });
+	const [giftDetails, setGiftDetails] = useState({});
 	const [giftModal, setGiftModal] = useState(false);
-
 	const handleClickGift = (gift) => {
-		setGiftDetail(gift);
+		if (gift.reserved) return;
+		setGiftDetails(gift);
 		setGiftModal(true);
 	};
 
@@ -155,7 +155,7 @@ function GiftList({ giftlist, giftIsLoading }) {
 				))}
 			</div>
 			<GiftDetailModal
-				giftDetail={giftDetail}
+				giftDetails={giftDetails}
 				isOpen={giftModal}
 				handleClose={() => setGiftModal(false)}
 			/>
