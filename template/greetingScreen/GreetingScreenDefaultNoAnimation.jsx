@@ -3,6 +3,7 @@
 import React from 'react';
 //Components import
 import RsvpButton from '../RsvpButton';
+import MoneyGiftButton from '../MoneyGiftButton';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import { MajliskuIconV3, GiftIcon, MoneyGift } from '../../component/icons/icons';
@@ -67,14 +68,7 @@ export default function GreetingScreenDefaultNoAnimation({
 						</InviteTextProvider>
 					</ButtonProvider>
 				)}
-				{enable_money_gift && (
-					<ButtonProvider onClick={onClickMoneyGift}>
-						<MoneyGift />
-						<InviteTextProvider className='uppercase'>
-							{enable_bahasa ? 'Salam Kaut' : 'Money Gift'}
-						</InviteTextProvider>
-					</ButtonProvider>
-				)}
+				{enable_money_gift && <MoneyGiftButton />}
 			</div>
 		</div>
 	);

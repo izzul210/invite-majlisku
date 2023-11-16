@@ -90,7 +90,7 @@ export default function SwipeableTemporaryDrawer({
 					)}
 				</DialogTitle>
 				<div className='w-full flex justify-center items-center pb-12'>
-					<div className='px-6 max-w-[400px]'>{children}</div>
+					<div className='px-6 w-full max-w-[400px]'>{children}</div>
 				</div>
 			</Box>
 		</SwipeableDrawer>
