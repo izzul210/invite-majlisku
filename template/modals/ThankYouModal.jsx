@@ -1,7 +1,7 @@
 /** @format */
 
 'use client';
-import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import moment from 'moment';
@@ -9,8 +9,7 @@ import moment from 'moment';
 import ModalProvider from '../../component/drawer/DrawerProvider';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import ButtonProvider from '../../component/button/ButtonProvider';
-//API import
-import { useEventDetails } from '../../hooks/useApi';
+import AddToCalendar from '../calendar/components/AddToCalendar';
 //Icons import
 import { AttendingIcon, GiftIcon, MoneyGift, MajliskuWhiteIcon } from '../../component/icons/icons';
 
@@ -19,8 +18,10 @@ export default function ThankYouModal({
 	handleClose,
 	event_date,
 	enable_bahasa = false,
+	eventDetails,
 	status = 'attending',
 }) {
+	const pathname = usePathname();
 	return (
 		<ModalProvider topBorder isOpen={isOpen} handleClose={handleClose}>
 			<div className='w-full flex flex-col items-center'>
@@ -48,18 +49,29 @@ export default function ThankYouModal({
 					<div className='flex flex-col gap-6'>
 						<div className='flex flex-col gap-3'>
 							{status === 'attending' ? (
-								<ButtonProvider className='w-full uppercase'>Simpan di kalendar</ButtonProvider>
+								<AddToCalendar
+									enable_bahasa={enable_bahasa}
+									address={eventDetails?.location_info?.address}
+									start_time={eventDetails?.event_time.start}
+									end_time={eventDetails?.event_time.end}
+									event_date={eventDetails?.event_date}
+									event_title={`${eventDetails.event_title_1} ${eventDetails.italic_title}`}
+								/>
 							) : null}
-							<ButtonProvider className='w-full uppercase'>
-								<GiftIcon /> Bawah Hadiah
-							</ButtonProvider>
-							<ButtonProvider className='w-full uppercase'>
+							<Link href={`${pathname}/gift`}>
+								<ButtonProvider className='w-full uppercase'>
+									<GiftIcon /> Bawah Hadiah
+								</ButtonProvider>
+							</Link>
+							{/* <ButtonProvider className='w-full uppercase'>
 								<MoneyGift /> Salam Kaut
-							</ButtonProvider>
-							<ButtonProvider type='primary' className='w-full uppercase'>
-								<MajliskuWhiteIcon />
-								Lawat Majlisku
-							</ButtonProvider>
+							</ButtonProvider> */}
+							<Link href='https://majlisku.com' target='_blank'>
+								<ButtonProvider type='primary' className='w-full uppercase'>
+									<MajliskuWhiteIcon />
+									Lawat Majlisku
+								</ButtonProvider>
+							</Link>
 						</div>
 					</div>
 				</div>

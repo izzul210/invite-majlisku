@@ -103,6 +103,7 @@ function RsvpButton(props) {
 			<ThankYouModal
 				isOpen={thankyouModal}
 				event_date={event_date}
+				eventDetails={eventDetails}
 				status={status}
 				handleClose={() => setThankyouModal(false)}
 			/>
