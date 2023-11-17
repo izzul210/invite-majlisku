@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { useRouter } from 'next/navigation';
 //Libraries
 import axios from 'axios';
+
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 
 const initialEventDetails = {

@@ -2,43 +2,61 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useQueryClient } from 'react-query';
+//API import
+import { useSubmitReserveGift } from '../../../../hooks/usePostApi';
 //Components import
 import ModalProvider from '../../../../component/drawer/DrawerProvider';
 import InviteTextProvider from '../../../../component/textProvider/InviteTextProvider';
 import ButtonProvider from '../../../../component/button/ButtonProvider';
 import GiftConfirmModal from './GiftConfirmModal';
 import GiftPostReserveModal from './GiftPostReserveModal';
+import ReturnHomeModal from './ReturnHomeModal';
 
 export default function GiftDetailModal({
 	giftDetails,
 	isOpen,
 	handleClose,
+	handleReturnMainPage,
 	enable_bahasa = false,
 }) {
-	const inviteText = enable_bahasa
-		? 'Adakah Tuan/Puan hadir ke Majlis ini?'
-		: 'Would you be able to attend the event?';
-
+	const queryClient = useQueryClient();
 	const [confirmModal, setConfirmModal] = useState(false);
-	const [postReseveModal, setPostReserveModal] = useState(false);
+	const [postReserveModal, setPostReserveModal] = useState(false);
+	const [returnHomeModal, setReturnHomeMModal] = useState(false);
+	const { name, imageUrl, link, category, id } = giftDetails || {};
 
-	const { name, imageUrl, link, category, reserved, id } = giftDetails || {};
+	const guestDetail = queryClient.getQueryData('guestDetail') || null;
+
+	const submitGuestReserveGift = useSubmitReserveGift();
 
 	useEffect(() => {}, [imageUrl]);
 
 	const handleReserveButton = () => {
 		handleClose();
-		setConfirmModal(true);
+		if (guestDetail) {
+			setConfirmModal(true);
+		} else {
+			setReturnHomeMModal(true);
+		}
 	};
 
-	const handleConfirmReserve = () => {
-		setConfirmModal(false);
-		setPostReserveModal(true);
+	const handleConfirmReserve = async () => {
+		const response = await submitGuestReserveGift.mutateAsync({ giftId: id, giftReserved: name });
+		if (response) {
+			setConfirmModal(false);
+			setPostReserveModal(true);
+		} else {
+			window.alert('Error please contact me!');
+		}
 	};
 
 	return (
 		<>
-			<ModalProvider isOpen={isOpen} handleClose={handleClose}>
+			<ModalProvider
+				loading={submitGuestReserveGift.isLoading}
+				isOpen={isOpen}
+				handleClose={handleClose}>
 				<div className='mt-4 p-4 flex flex-col gap-2 items-center'>
 					<div className='max-h-[320px] overflow-hidden'>
 						<Image
@@ -70,20 +88,32 @@ export default function GiftDetailModal({
 						</InviteTextProvider>
 					</div>
 				</div>
-				<div className='w-full flex-1 pb-8'>
+				<div className='w-full flex-1 pb-4'>
 					<ButtonProvider onClick={handleReserveButton} type='primary' className='w-full uppercase'>
 						Simpan Hadiah
 					</ButtonProvider>
+					<a href={link} target='_blank'>
+						<InviteTextProvider className='uppercase text-center underline pt-6'>
+							View Shop
+						</InviteTextProvider>
+					</a>
 				</div>
 			</ModalProvider>
 			<GiftConfirmModal
 				isOpen={confirmModal}
 				handleClose={() => setConfirmModal(false)}
 				handleConfirm={handleConfirmReserve}
+				guestDetail={guestDetail}
 			/>
 			<GiftPostReserveModal
-				isOpen={postReseveModal}
+				isOpen={postReserveModal}
 				handleClose={() => setPostReserveModal(false)}
+				handleReturnMainPage={handleReturnMainPage}
+			/>
+			<ReturnHomeModal
+				handleReturnMainPage={handleReturnMainPage}
+				isOpen={returnHomeModal}
+				handleClose={() => setReturnHomeMModal(false)}
 			/>
 		</>
 	);

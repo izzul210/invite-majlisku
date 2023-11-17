@@ -28,3 +28,32 @@ export const useSubmitGuestResponse = () => {
 
 	return submitGuestResponse;
 };
+
+export const useSubmitReserveGift = () => {
+	const queryClient = useQueryClient();
+	const router = useRouter();
+	const { data: eventDetails } = useEventDetails();
+	const guestDetail = queryClient.getQueryData('guestDetail');
+
+	const submitGuestReserveGift = useMutation({
+		mutationFn: async (body) => {
+			console.log('guestDetail', guestDetail);
+			const response = await axios.post(
+				`${API}/updategift/${eventDetails.user_id}/${body.giftId}`,
+				{
+					reserved: guestDetail.id,
+					giftReserved: body.giftReserved,
+				}
+			);
+			return response;
+		},
+		onSuccess: (data) => {
+			queryClient.invalidateQueries('giftList');
+		},
+		onError: (err) => {
+			console.log('Error for submitGuestResponse', err);
+		},
+	});
+
+	return submitGuestReserveGift;
+};

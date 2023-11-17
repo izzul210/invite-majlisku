@@ -50,7 +50,16 @@ export const MajliskuIconV3 = ({ width = 32, height = 19, fillColor = '#98A2B3' 
 );
 
 export const GiftIcon = ({ width = '17', height = '21' }) => {
-	return <Image src='/giftIcon.png' alt='Gift Icon' width={width} height={height} />;
+	return (
+		<Image
+			src='/giftIcon.png'
+			priority={true}
+			quality={100}
+			alt='Gift Icon'
+			width={width}
+			height={height}
+		/>
+	);
 };
 
 export const MoneyGift = ({ width = '25', height = '24', fill = '#1D4648' }) => (

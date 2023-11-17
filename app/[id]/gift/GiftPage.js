@@ -16,19 +16,27 @@ export default function GiftPage({ inviteId }) {
 	const { data: giftlist, isLoading: giftIsLoading } = useGiftList();
 	const router = useRouter();
 
+	const handleReturnMainPage = () => {
+		router.push(`/${inviteId}`);
+	};
+
 	if (isLoading) {
 		return <div>Looading...</div>;
 	}
 
 	return (
 		<GiftContainerProvider>
-			<GiftTopBar handleBackButton={() => router.replace(`/${inviteId}`)} />
+			<GiftTopBar handleBackButton={handleReturnMainPage} />
 			<GiftTopAreaProvider
 				title='Senarai Hadiah'
 				description='Anda tak diwajibkan untuk membeli hadiah-hadiah ini. Ini hanya sekadar panduan'
 				address='No 30, Jalan Saujana Damai 1 Taman Saujana Damai 4300 Kajang'
 			/>
-			<GiftList giftlist={giftlist} giftIsLoading={giftIsLoading} />
+			<GiftList
+				handleReturnMainPage={handleReturnMainPage}
+				giftlist={giftlist}
+				giftIsLoading={giftIsLoading}
+			/>
 		</GiftContainerProvider>
 	);
 }

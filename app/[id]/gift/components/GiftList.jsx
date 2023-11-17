@@ -137,7 +137,7 @@ const GiftCard = ({ giftDetails, ...props }) => {
 	);
 };
 
-function GiftList({ giftlist, giftIsLoading }) {
+function GiftList({ giftlist, giftIsLoading, handleReturnMainPage }) {
 	const [giftDetails, setGiftDetails] = useState({});
 	const [giftModal, setGiftModal] = useState(false);
 	const handleClickGift = (gift) => {
@@ -155,6 +155,7 @@ function GiftList({ giftlist, giftIsLoading }) {
 				))}
 			</div>
 			<GiftDetailModal
+				handleReturnMainPage={handleReturnMainPage}
 				giftDetails={giftDetails}
 				isOpen={giftModal}
 				handleClose={() => setGiftModal(false)}
