@@ -1,7 +1,7 @@
 /** @format */
 
 import InviteDetailContainer from '../../component/container/InviteDetailContainer';
-import StaticDatePickerLandscape from './components/StaticDatePickerLandscape';
+import DatePickerCustom from './components/DatePickerCustom';
 
 export default function CalendarDefault({
 	event_date,
@@ -13,7 +13,17 @@ export default function CalendarDefault({
 	return (
 		<div className='w-full'>
 			<InviteDetailContainer title={enable_bahasa ? 'Kalendar' : 'Calendar'} noBorder>
-				<StaticDatePickerLandscape event_date={event_date} />
+				<DatePickerCustom event_date={event_date} />
+				<div className='flex items-center justify-center my-4'>
+					<AddToCalendar
+						enable_bahasa={enable_bahasa}
+						event_title={event_title}
+						start_time={event_time?.start}
+						end_time={event_time?.end}
+						address={location_info?.address}
+						event_date={event_date}
+					/>
+				</div>
 			</InviteDetailContainer>
 		</div>
 	);

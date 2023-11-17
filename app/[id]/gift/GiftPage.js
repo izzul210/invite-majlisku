@@ -10,6 +10,7 @@ import GiftContainerProvider from './components/GiftContainerProvider';
 import GiftTopBar from './components/GiftTopBar';
 import GiftTopAreaProvider from './components/GiftTopAreaProvider';
 import GiftList from './components/GiftList';
+import Footnote from '../../../template/Footnote';
 
 export default function GiftPage({ inviteId }) {
 	const { data: eventDetails, isLoading } = useEventDetails(inviteId);
@@ -25,18 +26,21 @@ export default function GiftPage({ inviteId }) {
 	}
 
 	return (
-		<GiftContainerProvider>
-			<GiftTopBar handleBackButton={handleReturnMainPage} />
-			<GiftTopAreaProvider
-				title='Senarai Hadiah'
-				description='Anda tak diwajibkan untuk membeli hadiah-hadiah ini. Ini hanya sekadar panduan'
-				address='No 30, Jalan Saujana Damai 1 Taman Saujana Damai 4300 Kajang'
-			/>
-			<GiftList
-				handleReturnMainPage={handleReturnMainPage}
-				giftlist={giftlist}
-				giftIsLoading={giftIsLoading}
-			/>
-		</GiftContainerProvider>
+		<>
+			<GiftContainerProvider>
+				<GiftTopBar handleBackButton={handleReturnMainPage} />
+				<GiftTopAreaProvider
+					title='Senarai Hadiah'
+					description='Anda tak diwajibkan untuk membeli hadiah-hadiah ini. Ini hanya sekadar panduan'
+					address='No 30, Jalan Saujana Damai 1 Taman Saujana Damai 4300 Kajang'
+				/>
+				<GiftList
+					handleReturnMainPage={handleReturnMainPage}
+					giftlist={giftlist}
+					giftIsLoading={giftIsLoading}
+				/>
+			</GiftContainerProvider>
+			<Footnote />
+		</>
 	);
 }

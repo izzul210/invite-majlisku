@@ -3,7 +3,7 @@
 import moment from 'moment';
 //Screen import
 import InviteTemplate from '../../template/InviteTemplate';
-import { Suspense } from 'react';
+import Footnote from '../../template/Footnote';
 
 /**************** Generating Metadata **********/
 export async function generateMetadata({ params }) {
@@ -70,6 +70,7 @@ export default async function Page({ params }) {
 	return (
 		<main>
 			<InviteTemplate inviteId={params.id} />
+			<Footnote />
 		</main>
 	);
 }

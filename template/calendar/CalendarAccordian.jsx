@@ -1,7 +1,8 @@
 /** @format */
 
 import InviteAccordian from '../../component/accordian/InviteAccordian';
-import StaticDatePickerLandscape from './components/StaticDatePickerLandscape';
+import DatePickerCustom from './components/DatePickerCustom';
+import AddToCalendar from './components/AddToCalendar';
 
 export default function CalendarAccordian({
 	event_date,
@@ -13,8 +14,17 @@ export default function CalendarAccordian({
 	return (
 		<div className='w-full'>
 			<InviteAccordian title={enable_bahasa ? 'Kalendar' : 'Calendar'} noBorder>
-				<StaticDatePickerLandscape event_date={event_date} />
-				<div className='flex items-center justify-center my-4'></div>
+				<DatePickerCustom event_date={event_date} />
+				<div className='flex items-center justify-center my-4'>
+					<AddToCalendar
+						enable_bahasa={enable_bahasa}
+						event_title={event_title}
+						start_time={event_time?.start}
+						end_time={event_time?.end}
+						address={location_info?.address}
+						event_date={event_date}
+					/>
+				</div>
 			</InviteAccordian>
 		</div>
 	);

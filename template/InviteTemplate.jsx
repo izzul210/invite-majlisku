@@ -10,6 +10,7 @@ import EventDetails from './eventDetails/EventDetails';
 import Tentative from './tentative/Tentative';
 import Wishlist from './wishlist/Wishlist';
 import Contacts from './contacts/Contacts';
+import Calendar from './calendar/Calendar';
 import { MajliskuLoadingIcon } from '../component/icons/icons';
 
 function InviteTemplate({ inviteId }) {
@@ -48,6 +49,7 @@ function InviteTemplate({ inviteId }) {
 							<Tentative eventDetails={eventDetails} itinerary={itinerary} />
 							<Contacts eventDetails={eventDetails} />
 							<Wishlist eventDetails={eventDetails} wishlist={wishlist} />
+							<Calendar eventDetails={eventDetails} />
 						</div>
 					</div>
 				</div>
