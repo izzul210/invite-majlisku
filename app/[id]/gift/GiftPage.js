@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 //API import
 import { useEventDetails, useGiftList } from '../../../hooks/useApi';
 //Page components import
+import CardLoadingState from '../../../component/loading/CardLoadingState';
 import GiftContainerProvider from './components/GiftContainerProvider';
 import GiftTopBar from './components/GiftTopBar';
 import GiftTopAreaProvider from './components/GiftTopAreaProvider';
@@ -22,7 +23,7 @@ export default function GiftPage({ inviteId }) {
 	};
 
 	if (isLoading) {
-		return <div>Looading...</div>;
+		return <CardLoadingState loadingState={isLoading} />;
 	}
 
 	return (

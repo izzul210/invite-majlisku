@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import InviteTextProvider from '../../../../component/textProvider/InviteTextProvider';
 import GiftDetailModal from './GiftDetailModal';
+import GiftListLoading from './GiftListLoading';
 
 const ReservedImage = ({ imageUrl, reserved }) => {
 	const reservedText = 'This gift is reserved';
@@ -146,7 +147,7 @@ function GiftList({ giftlist, giftIsLoading, handleReturnMainPage }) {
 		setGiftModal(true);
 	};
 
-	if (giftIsLoading) return <div>Loading Gift...</div>;
+	if (giftIsLoading) return <GiftListLoading />;
 	return (
 		<>
 			<div className='flex flex-col gap-6 items-center justify-center'>
