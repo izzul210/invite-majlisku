@@ -2,11 +2,12 @@
 
 'use client';
 import React from 'react';
+import Link from 'next/link';
 //Components import
 import ModalProvider from '../../../../component/drawer/DrawerProvider';
 import InviteTextProvider from '../../../../component/textProvider/InviteTextProvider';
 import ButtonProvider from '../../../../component/button/ButtonProvider';
-import { GiftIcon } from '../../../../component/icons/icons';
+import { GiftIcon, MajliskuWhiteIcon } from '../../../../component/icons/icons';
 
 export default function GiftConfirmModal({ isOpen, handleClose, handleReturnMainPage }) {
 	return (
@@ -20,9 +21,12 @@ export default function GiftConfirmModal({ isOpen, handleClose, handleReturnMain
 					<ButtonProvider onClick={handleReturnMainPage} className='w-full uppercase'>
 						Halaman Utama
 					</ButtonProvider>
-					<ButtonProvider type='primary' className='w-full uppercase'>
-						Lawat Majlisku
-					</ButtonProvider>
+					<Link href='https://majlisku.com' target='_blank'>
+						<ButtonProvider type='primary' className='w-full uppercase'>
+							<MajliskuWhiteIcon />
+							Lawat Majlisku
+						</ButtonProvider>
+					</Link>
 				</div>
 			</div>
 		</ModalProvider>

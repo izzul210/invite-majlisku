@@ -6,7 +6,7 @@ import { useInviteFunc } from '../../../hooks/useInviteFunc';
 export const ItalicTitle = ({ children, ...props }) => {
 	const { useConvertText } = useInviteFunc();
 	return (
-		<InviteTextProvider className='greatVibes text-center text-5xl' {...props}>
+		<InviteTextProvider fontFamily='greatVibes' className='text-center text-5xl' {...props}>
 			{useConvertText(children)}
 		</InviteTextProvider>
 	);

@@ -9,6 +9,7 @@ import BasicEventTextProvider from './components/text/BasicEventTextProvider';
 import ButtonTextProvider from './components/text/ButtonTextProvider';
 import BasicEventButtonProvider from './components/button/BasicEventButtonProvider';
 import { GiftIcon, MoneyIcon } from './components/icons/EventDetailsIcons';
+import WazeButton from './components/button/WazeButton';
 
 export default function EventDetailsDefault({
 	event_date = '2023-07-19',
@@ -46,9 +47,7 @@ export default function EventDetailsDefault({
 					<div className='flex flex-col gap-4'>
 						{formatted_event_address}
 						<div className='flex gap-2'>
-							<BasicEventButtonProvider>
-								<WazeIcon />
-							</BasicEventButtonProvider>
+							<WazeButton waze_link={waze_link} event_address={event_address} />
 							<BasicEventButtonProvider>
 								<GoogleMapIcon />
 							</BasicEventButtonProvider>

@@ -2,6 +2,7 @@
 
 import InviteDetailContainer from '../../component/container/InviteDetailContainer';
 import DatePickerCustom from './components/DatePickerCustom';
+import AddToCalendar from './components/AddToCalendar';
 
 export default function CalendarDefault({
 	event_date,

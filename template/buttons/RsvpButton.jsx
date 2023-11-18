@@ -3,15 +3,15 @@
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 //Components import
-import InviteTextProvider from '../component/textProvider/InviteTextProvider';
+import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 //Modals import
-const RsvpActionModal = dynamic(() => import('./modals/RsvpActionModal'));
-const AttendingRsvpModal = dynamic(() => import('./modals/AttendingRsvpModal'));
-const NotAttendingRsvpModal = dynamic(() => import('./modals/NotAttendingRsvpModal'));
-const MaybeRsvpModal = dynamic(() => import('./modals/MaybeRsvpModal'));
-const ThankYouModal = dynamic(() => import('./modals/ThankYouModal'));
+const RsvpActionModal = dynamic(() => import('../modals/RsvpActionModal'));
+const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'));
+const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpModal'));
+const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
+const ThankYouModal = dynamic(() => import('../modals/ThankYouModal'));
 //API import
-import { useEventDetails } from '../hooks/useApi';
+import { useEventDetails } from '../../hooks/useApi';
 
 function RsvpButton(props) {
 	const [openModal, setOpenModal] = useState(false);

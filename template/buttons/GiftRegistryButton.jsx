@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { GiftIcon } from '../component/icons/icons';
-import InviteTextProvider from '../component/textProvider/InviteTextProvider';
+import { GiftIcon } from '../../component/icons/icons';
+import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 
 function GiftRegistryButton({ enable_bahasa }) {
 	const pathname = usePathname();

@@ -1,7 +1,6 @@
 /** @format */
 
 import moment from 'moment';
-import { WazeIcon, GoogleMapIcon } from '../../component/icons/icons';
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
 //Components import
@@ -13,6 +12,8 @@ import {
 	ButtonMainProvider,
 	ButtonProvider2,
 } from './components/eventDetailsComponents';
+import WazeButton from './components/button/WazeButton';
+import GoogleMapButton from './components/button/GoogleMapButton';
 
 export default function EventDetailsMinimal_2({
 	event_date = '2023-07-19',
@@ -48,12 +49,8 @@ export default function EventDetailsMinimal_2({
 					<div className='flex flex-col gap-2'>
 						{formatted_event_address}
 						<div className='flex gap-2'>
-							<ButtonProvider>
-								<WazeIcon />
-							</ButtonProvider>
-							<ButtonProvider>
-								<GoogleMapIcon />
-							</ButtonProvider>
+							<WazeButton waze_link={waze_link} event_address={event_address} />
+							<GoogleMapButton google_link={google_link} event_address={event_address} />
 						</div>
 					</div>
 				</TextContainer2>

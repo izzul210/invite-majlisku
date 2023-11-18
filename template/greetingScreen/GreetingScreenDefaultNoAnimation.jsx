@@ -2,9 +2,9 @@
 
 import React from 'react';
 //Components import
-import RsvpButton from '../RsvpButton';
-import MoneyGiftButton from '../MoneyGiftButton';
-import GiftRegistryButton from '../GiftRegistryButton';
+import RsvpButton from '../buttons/RsvpButton';
+import MoneyGiftButton from '../buttons/MoneyGiftButton';
+import GiftRegistryButton from '../buttons/GiftRegistryButton';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import { MajliskuIconV3, GiftIcon, MoneyGift } from '../../component/icons/icons';

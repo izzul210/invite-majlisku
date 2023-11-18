@@ -1,9 +1,9 @@
 /** @format */
 
 import React, { useState } from 'react';
-import { MoneyGift } from '../component/icons/icons';
-import InviteTextProvider from '../component/textProvider/InviteTextProvider';
-import MoneyGiftModal from './modals/MoneyGiftModal';
+import { MoneyGift } from '../../component/icons/icons';
+import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
+import MoneyGiftModal from '../modals/MoneyGiftModal';
 
 function MoneyGiftButton({ enable_bahasa }) {
 	const [open, setOpen] = useState(false);

@@ -67,7 +67,7 @@ const ReservedTag = () => {
 			<InviteTextProvider
 				color='#00000080'
 				fontFamily='sansPro'
-				className='text-[14px] flex flex-row gap-1 items-center font-semibold uppercase'>
+				className='text-[14px] tracking-[0.5px] flex flex-row gap-1 items-center font-semibold uppercase'>
 				<svg
 					xmlns='http://www.w3.org/2000/svg'
 					width='16'
@@ -121,7 +121,7 @@ const GiftCard = ({ giftDetails, ...props }) => {
 						<InviteTextProvider
 							color='#000000BF'
 							fontFamily='sansPro'
-							className='text-[14px] font-semibold uppercase'>
+							className='text-[14px] tracking-[0.5px] font-semibold uppercase'>
 							{category}
 						</InviteTextProvider>
 					</div>
