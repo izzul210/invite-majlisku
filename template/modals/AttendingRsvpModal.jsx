@@ -7,6 +7,7 @@ import ModalProvider from '../../component/drawer/DrawerProvider';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import ButtonProvider from '../../component/button/ButtonProvider';
+import RsvpActionButton from '../../component/button/RsvpActionButton';
 import InputTextProvider from '../../component/input/InputTextProvider';
 //API import
 import { useSubmitGuestResponse } from '../../hooks/usePostApi';
@@ -64,6 +65,16 @@ export default function AttendingRsvpModal({
 		}
 	};
 
+	const handleReset = () => {
+		setName('');
+		setTel('');
+		setPax(1);
+		setWish('');
+		setTimeSlot(null);
+		setError(null);
+		setTimeSlotError(null);
+	};
+
 	const handleSubmit = async () => {
 		if (checkForInputName()) {
 			let guestRes = {
@@ -104,7 +115,6 @@ export default function AttendingRsvpModal({
 
 	return (
 		<ModalProvider
-			loading={submitGuestResponse.isLoading}
 			topBorder
 			backButton
 			isOpen={isOpen}
@@ -217,10 +227,20 @@ export default function AttendingRsvpModal({
 							/>
 						</div>
 						<div className='flex flex-row gap-2 '>
-							<ButtonProvider className='w-full uppercase'>{cancelText}</ButtonProvider>
-							<ButtonProvider type='primary' className='w-full uppercase' onClick={handleSubmit}>
-								{confirmText}
+							<ButtonProvider
+								onClick={() => {
+									handleReset();
+									handleClose();
+								}}
+								className='w-full uppercase'>
+								{cancelText}
 							</ButtonProvider>
+							<RsvpActionButton
+								isLoading={submitGuestResponse.isLoading}
+								className='w-full uppercase'
+								onClick={handleSubmit}>
+								{confirmText}
+							</RsvpActionButton>
 						</div>
 					</div>
 				</div>
