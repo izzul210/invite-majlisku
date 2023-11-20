@@ -1,6 +1,6 @@
 /** @format */
 import dynamic from 'next/dynamic';
-import { useInviteContext } from '../InviteContext';
+import { useInviteContext } from '../inviteContext';
 //Template imports
 const ContactDefault = dynamic(() => import('./ContactDefault'));
 const ContactAccordian = dynamic(() => import('./ContactAccordian'));

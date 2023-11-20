@@ -2,7 +2,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
-import { useInviteContext } from '../InviteContext';
+import { useInviteContext } from '../inviteContext';
 //Template imports
 const FirstScreenDefault = dynamic(() => import('./FirstScreenDefault'));
 const FirstScreenMinimal_2 = dynamic(() => import('./FirstScreenMinimal_2'));

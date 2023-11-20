@@ -2,7 +2,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { useInviteContext } from '../InviteContext';
+import { useInviteContext } from '../inviteContext';
 //Templates import
 const EventDetailsBasic = dynamic(() => import('./EventDetailsBasic'));
 const EventDetailsDefault = dynamic(() => import('./EventDetailsDefault'));

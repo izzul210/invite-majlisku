@@ -1,6 +1,6 @@
 /** @format */
 import dynamic from 'next/dynamic';
-import { useInviteContext } from '../InviteContext';
+import { useInviteContext } from '../inviteContext';
 //Calendar immports
 const CalendarDefault = dynamic(() => import('./CalendarDefault'));
 const CalendarAccordian = dynamic(() => import('./CalendarAccordian'));

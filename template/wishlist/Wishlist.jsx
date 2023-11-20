@@ -1,7 +1,7 @@
 /** @format */
 
 import dynamic from 'next/dynamic';
-import { useInviteContext } from '../InviteContext';
+import { useInviteContext } from '../inviteContext';
 //Template imports
 const WishDefault = dynamic(() => import('./WishDefault'));
 const WishAccordian = dynamic(() => import('./WishAccordian'));

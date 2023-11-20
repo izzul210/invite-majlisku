@@ -1,6 +1,6 @@
 /** @format */
 import dynamic from 'next/dynamic';
-import { useInviteContext } from '../InviteContext';
+import { useInviteContext } from '../inviteContext';
 //Template imports
 const TentativeDefault = dynamic(() => import('./TentativeDefault'));
 const TentativeAccordian = dynamic(() => import('./TentativeAccordian'));

@@ -1,7 +1,7 @@
 /** @format */
 'use client';
 import dynamic from 'next/dynamic';
-import { useInviteContext } from '../InviteContext';
+import { useInviteContext } from '../inviteContext';
 //Template import
 const GreetingScreenPremium = dynamic(() => import('./GreetingScreenPremium'));
 const GreetingScreenDefaultNoAnimation = dynamic(() =>

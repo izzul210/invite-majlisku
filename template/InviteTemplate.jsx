@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useEventDetails, useItineraryList, useWishList } from '../hooks/useApi';
 import Footnote from './Footnote';
-import { InviteContext } from './InviteContext';
+import { InviteContext } from './inviteContext';
 //Screen import
 import FirstScreen from './firstScreen/FirstScreen';
 import GreetingScreen from './greetingScreen/GreetingScreen';
