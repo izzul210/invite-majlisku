@@ -1,8 +1,7 @@
 /** @format */
 'use client';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
-import { initialStates } from '../initalStates';
+import { useInviteContext } from '../InviteContext';
 //Template import
 const GreetingScreenPremium = dynamic(() => import('./GreetingScreenPremium'));
 const GreetingScreenDefaultNoAnimation = dynamic(() =>
@@ -23,7 +22,7 @@ export default function GreetingScreen({ eventDetails }) {
 		enable_money_gift,
 		event_date,
 	} = eventDetails || {};
-	const { design, premium_design } = initialStates;
+	const { design, premium_design } = useInviteContext();
 
 	const handleOnClickGift = () => {};
 	const handleOnClickMoneyGift = () => {};

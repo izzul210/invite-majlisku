@@ -10,7 +10,7 @@ function GiftRegistryButton({ enable_bahasa }) {
 	const pathname = usePathname();
 
 	return (
-		<Link href={`${pathname}/gift`}>
+		<Link href={`${pathname}/gift`} className='w-full'>
 			<div
 				className='w-full font-medium rounded-full py-4 px-8 flex flex-row justify-center items-center gap-2 cursor-pointer'
 				style={{ color: '#1E1E1E', backgroundColor: 'white', border: ' 1px solid #D0D5DD' }}>

@@ -1,15 +1,18 @@
 /** @format */
 
 import moment from 'moment';
-import { WazeIcon, GoogleMapIcon } from '../../component/icons/icons';
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
 //Event Details components import
+import RsvpButton from '../buttons/RsvpButton';
+import MoneyGiftButton from '../buttons/MoneyGiftButton';
+import GiftRegistryButton from '../buttons/GiftRegistryButton';
 import BasicEventTextProvider from './components/text/BasicEventTextProvider';
 import ButtonTextProvider from './components/text/ButtonTextProvider';
 import BasicEventButtonProvider from './components/button/BasicEventButtonProvider';
 import { GiftIcon, MoneyIcon } from './components/icons/EventDetailsIcons';
 import WazeButton from './components/button/WazeButton';
+import GoogleMapButton from './components/button/GoogleMapButton';
 
 export default function EventDetailsDefault({
 	event_date = '2023-07-19',
@@ -19,6 +22,8 @@ export default function EventDetailsDefault({
 	description = 'Lelaki: Baju Melayu/Batik\n\nPerempuan: Baju Kurung/Bersesuaian',
 	waze_link = null,
 	google_link = null,
+	enable_gift_registry = false,
+	enable_money_gift = false,
 	onClickRSVP = () => {},
 	onClickGiftRegistry = () => {},
 	onClickMoneyGift = () => {},
@@ -48,25 +53,16 @@ export default function EventDetailsDefault({
 						{formatted_event_address}
 						<div className='flex gap-2'>
 							<WazeButton waze_link={waze_link} event_address={event_address} />
-							<BasicEventButtonProvider>
-								<GoogleMapIcon />
-							</BasicEventButtonProvider>
+							<GoogleMapButton google_link={google_link} event_address={event_address} />
 						</div>
 					</div>
 				</BasicEventTextProvider>
 				<BasicEventTextProvider>{formatted_event_description}</BasicEventTextProvider>
 			</div>
 			<div className='w-full flex flex-col gap-2 items-center px-5'>
-				<BasicEventButtonProvider type='primary' onClick={onClickRSVP}>
-					<ButtonTextProvider color='#FFF'>RSVP</ButtonTextProvider>
-				</BasicEventButtonProvider>
-				<BasicEventButtonProvider onClick={onClickGiftRegistry}>
-					<GiftIcon />
-					<ButtonTextProvider color='#1E1E1E'>BAWA HADIAH</ButtonTextProvider>
-				</BasicEventButtonProvider>
-				<BasicEventButtonProvider onClick={onClickMoneyGift}>
-					<MoneyIcon /> <ButtonTextProvider color='#1E1E1E'>SALAM KAUT</ButtonTextProvider>
-				</BasicEventButtonProvider>
+				<RsvpButton />
+				{enable_gift_registry && <GiftRegistryButton />}
+				{enable_money_gift && <MoneyGiftButton />}
 			</div>
 		</div>
 	);

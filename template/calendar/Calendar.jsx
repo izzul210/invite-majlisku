@@ -1,6 +1,6 @@
 /** @format */
 import dynamic from 'next/dynamic';
-import { initialStates } from '../initalStates';
+import { useInviteContext } from '../InviteContext';
 //Calendar immports
 const CalendarDefault = dynamic(() => import('./CalendarDefault'));
 const CalendarAccordian = dynamic(() => import('./CalendarAccordian'));
@@ -8,7 +8,7 @@ const CalendarAccordian = dynamic(() => import('./CalendarAccordian'));
 export default function Calendar({ eventDetails }) {
 	const { enable_bahasa, event_date, location_info, event_time, event_title_1, italic_title } =
 		eventDetails;
-	const { design } = initialStates;
+	const { design } = useInviteContext();
 
 	const renderComponent = () => {
 		switch (design) {

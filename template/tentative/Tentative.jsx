@@ -1,13 +1,13 @@
 /** @format */
 import dynamic from 'next/dynamic';
-import { initialStates } from '../initalStates';
+import { useInviteContext } from '../InviteContext';
 //Template imports
 const TentativeDefault = dynamic(() => import('./TentativeDefault'));
 const TentativeAccordian = dynamic(() => import('./TentativeAccordian'));
 
 export default function Tentative({ eventDetails, itinerary }) {
 	const { enable_bahasa } = eventDetails || {};
-	const { design } = initialStates;
+	const { design } = useInviteContext();
 
 	const renderComponent = () => {
 		switch (design) {

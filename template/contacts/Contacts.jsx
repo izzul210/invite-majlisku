@@ -1,13 +1,13 @@
 /** @format */
 import dynamic from 'next/dynamic';
-import { initialStates } from '../initalStates';
+import { useInviteContext } from '../InviteContext';
 //Template imports
 const ContactDefault = dynamic(() => import('./ContactDefault'));
 const ContactAccordian = dynamic(() => import('./ContactAccordian'));
 
 export default function Contacts({ eventDetails }) {
 	const { contact_info, enable_bahasa } = eventDetails;
-	const { design } = initialStates;
+	const { design } = useInviteContext();
 
 	const renderComponent = () => {
 		switch (design) {

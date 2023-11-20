@@ -10,6 +10,8 @@ const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'))
 const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpModal'));
 const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
 const ThankYouModal = dynamic(() => import('../modals/ThankYouModal'));
+//Icons import
+import { SendingLetterIcon } from '../../component/icons/icons';
 //API import
 import { useEventDetails } from '../../hooks/useApi';
 

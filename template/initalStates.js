@@ -1,7 +1,7 @@
 /** @format */
 
 export const initialStates = {
-	design: 1,
+	design: 6,
 	premium_design: 0,
 	loading: true,
 	inviteId: null,

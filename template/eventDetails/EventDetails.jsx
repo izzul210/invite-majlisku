@@ -2,7 +2,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { initialStates } from '../initalStates';
+import { useInviteContext } from '../InviteContext';
 //Templates import
 const EventDetailsBasic = dynamic(() => import('./EventDetailsBasic'));
 const EventDetailsDefault = dynamic(() => import('./EventDetailsDefault'));
@@ -15,9 +15,16 @@ const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpMo
 const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
 
 export default function EventDetails({ eventDetails }) {
-	const { event_date, event_time, description, enable_bahasa, location_info } = eventDetails || {};
-	const { design, premium_design } = initialStates;
-
+	const {
+		event_date,
+		event_time,
+		description,
+		enable_bahasa,
+		location_info,
+		enable_gift_registry,
+		enable_money_gift,
+	} = eventDetails || {};
+	const { design, premium_design } = useInviteContext();
 	const [openModal, setOpenModal] = useState(false);
 	const [attendingModal, setAttendingModal] = useState(false);
 	const [notAttendingModal, setNotAttendingModal] = useState(false);
@@ -70,6 +77,8 @@ export default function EventDetails({ eventDetails }) {
 								onClickRSVP={handleOnClickRsvp}
 								onClickGiftRegistry={handleOnClickGift}
 								onClickMoneyGift={handleOnClickMoneyGift}
+								enable_gift_registry={enable_gift_registry}
+								enable_money_gift={enable_money_gift}
 							/>
 						);
 					default:

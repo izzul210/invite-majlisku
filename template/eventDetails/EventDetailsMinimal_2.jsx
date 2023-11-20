@@ -4,14 +4,7 @@ import moment from 'moment';
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
 //Components import
-import {
-	TextContainer,
-	TextContainer_Premium,
-	TextContainer2,
-	ButtonProvider,
-	ButtonMainProvider,
-	ButtonProvider2,
-} from './components/eventDetailsComponents';
+import { TextContainer2 } from './components/eventDetailsComponents';
 import WazeButton from './components/button/WazeButton';
 import GoogleMapButton from './components/button/GoogleMapButton';
 
