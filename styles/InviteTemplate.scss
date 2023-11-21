@@ -156,29 +156,6 @@ $diorGrey: #1e1e1e;
 	}
 }
 
-.atcb-button {
-	align-items: center;
-	border-radius: 6px;
-	cursor: pointer;
-	display: flex;
-	font-size: 1em;
-	font-weight: 400 !important;
-	justify-content: center;
-	line-height: 1.5em;
-	margin: 0.13em;
-	max-width: 350px;
-	min-width: 10em;
-	padding: 0.65em 1em;
-	position: relative;
-	text-align: center;
-	touch-action: manipulation;
-	user-select: none;
-	-webkit-user-select: none;
-	-webkit-tap-highlight-color: transparent;
-	width: auto;
-	z-index: 1;
-}
-
 .floatingButton {
 	display: none;
 	@media screen and (max-width: 600px) {

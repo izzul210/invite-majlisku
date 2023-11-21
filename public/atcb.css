@@ -1,0 +1,108 @@
+/** @format */
+
+/*
+ * ++++++++++++++++++++++
+ * Add to Calendar Button
+ * ++++++++++++++++++++++
+ *
+ * Style: Default
+ *
+ * Version: 2.4.3
+ * Creator: Jens Kuerschner (https://jenskuerschner.de)
+ * Project: https://github.com/add2cal/add-to-calendar-button
+ * License: Elastic License 2.0 (ELv2) (https://github.com/add2cal/add-to-calendar-button/blob/main/LICENSE.txt)
+ * Note:    DO NOT REMOVE THE COPYRIGHT NOTICE ABOVE!
+ * 
+ */
+
+/******************************
+ * Global colors and shadows
+ */
+
+/* Size Breakpoints */
+
+/******************************
+   * The triggering button
+   */
+
+.atcb-button-wrapper {
+	width: 100%;
+	flex: 1;
+	display: flex;
+}
+
+.atcb-button {
+	align-items: center;
+	background: none;
+	border: none;
+	margin: 0px;
+	padding: 0px;
+	color: #1e1e1e;
+	cursor: pointer;
+	display: flex;
+	font-family: 'Lora', sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	text-align: center;
+	z-index: 1;
+}
+
+.atcb-button.atcb-no-text,
+.atcb-button:disabled {
+	min-width: 0;
+}
+
+/* .atcb-rtl .atcb-button {
+	direction: rtl;
+	text-align: right;
+  } */
+
+.atcb-button:focus-visible {
+	outline: 2px solid var(--keyboard-focus);
+}
+
+.atcb-button.atcb-active:not(.atcb-modal-style, .atcb-dropoverlay) {
+	z-index: 15000000;
+}
+
+.atcb-button.atcb-active.atcb-dropoverlay {
+	z-index: 14000090;
+}
+
+/******************************
+   * Button Icon (also base for list icons) & Text
+   */
+
+.atcb-icon {
+	height: 1em;
+	margin-right: 0.8em;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+.atcb-rtl .atcb-icon {
+	margin-right: 0;
+	margin-left: 0.8em;
+}
+
+.atcb-no-text .atcb-icon {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.atcb-icon svg {
+	height: 100%;
+	fill: currentcolor;
+	width: auto;
+}
+
+.atcb-text {
+	overflow-wrap: anywhere;
+}
+
+.atcb-button:disabled .atcb-text {
+	letter-spacing: 0.1em;
+}
