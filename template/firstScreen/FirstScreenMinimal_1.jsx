@@ -29,7 +29,7 @@ export default function FirstScreenMinimal_1({
 	return (
 		<div
 			className='w-full flex flex-col gap-4 justify-center items-center px-5 py-12 sm:py-24'
-			style={{ minHeight: '700px', maxWidth: '383px' }}>
+			style={{ minHeight: '100dvh', maxWidth: '383px' }}>
 			<MajliskuIcon />
 			<div className='border-b  text-center border-t w-full py-4 border-gray-300'>
 				<EventTitle_Playfair>{event_title_1}</EventTitle_Playfair>

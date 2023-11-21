@@ -21,8 +21,8 @@ export default function FirstScreenDefault({
 
 	return (
 		<div
-			className='w-full flex flex-col gap-4 justify-center mt-4 items-center p-5'
-			style={{ minHeight: '700px', maxWidth: '383px' }}>
+			className='w-full flex flex-col gap-4 justify-center sm:mt-4 items-center px-5 py-12 sm:py-24'
+			style={{ minHeight: '100dvh', maxWidth: '383px' }}>
 			<MajliskuIcon />
 			<EventTitle_1>{event_title_1}</EventTitle_1>
 			<RsvpHeaderImage rsvp_header_image={rsvpHeaderImage} curveTopBorder />

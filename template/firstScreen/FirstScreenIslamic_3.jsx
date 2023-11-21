@@ -1,6 +1,6 @@
 /** @format */
 import moment from 'moment';
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 //Components import
 import Bismillah from './components/Bismillah';
 import IslamicTitle from './components/titles/IslamicTitle';
@@ -23,30 +23,32 @@ export default function FirstScreenIslamic_3({
 	italic_title = 'Main Title',
 }) {
 	return (
-		<div className='w-full relative  min-h-[700px] md:min-h-[800px]  flex justify-center items-center'>
-			<Image
-				className='h-[700px] md:h-[800px] z-0'
-				src='/nikah-13.png'
-				alt='Nikah 12'
-				layout='fill'
-				objectFit='cover'
-				objectPosition='center'
-			/>
-			<div
-				className='w-full flex justify-center items-center flex-col gap-12 mt-6 p-5 z-0 relative'
-				style={{ maxWidth: '300px' }}>
-				<Bismillah />
-				<IslamicTitle color={fontColor}>{italic_title}</IslamicTitle>
-				<div className='flex flex-col gap-5 text-center uppercase text-xs'>
-					<TextDetail fontFamily='sansPro' color={fontColor} className='tracking-wide'>
-						{event_title_1}
-					</TextDetail>
-					<TextDetail fontFamily='sansPro' color={fontColor}>
-						<div className='flex flex-col gap-2'>
-							<div>{moment(event_date).format('DD.MM.YYYY')}</div>
-							<div>{event_location}</div>
-						</div>
-					</TextDetail>
+		<div className='w-full bg-[#FFFDFA] min-h-[100dvh] sm:min-h-[800px]  flex justify-center items-center'>
+			<div className='w-full relative  min-h-[667px] sm:min-h-[800px]  flex justify-center items-center'>
+				<Image
+					className='h-[667px] md:h-[800px] z-0'
+					src='/nikah-13.png'
+					alt='Nikah 12'
+					layout='fill'
+					objectFit='cover'
+					objectPosition='center'
+				/>
+				<div
+					className='w-full flex justify-center items-center flex-col gap-12 mt-6 p-5 z-0 relative'
+					style={{ maxWidth: '300px' }}>
+					<Bismillah />
+					<IslamicTitle color={fontColor}>{italic_title}</IslamicTitle>
+					<div className='flex flex-col gap-5 text-center uppercase text-xs'>
+						<TextDetail fontFamily='sansPro' color={fontColor} className='tracking-wide'>
+							{event_title_1}
+						</TextDetail>
+						<TextDetail fontFamily='sansPro' color={fontColor}>
+							<div className='flex flex-col gap-2'>
+								<div>{moment(event_date).format('DD.MM.YYYY')}</div>
+								<div>{event_location}</div>
+							</div>
+						</TextDetail>
+					</div>
 				</div>
 			</div>
 		</div>
