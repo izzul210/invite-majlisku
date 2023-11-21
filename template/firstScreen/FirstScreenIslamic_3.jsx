@@ -24,13 +24,15 @@ export default function FirstScreenIslamic_3({
 }) {
 	return (
 		<div className='w-full bg-[#FFFDFA] min-h-[100dvh] sm:min-h-[800px]  flex justify-center items-center'>
-			<div className='w-full relative  min-h-[667px] sm:min-h-[800px]  flex justify-center items-center'>
+			<div className='w-full relative  h-[100dvh] sm:min-h-[800px]  flex justify-center items-center'>
 				<Image
 					className='h-[667px] md:h-[800px] z-0'
 					src='/nikah-13.png'
-					alt='Nikah 12'
+					alt='Nikah 13'
 					layout='fill'
-					objectFit='cover'
+					quality={100}
+					priority
+					// objectFit='cover'
 					objectPosition='center'
 				/>
 				<div

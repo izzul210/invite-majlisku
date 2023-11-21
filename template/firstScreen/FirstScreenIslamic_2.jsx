@@ -24,17 +24,20 @@ export default function FirstScreenIslamic_2({
 }) {
 	return (
 		<div className='w-full bg-[#FFFDFA]  min-h-[100dvh] sm:min-h-[800px]  flex justify-center items-center'>
-			<div className='w-full relative  min-h-[667px] sm:min-h-[800px]  flex justify-center items-center'>
+			<div className='w-full relative h-[100dvh] sm:min-h-[800px]  flex justify-center items-center'>
 				<Image
-					className='h-[667px] sm:h-[800px] z-0'
+					className='h-full sm:h-[800px] z-0'
 					src='/nikah-11.png'
 					alt='Nikah 11'
+					height
 					layout='fill'
-					objectFit='cover'
+					quality={100}
+					priority
+					// objectFit='cover'
 					objectPosition='center'
 				/>
 				<div
-					className='w-full flex justify-center items-center flex-col gap-12 mt-6 p-5 z-0 relative'
+					className='w-full h-full flex justify-center items-center flex-col gap-12 mt-6 p-5 z-0 relative'
 					style={{ maxWidth: '300px' }}>
 					<Bismillah />
 					<IslamicTitle color={fontColor}>{italic_title}</IslamicTitle>
