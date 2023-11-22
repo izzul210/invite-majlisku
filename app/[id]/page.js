@@ -4,6 +4,9 @@ import moment from 'moment';
 //Screen import
 import InviteTemplate from '../../template/InviteTemplate';
 
+const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
+// const API = 'http://localhost:5000/myweddingapp-25712/asia-southeast1/user';
+
 /**************** Generating Metadata **********/
 export async function generateMetadata({ params }) {
 	// read route params
@@ -17,9 +20,7 @@ export async function generateMetadata({ params }) {
 		'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fmetadata_img.png?alt=media&token=769f323f-8ad3-4ab3-a742-d45d959b4da2';
 
 	//fetch data
-	const rsvpDetails = await fetch(
-		`https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user/rsvpdetails/${id}`
-	).then((res) => res.json());
+	const rsvpDetails = await fetch(`${API}/rsvpdetails/${id}`).then((res) => res.json());
 
 	//Filter data
 	if (rsvpDetails?.event_title_2) {

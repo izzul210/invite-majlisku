@@ -27,8 +27,8 @@ function RsvpButton(props) {
 		eventDetails || {};
 
 	const handleOnClickRsvp = () => {
-		// setOpenModal(true);
-		setThankyouModal(true);
+		setOpenModal(true);
+		// setThankyouModal(true);
 	};
 
 	const handleOnClickRsvpResponse = (status) => {
