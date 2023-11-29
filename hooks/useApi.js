@@ -145,3 +145,25 @@ export const useWishList = () => {
 		error,
 	};
 };
+
+export const usePersonalizedGuestDetail = (guestId) => {
+	const { data: eventDetails } = useEventDetails();
+	const { data, isLoading, error } = useQuery({
+		queryKey: ['personalizedGuestDetail'],
+		queryFn: async () => {
+			const response = await axios
+				.get(`${API}/getguestlist/${eventDetails?.user_id}/${guestId}`)
+				.then((res) => {
+					return res.data[0];
+				});
+			return response;
+		},
+		enabled: !!eventDetails.user_id,
+	});
+
+	return {
+		data,
+		isLoading,
+		error,
+	};
+};

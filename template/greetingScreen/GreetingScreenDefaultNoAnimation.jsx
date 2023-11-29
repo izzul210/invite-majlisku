@@ -12,7 +12,7 @@ import {
 	GreetingText,
 	GreetingTitle,
 	MainTitle,
-	ButtonProvider,
+	GuestNameTitle,
 } from './components/greetingScreenComponents';
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
@@ -20,16 +20,13 @@ import { useInviteFunc } from '../../hooks/useInviteFunc';
 export default function GreetingScreenDefaultNoAnimation({
 	enable_bahasa = false,
 	host_details = `Simpulan bin Simpulan\n &\n Simpulan binti Simpulan`,
-	guest = null,
+	guest_name = null,
 	event_title_2 = 'Pengantin Lelaki bin Simpulan\n&Pengantin Wanita binti Simpulan',
 	greeting_title = `Ybhg Tun/ Toh Puan/ Tan Sri/ Puan Sri/ Dato’s Sri/ Datin Sri/ Dato’/ Datin/ Tuan/ Puan`,
 	greet_content_1 = 'Dengan segala hormatnya kami\n mempersilakan',
 	greet_content_2 = 'ke majlis resepsi untuk meraikan majlis',
 	enable_gift_registry = false,
 	enable_money_gift = false,
-	onClickRSVP = () => {},
-	onClickGiftRegistry = () => {},
-	onClickMoneyGift = () => {},
 }) {
 	const { useConvertText } = useInviteFunc();
 
@@ -44,17 +41,23 @@ export default function GreetingScreenDefaultNoAnimation({
 				className='w-full flex flex-col gap-4 items-center px-5 sm:p-0'
 				style={{ maxWidth: '400px' }}>
 				<InviteLineLogo height='2px' />
-				<div className='pb-4 border-b-2 w-full border-dotted'>
+				<div className='pb-4 w-full'>
 					<HostsText>{renderHosts}</HostsText>
 				</div>
 				<div className='flex flex-col gap-4'>
 					<GreetingText>{greet_content_1}</GreetingText>
-					<GreetingTitle>{greeting_title}</GreetingTitle>
+					{guest_name ? (
+						<GuestNameTitle>{guest_name}</GuestNameTitle>
+					) : (
+						<GreetingTitle>{greeting_title}</GreetingTitle>
+					)}
 					<GreetingText>{greet_content_2}</GreetingText>
 				</div>
 				<div className='flex w-full items-center flex-col gap-4'>
 					<MajliskuIconV3 />
+
 					<MainTitle>{renderEventTitle}</MainTitle>
+
 					<MajliskuIconV3 />
 				</div>
 			</div>

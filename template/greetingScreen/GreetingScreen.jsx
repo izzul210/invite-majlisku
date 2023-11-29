@@ -10,7 +10,7 @@ const GreetingScreenDefaultNoAnimation = dynamic(() =>
 const GreetingScreenIslamic_1 = dynamic(() => import('./GreetingScreenIslamic_1'));
 const GreetingScreenIslamic_2 = dynamic(() => import('./GreetingScreenIslamic_2'));
 
-export default function GreetingScreen({ eventDetails }) {
+export default function GreetingScreen({ eventDetails, guest_name = null }) {
 	const {
 		enable_bahasa,
 		host_details,
@@ -20,12 +20,8 @@ export default function GreetingScreen({ eventDetails }) {
 		greet_content_2,
 		enable_gift_registry,
 		enable_money_gift,
-		event_date,
 	} = eventDetails || {};
 	const { design, premium_design } = useInviteContext();
-
-	const handleOnClickGift = () => {};
-	const handleOnClickMoneyGift = () => {};
 
 	const greetingScreenProps = {
 		enable_bahasa,
@@ -36,6 +32,7 @@ export default function GreetingScreen({ eventDetails }) {
 		greet_content_2,
 		enable_gift_registry,
 		enable_money_gift,
+		guest_name,
 	};
 
 	switch (design) {
@@ -49,11 +46,7 @@ export default function GreetingScreen({ eventDetails }) {
 		default:
 			return (
 				<>
-					<GreetingScreenDefaultNoAnimation
-						{...greetingScreenProps}
-						onClickGiftRegistry={handleOnClickGift}
-						onClickMoneyGift={handleOnClickMoneyGift}
-					/>
+					<GreetingScreenDefaultNoAnimation {...greetingScreenProps} />
 				</>
 			);
 	}

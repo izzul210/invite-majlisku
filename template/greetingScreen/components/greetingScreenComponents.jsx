@@ -38,6 +38,17 @@ export const MainTitle = ({ children, color = '#1D4648' }) => {
 	);
 };
 
+export const GuestNameTitle = ({ children, color = '#1E1E1E' }) => {
+	return (
+		<InviteTextProvider
+			fontFamily='playfair'
+			color={color}
+			className='text-[16px] w-full pb-2 border-b-2 border-[#1D4648] font-medium'>
+			{children}
+		</InviteTextProvider>
+	);
+};
+
 export const ButtonProvider = ({ type = null, children, ...props }) => {
 	return (
 		<div

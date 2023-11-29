@@ -33,31 +33,6 @@ const GoogleIcon = () => (
 	</svg>
 );
 
-// function AddToCalendar({ enable_bahasa, event_title, start_time, end_time, address, event_date }) {
-// 	return (
-// 		<ButtonProvider className='w-full'>
-// 			{/* <GoogleIcon /> */}
-// 			<AddToCalendarButton
-// 				hideIconButton
-// 				hideCheckmark
-// 				options='Google'
-// 				hideIconList
-// 				timeZone='Asia/Singapore'
-// 				iCalFileName='Reminder-Event'
-// 				buttonStyle='custom'
-// 				customCss='/atcb.css'
-// 				//Event Details
-// 				label={enable_bahasa ? 'SIMPAN DI KALENDAR' : 'SAVE TO CALENDAR'}
-// 				name={event_title || 'The Wedding'}
-// 				location={address || 'Wedding Place'}
-// 				startDate={event_date || '2025-10-21'}
-// 				endDate={event_date || '2025-10-21'}
-// 				startTime={moment(start_time).format('HH:mm')}
-// 				endTime={moment(end_time).format('HH:mm')}></AddToCalendarButton>
-// 		</ButtonProvider>
-// 	);
-// }
-
 function AddToCalendar({ enable_bahasa, event_title, start_time, end_time, address, event_date }) {
 	return (
 		<ButtonProvider className='w-full'>
@@ -66,7 +41,7 @@ function AddToCalendar({ enable_bahasa, event_title, start_time, end_time, addre
 				hideCheckmark
 				options='Google'
 				hideIconList
-				timeZone='Asia/Singapore'
+				timeZone='currentBrowser'
 				iCalFileName='Reminder-Event'
 				buttonStyle='custom'
 				customCss='/atcb.css'
@@ -74,10 +49,9 @@ function AddToCalendar({ enable_bahasa, event_title, start_time, end_time, addre
 				label={enable_bahasa ? 'SIMPAN DI KALENDAR' : 'SAVE TO CALENDAR'}
 				name={event_title || 'The Wedding'}
 				location={address || 'Wedding Place'}
-				startDate={event_date || '2025-10-21'}
-				endDate={event_date || '2025-10-21'}
-				startTime={moment(start_time).format('HH:mm')}
-				endTime={moment(end_time).format('HH:mm')}></AddToCalendarButton>
+				startDate={event_date || '2023-12-01'}
+				startTime={moment.parseZone(start_time).format('HH:mm')}
+				endTime={moment.parseZone(end_time).format('HH:mm')}></AddToCalendarButton>
 		</ButtonProvider>
 	);
 }
