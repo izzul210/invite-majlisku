@@ -52,10 +52,10 @@ export default function ThankYouModal({
 								<AddToCalendar
 									enable_bahasa={enable_bahasa}
 									address={eventDetails?.location_info?.address}
-									start_time={eventDetails?.event_time.start}
-									end_time={eventDetails?.event_time.end}
+									start_time={eventDetails?.event_time?.start}
+									end_time={eventDetails?.event_time?.end}
 									event_date={eventDetails?.event_date}
-									event_title={`${eventDetails.event_title_1} ${eventDetails.italic_title}`}
+									event_title={`${eventDetails?.event_title_1} ${eventDetails?.italic_title}`}
 								/>
 							) : null}
 							<Link href={`${pathname}/gift`}>

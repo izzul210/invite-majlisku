@@ -3,6 +3,7 @@
 import React from 'react';
 //Components import
 import RsvpButton from '../buttons/RsvpButton';
+import PersonalizedRsvpButton from '../buttons/PersonalizedRsvpButton';
 import MoneyGiftButton from '../buttons/MoneyGiftButton';
 import GiftRegistryButton from '../buttons/GiftRegistryButton';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
@@ -55,14 +56,12 @@ export default function GreetingScreenDefaultNoAnimation({
 				</div>
 				<div className='flex w-full items-center flex-col gap-4'>
 					<MajliskuIconV3 />
-
 					<MainTitle>{renderEventTitle}</MainTitle>
-
 					<MajliskuIconV3 />
 				</div>
 			</div>
 			<div className='w-full flex flex-col gap-2' style={{ maxWidth: '290px' }}>
-				<RsvpButton />
+				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton />}
 				{enable_gift_registry && <GiftRegistryButton />}
 				{enable_money_gift && <MoneyGiftButton />}
 			</div>

@@ -1,6 +1,7 @@
 /** @format */
 'use client';
 import { useQuery } from 'react-query';
+import { useQueryClient } from 'react-query';
 import { useRouter } from 'next/navigation';
 //Libraries
 import axios from 'axios';
@@ -80,7 +81,8 @@ export const useEventDetails = (inviteId) => {
 };
 
 export const useItineraryList = () => {
-	const { data: eventDetails } = useEventDetails();
+	const queryClient = useQueryClient();
+	const eventDetails = queryClient.getQueryData('eventDetails') || {};
 	const { data, isLoading, error } = useQuery({
 		queryKey: ['itineraryList'],
 		queryFn: async () => {
@@ -92,7 +94,7 @@ export const useItineraryList = () => {
 
 			return response;
 		},
-		enabled: !!eventDetails.user_id,
+		enabled: !!eventDetails?.user_id,
 	});
 
 	return {
@@ -103,7 +105,8 @@ export const useItineraryList = () => {
 };
 
 export const useGiftList = () => {
-	const { data: eventDetails } = useEventDetails();
+	const queryClient = useQueryClient();
+	const eventDetails = queryClient.getQueryData('eventDetails') || {};
 	const { data, isLoading, error } = useQuery({
 		queryKey: ['giftList'],
 		queryFn: async () => {
@@ -124,7 +127,8 @@ export const useGiftList = () => {
 };
 
 export const useWishList = () => {
-	const { data: eventDetails } = useEventDetails();
+	const queryClient = useQueryClient();
+	const eventDetails = queryClient.getQueryData('eventDetails') || {};
 	const { data, isLoading, error } = useQuery({
 		queryKey: ['wishList'],
 		queryFn: async () => {
@@ -136,7 +140,7 @@ export const useWishList = () => {
 
 			return response;
 		},
-		enabled: !!eventDetails.user_id,
+		enabled: !!eventDetails?.user_id,
 	});
 
 	return {

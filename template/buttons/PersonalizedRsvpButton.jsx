@@ -1,4 +1,5 @@
 /** @format */
+
 'use client';
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
@@ -6,13 +7,17 @@ import { useQueryClient } from 'react-query';
 //Components import
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 //Modals import
-const RsvpActionModal = dynamic(() => import('../modals/RsvpActionModal'));
-const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'));
-const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpModal'));
-const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
+const PersonalizedRsvpActionModal = dynamic(() => import('../modals/PersonalizedRsvpActionModal'));
+const PersonalizedAttendingRsvpModal = dynamic(() =>
+	import('../modals/PersonalizedAttendingRsvpModal')
+);
+const PersonalizedNotAttendingRsvpModal = dynamic(() =>
+	import('../modals/PersonalizedNotAttendingRsvpModal')
+);
+const PersonalizedMaybeRsvpModal = dynamic(() => import('../modals/PersonalizedMaybeRsvpModal'));
 const ThankYouModal = dynamic(() => import('../modals/ThankYouModal'));
 
-function RsvpButton(props) {
+function PersonalizedRsvpButton(props) {
 	const [openModal, setOpenModal] = useState(false);
 	const [thankyouModal, setThankyouModal] = useState(false);
 	const [attendingModal, setAttendingModal] = useState(false);
@@ -22,12 +27,27 @@ function RsvpButton(props) {
 	//From React Query:
 	const queryClient = useQueryClient();
 	const eventDetails = queryClient.getQueryData('eventDetails') || {};
+	const guestDetails = queryClient.getQueryData('personalizedGuestDetail') || {};
 	const { enable_bahasa, event_time, event_date, event_time_slot_2, enable_multiple_slots } =
 		eventDetails || {};
 
 	const handleOnClickRsvp = () => {
 		setOpenModal(true);
 		// setThankyouModal(true);
+	};
+
+	const renderRsvpButtonTitle = () => {
+		if (guestDetails?.response) {
+			if (guestDetails?.response?.rsvp === 'attending') {
+				return `RSVP'ED - Attending`;
+			} else if (guestDetails?.response?.rsvp === 'notattending') {
+				return `RSVP'ED - Not Attending`;
+			} else if (guestDetails?.response?.rsvp === 'maybe') {
+				return `RSVP'ED - Not Sure Yet`;
+			}
+		} else {
+			return 'RSVP';
+		}
 	};
 
 	const handleOnClickRsvpResponse = (status) => {
@@ -49,16 +69,16 @@ function RsvpButton(props) {
 				style={{ backgroundColor: '#1E1E1E', border: '1px solid #1E1E1E' }}
 				className='w-full font-medium rounded-full py-4 px-8 flex flex-row justify-center items-center gap-2 cursor-pointer'>
 				<InviteTextProvider className='uppercase' color='white'>
-					RSVP
+					{renderRsvpButtonTitle()}
 				</InviteTextProvider>
 			</button>
-			<RsvpActionModal
+			<PersonalizedRsvpActionModal
 				isOpen={openModal}
 				handleClose={() => setOpenModal(false)}
 				handleRsvp={handleOnClickRsvpResponse}
 				eventDetails={eventDetails}
 			/>
-			<AttendingRsvpModal
+			<PersonalizedAttendingRsvpModal
 				isOpen={attendingModal}
 				enable_multiple_slots={enable_multiple_slots}
 				event_time={event_time?.start}
@@ -74,7 +94,7 @@ function RsvpButton(props) {
 				}}
 				eventDetails={eventDetails}
 			/>
-			<NotAttendingRsvpModal
+			<PersonalizedNotAttendingRsvpModal
 				isOpen={notAttendingModal}
 				handleClose={() => setNotAttendingModal(false)}
 				handleBackButton={() => {
@@ -88,7 +108,7 @@ function RsvpButton(props) {
 				}}
 				eventDetails={eventDetails}
 			/>
-			<MaybeRsvpModal
+			<PersonalizedMaybeRsvpModal
 				isOpen={maybeModal}
 				handleClose={() => setMaybeModal(false)}
 				handleBackButton={() => {
@@ -112,4 +132,4 @@ function RsvpButton(props) {
 	);
 }
 
-export default RsvpButton;
+export default PersonalizedRsvpButton;
