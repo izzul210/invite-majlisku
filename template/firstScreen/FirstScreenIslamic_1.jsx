@@ -23,8 +23,8 @@ export default function FirstScreenIslamic_1({
 	italic_title = 'Main Title',
 }) {
 	return (
-		<div className='w-full bg-[#FFFBF0]  min-h-[100dvh] sm:min-h-[800px]  flex justify-center items-center'>
-			<div className='w-full relative  h-[100dvh] sm:min-h-[800px]  flex justify-center items-center'>
+		<div className='w-full bg-[#FFFBF0]  min-h-[100vh] sm:min-h-[800px]  flex justify-center items-center'>
+			<div className='w-full relative  h-[100vh] sm:min-h-[800px]  flex justify-center items-center'>
 				<Image
 					className='h-[667px] sm:h-[800px] z-0'
 					src='/nikah-12.png'

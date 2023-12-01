@@ -29,7 +29,7 @@ export default function FirstScreenMinimal_2({
 	return (
 		<div
 			className='w-full flex flex-col gap-4 justify-center items-center px-5 py-12 sm:py-24'
-			style={{ minHeight: '100dvh', maxWidth: '383px' }}>
+			style={{ minHeight: '100vh', maxWidth: '383px' }}>
 			<MajliskuIcon />
 			<EventTitle_Playfair>{event_title_1}</EventTitle_Playfair>
 			<RsvpHeaderImage rsvp_header_image={rsvpHeaderImage} />
