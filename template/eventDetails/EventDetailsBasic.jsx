@@ -5,16 +5,15 @@ import moment from 'moment';
 import { useInviteFunc } from '../../hooks/useInviteFunc';
 //Event Details components import
 import RsvpButton from '../buttons/RsvpButton';
+import PersonalizedRsvpButton from '../buttons/PersonalizedRsvpButton';
 import MoneyGiftButton from '../buttons/MoneyGiftButton';
 import GiftRegistryButton from '../buttons/GiftRegistryButton';
 import BasicEventTextProvider from './components/text/BasicEventTextProvider';
-import ButtonTextProvider from './components/text/ButtonTextProvider';
-import BasicEventButtonProvider from './components/button/BasicEventButtonProvider';
-import { GiftIcon, MoneyIcon } from './components/icons/EventDetailsIcons';
 import WazeButton from './components/button/WazeButton';
 import GoogleMapButton from './components/button/GoogleMapButton';
 
 export default function EventDetailsDefault({
+	guest_name = null,
 	event_date = '2023-07-19',
 	event_start = '2023-03-30T18:00:52-07:00',
 	event_end = '2023-03-30T20:00:52-07:00',
@@ -24,9 +23,6 @@ export default function EventDetailsDefault({
 	google_link = null,
 	enable_gift_registry = false,
 	enable_money_gift = false,
-	onClickRSVP = () => {},
-	onClickGiftRegistry = () => {},
-	onClickMoneyGift = () => {},
 }) {
 	const { useConvertText } = useInviteFunc();
 
@@ -60,7 +56,7 @@ export default function EventDetailsDefault({
 				<BasicEventTextProvider>{formatted_event_description}</BasicEventTextProvider>
 			</div>
 			<div className='w-full flex flex-col gap-2 items-center px-5'>
-				<RsvpButton />
+				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton />}
 				{enable_gift_registry && <GiftRegistryButton />}
 				{enable_money_gift && <MoneyGiftButton />}
 			</div>

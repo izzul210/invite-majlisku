@@ -65,7 +65,10 @@ function InviteTemplateGuest({ inviteId, guestId }) {
 									eventDetails={eventDetails}
 									guest_name={personalizedGuestDetail?.name}
 								/>
-								<EventDetails eventDetails={eventDetails} />
+								<EventDetails
+									eventDetails={eventDetails}
+									guest_name={personalizedGuestDetail?.name}
+								/>
 								<div
 									className='w-full flex gap-3 flex-col px-5 sm:px-0 py-8'
 									style={{ maxWidth: '400px' }}>

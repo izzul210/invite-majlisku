@@ -14,7 +14,7 @@ const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'))
 const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpModal'));
 const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
 
-export default function EventDetails({ eventDetails }) {
+export default function EventDetails({ eventDetails, guest_name = null }) {
 	const {
 		event_date,
 		event_time,
@@ -39,13 +39,8 @@ export default function EventDetails({ eventDetails }) {
 		event_address: location_info?.address,
 		waze_link: location_info?.wazeLink,
 		google_link: location_info?.googleLink,
+		guest_name,
 	};
-
-	const handleOnClickRsvp = () => {
-		setOpenModal(true);
-	};
-	const handleOnClickGift = () => {};
-	const handleOnClickMoneyGift = () => {};
 
 	const handleOnClickRsvpResponse = (status) => {
 		setOpenModal(false);
@@ -74,9 +69,6 @@ export default function EventDetails({ eventDetails }) {
 						return (
 							<EventDetailsBasic
 								{...eventDetailsProps}
-								onClickRSVP={handleOnClickRsvp}
-								onClickGiftRegistry={handleOnClickGift}
-								onClickMoneyGift={handleOnClickMoneyGift}
 								enable_gift_registry={enable_gift_registry}
 								enable_money_gift={enable_money_gift}
 							/>

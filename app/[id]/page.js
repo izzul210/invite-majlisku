@@ -75,3 +75,19 @@ export default async function Page({ params }) {
 		</main>
 	);
 }
+
+/******* TESTING ***********/
+/***** Types of Testing */
+/*
+1. New User
+2. Existing User
+
+For Existing User:
+Step-1: Choose user's invite-id and categorize them based on dates (at least 30 users)
+- All currently active users + wedding in December (PRIORITY)
+- Use Cloud functions to extract the data from Firestore
+Step-2: Observe and analyze their eventDetails. See what's missing or different names
+Step-3* (if there are issues with Step-2): Use Cloud Functions to help filter the data before it sends to the frontend
+Step-4: Make sure the data on the frontend is VALID, or else display EMPTY STATE
+
+*/
