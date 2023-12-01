@@ -53,7 +53,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 function InviteAccordian(props) {
 	const { title = 'Accordian', children, noBorder = false } = props;
-	const [expanded, setExpanded] = useState(true);
+	const [expanded, setExpanded] = useState(false);
 
 	const handleChange = () => {
 		setExpanded(!expanded);
