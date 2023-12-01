@@ -56,6 +56,22 @@ export default function FirstScreen({ eventDetails }) {
 			return <FirstScreenIslamic_2 {...firstScreenProps} />;
 		case 7:
 			return <FirstScreenIslamic_3 {...firstScreenProps} />;
+		case 20:
+			return <FirstScreenPremium premium_design={0} {...firstScreenProps} />;
+		case 21:
+			return <FirstScreenPremium premium_design={1} {...firstScreenProps} />;
+		case 22:
+			return <FirstScreenPremium premium_design={2} {...firstScreenProps} />;
+		case 23:
+			return <FirstScreenPremium premium_design={3} {...firstScreenProps} />;
+		case 24:
+			return <FirstScreenPremium premium_design={4} {...firstScreenProps} />;
+		case 25:
+			return <FirstScreenPremium premium_design={5} {...firstScreenProps} />;
+		case 26:
+			return <FirstScreenPremium premium_design={6} {...firstScreenProps} />;
+		case 27:
+			return <FirstScreenPremium premium_design={7} {...firstScreenProps} />;
 		default:
 			return <FirstScreenDefault {...firstScreenProps} />;
 	}

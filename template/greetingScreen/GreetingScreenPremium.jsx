@@ -66,9 +66,9 @@ export default function GreetingScreenPremium({
 					<Graphic_1 fill={fill} className='graphic-1' width='177' height='177' />
 				</div>
 			</div>
-			<div
-				className='w-full h-[90px] z-10'
-				style={{ background: backgroundColor, transform: 'translateY(-55%)' }}></div>
+			{/* <div
+				className='w-full h-[70px] z-10'
+				style={{ background: 'black', transform: 'translateY(-55%)' }}></div> */}
 		</div>
 	);
 }

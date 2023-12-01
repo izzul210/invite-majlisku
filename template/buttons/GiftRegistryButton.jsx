@@ -13,7 +13,7 @@ function GiftRegistryButton({ enable_bahasa }) {
 		<Link href={`${pathname}/gift`} className='w-full'>
 			<div
 				className='w-full font-medium rounded-full py-4 px-8 flex flex-row justify-center items-center gap-2 cursor-pointer'
-				style={{ color: '#1E1E1E', backgroundColor: 'white', border: ' 1px solid #D0D5DD' }}>
+				style={{ color: '#1E1E1E', backgroundColor: 'white', border: ' 1px solid #1E1E1E' }}>
 				<GiftIcon />
 				<InviteTextProvider className='uppercase'>
 					{enable_bahasa ? 'Bawa Hadiah' : 'Gift Registry'}

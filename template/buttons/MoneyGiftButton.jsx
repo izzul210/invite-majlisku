@@ -12,7 +12,7 @@ function MoneyGiftButton({ enable_bahasa }) {
 		<>
 			<button
 				className='w-full font-medium rounded-full py-4 px-8 flex flex-row justify-center items-center gap-2 cursor-pointer'
-				style={{ color: '#1E1E1E', backgroundColor: 'white', border: ' 1px solid #D0D5DD' }}
+				style={{ color: '#1E1E1E', backgroundColor: 'white', border: ' 1px solid #1E1E1E' }}
 				onClick={() => setOpen(true)}>
 				<MoneyGift />
 				<InviteTextProvider className='uppercase'>

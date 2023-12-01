@@ -40,6 +40,8 @@ export default function EventDetails({ eventDetails, guest_name = null }) {
 		waze_link: location_info?.wazeLink,
 		google_link: location_info?.googleLink,
 		guest_name,
+		enable_gift_registry,
+		enable_money_gift,
 	};
 
 	const handleOnClickRsvpResponse = (status) => {
@@ -66,13 +68,24 @@ export default function EventDetails({ eventDetails, guest_name = null }) {
 					case 5:
 					case 6:
 					case 7:
-						return (
-							<EventDetailsBasic
-								{...eventDetailsProps}
-								enable_gift_registry={enable_gift_registry}
-								enable_money_gift={enable_money_gift}
-							/>
-						);
+						return <EventDetailsBasic {...eventDetailsProps} />;
+					case 20:
+						return <EventDetailsPremium premium_design={0} {...eventDetailsProps} />;
+					case 21:
+						return <EventDetailsPremium premium_design={1} {...eventDetailsProps} />;
+					case 22:
+						return <EventDetailsPremium premium_design={2} {...eventDetailsProps} />;
+					case 23:
+						return <EventDetailsPremium premium_design={3} {...eventDetailsProps} />;
+					case 24:
+						return <EventDetailsPremium premium_design={4} {...eventDetailsProps} />;
+					case 25:
+						return <EventDetailsPremium premium_design={5} {...eventDetailsProps} />;
+					case 26:
+						return <EventDetailsPremium premium_design={6} {...eventDetailsProps} />;
+					case 27:
+						return <EventDetailsPremium premium_design={7} {...eventDetailsProps} />;
+
 					default:
 						return <EventDetailsDefault {...eventDetailsProps} />;
 				}

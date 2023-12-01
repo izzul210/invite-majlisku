@@ -40,7 +40,7 @@ export const ButtonProvider = ({ type = null, className = '', children }) => {
 			style={
 				type === 'primary'
 					? { color: 'white', backgroundColor: '#1E1E1E', border: ' 1px solid #1E1E1E' }
-					: { color: '#1E1E1E', backgroundColor: 'white', border: ' 1px solid #D0D5DD' }
+					: { color: '#1E1E1E', backgroundColor: 'white', border: ' 1px solid #1E1E1E' }
 			}>
 			{children}
 		</div>
