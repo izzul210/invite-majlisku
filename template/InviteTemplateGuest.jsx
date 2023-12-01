@@ -24,7 +24,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 function InviteTemplateGuest({ inviteId, guestId }) {
-	const [design, setDesign] = useState(0);
+	const [design, setDesign] = useState(20);
 	const [premium_design, setPremiumDesign] = useState(0);
 	const { data: eventDetails, isLoading } = useEventDetails(inviteId);
 	const { data: personalizedGuestDetail, isLoading: isLoadingPersonalizedGuestDetail } =
@@ -92,6 +92,14 @@ function InviteTemplateGuest({ inviteId, guestId }) {
 									<MenuItem value={0}>Minimalist 1</MenuItem>
 									<MenuItem value={1}>Minimalist 2</MenuItem>
 									<MenuItem value={2}>Minimalist 3</MenuItem>
+									<MenuItem value={20}>Premium 1</MenuItem>
+									<MenuItem value={21}>Premium 2</MenuItem>
+									<MenuItem value={22}>Premium 3</MenuItem>
+									<MenuItem value={23}>Premium 4</MenuItem>
+									<MenuItem value={24}>Premium 5</MenuItem>
+									<MenuItem value={25}>Premium 6</MenuItem>
+									<MenuItem value={26}>Premium 7</MenuItem>
+									<MenuItem value={27}>Premium 8</MenuItem>
 									<MenuItem value={5}>Islamic 1</MenuItem>
 									<MenuItem value={6}>Islamic 2</MenuItem>
 									<MenuItem value={7}>Islamic 3</MenuItem>

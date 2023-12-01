@@ -1,6 +1,6 @@
 /** @format */
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useEventDetails, useItineraryList, useWishList } from '../hooks/useApi';
 import Footnote from './Footnote';
@@ -17,12 +17,6 @@ import { MajliskuLoadingIcon } from '../component/icons/icons';
 //Temporary
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-
-/*
-7 - Yellow
-0 - Green
-1- Peach
-*/
 
 function InviteTemplate({ inviteId }) {
 	const [design, setDesign] = useState(20);
