@@ -115,6 +115,7 @@ export default function AttendingRsvpModal({
 
 	return (
 		<ModalProvider
+			disableSwipeToClose
 			topBorder
 			backButton
 			isOpen={isOpen}
@@ -229,7 +230,6 @@ export default function AttendingRsvpModal({
 						<div className='flex flex-row gap-2 '>
 							<ButtonProvider
 								onClick={() => {
-									handleReset();
 									handleClose();
 								}}
 								className='w-full uppercase'>

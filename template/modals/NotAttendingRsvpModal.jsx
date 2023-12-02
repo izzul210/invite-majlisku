@@ -88,6 +88,7 @@ export default function NotAttendingRsvpModal({
 	return (
 		<ModalProvider
 			topBorder
+			disableSwipeToClose
 			backButton
 			isOpen={isOpen}
 			handleBackButton={handleBackButton}

@@ -80,6 +80,7 @@ export default function MaybeRsvpModal({
 	return (
 		<ModalProvider
 			topBorder
+			disableSwipeToClose
 			backButton
 			isOpen={isOpen}
 			handleBackButton={handleBackButton}

@@ -21,6 +21,7 @@ const CloseButton = () => (
 
 export default function SwipeableTemporaryDrawer({
 	isOpen = false,
+	disableSwipeToClose = false,
 	handleClose = () => {},
 	topBorder = false,
 	backButton = false,
@@ -36,7 +37,7 @@ export default function SwipeableTemporaryDrawer({
 		<SwipeableDrawer
 			anchor='bottom'
 			open={isOpen}
-			onClose={handleClose}
+			onClose={disableSwipeToClose ? () => {} : handleClose}
 			onOpen={() => {}}
 			disableBackdropTransition={!iOS}
 			disableDiscovery={iOS}

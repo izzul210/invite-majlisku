@@ -128,6 +128,7 @@ export default function PersonalizedAttendingRsvpModal({
 
 	return (
 		<ModalProvider
+			disableSwipeToClose
 			topBorder
 			backButton
 			isOpen={isOpen}
