@@ -10,7 +10,7 @@ const GreetingScreenDefaultNoAnimation = dynamic(() =>
 const GreetingScreenIslamic_1 = dynamic(() => import('./GreetingScreenIslamic_1'));
 const GreetingScreenIslamic_2 = dynamic(() => import('./GreetingScreenIslamic_2'));
 
-export default function GreetingScreen({ eventDetails, guest_name = null }) {
+export default function GreetingScreen({ eventDetails, guest_name = null, preview = false }) {
 	const {
 		enable_bahasa,
 		host_details,
@@ -32,7 +32,9 @@ export default function GreetingScreen({ eventDetails, guest_name = null }) {
 		greet_content_2,
 		enable_gift_registry,
 		enable_money_gift,
+		//type
 		guest_name,
+		preview,
 	};
 
 	switch (design) {

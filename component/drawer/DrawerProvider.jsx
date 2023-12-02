@@ -46,7 +46,6 @@ export default function SwipeableTemporaryDrawer({
 					zIndex: 200,
 					borderTopRightRadius: 15,
 					borderTopLeftRadius: 15,
-					maxHeight: '98dvh',
 				},
 			}}>
 			<CardLoadingState loadingState={loading} />

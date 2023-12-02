@@ -44,6 +44,7 @@ function RsvpButton(props) {
 	return (
 		<>
 			<button
+				disabled={props.preview === true}
 				{...props}
 				onClick={handleOnClickRsvp}
 				style={{ backgroundColor: '#1E1E1E', border: '1px solid #1E1E1E' }}

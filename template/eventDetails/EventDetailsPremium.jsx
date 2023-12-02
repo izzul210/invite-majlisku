@@ -17,6 +17,7 @@ import { premiumColorTheme } from '../colorThemes';
 
 export default function EventDetailsPremium({
 	guest_name = null,
+	preview,
 	event_date = '2023-07-19',
 	event_start = '2023-03-30T18:00:52-07:00',
 	event_end = '2023-03-30T20:00:52-07:00',
@@ -82,9 +83,9 @@ export default function EventDetailsPremium({
 				</TextContainer_Premium>
 				<TextContainer_Premium color={color}>{formatted_event_description}</TextContainer_Premium>
 				<div className='py-8 w-full flex flex-col gap-2 '>
-					{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton />}
-					{enable_gift_registry && <GiftRegistryButton />}
-					{enable_money_gift && <MoneyGiftButton />}
+					{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton preview={preview} />}
+					{enable_gift_registry && <GiftRegistryButton preview={preview} />}
+					{enable_money_gift && <MoneyGiftButton preview={preview} />}
 				</div>
 			</div>
 		</div>

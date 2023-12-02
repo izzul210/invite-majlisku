@@ -14,7 +14,7 @@ const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'))
 const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpModal'));
 const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
 
-export default function EventDetails({ eventDetails, guest_name = null }) {
+export default function EventDetails({ eventDetails, guest_name = null, preview = false }) {
 	const {
 		event_date,
 		event_time,
@@ -39,9 +39,11 @@ export default function EventDetails({ eventDetails, guest_name = null }) {
 		event_address: location_info?.address,
 		waze_link: location_info?.wazeLink,
 		google_link: location_info?.googleLink,
-		guest_name,
 		enable_gift_registry,
 		enable_money_gift,
+		//type
+		guest_name,
+		preview,
 	};
 
 	const handleOnClickRsvpResponse = (status) => {

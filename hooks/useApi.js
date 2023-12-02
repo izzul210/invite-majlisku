@@ -54,7 +54,7 @@ const initialEventDetails = {
 	gifts: [],
 };
 
-export const useEventDetails = (inviteId) => {
+export const useEventDetails = (inviteId, apiRoute = 'rsvpdetails') => {
 	const router = useRouter();
 	const {
 		data = {},
@@ -64,7 +64,7 @@ export const useEventDetails = (inviteId) => {
 		queryKey: ['eventDetails'],
 		queryFn: async () => {
 			try {
-				const response = await axios.get(`${API}/rsvpdetails/${inviteId}`);
+				const response = await axios.get(`${API}/${apiRoute}/${inviteId}`);
 				return { initialEventDetails, ...response.data };
 			} catch (error) {
 				router.push('/404');

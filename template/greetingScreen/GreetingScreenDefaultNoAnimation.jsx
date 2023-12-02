@@ -21,13 +21,15 @@ import { useInviteFunc } from '../../hooks/useInviteFunc';
 export default function GreetingScreenDefaultNoAnimation({
 	enable_bahasa = false,
 	host_details = `Simpulan bin Simpulan\n &\n Simpulan binti Simpulan`,
-	guest_name = null,
 	event_title_2 = 'Pengantin Lelaki bin Simpulan\n&Pengantin Wanita binti Simpulan',
 	greeting_title = `Ybhg Tun/ Toh Puan/ Tan Sri/ Puan Sri/ Dato’s Sri/ Datin Sri/ Dato’/ Datin/ Tuan/ Puan`,
 	greet_content_1 = 'Dengan segala hormatnya kami\n mempersilakan',
 	greet_content_2 = 'ke majlis resepsi untuk meraikan majlis',
 	enable_gift_registry = false,
 	enable_money_gift = false,
+	//type
+	guest_name = null,
+	preview = false,
 }) {
 	const { useConvertText } = useInviteFunc();
 
@@ -61,9 +63,9 @@ export default function GreetingScreenDefaultNoAnimation({
 				</div>
 			</div>
 			<div className='w-full flex flex-col gap-2' style={{ maxWidth: '290px' }}>
-				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton />}
-				{enable_gift_registry && <GiftRegistryButton />}
-				{enable_money_gift && <MoneyGiftButton />}
+				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton preview={preview} />}
+				{enable_gift_registry && <GiftRegistryButton preview={preview} />}
+				{enable_money_gift && <MoneyGiftButton preview={preview} />}
 			</div>
 		</div>
 	);

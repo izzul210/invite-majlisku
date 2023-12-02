@@ -14,6 +14,7 @@ import GoogleMapButton from './components/button/GoogleMapButton';
 
 export default function EventDetailsDefault({
 	guest_name = null,
+	preview,
 	event_date = '2023-07-19',
 	event_start = '2023-03-30T18:00:52-07:00',
 	event_end = '2023-03-30T20:00:52-07:00',
@@ -56,9 +57,9 @@ export default function EventDetailsDefault({
 				<BasicEventTextProvider>{formatted_event_description}</BasicEventTextProvider>
 			</div>
 			<div className='w-full flex flex-col gap-2 items-center px-5'>
-				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton />}
-				{enable_gift_registry && <GiftRegistryButton />}
-				{enable_money_gift && <MoneyGiftButton />}
+				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton preview={preview} />}
+				{enable_gift_registry && <GiftRegistryButton preview={preview} />}
+				{enable_money_gift && <MoneyGiftButton preview={preview} />}
 			</div>
 		</div>
 	);
