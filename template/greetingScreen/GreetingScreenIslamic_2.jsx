@@ -1,15 +1,14 @@
 /** @format */
 
 import React from 'react';
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 //Components import
 import {
 	HostsText,
-	GreetingText,
 	GreetingText_Premium,
 	GreetingTitle,
 	MainTitle,
-	ButtonProvider,
+	GuestNameTitle,
 } from './components/greetingScreenComponents';
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
@@ -22,7 +21,7 @@ const titleColor = 'rgba(201, 45, 96, 1)';
 export default function GreetingScreenIslamic_2({
 	enable_bahasa = false,
 	host_details = `Simpulan bin Simpulan\n &\n Simpulan binti Simpulan`,
-	guest = null,
+	guest_name = null,
 	event_title_2 = 'Pengantin Lelaki bin Simpulan\n&Pengantin Wanita binti Simpulan',
 	greeting_title = `Ybhg Tun/ Toh Puan/ Tan Sri/ Puan Sri/ Dato’s Sri/ Datin Sri/ Dato’/ Datin/ Tuan/ Puan`,
 	greet_content_1 = 'Dengan segala hormatnya kami\n mempersilakan',
@@ -50,7 +49,11 @@ export default function GreetingScreenIslamic_2({
 				<HostsText color={titleColor}>{renderHosts}</HostsText>
 				<div className='flex flex-col gap-4'>
 					<GreetingText_Premium color={greetingsColor}>{greet_content_1}</GreetingText_Premium>
-					<GreetingTitle color={titleColor}>{greeting_title}</GreetingTitle>
+					{guest_name ? (
+						<GuestNameTitle color={titleColor}>{guest_name}</GuestNameTitle>
+					) : (
+						<GreetingTitle color={titleColor}>{greeting_title}</GreetingTitle>
+					)}
 					<GreetingText_Premium color={greetingsColor}>{greet_content_2}</GreetingText_Premium>
 				</div>
 				<div className='flex w-full items-center flex-col pt-8 gap-4'>
