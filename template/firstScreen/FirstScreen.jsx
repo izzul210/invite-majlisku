@@ -12,6 +12,7 @@ const FirstScreenEmbossed = dynamic(() => import('./FirstScreenEmbossed'));
 const FirstScreenIslamic_1 = dynamic(() => import('./FirstScreenIslamic_1'));
 const FirstScreenIslamic_2 = dynamic(() => import('./FirstScreenIslamic_2'));
 const FirstScreenIslamic_3 = dynamic(() => import('./FirstScreenIslamic_3'));
+const FirstScreenRoyal_1 = dynamic(() => import('./FirstScreenRoyal_1'));
 
 export default function FirstScreen({ eventDetails }) {
 	const {
@@ -72,6 +73,8 @@ export default function FirstScreen({ eventDetails }) {
 			return <FirstScreenPremium premium_design={6} {...firstScreenProps} />;
 		case 27:
 			return <FirstScreenPremium premium_design={7} {...firstScreenProps} />;
+		case 30:
+			return <FirstScreenRoyal_1 {...firstScreenProps} />;
 		default:
 			return <FirstScreenDefault {...firstScreenProps} />;
 	}
