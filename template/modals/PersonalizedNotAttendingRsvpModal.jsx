@@ -32,21 +32,11 @@ export default function PersonalizedNotAttendingRsvpModal({
 	//POST Request
 	const submitGuestResponse = useSubmitPersonalGuestResponse();
 	//Title text
-	const greetingText = enable_bahasa ? (
-		<>
-			Maafkan kami atas kesulitan
-			<br /> Terima kasih kerana sudi meberi respons
-		</>
-	) : (
-		<>
-			We are sorry to hear that
-			<br /> Thank you for the thoughtful response
-		</>
-	);
+	const greetingText = enable_bahasa ? `Sila sahkan kehadiran` : `Please confirm your RSVP`;
 	const nameText = enable_bahasa ? 'Nama' : 'Name';
 	const telText = enable_bahasa ? 'No Tel' : 'Contact';
 	const wishText = enable_bahasa ? 'Ucapan anda' : 'Your Wish';
-	const confirmText = enable_bahasa ? 'Setuju' : 'Confirm';
+	const confirmText = enable_bahasa ? 'Saya tidak hadir' : `I'm Not Attending`;
 	const cancelText = enable_bahasa ? 'Batal' : 'Cancel';
 	const nameInputErrorText = enable_bahasa ? 'Sila nyatakan nama anda' : 'Please enter your name';
 
@@ -111,13 +101,14 @@ export default function PersonalizedNotAttendingRsvpModal({
 					<div className='p-0  w-full items-center flex flex-col gap-4'>
 						<OpenLetterIcon width={48} height={48} />
 						<InviteTextProvider className='uppercase font-medium text-center'>
-							{greetingText}
+							<div>{greetingText},</div>
+							<div>{guestDetails?.name}</div>
 						</InviteTextProvider>
 						<InviteLineLogo color='#D0D5DD' height='1px' />
 					</div>
 
 					<div className='p-0 flex flex-col gap-6'>
-						<div className='flex flex-col gap-1'>
+						{/* <div className='flex flex-col gap-1'>
 							<InviteTextProvider color='#475467' className='uppercase font-medium'>
 								{nameText}*
 							</InviteTextProvider>
@@ -147,7 +138,7 @@ export default function PersonalizedNotAttendingRsvpModal({
 								onChange={(e) => setTel(e.target.value)}
 								icon={<PhoneIcon fill='#98A2B3' />}
 							/>
-						</div>
+						</div> */}
 						<div className='flex flex-col gap-1'>
 							<InviteTextProvider color='#475467' className='uppercase font-medium'>
 								{wishText}

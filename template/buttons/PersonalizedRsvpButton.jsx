@@ -126,6 +126,7 @@ function PersonalizedRsvpButton(props) {
 				enable_bahasa={enable_bahasa}
 			/>
 			<ThankYouModal
+				guestName={guestDetails?.name}
 				isOpen={thankyouModal}
 				event_date={event_date}
 				eventDetails={eventDetails}

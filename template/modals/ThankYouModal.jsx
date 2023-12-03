@@ -14,6 +14,7 @@ import AddToCalendar from '../calendar/components/AddToCalendar';
 import { AttendingIcon, GiftIcon, MoneyGift, MajliskuWhiteIcon } from '../../component/icons/icons';
 
 export default function ThankYouModal({
+	guestName = null,
 	isOpen,
 	handleClose,
 	event_date,
@@ -25,14 +26,14 @@ export default function ThankYouModal({
 	//Title Text
 	const thankyouText = enable_bahasa ? 'Terima kasih kerana membalas!' : 'Thank you for the RSVP!';
 	const attendingText = enable_bahasa
-		? 'Kami menanti kehadiran anda'
-		: `We're looking forward to seeing you there`;
+		? `Kami menanti kehadiran${guestName ? `, ${guestName}` : ' anda'}`
+		: `We're looking forward to seeing you there${guestName ? `, ${guestName}` : ''}`;
 	const notattendingText = enable_bahasa
-		? 'Maafkan kami atas kesulitan. Semoga DAPAT berjumpa lagi'
-		: `WE'RE SORRY TO HEAR THAT.  HOPE WE MEET AGAIN SOMEDAY`;
+		? `Maafkan kami atas kesulitan. Semoga DAPAT berjumpa lagi${guestName ? `, ${guestName}` : ''}`
+		: `WE'RE SORRY TO HEAR THAT.  HOPE WE MEET AGAIN SOMEDAY${guestName ? `, ${guestName}` : ''}`;
 	const maybeText = enable_bahasa
-		? 'KAMI MENANTI keputusan TUAN/PUAN'
-		: `WE'rE LOOKING FORWARD TO your response`;
+		? `KAMI MENANTI keputusan${guestName ? `, ${guestName}` : ' anda'}`
+		: `WE'rE LOOKING FORWARD TO your response${guestName ? `, ${guestName}` : ''}`;
 
 	return (
 		<ModalProvider topBorder isOpen={isOpen} handleClose={handleClose}>

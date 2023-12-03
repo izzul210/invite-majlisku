@@ -31,8 +31,7 @@ export default function GiftPage({ inviteId }) {
 			<GiftContainerProvider>
 				<GiftTopBar handleBackButton={handleReturnMainPage} />
 				<GiftTopAreaProvider
-					title='Senarai Hadiah'
-					description='Anda tak diwajibkan untuk membeli hadiah-hadiah ini. Ini hanya sekadar panduan'
+					enable_bahasa={eventDetails?.enable_bahasa}
 					address='No 30, Jalan Saujana Damai 1 Taman Saujana Damai 4300 Kajang'
 				/>
 				<GiftList

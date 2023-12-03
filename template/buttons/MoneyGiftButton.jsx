@@ -20,7 +20,11 @@ function MoneyGiftButton({ enable_bahasa, preview }) {
 					{enable_bahasa ? 'Salam Kaut' : 'Money Gift'}
 				</InviteTextProvider>
 			</button>
-			<MoneyGiftModal isOpen={open} handleClose={() => setOpen(false)} />
+			<MoneyGiftModal
+				enable_bahasa={enable_bahasa}
+				isOpen={open}
+				handleClose={() => setOpen(false)}
+			/>
 		</>
 	);
 }

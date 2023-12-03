@@ -35,17 +35,38 @@ export default function PersonalizedRsvpActionModal({
 	const renderModalText = () => {
 		if (guestDetails?.response) {
 			if (guestDetails?.response?.rsvp === 'attending') {
-				return `${guestDetails?.name}, you are attending! Rsvp'ed ${moment(
-					guestDetails.response.date
-				).fromNow()}`;
+				return (
+					<>
+						<div>
+							{guestDetails?.name} - {attendingButtonText}
+						</div>
+						<div className='text-xs font-semibold mt-1'>
+							Rsvp'd {moment(guestDetails.response.date).fromNow()}
+						</div>
+					</>
+				);
 			} else if (guestDetails?.response?.rsvp === 'notattending') {
-				return `${guestDetails?.name}, you are not attending! Rsvp'ed ${moment(
-					guestDetails.response.date
-				).fromNow()}`;
+				return (
+					<>
+						<div>
+							{guestDetails?.name} - {notAttendingButtonText}
+						</div>
+						<div className='text-xs font-semibold mt-1'>
+							Rsvp'd {moment(guestDetails.response.date).fromNow()}
+						</div>
+					</>
+				);
 			} else if (guestDetails?.response?.rsvp === 'maybe') {
-				return `${guestDetails?.name}, you are not sure! Rsvp'ed ${moment(
-					guestDetails.response.date
-				).fromNow()}`;
+				return (
+					<>
+						<div>
+							{guestDetails?.name} - {notSureButtonText}
+						</div>
+						<div className='text-xs font-semibold mt-1'>
+							Rsvp'd {moment(guestDetails.response.date).fromNow()}
+						</div>
+					</>
+				);
 			}
 		} else {
 			return inviteText;
