@@ -6,6 +6,7 @@ import { useInviteFunc } from '../../hooks/useInviteFunc';
 //Event Details components import
 import WazeButton from './components/button/WazeButton';
 import GoogleMapButton from './components/button/GoogleMapButton';
+import ActionButtons from '../buttons/ActionButtons';
 import RsvpButton from '../buttons/RsvpButton';
 import PersonalizedRsvpButton from '../buttons/PersonalizedRsvpButton';
 import MoneyGiftButton from '../buttons/MoneyGiftButton';
@@ -16,6 +17,7 @@ import { Ellipse_1 } from '../../component/graphics/graphics';
 import { premiumColorTheme } from '../colorThemes';
 
 export default function EventDetailsPremium({
+	enable_bahasa,
 	guest_name = null,
 	preview,
 	event_date = '2023-07-19',
@@ -82,11 +84,14 @@ export default function EventDetailsPremium({
 					</div>
 				</TextContainer_Premium>
 				<TextContainer_Premium color={color}>{formatted_event_description}</TextContainer_Premium>
-				<div className='py-8 w-full flex flex-col gap-2 '>
-					{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton preview={preview} />}
-					{enable_gift_registry && <GiftRegistryButton preview={preview} />}
-					{enable_money_gift && <MoneyGiftButton preview={preview} />}
-				</div>
+				<ActionButtons
+					color={color}
+					guest_name={guest_name}
+					preview={preview}
+					enable_bahasa={enable_bahasa}
+					enable_gift_registry={enable_gift_registry}
+					enable_money_gift={enable_money_gift}
+				/>
 			</div>
 		</div>
 	);

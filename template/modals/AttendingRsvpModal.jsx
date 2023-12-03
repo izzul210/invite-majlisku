@@ -34,15 +34,13 @@ export default function AttendingRsvpModal({
 	//POST Request
 	const submitGuestResponse = useSubmitGuestResponse();
 	//Title Text
-	const greetingText = enable_bahasa
-		? 'Kami menanti kedatangan anda!'
-		: 'We are looking forward to seeing you there!';
+	const greetingText = enable_bahasa ? 'Sila sahkan KEHADIRAN ANDA!' : 'Please confirm your RSVP';
 	const nameText = enable_bahasa ? 'Nama' : 'Name';
 	const telText = enable_bahasa ? 'No Tel' : 'Contact';
 	const paxText = enable_bahasa ? 'Bilangan Kehadiran' : 'Total Pax';
 	const timeslotText = enable_bahasa ? 'Pilih Waktu' : 'Time Slot';
 	const wishText = enable_bahasa ? 'Ucapan anda' : 'Your Wish';
-	const confirmText = enable_bahasa ? 'Setuju' : 'Confirm';
+	const confirmText = enable_bahasa ? 'Saya Hadir' : `I'm Attending`;
 	const cancelText = enable_bahasa ? 'Batal' : 'Cancel';
 	const nameInputErrorText = enable_bahasa ? 'Sila nyatakan nama anda' : 'Please enter your name';
 	const timeSlotInputErrorText = enable_bahasa ? 'Sila pilih waktu' : 'Please choose a timeslot';

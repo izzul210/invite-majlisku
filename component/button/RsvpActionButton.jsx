@@ -20,7 +20,7 @@ function ButtonProvider({
 		<button
 			className={`${
 				isLoading ? 'cursor-not-allowed opacity-40' : ''
-			} flex py-4 px-8 gap-2 items-center justify-center rounded-full border border-gray-300 cursor-pointer font-medium text-sm ${className}`}
+			} flex py-4 px-8 gap-2 whitespace-nowrap items-center justify-center rounded-full border border-gray-300 cursor-pointer font-medium text-sm ${className}`}
 			style={{ fontFamily: 'Lora', fontWeight: 500, ...buttonStyles }}
 			{...props}>
 			{isLoading ? (

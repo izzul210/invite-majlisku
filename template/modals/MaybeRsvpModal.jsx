@@ -26,13 +26,11 @@ export default function MaybeRsvpModal({
 	//POST Request
 	const submitGuestResponse = useSubmitGuestResponse();
 	//Title text
-	const greetingText = enable_bahasa
-		? 'Kami amat berbesar hati jika tuan/puan dapat hadir ke majlis kami'
-		: 'We are very happy if you could attend our event!';
+	const greetingText = enable_bahasa ? 'Sila sahkan KEHADIRAN ANDA' : 'Please confirm your RSVP';
 	const nameText = enable_bahasa ? 'Nama' : 'Name';
 	const telText = enable_bahasa ? 'No Tel' : 'Contact';
 	const wishText = enable_bahasa ? 'Ucapan anda' : 'Your Wish';
-	const confirmText = enable_bahasa ? 'Setuju' : 'Confirm';
+	const confirmText = enable_bahasa ? 'Saya Tidak Pasti' : `I'm Not Sure Yet`;
 	const cancelText = enable_bahasa ? 'Batal' : 'Cancel';
 	const nameInputErrorText = enable_bahasa ? 'Sila nyatakan nama anda' : 'Please enter your name';
 

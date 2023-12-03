@@ -2,10 +2,7 @@
 
 import React from 'react';
 //Components import
-import RsvpButton from '../buttons/RsvpButton';
-import PersonalizedRsvpButton from '../buttons/PersonalizedRsvpButton';
-import MoneyGiftButton from '../buttons/MoneyGiftButton';
-import GiftRegistryButton from '../buttons/GiftRegistryButton';
+import ActionButtons from '../buttons/ActionButtons';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import { MajliskuIconV3, GiftIcon, MoneyGift } from '../../component/icons/icons';
 import {
@@ -62,11 +59,13 @@ export default function GreetingScreenDefaultNoAnimation({
 					<MajliskuIconV3 />
 				</div>
 			</div>
-			<div className='w-full flex flex-col gap-2' style={{ maxWidth: '290px' }}>
-				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton preview={preview} />}
-				{enable_gift_registry && <GiftRegistryButton preview={preview} />}
-				{enable_money_gift && <MoneyGiftButton preview={preview} />}
-			</div>
+			<ActionButtons
+				enable_bahasa={enable_bahasa}
+				enable_gift_registry={enable_gift_registry}
+				enable_money_gift={enable_money_gift}
+				guest_name={guest_name}
+				preview={preview}
+			/>
 		</div>
 	);
 }

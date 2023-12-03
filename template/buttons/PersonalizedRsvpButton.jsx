@@ -39,11 +39,11 @@ function PersonalizedRsvpButton(props) {
 	const renderRsvpButtonTitle = () => {
 		if (guestDetails?.response) {
 			if (guestDetails?.response?.rsvp === 'attending') {
-				return `RSVP'ED - Attending`;
+				return `RSVP'D - ${enable_bahasa ? 'Hadir' : 'Attending'}`;
 			} else if (guestDetails?.response?.rsvp === 'notattending') {
-				return `RSVP'ED - Not Attending`;
+				return `RSVP'D - ${enable_bahasa ? 'Tidak Hadir' : 'Not Attending'}`;
 			} else if (guestDetails?.response?.rsvp === 'maybe') {
-				return `RSVP'ED - Not Sure Yet`;
+				return `RSVP'D - ${enable_bahasa ? 'Tidak Pasti' : 'Not Sure Yet'}`;
 			}
 		} else {
 			return 'RSVP';
@@ -77,6 +77,7 @@ function PersonalizedRsvpButton(props) {
 				handleClose={() => setOpenModal(false)}
 				handleRsvp={handleOnClickRsvpResponse}
 				eventDetails={eventDetails}
+				enable_bahasa={enable_bahasa}
 			/>
 			<PersonalizedAttendingRsvpModal
 				isOpen={attendingModal}
@@ -93,6 +94,7 @@ function PersonalizedRsvpButton(props) {
 					setThankyouModal(true);
 				}}
 				eventDetails={eventDetails}
+				enable_bahasa={enable_bahasa}
 			/>
 			<PersonalizedNotAttendingRsvpModal
 				isOpen={notAttendingModal}
@@ -107,6 +109,7 @@ function PersonalizedRsvpButton(props) {
 					setThankyouModal(true);
 				}}
 				eventDetails={eventDetails}
+				enable_bahasa={enable_bahasa}
 			/>
 			<PersonalizedMaybeRsvpModal
 				isOpen={maybeModal}
@@ -120,6 +123,7 @@ function PersonalizedRsvpButton(props) {
 					setMaybeModal(false);
 					setThankyouModal(true);
 				}}
+				enable_bahasa={enable_bahasa}
 			/>
 			<ThankYouModal
 				isOpen={thankyouModal}
@@ -127,6 +131,7 @@ function PersonalizedRsvpButton(props) {
 				eventDetails={eventDetails}
 				status={status}
 				handleClose={() => setThankyouModal(false)}
+				enable_bahasa={enable_bahasa}
 			/>
 		</>
 	);

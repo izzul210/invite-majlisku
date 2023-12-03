@@ -58,8 +58,10 @@ function RsvpButton(props) {
 				handleClose={() => setOpenModal(false)}
 				handleRsvp={handleOnClickRsvpResponse}
 				eventDetails={eventDetails}
+				enable_bahasa={enable_bahasa}
 			/>
 			<AttendingRsvpModal
+				enable_bahasa={enable_bahasa}
 				isOpen={attendingModal}
 				enable_multiple_slots={enable_multiple_slots}
 				event_time={event_time?.start}
@@ -76,6 +78,7 @@ function RsvpButton(props) {
 				eventDetails={eventDetails}
 			/>
 			<NotAttendingRsvpModal
+				enable_bahasa={enable_bahasa}
 				isOpen={notAttendingModal}
 				handleClose={() => setNotAttendingModal(false)}
 				handleBackButton={() => {
@@ -90,6 +93,7 @@ function RsvpButton(props) {
 				eventDetails={eventDetails}
 			/>
 			<MaybeRsvpModal
+				enable_bahasa={enable_bahasa}
 				isOpen={maybeModal}
 				handleClose={() => setMaybeModal(false)}
 				handleBackButton={() => {
@@ -103,6 +107,7 @@ function RsvpButton(props) {
 				}}
 			/>
 			<ThankYouModal
+				enable_bahasa={enable_bahasa}
 				isOpen={thankyouModal}
 				event_date={event_date}
 				eventDetails={eventDetails}

@@ -22,6 +22,18 @@ export default function ThankYouModal({
 	status = 'attending',
 }) {
 	const pathname = usePathname();
+	//Title Text
+	const thankyouText = enable_bahasa ? 'Terima kasih kerana membalas!' : 'Thank you for the RSVP!';
+	const attendingText = enable_bahasa
+		? 'Kami menanti kehadiran anda'
+		: `We're looking forward to seeing you there`;
+	const notattendingText = enable_bahasa
+		? 'Maafkan kami atas kesulitan. Semoga DAPAT berjumpa lagi'
+		: `WE'RE SORRY TO HEAR THAT.  HOPE WE MEET AGAIN SOMEDAY`;
+	const maybeText = enable_bahasa
+		? 'KAMI MENANTI keputusan TUAN/PUAN'
+		: `WE'rE LOOKING FORWARD TO your response`;
+
 	return (
 		<ModalProvider topBorder isOpen={isOpen} handleClose={handleClose}>
 			<div className='w-full flex flex-col items-center'>
@@ -30,12 +42,12 @@ export default function ThankYouModal({
 					<div className='w-full items-center flex flex-col gap-6'>
 						<AttendingIcon width={36} height={36} />
 						<InviteTextProvider className='uppercase text-[20px] font-medium text-center'>
-							Terima kasih kerana Rsvp!
+							{thankyouText}
 						</InviteTextProvider>
 						{status === 'attending' ? (
 							<>
 								<InviteTextProvider className='uppercase text-[16px] font-normal text-center'>
-									Kami menanti kehadiran anda!
+									{attendingText}
 								</InviteTextProvider>
 								<div className='py-2 border-t border-b w-full'>
 									<InviteTextProvider className='uppercase text-[14px] font-medium text-center'>
@@ -43,7 +55,15 @@ export default function ThankYouModal({
 									</InviteTextProvider>
 								</div>
 							</>
-						) : null}
+						) : status === 'notattending' ? (
+							<InviteTextProvider className='uppercase text-[16px] font-normal text-center'>
+								{notattendingText}
+							</InviteTextProvider>
+						) : (
+							<InviteTextProvider className='uppercase text-[16px] font-normal text-center'>
+								{maybeText}
+							</InviteTextProvider>
+						)}
 					</div>
 
 					<div className='flex flex-col gap-6'>
@@ -60,16 +80,13 @@ export default function ThankYouModal({
 							) : null}
 							<Link href={`${pathname}/gift`}>
 								<ButtonProvider className='w-full uppercase'>
-									<GiftIcon /> Bawah Hadiah
+									<GiftIcon /> {enable_bahasa ? 'Bawa Hadiah' : 'Gift Registry'}
 								</ButtonProvider>
 							</Link>
-							{/* <ButtonProvider className='w-full uppercase'>
-								<MoneyGift /> Salam Kaut
-							</ButtonProvider> */}
 							<Link href='https://majlisku.com' target='_blank'>
 								<ButtonProvider type='primary' className='w-full uppercase'>
 									<MajliskuWhiteIcon />
-									Lawat Majlisku
+									{enable_bahasa ? 'Cipta undangan anda' : 'Create your invitation'}
 								</ButtonProvider>
 							</Link>
 						</div>

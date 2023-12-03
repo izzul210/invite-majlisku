@@ -4,15 +4,13 @@ import moment from 'moment';
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
 //Event Details components import
-import RsvpButton from '../buttons/RsvpButton';
-import PersonalizedRsvpButton from '../buttons/PersonalizedRsvpButton';
-import MoneyGiftButton from '../buttons/MoneyGiftButton';
-import GiftRegistryButton from '../buttons/GiftRegistryButton';
+import ActionButtons from '../buttons/ActionButtons';
 import BasicEventTextProvider from './components/text/BasicEventTextProvider';
 import WazeButton from './components/button/WazeButton';
 import GoogleMapButton from './components/button/GoogleMapButton';
 
 export default function EventDetailsDefault({
+	enable_bahasa,
 	guest_name = null,
 	preview,
 	event_date = '2023-07-19',
@@ -56,11 +54,13 @@ export default function EventDetailsDefault({
 				</BasicEventTextProvider>
 				<BasicEventTextProvider>{formatted_event_description}</BasicEventTextProvider>
 			</div>
-			<div className='w-full flex flex-col gap-2 items-center px-5'>
-				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton preview={preview} />}
-				{enable_gift_registry && <GiftRegistryButton preview={preview} />}
-				{enable_money_gift && <MoneyGiftButton preview={preview} />}
-			</div>
+			<ActionButtons
+				preview={preview}
+				guest_name={guest_name}
+				enable_bahasa={enable_bahasa}
+				enable_gift_registry={enable_gift_registry}
+				enable_money_gift={enable_money_gift}
+			/>
 		</div>
 	);
 }

@@ -26,21 +26,11 @@ export default function NotAttendingRsvpModal({
 	//POST Request
 	const submitGuestResponse = useSubmitGuestResponse();
 	//Title text
-	const greetingText = enable_bahasa ? (
-		<>
-			Maafkan kami atas kesulitan
-			<br /> Terima kasih kerana sudi meberi respons
-		</>
-	) : (
-		<>
-			We are sorry to hear that
-			<br /> Thank you for the thoughtful response
-		</>
-	);
+	const greetingText = enable_bahasa ? 'Sila sahkan KEHADIRAN ANDA' : 'Please confirm your RSVP';
 	const nameText = enable_bahasa ? 'Nama' : 'Name';
 	const telText = enable_bahasa ? 'No Tel' : 'Contact';
 	const wishText = enable_bahasa ? 'Ucapan anda' : 'Your Wish';
-	const confirmText = enable_bahasa ? 'Setuju' : 'Confirm';
+	const confirmText = enable_bahasa ? 'Saya tidak hadir' : `I'm Not Attending`;
 	const cancelText = enable_bahasa ? 'Batal' : 'Cancel';
 	const nameInputErrorText = enable_bahasa ? 'Sila nyatakan nama anda' : 'Please enter your name';
 
