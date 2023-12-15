@@ -23,6 +23,7 @@ export default function FirstScreen({ eventDetails }) {
 		event_location,
 		italic_title,
 		event_time,
+		optional_description,
 	} = eventDetails || {};
 	const { design, premium_design } = useInviteContext();
 
@@ -32,6 +33,7 @@ export default function FirstScreen({ eventDetails }) {
 		event_title_1,
 		rsvp_header_image,
 		rsvp_header_image_file,
+		optional_description,
 		event_date,
 		event_location,
 		italic_title,
@@ -48,7 +50,7 @@ export default function FirstScreen({ eventDetails }) {
 		case 2:
 			return <FirstScreenMinimal_1 {...firstScreenProps} />;
 		case 3:
-			return <FirstScreenPremium premium_design={premium_design} {...firstScreenProps} />;
+			return <FirstScreenDefault {...firstScreenProps} />;
 		case 4:
 			return <FirstScreenEmbossed {...firstScreenProps} />;
 		case 5:

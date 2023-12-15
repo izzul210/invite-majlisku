@@ -7,10 +7,6 @@ import { useInviteFunc } from '../../hooks/useInviteFunc';
 import WazeButton from './components/button/WazeButton';
 import GoogleMapButton from './components/button/GoogleMapButton';
 import ActionButtons from '../buttons/ActionButtons';
-import RsvpButton from '../buttons/RsvpButton';
-import PersonalizedRsvpButton from '../buttons/PersonalizedRsvpButton';
-import MoneyGiftButton from '../buttons/MoneyGiftButton';
-import GiftRegistryButton from '../buttons/GiftRegistryButton';
 //Components import
 import { TextContainer_Premium } from './components/eventDetailsComponents';
 import { Ellipse_1 } from '../../component/graphics/graphics';
@@ -23,11 +19,14 @@ export default function EventDetailsPremium({
 	event_date = '2023-07-19',
 	event_start = '2023-03-30T18:00:52-07:00',
 	event_end = '2023-03-30T20:00:52-07:00',
-	event_address = '101-5825 Vine St,\nVancouver,\nV6M4A2BC',
-	description = 'Lelaki: Baju Melayu/Batik\n\nPerempuan: Baju Kurung/Bersesuaian',
+	event_address,
+	description,
 	premium_design = 0,
 	waze_link = null,
 	google_link = null,
+	//For RSVP
+	event_date_deadline = null,
+	enable_deadline = false,
 	enable_gift_registry = false,
 	enable_money_gift = false,
 }) {
@@ -83,15 +82,25 @@ export default function EventDetailsPremium({
 						</div>
 					</div>
 				</TextContainer_Premium>
-				<TextContainer_Premium color={color}>{formatted_event_description}</TextContainer_Premium>
-				<ActionButtons
-					color={color}
-					guest_name={guest_name}
-					preview={preview}
-					enable_bahasa={enable_bahasa}
-					enable_gift_registry={enable_gift_registry}
-					enable_money_gift={enable_money_gift}
-				/>
+				{description && (
+					<TextContainer_Premium color={color}>
+						<div style={{ whiteSpace: 'pre-line', lineHeight: 1.5 }}>
+							{formatted_event_description}
+						</div>
+					</TextContainer_Premium>
+				)}
+				<div className='w-full py-6'>
+					<ActionButtons
+						color={color}
+						guest_name={guest_name}
+						preview={preview}
+						enable_bahasa={enable_bahasa}
+						enable_gift_registry={enable_gift_registry}
+						enable_money_gift={enable_money_gift}
+						enable_deadline={enable_deadline}
+						event_date_deadline={event_date_deadline}
+					/>
+				</div>
 			</div>
 		</div>
 	);

@@ -16,10 +16,13 @@ export default function EventDetailsDefault({
 	event_date = '2023-07-19',
 	event_start = '2023-03-30T18:00:52-07:00',
 	event_end = '2023-03-30T20:00:52-07:00',
-	event_address = '101-5825 Vine St,\nVancouver,\nV6M4A2BC',
-	description = 'Lelaki: Baju Melayu/Batik\n\nPerempuan: Baju Kurung/Bersesuaian',
+	event_address,
+	description,
 	waze_link = null,
 	google_link = null,
+	//For RSVP
+	event_date_deadline = null,
+	enable_deadline = false,
 	enable_gift_registry = false,
 	enable_money_gift = false,
 }) {
@@ -52,7 +55,9 @@ export default function EventDetailsDefault({
 						</div>
 					</div>
 				</BasicEventTextProvider>
-				<BasicEventTextProvider>{formatted_event_description}</BasicEventTextProvider>
+				{description && (
+					<BasicEventTextProvider>{formatted_event_description}</BasicEventTextProvider>
+				)}
 			</div>
 			<ActionButtons
 				preview={preview}
@@ -60,6 +65,8 @@ export default function EventDetailsDefault({
 				enable_bahasa={enable_bahasa}
 				enable_gift_registry={enable_gift_registry}
 				enable_money_gift={enable_money_gift}
+				enable_deadline={enable_deadline}
+				event_date_deadline={event_date_deadline}
 			/>
 		</div>
 	);

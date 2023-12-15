@@ -10,7 +10,7 @@ const fontColor = '#A98F21';
 
 const TextDetail = ({ children }) => {
 	return (
-		<InviteTextProvider fontFamily='sansPro' color={fontColor} className='tracking-wide'>
+		<InviteTextProvider fontFamily='sansPro' color={fontColor} className='tracking-wider'>
 			{children}
 		</InviteTextProvider>
 	);
@@ -18,8 +18,7 @@ const TextDetail = ({ children }) => {
 
 export default function FirstScreenIslamic_1({
 	event_title_1 = 'Event Title 1',
-	event_date = '2023-10-21',
-	event_location = 'Location, City',
+	optional_description = '',
 	italic_title = 'Main Title',
 }) {
 	return (
@@ -41,15 +40,16 @@ export default function FirstScreenIslamic_1({
 					<Bismillah />
 					<IslamicTitle color={fontColor}>{italic_title}</IslamicTitle>
 					<div className='flex flex-col gap-5 text-center uppercase text-xs'>
-						<TextDetail fontFamily='sansPro' color={fontColor} className='tracking-wide'>
+						<TextDetail fontFamily='sansPro' color={fontColor}>
 							{event_title_1}
 						</TextDetail>
-						<TextDetail fontFamily='sansPro' color={fontColor}>
-							<div className='flex flex-col gap-2'>
-								<div>{moment(event_date).format('DD.MM.YYYY')}</div>
-								<div>{event_location}</div>
-							</div>
-						</TextDetail>
+						{optional_description && (
+							<TextDetail fontFamily='sansPro' color={fontColor}>
+								<div style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>
+									{optional_description}
+								</div>
+							</TextDetail>
+						)}
 					</div>
 				</div>
 			</div>

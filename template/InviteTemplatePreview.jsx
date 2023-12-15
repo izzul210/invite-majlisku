@@ -19,7 +19,7 @@ import { MajliskuLoadingIcon } from '../component/icons/icons';
 function InviteTemplatePreview({ designId, userId }) {
 	let design = parseInt(designId);
 	const [premium_design, setPremiumDesign] = useState(0);
-	const { data: eventDetails, isLoading } = useEventDetails(userId, 'rsvpdetailspreview');
+	const { data: eventDetails, isLoading } = useEventDetails(userId, 'previewdetails');
 	const { data: itinerary } = useItineraryList();
 	const { data: wishlist } = useWishList();
 

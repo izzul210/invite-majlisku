@@ -12,6 +12,7 @@ export default function Contacts({ eventDetails }) {
 	const renderComponent = () => {
 		switch (design) {
 			case 0:
+			case 3:
 				return <ContactDefault contact_info={contact_info} emable_bahasa={enable_bahasa} />;
 			default:
 				return <ContactAccordian contact_info={contact_info} emable_bahasa={enable_bahasa} />;

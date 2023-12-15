@@ -23,8 +23,11 @@ export default function EventDetails({ eventDetails, guest_name = null, preview 
 		location_info,
 		enable_gift_registry,
 		enable_money_gift,
+		event_date_deadline,
+		enable_deadline,
+		event_address,
 	} = eventDetails || {};
-	const { design, premium_design } = useInviteContext();
+	const { design } = useInviteContext();
 	const [openModal, setOpenModal] = useState(false);
 	const [attendingModal, setAttendingModal] = useState(false);
 	const [notAttendingModal, setNotAttendingModal] = useState(false);
@@ -36,11 +39,13 @@ export default function EventDetails({ eventDetails, guest_name = null, preview 
 		event_start: event_time?.start,
 		event_end: event_time?.end,
 		description,
-		event_address: location_info?.address,
+		event_address: event_address ? event_address : location_info?.address,
 		waze_link: location_info?.wazeLink,
 		google_link: location_info?.googleLink,
 		enable_gift_registry,
 		enable_money_gift,
+		event_date_deadline,
+		enable_deadline,
 		//type
 		guest_name,
 		preview,
@@ -66,7 +71,7 @@ export default function EventDetails({ eventDetails, guest_name = null, preview 
 					case 1:
 						return <EventDetailsMinimal_2 {...eventDetailsProps} />;
 					case 3:
-						return <EventDetailsPremium premium_design={premium_design} {...eventDetailsProps} />;
+						return <EventDetailsDefault {...eventDetailsProps} background='white' />;
 					case 5:
 					case 6:
 					case 7:

@@ -4,14 +4,18 @@ import InviteTextProvider from '../../../component/textProvider/InviteTextProvid
 
 export const HostsText = ({ children, color = '#1D4648' }) => {
 	return (
-		<InviteTextProvider className='text-sm font-medium uppercase' color={color}>
+		<InviteTextProvider className='text-[14px] font-medium uppercase' color={color}>
 			{children}
 		</InviteTextProvider>
 	);
 };
 
 export const GreetingText = ({ children }) => {
-	return <InviteTextProvider className='text-base'>{children}</InviteTextProvider>;
+	return (
+		<InviteTextProvider color='#667085' className='text-base'>
+			{children}
+		</InviteTextProvider>
+	);
 };
 
 export const GreetingText_Premium = ({ children, color = '#F1BFBE' }) => {

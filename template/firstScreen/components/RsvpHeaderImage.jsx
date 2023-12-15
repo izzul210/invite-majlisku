@@ -1,6 +1,6 @@
 /** @format */
 
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 import { Graphic_1, Ellipse_1 } from '../../../component/graphics/graphics';
 
 export const RsvpHeaderImage = ({ rsvp_header_image, curveTopBorder = false }) => {
@@ -11,8 +11,8 @@ export const RsvpHeaderImage = ({ rsvp_header_image, curveTopBorder = false }) =
 				src={rsvp_header_image}
 				alt='rsvp_header_image'
 				layout='responsive'
-				width={1000}
-				height={1200}
+				width={280}
+				height={322}
 				style={{
 					borderTopLeftRadius: curveTopBorder ? 160 : 0,
 					borderTopRightRadius: curveTopBorder ? 160 : 0,
@@ -48,8 +48,8 @@ export const RsvpHeaderImage_Premium = ({ rsvp_header_image, fill, curveTopBorde
 					src={rsvp_header_image}
 					alt='rsvp_header_image'
 					layout='responsive'
-					width={190}
-					height={240}
+					width={280}
+					height={322}
 					style={{
 						borderTopLeftRadius: curveTopBorder ? 105 : 0,
 						borderTopRightRadius: curveTopBorder ? 105 : 0,

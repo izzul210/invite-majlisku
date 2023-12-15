@@ -13,6 +13,7 @@ export default function Calendar({ eventDetails }) {
 	const renderComponent = () => {
 		switch (design) {
 			case 0:
+			case 3:
 				return (
 					<CalendarDefault
 						enable_bahasa={enable_bahasa}

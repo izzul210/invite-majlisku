@@ -13,11 +13,14 @@ const GreetingScreenIslamic_2 = dynamic(() => import('./GreetingScreenIslamic_2'
 export default function GreetingScreen({ eventDetails, guest_name = null, preview = false }) {
 	const {
 		enable_bahasa,
+		event_opening_title,
 		host_details,
 		event_title_2,
 		greeting_title,
-		greet_content_1,
-		greet_content_2,
+		greeting_1,
+		greeting_2,
+		event_date_deadline,
+		enable_deadline,
 		enable_gift_registry,
 		enable_money_gift,
 	} = eventDetails || {};
@@ -25,11 +28,15 @@ export default function GreetingScreen({ eventDetails, guest_name = null, previe
 
 	const greetingScreenProps = {
 		enable_bahasa,
+		event_opening_title,
 		host_details,
 		event_title_2,
 		greeting_title,
-		greet_content_1,
-		greet_content_2,
+		greeting_1,
+		greeting_2,
+		//For RSVP
+		event_date_deadline,
+		enable_deadline,
 		enable_gift_registry,
 		enable_money_gift,
 		//type
@@ -38,8 +45,6 @@ export default function GreetingScreen({ eventDetails, guest_name = null, previe
 	};
 
 	switch (design) {
-		case 3:
-			return <GreetingScreenPremium premium_design={premium_design} {...greetingScreenProps} />;
 		case 5:
 		case 7:
 			return <GreetingScreenIslamic_1 premium_design={premium_design} {...greetingScreenProps} />;

@@ -7,7 +7,7 @@ export const DateLocation = ({ children, ...props }) => {
 		<InviteTextProvider
 			className='uppercase text-center text-base font-mediun tracking-wide'
 			{...props}>
-			{children}
+			<div style={{ whiteSpace: 'pre-line' }}>{children}</div>
 		</InviteTextProvider>
 	);
 };
@@ -23,11 +23,11 @@ export const DateLocation_Playfair = ({ children, ...props }) => {
 	);
 };
 
-export const DateLocation_Premium = ({ children, fill, ...props }) => {
+export const DateLocation_Premium = ({ children, fill, fontFamily = 'ebGaramond', ...props }) => {
 	return (
 		<div className='w-full border-b border-t py-3 my-4' style={{ borderColor: fill }}>
 			<InviteTextProvider
-				fontFamily='playfair'
+				fontFamily={fontFamily}
 				className='uppercase text-center text-sm font-normal tracking-wide'
 				{...props}>
 				{children}

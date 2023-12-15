@@ -12,8 +12,8 @@ export default function EventDetailsMinimal_2({
 	event_date = '2023-07-19',
 	event_start = '2023-03-30T18:00:52-07:00',
 	event_end = '2023-03-30T20:00:52-07:00',
-	event_address = '101-5825 Vine St,\nVancouver,\nV6M4A2BC',
-	description = 'Lelaki: Baju Melayu/Batik\n\nPerempuan: Baju Kurung/Bersesuaian',
+	event_address,
+	description,
 	waze_link = null,
 	google_link = null,
 }) {
@@ -38,13 +38,11 @@ export default function EventDetailsMinimal_2({
 				style={{ maxWidth: '400px' }}>
 				<TextContainer2>{formatted_event_date}</TextContainer2>
 				<TextContainer2>{formatted_time}</TextContainer2>
+				<TextContainer2>{formatted_event_address}</TextContainer2>
 				<TextContainer2>
-					<div className='flex flex-col gap-2'>
-						{formatted_event_address}
-						<div className='flex gap-2'>
-							<WazeButton waze_link={waze_link} event_address={event_address} />
-							<GoogleMapButton google_link={google_link} event_address={event_address} />
-						</div>
+					<div className='flex gap-2'>
+						<WazeButton waze_link={waze_link} event_address={event_address} />
+						<GoogleMapButton google_link={google_link} event_address={event_address} />
 					</div>
 				</TextContainer2>
 				<TextContainer2>{formatted_event_description}</TextContainer2>
