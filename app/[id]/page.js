@@ -19,21 +19,15 @@ export async function generateMetadata({ params }) {
 		'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fmetadata_img.png?alt=media&token=769f323f-8ad3-4ab3-a742-d45d959b4da2';
 
 	//fetch data
-	const metadataDetails = await fetch(`${API}/metadata/${id}`).then((res) => res.json());
+	const metadataDetails = await fetch(`${API}/metadata/${id}`, { cache: 'no-store' }).then((res) =>
+		res.json()
+	);
 
-	if (metadataDetails?.metadata) {
-		title = `${metadataDetails.metadata.title} | ${moment(metadataDetails?.event_date).format(
-			'DD.MM.YY'
-		)}`;
-		imageUrl = metadataDetails.metadata.photoURL;
-		description = metadataDetails.metadata_description;
-	} else {
-		title = `${metadataDetails?.metadata_title} | ${moment(metadataDetails?.event_date).format(
-			'DD.MM.YY'
-		)}`;
-		imageUrl = metadataDetails?.metadata_image_url;
-		description = metadataDetails?.metadata_description;
-	}
+	console.log('metadataDetails', metadataDetails);
+
+	title = metadataDetails?.metadata_title;
+	description = metadataDetails?.metadata_description;
+	imageUrl = metadataDetails?.metadata_image_url;
 
 	title = title.replace(/\n/g, ' ');
 
