@@ -22,8 +22,15 @@ function RsvpButton(props) {
 	//From React Query:
 	const queryClient = useQueryClient();
 	const eventDetails = queryClient.getQueryData('eventDetails') || {};
-	const { enable_bahasa, event_time, event_date, event_time_slot_2, enable_multiple_slots } =
-		eventDetails || {};
+	const {
+		enable_bahasa,
+		event_time,
+		event_date,
+		event_time_slot_2,
+		enable_multiple_slots,
+		enable_unlimited_pax,
+		guest_pax_limit,
+	} = eventDetails || {};
 
 	const handleOnClickRsvp = () => {
 		setOpenModal(true);
@@ -61,6 +68,8 @@ function RsvpButton(props) {
 				enable_bahasa={enable_bahasa}
 			/>
 			<AttendingRsvpModal
+				enable_unlimited_pax={enable_unlimited_pax}
+				guest_pax_limit={guest_pax_limit}
 				enable_bahasa={enable_bahasa}
 				isOpen={attendingModal}
 				enable_multiple_slots={enable_multiple_slots}

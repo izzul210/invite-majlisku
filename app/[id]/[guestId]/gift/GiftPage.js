@@ -35,7 +35,7 @@ export default function GiftPage({ inviteId, guestId }) {
 				<GiftTopBar handleBackButton={handleReturnMainPage} />
 				<GiftTopAreaProvider
 					enable_bahasa={eventDetails?.enable_bahasa}
-					address='No 30, Jalan Saujana Damai 1 Taman Saujana Damai 4300 Kajang'
+					address={eventDetails?.delivery_address}
 				/>
 				<GiftList
 					handleReturnMainPage={handleReturnMainPage}

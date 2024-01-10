@@ -17,7 +17,7 @@ export const ItalicTitle_Playfair = ({ children, ...props }) => {
 	return (
 		<InviteTextProvider
 			fontFamily='playfair'
-			className='text-3xl text-center uppercase my-4'
+			className='text-3xl text-center uppercase my-4 px-2'
 			{...props}>
 			{useConvertText(children)}
 		</InviteTextProvider>

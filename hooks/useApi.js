@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
+// const API = 'http://localhost:5000/myweddingapp-25712/asia-southeast1/user';
 
 const initialEventDetails = {
 	event_title_1: '',
@@ -133,7 +134,7 @@ export const useWishList = () => {
 		queryKey: ['wishList'],
 		queryFn: async () => {
 			const response = await axios
-				.get(`${API}/getguestwishes/${eventDetails?.user_id}`)
+				.get(`${API}/getguestwishes2/${eventDetails?.user_id}`)
 				.then((res) => {
 					return res.data;
 				});
@@ -149,6 +150,30 @@ export const useWishList = () => {
 		error,
 	};
 };
+
+// export const useWishList = () => {
+// 	const queryClient = useQueryClient();
+// 	const eventDetails = queryClient.getQueryData('eventDetails') || {};
+// 	const { data, isLoading, error } = useQuery({
+// 		queryKey: ['wishList'],
+// 		queryFn: async () => {
+// 			const response = await axios
+// 				.get(`${API}/getguestwishes/${eventDetails?.user_id}`)
+// 				.then((res) => {
+// 					return res.data;
+// 				});
+
+// 			return response;
+// 		},
+// 		enabled: !!eventDetails?.user_id,
+// 	});
+
+// 	return {
+// 		data,
+// 		isLoading,
+// 		error,
+// 	};
+// };
 
 export const usePersonalizedGuestDetail = (guestId) => {
 	const { data: eventDetails } = useEventDetails();

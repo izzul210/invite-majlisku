@@ -19,6 +19,8 @@ export default function AttendingRsvpModal({
 	handleClose,
 	handleBackButton,
 	handlePostRequest,
+	enable_unlimited_pax,
+	guest_pax_limit,
 	enable_multiple_slots,
 	enable_bahasa = false,
 	event_time,
@@ -100,6 +102,7 @@ export default function AttendingRsvpModal({
 	};
 
 	const onClickAddPax = () => {
+		if (!enable_unlimited_pax && guest_pax_limit && pax >= guest_pax_limit) return;
 		setPax(pax + 1);
 	};
 
@@ -195,7 +198,8 @@ export default function AttendingRsvpModal({
 
 						<div className='flex flex-col gap-2'>
 							<InviteTextProvider color='#475467' className='uppercase font-medium'>
-								{paxText}
+								{paxText}{' '}
+								{!enable_unlimited_pax && guest_pax_limit ? `(Max ${guest_pax_limit})` : null}
 							</InviteTextProvider>
 							<div className='flex flex-row items-center gap-3'>
 								<button className='py-2 px-4 border-2' onClick={onClickMinusPax}>

@@ -2,13 +2,15 @@
 
 import Image from 'next/legacy/image';
 import { Graphic_1, Ellipse_1 } from '../../../component/graphics/graphics';
+import defaultImage from '../../../public/defaultimage.png';
+import defaultImage2 from '../../../public/defaultimage2.png';
 
 export const RsvpHeaderImage = ({ rsvp_header_image, curveTopBorder = false }) => {
 	return (
 		<div style={{ width: '100%', height: 'auto' }}>
 			<Image
 				priority
-				src={rsvp_header_image}
+				src={rsvp_header_image ? rsvp_header_image : defaultImage2}
 				alt='rsvp_header_image'
 				layout='responsive'
 				width={280}
@@ -45,7 +47,7 @@ export const RsvpHeaderImage_Premium = ({ rsvp_header_image, fill, curveTopBorde
 			<div style={{ width: '220px', height: 'auto', position: 'relative', zIndex: 3 }}>
 				<Image
 					priority
-					src={rsvp_header_image}
+					src={rsvp_header_image ? rsvp_header_image : defaultImage}
 					alt='rsvp_header_image'
 					layout='responsive'
 					width={280}

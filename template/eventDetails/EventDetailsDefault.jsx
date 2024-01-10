@@ -47,7 +47,9 @@ export default function EventDetailsDefault({
 						</div>
 					</div>
 				</TextContainer>
-				<TextContainer>{formatted_event_description}</TextContainer>
+				{description && description !== '' ? (
+					<TextContainer>{formatted_event_description}</TextContainer>
+				) : null}
 			</div>
 		</div>
 	);

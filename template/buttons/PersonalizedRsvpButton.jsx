@@ -28,8 +28,15 @@ function PersonalizedRsvpButton(props) {
 	const queryClient = useQueryClient();
 	const eventDetails = queryClient.getQueryData('eventDetails') || {};
 	const guestDetails = queryClient.getQueryData('personalizedGuestDetail') || {};
-	const { enable_bahasa, event_time, event_date, event_time_slot_2, enable_multiple_slots } =
-		eventDetails || {};
+	const {
+		enable_bahasa,
+		event_time,
+		event_date,
+		event_time_slot_2,
+		enable_multiple_slots,
+		enable_unlimited_pax,
+		guest_pax_limit,
+	} = eventDetails || {};
 
 	const handleOnClickRsvp = () => {
 		setOpenModal(true);
@@ -82,6 +89,8 @@ function PersonalizedRsvpButton(props) {
 			<PersonalizedAttendingRsvpModal
 				isOpen={attendingModal}
 				enable_multiple_slots={enable_multiple_slots}
+				enable_unlimited_pax={enable_unlimited_pax}
+				guest_pax_limit={guestDetails?.allocatedPax ? guestDetails?.allocatedPax : guest_pax_limit}
 				event_time={event_time?.start}
 				event_time_slot_2={event_time_slot_2}
 				handleClose={() => setAttendingModal(false)}

@@ -4,11 +4,13 @@ import InviteTextProvider from '../../../../component/textProvider/InviteTextPro
 
 export default function IslamicTitle({ children, ...props }) {
 	return (
-		<InviteTextProvider
-			fontFamily='playfair'
-			className='text-xl font-normal text-center whitespace-pre uppercase'
-			{...props}>
-			{children}
-		</InviteTextProvider>
+		<div className='max-w-[88%] sm:max-w-[300px]'>
+			<InviteTextProvider
+				fontFamily='playfair'
+				className='text-xl font-normal text-center whitespace-pre-line  uppercase '
+				{...props}>
+				{children}
+			</InviteTextProvider>
+		</div>
 	);
 }

@@ -19,12 +19,8 @@ import Wishlist from './wishlist/Wishlist';
 import Contacts from './contacts/Contacts';
 import Calendar from './calendar/Calendar';
 import { MajliskuLoadingIcon } from '../component/icons/icons';
-//Temporary
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 
 function InviteTemplateGuest({ inviteId, guestId }) {
-	const [design, setDesign] = useState(20);
 	const [premium_design, setPremiumDesign] = useState(0);
 	const { data: eventDetails, isLoading } = useEventDetails(inviteId);
 	const { data: personalizedGuestDetail, isLoading: isLoadingPersonalizedGuestDetail } =
@@ -34,16 +30,14 @@ function InviteTemplateGuest({ inviteId, guestId }) {
 
 	const [loadingAnimation, setLoadingAnimation] = useState(true);
 
+	const design = Number(eventDetails?.design_num) || 1;
+
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setLoadingAnimation(false);
 		}, 4000);
 		return () => clearTimeout(timer);
 	}, []);
-
-	const handleChangeDesign = (event) => {
-		setDesign(event.target.value);
-	};
 
 	return (
 		<InviteContext.Provider value={{ design, premium_design }}>
@@ -80,32 +74,6 @@ function InviteTemplateGuest({ inviteId, guestId }) {
 							</div>
 						</div>
 						<Footnote />
-						<div className='w-full flex flex-col gap-2 items-center justify-center bg-[#1E1E1E] p-5'>
-							<p className='text-white'>Choose Template</p>
-							<div className='bg-white'>
-								<Select
-									labelId='demo-simple-select-label'
-									id='demo-simple-select'
-									value={design}
-									label='Design'
-									onChange={handleChangeDesign}>
-									<MenuItem value={0}>Minimalist 1</MenuItem>
-									<MenuItem value={1}>Minimalist 2</MenuItem>
-									<MenuItem value={2}>Minimalist 3</MenuItem>
-									<MenuItem value={20}>Premium 1</MenuItem>
-									<MenuItem value={21}>Premium 2</MenuItem>
-									<MenuItem value={22}>Premium 3</MenuItem>
-									<MenuItem value={23}>Premium 4</MenuItem>
-									<MenuItem value={24}>Premium 5</MenuItem>
-									<MenuItem value={25}>Premium 6</MenuItem>
-									<MenuItem value={26}>Premium 7</MenuItem>
-									<MenuItem value={27}>Premium 8</MenuItem>
-									<MenuItem value={5}>Islamic 1</MenuItem>
-									<MenuItem value={6}>Islamic 2</MenuItem>
-									<MenuItem value={7}>Islamic 3</MenuItem>
-								</Select>
-							</div>
-						</div>
 					</>
 				)}
 			</>

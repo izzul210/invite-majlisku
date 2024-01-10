@@ -25,7 +25,7 @@ export default function FirstScreen({ eventDetails }) {
 		event_time,
 		optional_description,
 	} = eventDetails || {};
-	const { design, premium_design } = useInviteContext();
+	const { design } = useInviteContext();
 
 	useEffect(() => {}, [design]);
 

@@ -45,7 +45,9 @@ export default function EventDetailsMinimal_2({
 						<GoogleMapButton google_link={google_link} event_address={event_address} />
 					</div>
 				</TextContainer2>
-				<TextContainer2>{formatted_event_description}</TextContainer2>
+				{description && description !== '' ? (
+					<TextContainer2>{formatted_event_description}</TextContainer2>
+				) : null}
 			</div>
 		</div>
 	);

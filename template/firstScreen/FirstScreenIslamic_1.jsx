@@ -38,6 +38,7 @@ export default function FirstScreenIslamic_1({
 					className='w-full flex justify-center items-center flex-col gap-12 mt-6 p-5 z-1 relative'
 					style={{ maxWidth: '300px' }}>
 					<Bismillah />
+
 					<IslamicTitle color={fontColor}>{italic_title}</IslamicTitle>
 					<div className='flex flex-col gap-5 text-center uppercase text-xs'>
 						<TextDetail fontFamily='sansPro' color={fontColor}>
