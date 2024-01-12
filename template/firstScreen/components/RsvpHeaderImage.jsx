@@ -13,8 +13,8 @@ export const RsvpHeaderImage = ({ rsvp_header_image, curveTopBorder = false }) =
 				src={rsvp_header_image ? rsvp_header_image : defaultImage2}
 				alt='rsvp_header_image'
 				layout='responsive'
-				width={280}
-				height={322}
+				width={400}
+				height={500}
 				style={{
 					borderTopLeftRadius: curveTopBorder ? 160 : 0,
 					borderTopRightRadius: curveTopBorder ? 160 : 0,
@@ -50,8 +50,8 @@ export const RsvpHeaderImage_Premium = ({ rsvp_header_image, fill, curveTopBorde
 					src={rsvp_header_image ? rsvp_header_image : defaultImage}
 					alt='rsvp_header_image'
 					layout='responsive'
-					width={280}
-					height={322}
+					width={400}
+					height={500}
 					style={{
 						borderTopLeftRadius: curveTopBorder ? 105 : 0,
 						borderTopRightRadius: curveTopBorder ? 105 : 0,
