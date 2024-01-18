@@ -50,7 +50,7 @@ function ActionButtons({
 	color = '#1D4648',
 	//variants
 	guest_name = null,
-	preview,
+	preview = false,
 	//enable states
 	enable_bahasa = false,
 	enable_gift_registry = false,
@@ -63,7 +63,7 @@ function ActionButtons({
 		enable_bahasa,
 	};
 
-	const hasDatePassed = moment().isAfter(moment(event_date_deadline));
+	const hasDatePassed = event_date_deadline ? moment().isAfter(moment(event_date_deadline)) : false;
 
 	if (enable_deadline && hasDatePassed) {
 		return <ExpiredRsvp enable_bahasa={enable_bahasa} />;

@@ -47,9 +47,12 @@ export default function GreetingScreenIslamic_1({
 				objectPosition='center'
 			/>
 			<div className='w-full text-center flex flex-col items-center justify-center gap-6 p-11 md:p-10 z-1 relative'>
-				<GreetingText_Premium color={greetingsColor}>
-					{event_opening_title ? event_opening_title : event_opening_title_default}
-				</GreetingText_Premium>
+				{event_opening_title ? (
+					<GreetingText_Premium color={greetingsColor}>
+						{event_opening_title ? event_opening_title : event_opening_title_default}
+					</GreetingText_Premium>
+				) : null}
+
 				<HostsText color={titleColor}>{renderHosts}</HostsText>
 				<div className='flex flex-col gap-4'>
 					<GreetingText_Premium color={greetingsColor}>

@@ -15,17 +15,17 @@ export default function FirstScreenMinimal_1({
 }) {
 	return (
 		<div
-			className='w-full flex flex-col gap-4 justify-center items-center px-5 py-12 sm:py-24'
-			style={{ minHeight: '100vh', maxWidth: '383px' }}>
+			className='w-full min-h-[100vh] sm:min-h-[800px] flex flex-col gap-4 justify-center items-center px-5 py-12 sm:py-24'
+			style={{ maxWidth: '383px' }}>
 			<MajliskuIcon />
-			<div className='border-b  text-center border-t w-full py-4 border-gray-300'>
+			<div className='border-b  text-center border-t w-full py-3 border-gray-300'>
 				<EventTitle_Playfair>{event_title_1}</EventTitle_Playfair>
 			</div>
 
 			<RsvpHeaderImage rsvp_header_image={rsvp_header_image} />
 			<ItalicTitle_Playfair>{italic_title}</ItalicTitle_Playfair>
 			{optional_description && (
-				<div className='border-b border-t w-full py-4 border-gray-300'>
+				<div className='border-b border-t w-full py-3 border-gray-300'>
 					<DateLocation>{optional_description}</DateLocation>
 				</div>
 			)}

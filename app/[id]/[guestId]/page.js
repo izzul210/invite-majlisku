@@ -2,8 +2,8 @@
 import moment from 'moment';
 import InviteTemplateGuest from '../../../template/InviteTemplateGuest';
 
-const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
-// const API = 'http://localhost:5000/myweddingapp-25712/asia-southeast1/user';
+// const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
+const API = 'http://localhost:5000/myweddingapp-25712/asia-southeast1/user';
 
 /**************** Generating Metadata **********/
 export async function generateMetadata({ params }) {

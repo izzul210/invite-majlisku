@@ -20,6 +20,21 @@ import Contacts from './contacts/Contacts';
 import Calendar from './calendar/Calendar';
 import { MajliskuLoadingIcon } from '../component/icons/icons';
 
+const convertOldTheme = (type) => {
+	if (!type) return 1;
+
+	switch (type) {
+		case 'default':
+			return 3;
+		case 'minimal1':
+			return 2;
+		case 'minimal2':
+			return 1;
+		default:
+			return 1;
+	}
+};
+
 function InviteTemplateGuest({ inviteId, guestId }) {
 	const [premium_design, setPremiumDesign] = useState(0);
 	const { data: eventDetails, isLoading } = useEventDetails(inviteId);
@@ -30,7 +45,9 @@ function InviteTemplateGuest({ inviteId, guestId }) {
 
 	const [loadingAnimation, setLoadingAnimation] = useState(true);
 
-	const design = Number(eventDetails?.design_num) || 1;
+	const design = Number(eventDetails?.design_num)
+		? Number(eventDetails.design_num)
+		: convertOldTheme(eventDetails?.type);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {

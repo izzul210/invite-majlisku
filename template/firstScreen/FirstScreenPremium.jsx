@@ -25,9 +25,8 @@ export default function FirstScreenPremium({
 
 	return (
 		<div
-			className='w-full flex flex-col gap-1 justify-center items-center p-0 pt-6'
+			className='w-full  min-h-[100vh] sm:min-h-[800px] flex flex-col gap-1 justify-center items-center p-0 pt-6'
 			style={{
-				minHeight: '100vh',
 				background: backgroundColor,
 			}}>
 			<MajliskuIcon fill={color} />

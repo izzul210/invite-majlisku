@@ -1,5 +1,6 @@
 /** @format */
 'use client';
+import moment from 'moment';
 import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
 import { useInviteContext } from '../inviteContext';
@@ -29,11 +30,15 @@ export default function FirstScreen({ eventDetails }) {
 
 	useEffect(() => {}, [design]);
 
+	const optionalDescription = optional_description
+		? optional_description
+		: `${moment(event_date).format('DD.MM.YYYY')}\n ${event_location ? event_location : ''}`;
+
 	const firstScreenProps = {
 		event_title_1,
 		rsvp_header_image,
 		rsvp_header_image_file,
-		optional_description,
+		optional_description: optionalDescription,
 		event_date,
 		event_location,
 		italic_title,

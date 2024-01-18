@@ -56,9 +56,11 @@ export default function GreetingScreenPremium({
 			<div
 				className='w-full flex flex-col gap-6 items-center px-5  bg-white pt-20 rounded-t-full'
 				style={{ zIndex: 3 }}>
-				<GreetingText_Premium color={greetingColor}>
-					{event_opening_title ? event_opening_title : event_opening_title_default}
-				</GreetingText_Premium>
+				{event_opening_title ? (
+					<GreetingText_Premium color={greetingColor}>
+						{event_opening_title ? event_opening_title : event_opening_title_default}
+					</GreetingText_Premium>
+				) : null}
 				<HostsText color={titleColor}>{renderHosts}</HostsText>
 				<div className='flex flex-col gap-4'>
 					<GreetingText_Premium color={greetingColor}>

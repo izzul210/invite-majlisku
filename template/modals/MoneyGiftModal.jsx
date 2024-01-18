@@ -29,21 +29,23 @@ export default function MoneyGiftModal({ isOpen, handleClose, handleRsvp, enable
 					<DetailContainer title='Bank' detail={money_gift_details?.bankName} />
 					<DetailContainer title='Account No' detail={money_gift_details?.accNum} />
 				</div>
-				<div style={{ width: '100%', height: 'auto', marginTop: 12 }}>
-					<Image
-						priority
-						src={money_gift_details?.qrCodeUrl}
-						alt='Qr Code Url'
-						layout='responsive'
-						width={1000}
-						height={1200}
-						style={{
-							border: 10,
-						}}
-						placeholder='blur'
-						blurDataURL='data:...'
-					/>
-				</div>
+				{money_gift_details?.qrCodeUrl ? (
+					<div style={{ width: '100%', height: 'auto', marginTop: 12 }}>
+						<Image
+							priority
+							src={money_gift_details?.qrCodeUrl}
+							alt='Qr Code Url'
+							layout='responsive'
+							width={1000}
+							height={1200}
+							style={{
+								border: 10,
+							}}
+							placeholder='blur'
+							blurDataURL='data:...'
+						/>
+					</div>
+				) : null}
 			</div>
 		</ModalProvider>
 	);
