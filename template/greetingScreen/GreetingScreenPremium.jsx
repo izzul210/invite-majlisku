@@ -17,8 +17,7 @@ import { useInviteFunc } from '../../hooks/useInviteFunc';
 const event_opening_title_default = 'Assalamualaikum dan salam sejahtera';
 const greeting_title_default = `Ybhg Tun/ Toh Puan/ Tan Sri/ Puan Sri/ Dato’s Sri/ Datin Sri/ Dato’/ Datin/ Tuan/ Puan`;
 const greeting_1_default = 'Dengan segala hormatnya kami\n mempersilakan';
-const greeting_2_default =
-	'ke majlis resepsi untuk meraikan majlis Perkahwinan Putera kesayangan kami';
+const greeting_2_default = 'ke majlis resepsi untuk meraikan majlis';
 
 export default function GreetingScreenPremium({
 	enable_bahasa = false,
