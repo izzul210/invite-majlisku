@@ -23,7 +23,7 @@ export default function FirstScreenIslamic_3({
 }) {
 	return (
 		<div className='w-full bg-[#FFFDFA] min-h-[100vh] sm:min-h-[800px]  flex justify-center items-center'>
-			<div className='w-full relative  h-[100vh] sm:min-h-[800px]  flex justify-center items-center'>
+			<div className='w-full relative  h-[100vh] sm:min-h-[800px] sm:max-h-[900px]  flex justify-center items-center'>
 				<Image
 					className='h-[667px] md:h-[800px] z-0'
 					src='/nikah-13.png'
