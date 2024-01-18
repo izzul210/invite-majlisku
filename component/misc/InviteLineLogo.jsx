@@ -4,6 +4,8 @@ const InviteLineLogo = ({ color = '#98A2B3', height = '1px' }) => {
 	const stlyeSheet = {
 		height: height,
 		background: color,
+		opacity: 0.5,
+		borderRadius: '4px',
 	};
 
 	return (

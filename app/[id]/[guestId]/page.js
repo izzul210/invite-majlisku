@@ -13,11 +13,7 @@ export async function generateMetadata({ params }) {
 	//init data
 	let title = `You're cordially invited to our Event!`;
 	let description = `Kindly click to RSVP `;
-	let weddingText = '';
-	let imageUrl =
-		'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fmetadata_img.png?alt=media&token=769f323f-8ad3-4ab3-a742-d45d959b4da2';
-
-	//metadata_guest_name
+	let imageUrl = null;
 
 	//fetch data
 	const metadataDetails = await fetch(`${API}/personalizedmetadata/${id}/${guestId}`).then((res) =>
@@ -28,13 +24,18 @@ export async function generateMetadata({ params }) {
 		title = `Invitation for ${metadataDetails.metadata_guest_name} | ${
 			metadataDetails.metadata.title
 		} | ${moment(metadataDetails?.event_date).format('DD.MM.YY')}`;
-		imageUrl = metadataDetails.metadata.photoURL;
+		imageUrl = metadataDetails?.metadata?.photoURL
+			? metadataDetails?.metadata?.photoURL
+			: 'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fdefaultmetadata.png?alt=media&token=61a3e3d2-e688-47dc-bd4a-7d9d435597f5';
+
 		description = metadataDetails.metadata_description;
 	} else {
 		title = `Invitation for ${metadataDetails.metadata_guest_name} | ${
 			metadataDetails?.metadata_title
 		} | ${moment(metadataDetails?.event_date).format('DD.MM.YY')}`;
-		imageUrl = metadataDetails?.metadata_image_url;
+		imageUrl = metadataDetails?.metadata_image_url
+			? metadataDetails?.metadata_image_url
+			: 'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fdefaultmetadata.png?alt=media&token=61a3e3d2-e688-47dc-bd4a-7d9d435597f5';
 		description = metadataDetails?.metadata_description;
 	}
 

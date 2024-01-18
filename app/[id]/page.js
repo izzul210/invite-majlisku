@@ -1,6 +1,4 @@
 /** @format */
-//Libraries import
-import moment from 'moment';
 //Screen import
 import InviteTemplate from '../../template/InviteTemplate';
 
@@ -15,8 +13,7 @@ export async function generateMetadata({ params }) {
 	//init data
 	let title = `You're cordially invited to our Event!`;
 	let description = `Kindly click to RSVP `;
-	let imageUrl =
-		'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fmetadata_img.png?alt=media&token=769f323f-8ad3-4ab3-a742-d45d959b4da2';
+	let imageUrl = null;
 
 	//fetch data
 	const metadataDetails = await fetch(`${API}/metadata/${id}`, { cache: 'no-store' }).then((res) =>
@@ -27,7 +24,9 @@ export async function generateMetadata({ params }) {
 
 	title = metadataDetails?.metadata_title;
 	description = metadataDetails?.metadata_description;
-	imageUrl = metadataDetails?.metadata_image_url;
+	imageUrl = metadataDetails?.metadata_image_url
+		? metadataDetails?.metadata_image_url
+		: 'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fdefaultmetadata.png?alt=media&token=61a3e3d2-e688-47dc-bd4a-7d9d435597f5';
 
 	title = title.replace(/\n/g, ' ');
 

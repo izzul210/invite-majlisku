@@ -30,6 +30,7 @@ function RsvpButton(props) {
 		enable_multiple_slots,
 		enable_unlimited_pax,
 		guest_pax_limit,
+		enable_gift_registry,
 	} = eventDetails || {};
 
 	const handleOnClickRsvp = () => {

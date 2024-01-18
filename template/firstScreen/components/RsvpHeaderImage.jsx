@@ -8,20 +8,37 @@ import defaultImage2 from '../../../public/defaultimage2.png';
 export const RsvpHeaderImage = ({ rsvp_header_image, curveTopBorder = false }) => {
 	return (
 		<div style={{ width: '100%', height: 'auto' }}>
-			<Image
-				priority
-				src={rsvp_header_image ? rsvp_header_image : defaultImage2}
-				alt='rsvp_header_image'
-				layout='responsive'
-				width={400}
-				height={500}
-				style={{
-					borderTopLeftRadius: curveTopBorder ? 160 : 0,
-					borderTopRightRadius: curveTopBorder ? 160 : 0,
-				}}
-				placeholder='blur'
-				blurDataURL='data:...'
-			/>
+			{rsvp_header_image ? (
+				<Image
+					priority
+					src={rsvp_header_image ? rsvp_header_image : defaultImage2}
+					alt='rsvp_header_image'
+					layout='responsive'
+					width={400}
+					height={500}
+					style={{
+						borderTopLeftRadius: curveTopBorder ? 160 : 0,
+						borderTopRightRadius: curveTopBorder ? 160 : 0,
+					}}
+					placeholder='blur'
+					blurDataURL='data:...'
+				/>
+			) : (
+				<Image
+					priority
+					src={defaultImage2}
+					alt='rsvp_header_image'
+					layout='responsive'
+					width={400}
+					height={400}
+					style={{
+						borderTopLeftRadius: curveTopBorder ? 160 : 0,
+						borderTopRightRadius: curveTopBorder ? 160 : 0,
+					}}
+					placeholder='blur'
+					blurDataURL='data:...'
+				/>
+			)}
 		</div>
 	);
 };

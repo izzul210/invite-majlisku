@@ -150,11 +150,20 @@ function GiftList({ giftlist, giftIsLoading, handleReturnMainPage }) {
 	if (giftIsLoading) return <GiftListLoading />;
 	return (
 		<>
-			<div className='flex flex-col gap-6 items-center justify-center'>
-				{giftlist?.map((gift) => (
-					<GiftCard key={gift.id} giftDetails={gift} onClick={() => handleClickGift(gift)} />
-				))}
-			</div>
+			{giftlist?.length > 0 ? (
+				<div className='flex flex-col gap-6 items-center justify-center'>
+					{giftlist?.map((gift) => (
+						<GiftCard key={gift.id} giftDetails={gift} onClick={() => handleClickGift(gift)} />
+					))}
+				</div>
+			) : (
+				<div className='p-5 h-[340px] flex justify-center items-start text-center'>
+					<InviteTextProvider className='text-[18px] opacity-70'>
+						Host has not yet add any gift.
+						<br /> Stay tuned!
+					</InviteTextProvider>
+				</div>
+			)}
 			<GiftDetailModal
 				handleReturnMainPage={handleReturnMainPage}
 				giftDetails={giftDetails}

@@ -4,7 +4,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 //API import
-import { useEventDetails, useGiftList, usePersonalizedGuestDetail } from '../../../../hooks/useApi';
+import { useEventDetails, useGiftList } from '../../../../hooks/useApi';
 //Page components import
 import CardLoadingState from '../../../../component/loading/CardLoadingState';
 import Footnote from '../../../../template/Footnote';
@@ -16,8 +16,6 @@ import GiftList from './components/GiftList';
 
 export default function GiftPage({ inviteId, guestId }) {
 	const { data: eventDetails, isLoading } = useEventDetails(inviteId);
-	const { data: personalizedGuestDetail, isLoading: isLoadingPersonalizedGuestDetail } =
-		usePersonalizedGuestDetail(guestId);
 	const { data: giftlist, isLoading: giftIsLoading } = useGiftList();
 	const router = useRouter();
 

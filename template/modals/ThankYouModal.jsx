@@ -79,11 +79,14 @@ export default function ThankYouModal({
 									event_title={`${eventDetails?.event_title_1} ${eventDetails?.italic_title}`}
 								/>
 							) : null}
-							<Link href={`${pathname}/gift`}>
-								<ButtonProvider className='w-full uppercase'>
-									<GiftIcon /> {enable_bahasa ? 'Bawa Hadiah' : 'Gift Registry'}
-								</ButtonProvider>
-							</Link>
+							{eventDetails?.enable_gift_registry ? (
+								<Link href={`${pathname}/gift`}>
+									<ButtonProvider className='w-full uppercase'>
+										<GiftIcon /> {enable_bahasa ? 'Bawa Hadiah' : 'Gift Registry'}
+									</ButtonProvider>
+								</Link>
+							) : null}
+
 							<Link href='https://majlisku.com' target='_blank'>
 								<ButtonProvider type='primary' className='w-full uppercase'>
 									<MajliskuWhiteIcon />

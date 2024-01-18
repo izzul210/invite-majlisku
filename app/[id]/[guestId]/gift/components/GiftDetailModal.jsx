@@ -93,11 +93,13 @@ export default function GiftDetailModal({
 					<ButtonProvider onClick={handleReserveButton} type='primary' className='w-full uppercase'>
 						Simpan Hadiah
 					</ButtonProvider>
-					<a href={link} target='_blank'>
-						<InviteTextProvider className='uppercase text-center underline pt-6'>
-							View Shop
-						</InviteTextProvider>
-					</a>
+					{link && link !== '' ? (
+						<a href={link} target='_blank'>
+							<InviteTextProvider className='uppercase text-center underline pt-6'>
+								View Shop
+							</InviteTextProvider>
+						</a>
+					) : null}
 				</div>
 			</ModalProvider>
 			<GiftConfirmModal

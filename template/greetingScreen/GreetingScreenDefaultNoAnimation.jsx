@@ -50,7 +50,7 @@ export default function GreetingScreenDefaultNoAnimation({
 			<div
 				className='w-full flex flex-col gap-4 items-center px-5 sm:p-0'
 				style={{ maxWidth: '400px' }}>
-				<InviteLineLogo height='2px' />
+				<InviteLineLogo height='1px' />
 				<GreetingText>
 					{event_opening_title ? event_opening_title : event_opening_title_default}
 				</GreetingText>
