@@ -1,4 +1,5 @@
 /** @format */
+
 import React, { useState, useEffect } from 'react';
 import Image from 'next/legacy/image';
 //Components import
@@ -18,7 +19,7 @@ const TextDetail = ({ children }) => {
 	);
 };
 
-export default function FirstScreenRoyal_1({
+export default function FirstScreenRoyal_2({
 	event_title_1 = 'Event Title 1',
 	optional_description = '',
 	italic_title = 'Main Title',
@@ -46,8 +47,8 @@ export default function FirstScreenRoyal_1({
 				style={{ minHeight: windowWidth < 500 ? windowWidth * 1.8 : 780 }}>
 				<Image
 					className='h-full z-0'
-					src='/royal-1.png'
-					alt='Royal 1'
+					src='/royal-2.png'
+					alt='Royal 2'
 					height
 					layout='fill'
 					quality={100}

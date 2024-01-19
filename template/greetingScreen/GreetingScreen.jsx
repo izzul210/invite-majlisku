@@ -70,6 +70,11 @@ export default function GreetingScreen({ eventDetails, guest_name = null, previe
 		case 27:
 			return <GreetingScreenPremium premium_design={7} {...greetingScreenProps} />;
 		case 30:
+		case 31:
+		case 32:
+		case 33:
+		case 34:
+		case 35:
 			return <GreetingScreenRoyal {...greetingScreenProps} />;
 		case 40:
 		case 41:

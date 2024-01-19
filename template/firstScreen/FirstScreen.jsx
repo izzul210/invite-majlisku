@@ -14,6 +14,11 @@ const FirstScreenIslamic_1 = dynamic(() => import('./FirstScreenIslamic_1'));
 const FirstScreenIslamic_2 = dynamic(() => import('./FirstScreenIslamic_2'));
 const FirstScreenIslamic_3 = dynamic(() => import('./FirstScreenIslamic_3'));
 const FirstScreenRoyal_1 = dynamic(() => import('./FirstScreenRoyal_1'));
+const FirstScreenRoyal_2 = dynamic(() => import('./FirstScreenRoyal_2'));
+const FirstScreenRoyal_3 = dynamic(() => import('./FirstScreenRoyal_3'));
+const FirstScreenRoyal_4 = dynamic(() => import('./FirstScreenRoyal_4'));
+const FirstScreenRoyal_5 = dynamic(() => import('./FirstScreenRoyal_5'));
+const FirstScreenRoyal_6 = dynamic(() => import('./FirstScreenRoyal_6'));
 const FirstScreenRustic_1 = dynamic(() => import('./FirstScreenRustic_1'));
 const FirstScreenRustic_2 = dynamic(() => import('./FirstScreenRustic_2'));
 const FirstScreenRustic_3 = dynamic(() => import('./FirstScreenRustic_3'));
@@ -88,6 +93,16 @@ export default function FirstScreen({ eventDetails }) {
 			return <FirstScreenPremium premium_design={7} {...firstScreenProps} />;
 		case 30:
 			return <FirstScreenRoyal_1 {...firstScreenProps} />;
+		case 31:
+			return <FirstScreenRoyal_2 {...firstScreenProps} />;
+		case 32:
+			return <FirstScreenRoyal_3 {...firstScreenProps} />;
+		case 33:
+			return <FirstScreenRoyal_4 {...firstScreenProps} />;
+		case 34:
+			return <FirstScreenRoyal_5 {...firstScreenProps} />;
+		case 35:
+			return <FirstScreenRoyal_6 {...firstScreenProps} />;
 		case 40:
 			return <FirstScreenRustic_1 {...firstScreenProps} />;
 		case 41:

@@ -76,6 +76,11 @@ export default function EventDetails({ eventDetails, guest_name = null, preview 
 					case 6:
 					case 7:
 					case 30:
+					case 31:
+					case 32:
+					case 33:
+					case 34:
+					case 35:
 					case 40:
 					case 41:
 					case 42:
