@@ -75,6 +75,13 @@ export default function EventDetails({ eventDetails, guest_name = null, preview 
 					case 5:
 					case 6:
 					case 7:
+					case 30:
+					case 40:
+					case 41:
+					case 42:
+					case 50:
+					case 51:
+					case 52:
 						return <EventDetailsBasic {...eventDetailsProps} />;
 					case 20:
 						return <EventDetailsPremium premium_design={0} {...eventDetailsProps} />;

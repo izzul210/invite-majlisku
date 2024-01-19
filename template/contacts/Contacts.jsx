@@ -13,9 +13,9 @@ export default function Contacts({ eventDetails }) {
 		switch (design) {
 			case 0:
 			case 3:
-				return <ContactDefault contact_info={contact_info} emable_bahasa={enable_bahasa} />;
+				return <ContactDefault contact_info={contact_info} enable_bahasa={enable_bahasa} />;
 			default:
-				return <ContactAccordian contact_info={contact_info} emable_bahasa={enable_bahasa} />;
+				return <ContactAccordian contact_info={contact_info} enable_bahasa={enable_bahasa} />;
 		}
 	};
 

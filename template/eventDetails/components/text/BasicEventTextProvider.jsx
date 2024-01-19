@@ -2,7 +2,7 @@
 
 import InviteTextProvider from '../../../../component/textProvider/InviteTextProvider';
 
-export default function BasicEventTextProvider({ children, color = '#667085' }) {
+export default function BasicEventTextProvider({ children, color = '#1D4648' }) {
 	return (
 		<InviteTextProvider
 			color={color}

@@ -9,6 +9,9 @@ const GreetingScreenDefaultNoAnimation = dynamic(() =>
 );
 const GreetingScreenIslamic_1 = dynamic(() => import('./GreetingScreenIslamic_1'));
 const GreetingScreenIslamic_2 = dynamic(() => import('./GreetingScreenIslamic_2'));
+const GreetingScreenRoyal = dynamic(() => import('./GreetingScreenRoyal'));
+const GreetingScreenRustic = dynamic(() => import('./GreetingScreenRustic'));
+const GreetingScreenVintage = dynamic(() => import('./GreetingScreenVintage'));
 
 export default function GreetingScreen({ eventDetails, guest_name = null, preview = false }) {
 	const {
@@ -66,6 +69,16 @@ export default function GreetingScreen({ eventDetails, guest_name = null, previe
 			return <GreetingScreenPremium premium_design={6} {...greetingScreenProps} />;
 		case 27:
 			return <GreetingScreenPremium premium_design={7} {...greetingScreenProps} />;
+		case 30:
+			return <GreetingScreenRoyal {...greetingScreenProps} />;
+		case 40:
+		case 41:
+		case 42:
+			return <GreetingScreenRustic {...greetingScreenProps} />;
+		case 50:
+		case 51:
+		case 52:
+			return <GreetingScreenVintage {...greetingScreenProps} />;
 		default:
 			return (
 				<>

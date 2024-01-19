@@ -1,24 +1,21 @@
 /** @format */
+
 import React, { useState, useEffect } from 'react';
 import Image from 'next/legacy/image';
 //Components import
-import RoyalTitle from './components/titles/RoyalTitle';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 
-const fontColor = '#A98F21';
+const fontColor = '#1D4648';
 
-const TextDetail = ({ children }) => {
+const TextDetail = ({ children, className }) => {
 	return (
-		<InviteTextProvider
-			fontFamily='ebGaramond'
-			color={fontColor}
-			className='tracking-wider uppercase text-center'>
+		<InviteTextProvider fontFamily='playfair' color={fontColor} className={className}>
 			{children}
 		</InviteTextProvider>
 	);
 };
 
-export default function FirstScreenRoyal_1({
+export default function FirstScreenRustic_3({
 	event_title_1 = 'Event Title 1',
 	optional_description = '',
 	italic_title = 'Main Title',
@@ -40,14 +37,14 @@ export default function FirstScreenRoyal_1({
 	}, []);
 
 	return (
-		<div className='w-full bg-[#FFFDFA] flex justify-center items-center'>
+		<div className='w-full  flex justify-center items-center'>
 			<div
-				className='w-full relative flex justify-center items-center'
-				style={{ minHeight: windowWidth < 500 ? windowWidth * 1.78 : 780 }}>
+				className='w-full relative flex justify-center items-start pt-[60px] pr-[210px]'
+				style={{ minHeight: windowWidth < 500 ? windowWidth * 1.77 : 780 }}>
 				<Image
 					className='h-full z-0'
-					src='/royal-1.png'
-					alt='Royal 1'
+					src='/rustic-3.png'
+					alt='Rustic 3'
 					height
 					layout='fill'
 					quality={100}
@@ -56,14 +53,16 @@ export default function FirstScreenRoyal_1({
 					objectPosition='center'
 				/>
 				<div
-					className='w-full h-full flex justify-center items-center flex-col gap-12 mt-6 p-5 z-0 relative'
-					style={{ maxWidth: '300px' }}>
-					<TextDetail color={fontColor} className='tracking-wide'>
-						{event_title_1}
+					className='w-full h-full flex justify-center items-center flex-col gap-5 mt-6 z-0 relative'
+					style={{ maxWidth: '150px' }}>
+					<TextDetail className='tracking-wide uppercase text-start'>{event_title_1}</TextDetail>
+					<TextDetail
+						className='text-[24px] font-medium text-start whitespace-pre-line tracking-wider uppercase '
+						color={fontColor}>
+						{italic_title}
 					</TextDetail>
-					<RoyalTitle color={fontColor}>{italic_title}</RoyalTitle>
 					{optional_description ? (
-						<TextDetail color={fontColor}>
+						<TextDetail className='text-start uppercase' color={fontColor}>
 							<div style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>{optional_description}</div>
 						</TextDetail>
 					) : null}
