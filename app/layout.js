@@ -9,6 +9,8 @@ import '../template/tentative/Tentative.scss';
 import '../component/textProvider/InviteTextProvider.scss';
 import '../template/firstScreen/FirstScreen.scss';
 
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 export const metadata = {
 	title: {
 		template: '%s',
@@ -23,6 +25,7 @@ export default function RootLayout({ children }) {
 		<html lang='en'>
 			<body>
 				<Providers>{children}</Providers>
+				<SpeedInsights />
 			</body>
 		</html>
 	);

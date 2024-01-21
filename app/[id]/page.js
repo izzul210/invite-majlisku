@@ -15,20 +15,24 @@ export async function generateMetadata({ params }) {
 	let description = `Kindly click to RSVP `;
 	let imageUrl = null;
 
-	//fetch data
-	const metadataDetails = await fetch(`${API}/metadata/${id}`, { cache: 'no-store' }).then((res) =>
-		res.json()
-	);
+	try {
+		//fetch data
+		const metadataDetails = await fetch(`${API}/metadata/${id}`, { cache: 'no-store' }).then(
+			(res) => res.json()
+		);
 
-	console.log('metadataDetails', metadataDetails);
+		console.log('metadataDetails', metadataDetails);
 
-	title = metadataDetails?.metadata_title;
-	description = metadataDetails?.metadata_description;
-	imageUrl = metadataDetails?.metadata_image_url
-		? metadataDetails?.metadata_image_url
-		: 'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fdefaultmetadata.png?alt=media&token=61a3e3d2-e688-47dc-bd4a-7d9d435597f5';
+		title = metadataDetails?.metadata_title;
+		description = metadataDetails?.metadata_description;
+		imageUrl = metadataDetails?.metadata_image_url
+			? metadataDetails?.metadata_image_url
+			: 'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fdefaultmetadata.png?alt=media&token=61a3e3d2-e688-47dc-bd4a-7d9d435597f5';
 
-	title = title.replace(/\n/g, ' ');
+		title = title.replace(/\n/g, ' ');
+	} catch (error) {
+		console.error('Failed to fetch metadata:', error);
+	}
 
 	return {
 		title: title,

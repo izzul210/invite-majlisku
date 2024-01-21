@@ -68,6 +68,7 @@ export const useEventDetails = (inviteId, apiRoute = 'rsvpdetails') => {
 				const response = await axios.get(`${API}/${apiRoute}/${inviteId}`);
 				return response.data;
 			} catch (error) {
+				console.log('error', error);
 				router.push('/404');
 			}
 		},
