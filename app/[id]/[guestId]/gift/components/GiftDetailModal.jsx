@@ -13,6 +13,8 @@ import ButtonProvider from '../../../../../component/button/ButtonProvider';
 import GiftConfirmModal from './GiftConfirmModal';
 import GiftPostReserveModal from './GiftPostReserveModal';
 import ReturnHomeModal from './ReturnHomeModal';
+//Default gift image
+import defaultgiftimage from '../../../../../public/defaultgift.png';
 
 export default function GiftDetailModal({
 	giftDetails,
@@ -62,7 +64,7 @@ export default function GiftDetailModal({
 					<div className='max-h-[320px] overflow-hidden'>
 						<Image
 							key={id}
-							src={imageUrl}
+							src={imageUrl ? imageUrl : defaultgiftimage}
 							alt={name}
 							width={320}
 							height={320}

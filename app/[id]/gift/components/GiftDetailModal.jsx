@@ -12,6 +12,8 @@ import ButtonProvider from '../../../../component/button/ButtonProvider';
 import GiftConfirmModal from './GiftConfirmModal';
 import GiftPostReserveModal from './GiftPostReserveModal';
 import ReturnHomeModal from './ReturnHomeModal';
+//Default gift image
+import defaultgiftimage from '../../../../public/defaultgift.png';
 
 export default function GiftDetailModal({
 	giftDetails,
@@ -61,11 +63,7 @@ export default function GiftDetailModal({
 					<div className='max-h-[320px] overflow-hidden'>
 						<Image
 							key={id}
-							src={
-								imageUrl
-									? imageUrl
-									: 'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fgift-box-ribbon-free-mockup-1072x0-c-default.webp?alt=media&token=3cc3c9d0-2e56-4c4b-ba97-818f85e73dce'
-							}
+							src={imageUrl ? imageUrl : defaultgiftimage}
 							alt={name}
 							width={320}
 							height={320}

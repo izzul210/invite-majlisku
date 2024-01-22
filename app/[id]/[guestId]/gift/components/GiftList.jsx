@@ -6,6 +6,8 @@ import Image from 'next/image';
 import InviteTextProvider from '../../../../../component/textProvider/InviteTextProvider';
 import GiftDetailModal from './GiftDetailModal';
 import GiftListLoading from './GiftListLoading';
+//Default gift image
+import defaultgiftimage from '../../../../../public/defaultgift.png';
 
 const ReservedImage = ({ imageUrl, reservedId, guestId }) => {
 	const reservedText = () => (reservedId === guestId ? 'Reserved by You' : 'This gift is reserved');
@@ -14,8 +16,8 @@ const ReservedImage = ({ imageUrl, reservedId, guestId }) => {
 		<div className='relative max-h-[320px] overflow-hidden'>
 			<div style={{ background: 'rgba(0, 0, 0, 0.30)' }}>
 				<Image
-					src={imageUrl}
-					alt={imageUrl}
+					src={imageUrl ? imageUrl : defaultgiftimage}
+					alt='Reserved gift image'
 					width={320}
 					height={320}
 					placeholder='blur'
@@ -106,7 +108,7 @@ const GiftCard = ({ giftDetails, guestId, ...props }) => {
 			) : (
 				<div className=' max-h-[320px] overflow-hidden'>
 					<Image
-						src={imageUrl}
+						src={imageUrl ? imageUrl : defaultgiftimage}
 						alt={name}
 						width={320}
 						height={320}
