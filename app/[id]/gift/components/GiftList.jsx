@@ -13,8 +13,12 @@ const ReservedImage = ({ imageUrl, reserved }) => {
 		<div className='relative max-h-[320px] overflow-hidden'>
 			<div style={{ background: 'rgba(0, 0, 0, 0.30)' }}>
 				<Image
-					src={imageUrl}
-					alt={imageUrl}
+					src={
+						imageUrl
+							? imageUrl
+							: 'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fgift-box-ribbon-free-mockup-1072x0-c-default.webp?alt=media&token=3cc3c9d0-2e56-4c4b-ba97-818f85e73dce'
+					}
+					alt={'Gift Image'}
 					width={320}
 					height={320}
 					placeholder='blur'
@@ -105,7 +109,11 @@ const GiftCard = ({ giftDetails, ...props }) => {
 			) : (
 				<div className=' max-h-[320px] overflow-hidden'>
 					<Image
-						src={imageUrl}
+						src={
+							imageUrl
+								? imageUrl
+								: 'https://firebasestorage.googleapis.com/v0/b/myweddingapp-25712.appspot.com/o/wallpaper%2Fgift-box-ribbon-free-mockup-1072x0-c-default.webp?alt=media&token=3cc3c9d0-2e56-4c4b-ba97-818f85e73dce'
+						}
 						alt={name}
 						width={320}
 						height={320}

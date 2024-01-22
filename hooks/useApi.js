@@ -66,10 +66,15 @@ export const useEventDetails = (inviteId, apiRoute = 'rsvpdetails') => {
 		queryFn: async () => {
 			try {
 				const response = await axios.get(`${API}/${apiRoute}/${inviteId}`);
+
+				if (response.data === 'User not found') {
+					router.push('/404');
+				}
+
 				return response.data;
 			} catch (error) {
-				console.log('error', error);
-				router.push('/404');
+				console.error('Failed to fetch event details:', error);
+				throw error;
 			}
 		},
 		enabled: !!inviteId,
@@ -81,6 +86,39 @@ export const useEventDetails = (inviteId, apiRoute = 'rsvpdetails') => {
 		error,
 	};
 };
+
+// export const useEventDetails = (inviteId, apiRoute = 'rsvpdetails') => {
+// 	if (!inviteId) {
+// 		throw new Error('inviteId is required');
+// 	}
+
+// 	const router = useRouter();
+
+// 	const {
+// 		data = {},
+// 		isLoading,
+// 		error,
+// 	} = useQuery(['eventDetails', inviteId, apiRoute], async () => {
+// 		try {
+// 			const response = await axios.get(`${API}/${apiRoute}/${inviteId}`);
+
+// 			if (response.data === 'User not found') {
+// 				router.push('/404');
+// 			}
+
+// 			return response.data;
+// 		} catch (error) {
+// 			console.error('Failed to fetch event details:', error);
+// 			throw error;
+// 		}
+// 	});
+
+// 	return {
+// 		data,
+// 		isLoading,
+// 		error,
+// 	};
+// };
 
 export const useItineraryList = () => {
 	const queryClient = useQueryClient();
