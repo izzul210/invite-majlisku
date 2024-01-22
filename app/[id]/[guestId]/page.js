@@ -16,9 +16,9 @@ export async function generateMetadata({ params }) {
 	let imageUrl = null;
 
 	//fetch data
-	const metadataDetails = await fetch(`${API}/personalizedmetadata/${id}/${guestId}`).then((res) =>
-		res.json()
-	);
+	const metadataDetails = await fetch(`${API}/personalizedmetadata/${id}/${guestId}`, {
+		cache: 'no-store',
+	}).then((res) => res.json());
 
 	if (metadataDetails?.metadata) {
 		title = `Invitation for ${metadataDetails.metadata_guest_name} | ${
