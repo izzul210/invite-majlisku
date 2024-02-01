@@ -15,6 +15,8 @@ import {
 } from './components/greetingScreenComponents';
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
+//Import animation const
+import { greetingTitleContainer, variants, letterVariants } from '../animationProps';
 
 const greetingsColor = 'rgba(201, 45, 96, 1)';
 const titleColor = 'rgba(201, 45, 96, 1)';
@@ -68,30 +70,8 @@ export default function GreetingScreenRoyal({
 	const [eventTitleRef, eventTitleInView] =
 		useInView({
 			triggerOnce: true, // Animation occurs only once when component comes into view
-			threshold: 0.8, // Defines at what percentage of the component's height the animation should start
+			threshold: 1, // Defines at what percentage of the component's height the animation should start
 		}) || [];
-
-	const variants = {
-		hidden: { opacity: 0.2, y: '30%', filter: 'blur(20px)' },
-		visible: {
-			opacity: 1,
-			y: '0%',
-			filter: 'blur(0px)',
-			transition: {
-				duration: 1, // Increase this value to make the transition slower
-			},
-		},
-	};
-
-	const greetingTitleContainer = {
-		visible: {
-			transition: {
-				staggerChildren: 0.3,
-				duration: 2,
-				delay: 0,
-			},
-		},
-	};
 
 	return (
 		<div
@@ -151,8 +131,14 @@ export default function GreetingScreenRoyal({
 					initial='hidden'
 					animate={eventTitleInView ? 'visible' : 'hidden'}
 					className='flex w-full items-center flex-col pt-8 gap-4'
-					variants={variants}>
-					<MainTitle color={titleColor}>{renderEventTitle}</MainTitle>
+					variants={greetingTitleContainer}>
+					<MainTitle color={titleColor}>
+						{event_title_2.split('\n').map((char, index) => (
+							<motion.span key={char + '-' + index} variants={variants}>
+								{char}
+							</motion.span>
+						))}
+					</MainTitle>
 				</motion.div>
 			</div>
 		</div>

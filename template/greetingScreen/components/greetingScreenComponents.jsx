@@ -36,7 +36,7 @@ export const GreetingTitle = ({ children, color = '#1E1E1E' }) => {
 
 export const MainTitle = ({ children, color = '#1D4648' }) => {
 	return (
-		<InviteTextProvider color={color} className='text-xl font-medium uppercase'>
+		<InviteTextProvider color={color} className='text-xl flex flex-col font-medium uppercase'>
 			{children}
 		</InviteTextProvider>
 	);

@@ -15,6 +15,8 @@ import {
 } from './components/greetingScreenComponents';
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
+//Animation cosnt import
+import { greetingTitleContainer, variants } from '../animationProps';
 
 const event_opening_title_default = 'Assalamualaikum dan salam sejahtera';
 const greeting_title_default = `Ybhg Tun/ Toh Puan/ Tan Sri/ Puan Sri/ Dato’s Sri/ Datin Sri/ Dato’/ Datin/ Tuan/ Puan`;
@@ -57,28 +59,6 @@ export default function GreetingScreenPremium({
 			triggerOnce: true, // Animation occurs only once when component comes into view
 			threshold: 0.8, // Defines at what percentage of the component's height the animation should start
 		}) || [];
-
-	const variants = {
-		hidden: { opacity: 0.2, y: '30%', filter: 'blur(20px)' },
-		visible: {
-			opacity: 1,
-			y: '0%',
-			filter: 'blur(0px)',
-			transition: {
-				duration: 1.5, // Increase this value to make the transition slower
-			},
-		},
-	};
-
-	const greetingTitleContainer = {
-		visible: {
-			transition: {
-				staggerChildren: 0.3,
-				duration: 2,
-				delay: 0,
-			},
-		},
-	};
 
 	return (
 		<div

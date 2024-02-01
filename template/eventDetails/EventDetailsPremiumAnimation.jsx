@@ -13,6 +13,8 @@ import ActionButtons from '../buttons/ActionButtons';
 import { TextContainer_Premium } from './components/eventDetailsComponents';
 import { Ellipse_1 } from '../../component/graphics/graphics';
 import { premiumColorTheme } from '../colorThemes';
+//Animation props import
+import { addressContainer, variants } from '../animationProps';
 
 export default function EventDetailsPremiumAnimation({
 	enable_bahasa,
@@ -67,28 +69,6 @@ export default function EventDetailsPremiumAnimation({
 			triggerOnce: true, // Animation occurs only once when component comes into view
 			threshold: 0.8, // Defines at what percentage of the component's height the animation should start
 		}) || [];
-
-	const variants = {
-		hidden: { opacity: 0.2, y: '30%', filter: 'blur(20px)' },
-		visible: {
-			opacity: 1,
-			y: '0%',
-			filter: 'blur(0px)',
-			transition: {
-				duration: 1, // Increase this value to make the transition slower
-			},
-		},
-	};
-
-	const addressContainer = {
-		visible: {
-			transition: {
-				staggerChildren: 0.3,
-				duration: 2,
-				delay: 0,
-			},
-		},
-	};
 
 	return (
 		<div

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 //Components import
 import RoyalTitle from './components/titles/RoyalTitle';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
+import RoyalTitleAnimation from './components/titles/RoyalTitleAnimation';
 
 const fontColor = '#C3AB64';
 
@@ -66,9 +67,11 @@ export default function FirstScreenRoyal_5({
 							{event_title_1}
 						</TextDetail>
 					</motion.div>
-					<motion.div variants={childVariants} className='w-full flex justify-center'>
-						<RoyalTitle color={fontColor}>{italic_title}</RoyalTitle>
-					</motion.div>
+					<RoyalTitleAnimation
+						childVariants={childVariants}
+						color={fontColor}
+						italic_title={italic_title}
+					/>
 					{optional_description ? (
 						<motion.div variants={childVariants}>
 							<TextDetail color={fontColor}>

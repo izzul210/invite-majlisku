@@ -34,8 +34,17 @@ const convertOldTheme = (type) => {
 const OpeningComponent = ({ onOpen, enable_bahasa }) => {
 	return (
 		<motion.div
-			initial={{ opacity: 1, backgroundColor: '#0E7F6E' }}
-			exit={{ opacity: 0.5, transition: { duration: 0.4 } }}
+			initial={{ opacity: 1, y: '0%', backgroundColor: '#0E7F6E' }}
+			animate={{
+				opacity: 1,
+				y: '0%',
+				backgroundColor: '#0E7F6E',
+			}}
+			exit={{
+				opacity: 1,
+				y: '-100%',
+			}}
+			transition={{ type: 'tween', duration: 0.7 }}
 			className='opening-screen flex flex-col justify-between  items-center justify-center min-h-screen w-full'
 			onClick={onOpen}>
 			<div></div>
@@ -63,9 +72,9 @@ function InviteTemplate({ inviteId }) {
 		}
 	};
 
-	const design = Number(eventDetails?.design_num)
-		? Number(eventDetails.design_num)
-		: convertOldTheme(eventDetails?.type);
+	// const design = Number(eventDetails?.design_num)
+	// 	? Number(eventDetails.design_num)
+	// 	: convertOldTheme(eventDetails?.type);
 
 	const containerVariants = {
 		hidden: { opacity: 1, filter: 'blur(10px)', display: 'none' },
@@ -76,25 +85,26 @@ function InviteTemplate({ inviteId }) {
 			transition: {
 				duration: 2,
 				when: 'beforeChildren',
-				staggerChildren: 0.5,
+				staggerChildren: 0.7,
 			},
 		},
 		exit: { opacity: 0, filter: 'blur(10px)', display: 'none' },
 	};
 
 	const childVariants = {
-		hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
+		hidden: { opacity: 0, y: '30%', filter: 'blur(20px)' },
 		visible: {
 			opacity: 1,
-			y: 0,
+			y: '0%',
 			filter: 'blur(0px)',
 			transition: {
-				duration: 2,
+				duration: 0.5,
+				staggerChildren: 0.2,
 			},
 		},
 	};
 
-	// const design = 20;
+	const design = 34;
 
 	return (
 		<InviteContext.Provider value={{ design, premium_design }}>
