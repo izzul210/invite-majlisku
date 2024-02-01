@@ -25,8 +25,17 @@ const FirstScreenRustic_3 = dynamic(() => import('./FirstScreenRustic_3'));
 const FirstScreenVintage_1 = dynamic(() => import('./FirstScreenVintage_1'));
 const FirstScreenVintage_2 = dynamic(() => import('./FirstScreenVintage_2'));
 const FirstScreenVintage_3 = dynamic(() => import('./FirstScreenVintage_3'));
+//Animated template imports
+const FirstScreenDefaultAnimation = dynamic(() => import('./FirstScreenDefaultAnimation'));
+const FirstScreenPremiumAnimation = dynamic(() => import('./FirstScreenPremiumAnimation'));
+const FirstScreenRoyalAnimation_1 = dynamic(() => import('./FirstScreenRoyalAnimation_1'));
+const FirstScreenRoyalAnimation_2 = dynamic(() => import('./FirstScreenRoyalAnimation_2'));
+const FirstScreenRoyalAnimation_3 = dynamic(() => import('./FirstScreenRoyalAnimation_3'));
+const FirstScreenRoyalAnimation_4 = dynamic(() => import('./FirstScreenRoyalAnimation_4'));
+const FirstScreenRoyalAnimation_5 = dynamic(() => import('./FirstScreenRoyalAnimation_5'));
+const FirstScreenRoyalAnimation_6 = dynamic(() => import('./FirstScreenRoyalAnimation_6'));
 
-export default function FirstScreen({ eventDetails }) {
+export default function FirstScreen({ eventDetails, childVariants }) {
 	const {
 		event_title_1,
 		rsvp_header_image,
@@ -76,45 +85,95 @@ export default function FirstScreen({ eventDetails }) {
 		case 7:
 			return <FirstScreenIslamic_3 {...firstScreenProps} />;
 		case 20:
-			return <FirstScreenPremium premium_design={0} {...firstScreenProps} />;
+			return (
+				<FirstScreenPremiumAnimation
+					premium_design={0}
+					{...firstScreenProps}
+					childVariants={childVariants}
+				/>
+			);
 		case 21:
-			return <FirstScreenPremium premium_design={1} {...firstScreenProps} />;
+			return (
+				<FirstScreenPremiumAnimation
+					premium_design={1}
+					{...firstScreenProps}
+					childVariants={childVariants}
+				/>
+			);
 		case 22:
-			return <FirstScreenPremium premium_design={2} {...firstScreenProps} />;
+			return (
+				<FirstScreenPremiumAnimation
+					premium_design={2}
+					{...firstScreenProps}
+					childVariants={childVariants}
+				/>
+			);
 		case 23:
-			return <FirstScreenPremium premium_design={3} {...firstScreenProps} />;
+			return (
+				<FirstScreenPremiumAnimation
+					premium_design={3}
+					{...firstScreenProps}
+					childVariants={childVariants}
+				/>
+			);
 		case 24:
-			return <FirstScreenPremium premium_design={4} {...firstScreenProps} />;
+			return (
+				<FirstScreenPremiumAnimation
+					premium_design={4}
+					{...firstScreenProps}
+					childVariants={childVariants}
+				/>
+			);
 		case 25:
-			return <FirstScreenPremium premium_design={5} {...firstScreenProps} />;
+			return (
+				<FirstScreenPremiumAnimation
+					premium_design={5}
+					{...firstScreenProps}
+					childVariants={childVariants}
+				/>
+			);
 		case 26:
-			return <FirstScreenPremium premium_design={6} {...firstScreenProps} />;
+			return (
+				<FirstScreenPremiumAnimation
+					premium_design={6}
+					{...firstScreenProps}
+					childVariants={childVariants}
+				/>
+			);
 		case 27:
-			return <FirstScreenPremium premium_design={7} {...firstScreenProps} />;
+			return (
+				<FirstScreenPremiumAnimation
+					premium_design={7}
+					{...firstScreenProps}
+					childVariants={childVariants}
+				/>
+			);
 		case 30:
-			return <FirstScreenRoyal_1 {...firstScreenProps} />;
+			return <FirstScreenRoyalAnimation_1 {...firstScreenProps} childVariants={childVariants} />;
 		case 31:
-			return <FirstScreenRoyal_2 {...firstScreenProps} />;
+			return <FirstScreenRoyalAnimation_2 {...firstScreenProps} childVariants={childVariants} />;
 		case 32:
-			return <FirstScreenRoyal_3 {...firstScreenProps} />;
+			return <FirstScreenRoyalAnimation_3 {...firstScreenProps} childVariants={childVariants} />;
 		case 33:
-			return <FirstScreenRoyal_4 {...firstScreenProps} />;
+			return <FirstScreenRoyalAnimation_4 {...firstScreenProps} childVariants={childVariants} />;
 		case 34:
-			return <FirstScreenRoyal_5 {...firstScreenProps} />;
+			return <FirstScreenRoyalAnimation_5 {...firstScreenProps} childVariants={childVariants} />;
 		case 35:
-			return <FirstScreenRoyal_6 {...firstScreenProps} />;
+			return <FirstScreenRoyalAnimation_6 {...firstScreenProps} childVariants={childVariants} />;
 		case 40:
-			return <FirstScreenRustic_1 {...firstScreenProps} />;
+			return <FirstScreenRustic_1 {...firstScreenProps} childVariants={childVariants} />;
 		case 41:
-			return <FirstScreenRustic_2 {...firstScreenProps} />;
+			return <FirstScreenRustic_2 {...firstScreenProps} childVariants={childVariants} />;
 		case 42:
-			return <FirstScreenRustic_3 {...firstScreenProps} />;
+			return <FirstScreenRustic_3 {...firstScreenProps} childVariants={childVariants} />;
 		case 50:
-			return <FirstScreenVintage_1 {...firstScreenProps} />;
+			return <FirstScreenVintage_1 {...firstScreenProps} childVariants={childVariants} />;
 		case 51:
-			return <FirstScreenVintage_2 {...firstScreenProps} />;
+			return <FirstScreenVintage_2 {...firstScreenProps} childVariants={childVariants} />;
 		case 52:
-			return <FirstScreenVintage_3 {...firstScreenProps} />;
+			return <FirstScreenVintage_3 {...firstScreenProps} childVariants={childVariants} />;
+		case 60:
+			return <FirstScreenDefaultAnimation {...firstScreenProps} childVariants={childVariants} />;
 		default:
 			return <FirstScreenDefault {...firstScreenProps} />;
 	}

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/legacy/image';
+import { motion } from 'framer-motion';
 //Components import
 import RoyalTitle from './components/titles/RoyalTitle';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
@@ -19,10 +20,11 @@ const TextDetail = ({ children }) => {
 	);
 };
 
-export default function FirstScreenRoyal_3({
+export default function FirstScreenRoyal_2({
 	event_title_1 = 'Event Title 1',
 	optional_description = '',
 	italic_title = 'Main Title',
+	childVariants,
 }) {
 	const [windowWidth, setWindowWidth] = useState(0);
 
@@ -47,8 +49,8 @@ export default function FirstScreenRoyal_3({
 				style={{ minHeight: windowWidth < 500 ? windowWidth * 1.8 : 780 }}>
 				<Image
 					className='h-full z-0'
-					src='/royal-3.png'
-					alt='Royal 1'
+					src='/royal-2.png'
+					alt='Royal 2'
 					height
 					layout='fill'
 					quality={100}
@@ -60,20 +62,27 @@ export default function FirstScreenRoyal_3({
 					className='w-full h-full flex justify-center items-center flex-col  z-0 relative'
 					style={{ maxWidth: '300px' }}>
 					<div className='h-[190px] w-full flex justify-center items-start'>
-						<TextDetail color={fontColor} className='tracking-wide'>
-							{event_title_1}
-						</TextDetail>
+						<motion.div variants={childVariants}>
+							<TextDetail color={fontColor} className='tracking-wide'>
+								{event_title_1}
+							</TextDetail>
+						</motion.div>
 					</div>
-					<div className='h-[140px] w-full  flex justify-center items-center'>
+					<motion.div
+						className='h-[140px] w-full  flex justify-center items-center'
+						variants={childVariants}>
 						<RoyalTitle color={fontColor}>{italic_title}</RoyalTitle>
-					</div>
+					</motion.div>
+
 					<div className='h-[245px] w-full  flex justify-center items-end'>
 						{optional_description ? (
-							<TextDetail color={fontColor}>
-								<div style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>
-									{optional_description}
-								</div>
-							</TextDetail>
+							<motion.div variants={childVariants}>
+								<TextDetail color={fontColor}>
+									<div style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>
+										{optional_description}
+									</div>
+								</TextDetail>
+							</motion.div>
 						) : null}
 					</div>
 				</div>

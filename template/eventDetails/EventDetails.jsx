@@ -8,6 +8,8 @@ const EventDetailsBasic = dynamic(() => import('./EventDetailsBasic'));
 const EventDetailsDefault = dynamic(() => import('./EventDetailsDefault'));
 const EventDetailsMinimal_2 = dynamic(() => import('./EventDetailsMinimal_2'));
 const EventDetailsPremium = dynamic(() => import('./EventDetailsPremium'));
+const EventDetailsBasicAnimation = dynamic(() => import('./EventDetailsBasicAnimation'));
+const EventDetailsPremiumAnimation = dynamic(() => import('./EventDetailsPremiumAnimation'));
 //Modals import
 const RsvpActionModal = dynamic(() => import('../modals/RsvpActionModal'));
 const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'));
@@ -87,23 +89,23 @@ export default function EventDetails({ eventDetails, guest_name = null, preview 
 					case 50:
 					case 51:
 					case 52:
-						return <EventDetailsBasic {...eventDetailsProps} />;
+						return <EventDetailsBasicAnimation {...eventDetailsProps} />;
 					case 20:
-						return <EventDetailsPremium premium_design={0} {...eventDetailsProps} />;
+						return <EventDetailsPremiumAnimation premium_design={0} {...eventDetailsProps} />;
 					case 21:
-						return <EventDetailsPremium premium_design={1} {...eventDetailsProps} />;
+						return <EventDetailsPremiumAnimation premium_design={1} {...eventDetailsProps} />;
 					case 22:
-						return <EventDetailsPremium premium_design={2} {...eventDetailsProps} />;
+						return <EventDetailsPremiumAnimation premium_design={2} {...eventDetailsProps} />;
 					case 23:
-						return <EventDetailsPremium premium_design={3} {...eventDetailsProps} />;
+						return <EventDetailsPremiumAnimation premium_design={3} {...eventDetailsProps} />;
 					case 24:
-						return <EventDetailsPremium premium_design={4} {...eventDetailsProps} />;
+						return <EventDetailsPremiumAnimation premium_design={4} {...eventDetailsProps} />;
 					case 25:
-						return <EventDetailsPremium premium_design={5} {...eventDetailsProps} />;
+						return <EventDetailsPremiumAnimation premium_design={5} {...eventDetailsProps} />;
 					case 26:
-						return <EventDetailsPremium premium_design={6} {...eventDetailsProps} />;
+						return <EventDetailsPremiumAnimation premium_design={6} {...eventDetailsProps} />;
 					case 27:
-						return <EventDetailsPremium premium_design={7} {...eventDetailsProps} />;
+						return <EventDetailsPremiumAnimation premium_design={7} {...eventDetailsProps} />;
 
 					default:
 						return <EventDetailsDefault {...eventDetailsProps} />;

@@ -7,11 +7,15 @@ const GreetingScreenPremium = dynamic(() => import('./GreetingScreenPremium'));
 const GreetingScreenDefaultNoAnimation = dynamic(() =>
 	import('./GreetingScreenDefaultNoAnimation')
 );
+const GreetingScreenDefault = dynamic(() => import('./GreetingScreenDefault'));
 const GreetingScreenIslamic_1 = dynamic(() => import('./GreetingScreenIslamic_1'));
 const GreetingScreenIslamic_2 = dynamic(() => import('./GreetingScreenIslamic_2'));
 const GreetingScreenRoyal = dynamic(() => import('./GreetingScreenRoyal'));
 const GreetingScreenRustic = dynamic(() => import('./GreetingScreenRustic'));
 const GreetingScreenVintage = dynamic(() => import('./GreetingScreenVintage'));
+//Animated Greeting Screen
+const GreetingScreenRoyalAnimation = dynamic(() => import('./GreetingScreenRoyalAnimation'));
+const GreetingScreenPremiumAnimation = dynamic(() => import('./GreetingScreenPremiumAnimation'));
 
 export default function GreetingScreen({ eventDetails, guest_name = null, preview = false }) {
 	const {
@@ -54,28 +58,28 @@ export default function GreetingScreen({ eventDetails, guest_name = null, previe
 		case 6:
 			return <GreetingScreenIslamic_2 premium_design={premium_design} {...greetingScreenProps} />;
 		case 20:
-			return <GreetingScreenPremium premium_design={0} {...greetingScreenProps} />;
+			return <GreetingScreenPremiumAnimation premium_design={0} {...greetingScreenProps} />;
 		case 21:
-			return <GreetingScreenPremium premium_design={1} {...greetingScreenProps} />;
+			return <GreetingScreenPremiumAnimation premium_design={1} {...greetingScreenProps} />;
 		case 22:
-			return <GreetingScreenPremium premium_design={2} {...greetingScreenProps} />;
+			return <GreetingScreenPremiumAnimation premium_design={2} {...greetingScreenProps} />;
 		case 23:
-			return <GreetingScreenPremium premium_design={3} {...greetingScreenProps} />;
+			return <GreetingScreenPremiumAnimation premium_design={3} {...greetingScreenProps} />;
 		case 24:
-			return <GreetingScreenPremium premium_design={4} {...greetingScreenProps} />;
+			return <GreetingScreenPremiumAnimation premium_design={4} {...greetingScreenProps} />;
 		case 25:
-			return <GreetingScreenPremium premium_design={5} {...greetingScreenProps} />;
+			return <GreetingScreenPremiumAnimation premium_design={5} {...greetingScreenProps} />;
 		case 26:
-			return <GreetingScreenPremium premium_design={6} {...greetingScreenProps} />;
+			return <GreetingScreenPremiumAnimation premium_design={6} {...greetingScreenProps} />;
 		case 27:
-			return <GreetingScreenPremium premium_design={7} {...greetingScreenProps} />;
+			return <GreetingScreenPremiumAnimation premium_design={7} {...greetingScreenProps} />;
 		case 30:
 		case 31:
 		case 32:
 		case 33:
 		case 34:
 		case 35:
-			return <GreetingScreenRoyal {...greetingScreenProps} />;
+			return <GreetingScreenRoyalAnimation {...greetingScreenProps} />;
 		case 40:
 		case 41:
 		case 42:
@@ -84,6 +88,8 @@ export default function GreetingScreen({ eventDetails, guest_name = null, previe
 		case 51:
 		case 52:
 			return <GreetingScreenVintage {...greetingScreenProps} />;
+		case 60:
+			return <GreetingScreenDefault {...greetingScreenProps} />;
 		default:
 			return (
 				<>

@@ -1,10 +1,11 @@
 /** @format */
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useEventDetails, useItineraryList, useWishList } from '../hooks/useApi';
 import Footnote from './Footnote';
 import { InviteContext } from './inviteContext';
+import InviteTextProvider from '../component/textProvider/InviteTextProvider';
 //Screen import
 import FirstScreen from './firstScreen/FirstScreen';
 import GreetingScreen from './greetingScreen/GreetingScreen';
@@ -13,7 +14,7 @@ import Tentative from './tentative/Tentative';
 import Wishlist from './wishlist/Wishlist';
 import Contacts from './contacts/Contacts';
 import Calendar from './calendar/Calendar';
-import { MajliskuLoadingIcon } from '../component/icons/icons';
+import { MajliskuMainIcon } from '../component/icons/icons';
 
 const convertOldTheme = (type) => {
 	if (!type) return 1;
@@ -30,41 +31,88 @@ const convertOldTheme = (type) => {
 	}
 };
 
+const OpeningComponent = ({ onOpen, enable_bahasa }) => {
+	return (
+		<motion.div
+			initial={{ opacity: 1, backgroundColor: '#0E7F6E' }}
+			exit={{ opacity: 0.5, transition: { duration: 0.4 } }}
+			className='opening-screen flex flex-col justify-between  items-center justify-center min-h-screen w-full'
+			onClick={onOpen}>
+			<div></div>
+			<MajliskuMainIcon />
+			<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-20'>
+				{enable_bahasa ? 'Buka' : 'Open'}
+			</InviteTextProvider>
+		</motion.div>
+	);
+};
+
 function InviteTemplate({ inviteId }) {
 	const [premium_design, setPremiumDesign] = useState(0);
 	const { data: eventDetails, isLoading } = useEventDetails(inviteId);
 	const { data: itinerary } = useItineraryList();
 	const { data: wishlist } = useWishList();
+	const [isOpen, setIsOpen] = useState(true);
+	const [mainPageVisible, setMainPageVisible] = useState(false);
 
-	const [loadingAnimation, setLoadingAnimation] = useState(true);
+	const handleOpen = () => {
+		if (!isLoading) {
+			setIsOpen(false);
+			setTimeout(() => setMainPageVisible(true), 100);
+			// Delay to match the opening screen animation
+		}
+	};
 
 	const design = Number(eventDetails?.design_num)
 		? Number(eventDetails.design_num)
 		: convertOldTheme(eventDetails?.type);
 
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setLoadingAnimation(false);
-		}, 4000);
-		return () => clearTimeout(timer);
-	}, []);
+	const containerVariants = {
+		hidden: { opacity: 1, filter: 'blur(10px)', display: 'none' },
+		visible: {
+			opacity: 1,
+			filter: 'blur(0px)',
+			display: 'block',
+			transition: {
+				duration: 2,
+				when: 'beforeChildren',
+				staggerChildren: 0.5,
+			},
+		},
+		exit: { opacity: 0, filter: 'blur(10px)', display: 'none' },
+	};
+
+	const childVariants = {
+		hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
+		visible: {
+			opacity: 1,
+			y: 0,
+			filter: 'blur(0px)',
+			transition: {
+				duration: 2,
+			},
+		},
+	};
+
+	// const design = 20;
 
 	return (
 		<InviteContext.Provider value={{ design, premium_design }}>
 			<>
-				{loadingAnimation && !isLoading ? (
-					<motion.div
-						initial={{ opacity: 1, filter: 'blur(0)' }}
-						animate={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 2, delay: 1 } }}
-						className='loading-overlay'>
-						<MajliskuLoadingIcon />
-					</motion.div>
-				) : null}
-				{!isLoading && (
-					<>
+				<AnimatePresence>
+					{isOpen ? (
+						<OpeningComponent onOpen={handleOpen} enable_bahasa={eventDetails?.enable_bahasa} />
+					) : null}
+				</AnimatePresence>
+				<motion.div
+					variants={containerVariants}
+					initial='hidden'
+					animate={mainPageVisible ? 'visible' : 'hidden'}
+					exit='exit'>
+					{!isLoading && (
 						<div className='w-full px-0 pb-6 sm:px-4 h-full flex flex-col items-center pt-0 sm:pt-24 sm:bg-transparent'>
 							<div className='w-full flex flex-col items-center bg-white max-w-md sm:shadow-xl'>
-								<FirstScreen eventDetails={eventDetails} />
+								<FirstScreen eventDetails={eventDetails} childVariants={childVariants} />
 								<GreetingScreen eventDetails={eventDetails} />
 								<EventDetails eventDetails={eventDetails} />
 								<div
@@ -77,9 +125,9 @@ function InviteTemplate({ inviteId }) {
 								</div>
 							</div>
 						</div>
-						<Footnote />
-					</>
-				)}
+					)}
+					<Footnote />
+				</motion.div>
 			</>
 		</InviteContext.Provider>
 	);

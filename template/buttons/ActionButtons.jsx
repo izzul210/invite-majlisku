@@ -2,6 +2,8 @@
 
 import React from 'react';
 import moment from 'moment';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 //Buttons import
 import RsvpButton from './RsvpButton';
 import GiftRegistryButton from './GiftRegistryButton';
@@ -65,23 +67,64 @@ function ActionButtons({
 
 	const hasDatePassed = event_date_deadline ? moment().isAfter(moment(event_date_deadline)) : false;
 
+	const [ref, inView] =
+		useInView({
+			triggerOnce: true, // Animation occurs only once when component comes into view
+			threshold: 1, // Defines at what percentage of the component's height the animation should start
+		}) || [];
+
 	if (enable_deadline && hasDatePassed) {
 		return <ExpiredRsvp enable_bahasa={enable_bahasa} />;
 	}
 
+	const container = {
+		visible: {
+			transition: {
+				staggerChildren: 0.3,
+				duration: 1,
+				delay: 0,
+			},
+		},
+	};
+
+	const variants = {
+		hidden: { opacity: 0.1, y: '30%', filter: 'blur(20px)' },
+		visible: {
+			opacity: 1,
+			y: '0%',
+			filter: 'blur(0px)',
+			transition: {
+				duration: 0.8, // Increase this value to make the transition slower
+			},
+		},
+	};
+
 	return (
-		<div className='w-full flex flex-col gap-2 px-5'>
-			{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton {...actionButtonsProps} />}
-			{enable_gift_registry && <GiftRegistryButton {...actionButtonsProps} />}
-			{enable_money_gift && <MoneyGiftButton {...actionButtonsProps} />}
-			{enable_deadline && (
-				<DeadlineText
-					enable_bahasa={enable_bahasa}
-					color={color}
-					event_date_deadline={event_date_deadline}
-				/>
-			)}
-		</div>
+		<motion.div
+			ref={ref}
+			initial='hidden'
+			variants={container}
+			animate={inView ? 'visible' : 'hidden'}
+			className='w-full flex flex-col gap-2 px-5'>
+			<motion.div className='w-full' variants={variants}>
+				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton {...actionButtonsProps} />}
+			</motion.div>
+			<motion.div className='w-full' variants={variants}>
+				{enable_gift_registry && <GiftRegistryButton {...actionButtonsProps} />}
+			</motion.div>
+			<motion.div className='w-full' variants={variants}>
+				{enable_money_gift && <MoneyGiftButton {...actionButtonsProps} />}
+			</motion.div>
+			<motion.div className='w-full' variants={variants}>
+				{enable_deadline && (
+					<DeadlineText
+						enable_bahasa={enable_bahasa}
+						color={color}
+						event_date_deadline={event_date_deadline}
+					/>
+				)}
+			</motion.div>
+		</motion.div>
 	);
 }
 
