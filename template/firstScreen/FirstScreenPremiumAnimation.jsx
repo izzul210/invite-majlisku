@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { premiumColorTheme } from '../colorThemes';
 import { EventTitle_Premium } from './components/EventTitle';
 import { RsvpHeaderImage_Premium } from './components/RsvpHeaderImage';
-import { ItalicTitle_Playfair } from './components/ItalicTitle';
+import { ItalicTitle_Playfair, ItalicTitle_Playfair_Animation } from './components/ItalicTitle';
 import { DateLocation_Premium } from './components/DateLocation';
 
 export default function FirstScreenPremiumAnimation({
@@ -35,10 +35,12 @@ export default function FirstScreenPremiumAnimation({
 			<motion.div variants={childVariants}>
 				<EventTitle_Premium color={color}>{event_title_1}</EventTitle_Premium>
 			</motion.div>
-			<motion.div variants={childVariants}>
-				<ItalicTitle_Playfair color={color}>{italic_title}</ItalicTitle_Playfair>
-			</motion.div>
-
+			<ItalicTitle_Playfair_Animation
+				color={color}
+				fill={fill}
+				italic_title={italic_title}
+				childVariants={childVariants}
+			/>
 			{optional_description && (
 				<motion.div variants={childVariants} className='w-full'>
 					<DateLocation_Premium color={color} fill={fill}>

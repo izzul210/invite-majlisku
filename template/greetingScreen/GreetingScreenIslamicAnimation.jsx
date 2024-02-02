@@ -7,6 +7,7 @@ import { useInView } from 'react-intersection-observer';
 //Components import
 import {
 	HostsText,
+	GreetingText,
 	GreetingText_Premium,
 	GreetingTitle,
 	MainTitle,
@@ -14,17 +15,16 @@ import {
 } from './components/greetingScreenComponents';
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
-//Import animation const
 import { greetingTitleContainer, variants } from '../animationProps';
 
-const greetingsColor = 'rgba(201, 45, 96, 1)';
+const greetingsColor = '#F1BFBE';
 const titleColor = 'rgba(201, 45, 96, 1)';
 const event_opening_title_default = 'Assalamualaikum dan salam sejahtera';
 const greeting_title_default = `Ybhg Tun/ Toh Puan/ Tan Sri/ Puan Sri/ Dato’s Sri/ Datin Sri/ Dato’/ Datin/ Tuan/ Puan`;
 const greeting_1_default = 'Dengan segala hormatnya kami\n mempersilakan';
 const greeting_2_default = 'ke majlis resepsi untuk meraikan majlis';
 
-export default function GreetingScreenRoyal({
+export default function GreetingScreenIslamicAnimation({
 	enable_bahasa = false,
 	event_opening_title,
 	host_details,
@@ -33,7 +33,12 @@ export default function GreetingScreenRoyal({
 	greeting_1,
 	greeting_2,
 	guest_name,
+	backgroundColor = '#FFFBF0',
 }) {
+	const { useConvertText } = useInviteFunc();
+	let renderHosts = useConvertText(host_details);
+	let renderEventTitle = useConvertText(event_title_2);
+
 	const [windowWidth, setWindowWidth] = useState(0);
 
 	useEffect(() => {
@@ -71,21 +76,24 @@ export default function GreetingScreenRoyal({
 	return (
 		<div
 			className='w-full relative flex justify-center items-center'
-			style={{ minHeight: windowWidth < 500 ? windowWidth * 1.78 : 780 }}>
+			style={{
+				backgroundColor: backgroundColor,
+				minHeight: windowWidth < 500 ? windowWidth * 1.97 : 850,
+			}}>
 			<Image
 				className='h-full z-0'
-				src='/greeting-royal.png'
+				src='/greeting-islamic.png'
 				alt='Greeting Islamic'
 				layout='fill'
 				objectFit='cover'
 				objectPosition='center'
 			/>
-			<div className='w-full text-center flex flex-col items-center justify-center gap-6 px-12 z-1 relative'>
+			<div className='w-full text-center flex flex-col items-center justify-center gap-6 p-11 md:p-10 z-1 relative'>
 				<motion.div
 					ref={hostRef}
 					initial='hidden'
 					animate={hostInView ? 'visible' : 'hidden'}
-					className='w-full'
+					className='w-full flex flex-col gap-2'
 					variants={greetingTitleContainer}>
 					{event_opening_title ? (
 						<motion.div className='w-full' variants={variants}>

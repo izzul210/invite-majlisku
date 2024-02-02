@@ -4,7 +4,7 @@ import InviteTextProvider from '../../../component/textProvider/InviteTextProvid
 
 export const HostsText = ({ children, color = '#1D4648' }) => {
 	return (
-		<InviteTextProvider className='text-[14px] font-medium uppercase' color={color}>
+		<InviteTextProvider className='text-[14px] flex flex-col font-medium uppercase' color={color}>
 			{children}
 		</InviteTextProvider>
 	);

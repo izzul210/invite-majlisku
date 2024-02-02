@@ -49,8 +49,8 @@ const OpeningComponent = ({ onOpen, enable_bahasa }) => {
 			onClick={onOpen}>
 			<div></div>
 			<MajliskuMainIcon />
-			<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-20'>
-				{enable_bahasa ? 'Buka' : 'Open'}
+			<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-24'>
+				{enable_bahasa ? 'Sila tekan untuk buka' : 'Tap To Open'}
 			</InviteTextProvider>
 		</motion.div>
 	);
@@ -83,28 +83,28 @@ function InviteTemplate({ inviteId }) {
 			filter: 'blur(0px)',
 			display: 'block',
 			transition: {
-				duration: 2,
+				duration: 1,
 				when: 'beforeChildren',
-				staggerChildren: 0.7,
+				staggerChildren: 0.5,
 			},
 		},
 		exit: { opacity: 0, filter: 'blur(10px)', display: 'none' },
 	};
 
 	const childVariants = {
-		hidden: { opacity: 0, y: '30%', filter: 'blur(20px)' },
+		hidden: { opacity: 0.2, y: '20%', filter: 'blur(20px)' },
 		visible: {
 			opacity: 1,
 			y: '0%',
 			filter: 'blur(0px)',
 			transition: {
-				duration: 0.5,
+				duration: 1,
 				staggerChildren: 0.2,
 			},
 		},
 	};
 
-	const design = 34;
+	const design = 7;
 
 	return (
 		<InviteContext.Provider value={{ design, premium_design }}>

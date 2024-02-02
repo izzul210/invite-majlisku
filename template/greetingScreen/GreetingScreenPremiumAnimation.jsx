@@ -82,13 +82,21 @@ export default function GreetingScreenPremium({
 					initial='hidden'
 					animate={hostInView ? 'visible' : 'hidden'}
 					className='w-full'
-					variants={variants}>
+					variants={greetingTitleContainer}>
 					{event_opening_title ? (
-						<GreetingText_Premium color={greetingColor}>
-							{event_opening_title ? event_opening_title : event_opening_title_default}
-						</GreetingText_Premium>
+						<motion.div className='w-full' variants={variants}>
+							<GreetingText_Premium color={greetingColor}>
+								{event_opening_title ? event_opening_title : event_opening_title_default}
+							</GreetingText_Premium>
+						</motion.div>
 					) : null}
-					<HostsText color={titleColor}>{renderHosts}</HostsText>
+					<HostsText color={titleColor}>
+						{host_details.split('\n').map((char, index) => (
+							<motion.span key={char + '-' + index} variants={variants}>
+								{char}
+							</motion.span>
+						))}
+					</HostsText>
 				</motion.div>
 				<motion.div
 					ref={greetingTitleRef}
@@ -121,8 +129,14 @@ export default function GreetingScreenPremium({
 					initial='hidden'
 					animate={eventTitleInView ? 'visible' : 'hidden'}
 					className='flex w-full items-center flex-col pt-8 gap-4'
-					variants={variants}>
-					<MainTitle color={titleColor}>{renderEventTitle}</MainTitle>
+					variants={greetingTitleContainer}>
+					<MainTitle color={titleColor}>
+						{event_title_2.split('\n').map((char, index) => (
+							<motion.span key={char + '-' + index} variants={variants}>
+								{char}
+							</motion.span>
+						))}
+					</MainTitle>
 				</motion.div>
 				<div className='w-full flex justify-center' style={{ transform: 'translateY(50%)' }}>
 					<Graphic_1 fill={fill} className='graphic-1' width='177' height='177' />

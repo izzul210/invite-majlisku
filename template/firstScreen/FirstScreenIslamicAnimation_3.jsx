@@ -4,23 +4,21 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/legacy/image';
 import { motion } from 'framer-motion';
 //Components import
+import Bismillah from './components/Bismillah';
+import IslamicTitleAnimation from './components/titles/IslamicTitleAnimation';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
-import RoyalTitleAnimation from './components/titles/RoyalTitleAnimation';
 
-const fontColor = '#C3AB64';
+const fontColor = '#A98F21';
 
 const TextDetail = ({ children }) => {
 	return (
-		<InviteTextProvider
-			fontFamily='ebGaramond'
-			color={fontColor}
-			className='tracking-wider uppercase text-center'>
+		<InviteTextProvider fontFamily='sansPro' color={fontColor} className='text-sm tracking-wider'>
 			{children}
 		</InviteTextProvider>
 	);
 };
 
-export default function FirstScreenRoyalAnimation_1({
+export default function FirstScreenIslamic_3({
 	event_title_1 = 'Event Title 1',
 	optional_description = '',
 	italic_title = 'Main Title',
@@ -43,15 +41,14 @@ export default function FirstScreenRoyalAnimation_1({
 	}, []);
 
 	return (
-		<div className='w-full bg-[#FFFDFA] flex justify-center items-center'>
+		<div className='w-full bg-[#FFFDFA] min-h-[100vh] sm:min-h-[800px]  flex justify-center items-center'>
 			<div
-				className='w-full relative flex justify-center items-center'
+				className='w-full relative  flex justify-center items-center'
 				style={{ minHeight: windowWidth < 500 ? windowWidth * 1.8 : 780 }}>
 				<Image
 					className='h-full z-0'
-					src='/royal-1.png'
-					alt='Royal 1'
-					height
+					src='/nikah-13.png'
+					alt='Nikah 13'
 					layout='fill'
 					quality={100}
 					priority
@@ -59,30 +56,31 @@ export default function FirstScreenRoyalAnimation_1({
 					objectPosition='center'
 				/>
 				<div
-					className='w-full h-full flex justify-center items-center flex-col  z-0 relative'
+					className='w-full flex justify-center items-center flex-col gap-12 mt-6 p-5 z-0 relative'
 					style={{ maxWidth: '300px' }}>
-					<div className='h-[190px] w-full flex justify-center items-start'>
+					<motion.div variants={childVariants}>
+						<Bismillah />
+					</motion.div>
+					<IslamicTitleAnimation
+						italic_title={italic_title}
+						childVariants={childVariants}
+						color={fontColor}
+					/>
+					<div className='flex flex-col gap-5 text-center uppercase text-xs'>
 						<motion.div variants={childVariants}>
-							<TextDetail color={fontColor} className='tracking-wide'>
+							<TextDetail fontFamily='sansPro' color={fontColor}>
 								{event_title_1}
 							</TextDetail>
 						</motion.div>
-					</div>
-					<RoyalTitleAnimation
-						childVariants={childVariants}
-						color={fontColor}
-						italic_title={italic_title}
-					/>
-					<div className='h-[245px] w-full  flex justify-center items-end' variants={childVariants}>
-						{optional_description ? (
+						{optional_description && (
 							<motion.div variants={childVariants}>
-								<TextDetail color={fontColor}>
+								<TextDetail fontFamily='sansPro' color={fontColor}>
 									<div style={{ whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>
 										{optional_description}
 									</div>
 								</TextDetail>
 							</motion.div>
-						) : null}
+						)}
 					</div>
 				</div>
 			</div>
