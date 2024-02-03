@@ -44,8 +44,9 @@ const OpeningComponent = ({ onOpen, enable_bahasa }) => {
 				opacity: 1,
 				y: '-100%',
 			}}
+			style={{ minHeight: '100dvh' }}
 			transition={{ type: 'tween', duration: 0.7 }}
-			className='opening-screen flex flex-col justify-between  items-center justify-center min-h-screen w-full'
+			className='opening-screen flex flex-col justify-between  items-center justify-center w-full'
 			onClick={onOpen}>
 			<div></div>
 			<MajliskuMainIcon />

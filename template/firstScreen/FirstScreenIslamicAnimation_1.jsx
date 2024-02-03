@@ -41,7 +41,7 @@ export default function FirstScreenIslamic_1({
 	}, []);
 
 	return (
-		<div className='w-full bg-[#FFFBF0]  min-h-[100vh] sm:min-h-[800px]  flex justify-center items-center'>
+		<div className='w-full bg-[#FFFBF0]  min-h-[100dvh] sm:min-h-[800px]  flex justify-center items-center'>
 			<div
 				className='w-full relative  flex justify-center items-center'
 				style={{ minHeight: windowWidth < 500 ? windowWidth * 1.8 : 780 }}>
