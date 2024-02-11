@@ -31,7 +31,7 @@ const OpeningComponent = ({ onOpen, enable_bahasa }) => {
 				y: '-100%',
 			}}
 			transition={{ type: 'tween', duration: 0.7 }}
-			style={{ minHeight: '100dvh' }}
+			style={{ minHeight: '100vh' }}
 			className='opening-screen flex flex-col justify-between  items-center justify-center  w-full'
 			onClick={onOpen}>
 			<div></div>

@@ -29,6 +29,7 @@ export default function SwipeableTemporaryDrawer({
 	title = 'Modal',
 	loading = false,
 	children,
+	padding = '24px',
 	...props
 }) {
 	const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -90,7 +91,11 @@ export default function SwipeableTemporaryDrawer({
 					)}
 				</DialogTitle>
 				<div className='w-full flex justify-center items-center pb-12'>
-					<div className='px-6 w-full max-w-[400px]'>{children}</div>
+					<div
+						style={{ paddingRight: padding, paddingLeft: padding }}
+						className='px-6 w-full max-w-[400px]'>
+						{children}
+					</div>
 				</div>
 			</Box>
 		</SwipeableDrawer>

@@ -16,7 +16,12 @@ const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'))
 const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpModal'));
 const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
 
-export default function EventDetails({ eventDetails, guest_name = null, preview = false }) {
+export default function EventDetails({
+	eventDetails,
+	inviteId,
+	guest_name = null,
+	preview = false,
+}) {
 	const {
 		event_date,
 		event_time,
@@ -51,6 +56,7 @@ export default function EventDetails({ eventDetails, guest_name = null, preview 
 		//type
 		guest_name,
 		preview,
+		inviteId,
 	};
 
 	const handleOnClickRsvpResponse = (status) => {

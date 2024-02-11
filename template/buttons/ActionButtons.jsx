@@ -7,6 +7,7 @@ import { useInView } from 'react-intersection-observer';
 //Buttons import
 import RsvpButton from './RsvpButton';
 import GiftRegistryButton from './GiftRegistryButton';
+import GiftRegistryButton2 from './GiftRegistryButton2';
 import MoneyGiftButton from './MoneyGiftButton';
 import PersonalizedRsvpButton from './PersonalizedRsvpButton';
 //Components import
@@ -110,7 +111,7 @@ function ActionButtons({
 				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton {...actionButtonsProps} />}
 			</motion.div>
 			<motion.div className='w-full' variants={variants}>
-				{enable_gift_registry && <GiftRegistryButton {...actionButtonsProps} />}
+				{enable_gift_registry && <GiftRegistryButton2 {...actionButtonsProps} />}
 			</motion.div>
 			<motion.div className='w-full' variants={variants}>
 				{enable_money_gift && <MoneyGiftButton {...actionButtonsProps} />}

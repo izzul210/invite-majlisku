@@ -31,7 +31,7 @@ const convertOldTheme = (type) => {
 	}
 };
 
-const OpeningComponent = ({ onOpen, enable_bahasa }) => {
+const OpeningComponent = ({ onOpen, enable_bahasa, isLoading }) => {
 	return (
 		<motion.div
 			initial={{ opacity: 1, y: '0%', backgroundColor: '#0E7F6E' }}
@@ -44,15 +44,21 @@ const OpeningComponent = ({ onOpen, enable_bahasa }) => {
 				opacity: 1,
 				y: '-100%',
 			}}
-			style={{ minHeight: '100dvh' }}
+			style={{ minHeight: '100vh' }}
 			transition={{ type: 'tween', duration: 0.7 }}
 			className='opening-screen flex flex-col justify-between  items-center justify-center w-full'
 			onClick={onOpen}>
 			<div></div>
 			<MajliskuMainIcon />
-			<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-24'>
-				{enable_bahasa ? 'Sila tekan untuk buka' : 'Tap To Open'}
-			</InviteTextProvider>
+			{isLoading ? (
+				<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-24'>
+					Loading...
+				</InviteTextProvider>
+			) : (
+				<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-24'>
+					{enable_bahasa ? 'Sila tekan untuk buka' : 'Tap To Open'}
+				</InviteTextProvider>
+			)}
 		</motion.div>
 	);
 };
@@ -69,13 +75,12 @@ function InviteTemplate({ inviteId }) {
 		if (!isLoading) {
 			setIsOpen(false);
 			setTimeout(() => setMainPageVisible(true), 100);
-			// Delay to match the opening screen animation
 		}
 	};
 
-	// const design = Number(eventDetails?.design_num)
-	// 	? Number(eventDetails.design_num)
-	// 	: convertOldTheme(eventDetails?.type);
+	const design = Number(eventDetails?.design_num)
+		? Number(eventDetails.design_num)
+		: convertOldTheme(eventDetails?.type);
 
 	const containerVariants = {
 		hidden: { opacity: 1, filter: 'blur(10px)', display: 'none' },
@@ -105,14 +110,18 @@ function InviteTemplate({ inviteId }) {
 		},
 	};
 
-	const design = 7;
+	// const design = 34;
 
 	return (
 		<InviteContext.Provider value={{ design, premium_design }}>
 			<>
 				<AnimatePresence>
 					{isOpen ? (
-						<OpeningComponent onOpen={handleOpen} enable_bahasa={eventDetails?.enable_bahasa} />
+						<OpeningComponent
+							onOpen={handleOpen}
+							enable_bahasa={eventDetails?.enable_bahasa}
+							isLoading={isLoading}
+						/>
 					) : null}
 				</AnimatePresence>
 				<motion.div

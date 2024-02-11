@@ -29,6 +29,7 @@ export default function EventDetailsBasicAnimation({
 	enable_deadline = false,
 	enable_gift_registry = false,
 	enable_money_gift = false,
+	inviteId,
 }) {
 	const { useConvertText } = useInviteFunc();
 
@@ -122,6 +123,7 @@ export default function EventDetailsBasicAnimation({
 				)}
 			</div>
 			<ActionButtons
+				inviteId={inviteId}
 				preview={preview}
 				guest_name={guest_name}
 				enable_bahasa={enable_bahasa}

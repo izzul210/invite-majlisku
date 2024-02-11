@@ -10,6 +10,8 @@ import ModalProvider from '../../component/drawer/DrawerProvider';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import ButtonProvider from '../../component/button/ButtonProvider';
 import AddToCalendar from '../calendar/components/AddToCalendar';
+import GiftRegistryModal from './GiftRegistryModal';
+import MoneyGiftModal from './MoneyGiftModal';
 //Icons import
 import { AttendingIcon, GiftIcon, MoneyGift, MajliskuWhiteIcon } from '../../component/icons/icons';
 
@@ -22,7 +24,19 @@ export default function ThankYouModal({
 	eventDetails,
 	status = 'attending',
 }) {
-	const pathname = usePathname();
+	const [openGift, setOpenGift] = useState(false);
+	const [openMoney, setOpenMoney] = useState(false);
+
+	const handleOpenGiftRegistry = () => {
+		handleClose();
+		setOpenGift(true);
+	};
+
+	const handleOpenMoneyGift = () => {
+		handleClose();
+		setOpenMoney(true);
+	};
+
 	//Title Text
 	const thankyouText = enable_bahasa ? 'Terima kasih kerana membalas!' : 'Thank you for the RSVP!';
 	const attendingText = enable_bahasa
@@ -36,68 +50,84 @@ export default function ThankYouModal({
 		: `WE'rE LOOKING FORWARD TO your response${guestName ? `, ${guestName}` : ''}`;
 
 	return (
-		<ModalProvider topBorder isOpen={isOpen} handleClose={handleClose}>
-			<div className='w-full flex flex-col items-center'>
-				{/***** Page Container ***/}
-				<div className='w-full max-w-2xl flex flex-col gap-6 py-6 mt-4'>
-					<div className='w-full items-center flex flex-col gap-6'>
-						<AttendingIcon width={36} height={36} />
-						<InviteTextProvider className='uppercase text-[20px] font-medium text-center'>
-							{thankyouText}
-						</InviteTextProvider>
-						{status === 'attending' ? (
-							<>
-								<InviteTextProvider className='uppercase text-[16px] font-normal text-center'>
-									{attendingText}
-								</InviteTextProvider>
-								<div className='py-2 border-t border-b w-full'>
-									<InviteTextProvider className='uppercase text-[14px] font-medium text-center'>
-										{moment(event_date).format('dddd, D MMMM YYYY')}
-									</InviteTextProvider>
-								</div>
-							</>
-						) : status === 'notattending' ? (
-							<InviteTextProvider className='uppercase text-[16px] font-normal text-center'>
-								{notattendingText}
+		<>
+			<ModalProvider topBorder isOpen={isOpen} handleClose={handleClose}>
+				<div className='w-full flex flex-col items-center'>
+					{/***** Page Container ***/}
+					<div className='w-full max-w-2xl flex flex-col gap-6 py-6 mt-4'>
+						<div className='w-full items-center flex flex-col gap-6'>
+							<AttendingIcon width={36} height={36} />
+							<InviteTextProvider className='uppercase text-[20px] font-medium text-center'>
+								{thankyouText}
 							</InviteTextProvider>
-						) : (
-							<InviteTextProvider className='uppercase text-[16px] font-normal text-center'>
-								{maybeText}
-							</InviteTextProvider>
-						)}
-					</div>
-
-					<div className='flex flex-col gap-6'>
-						<div className='flex flex-col gap-3'>
 							{status === 'attending' ? (
-								<AddToCalendar
-									enable_bahasa={enable_bahasa}
-									address={eventDetails?.location_info?.address}
-									start_time={eventDetails?.event_time?.start}
-									end_time={eventDetails?.event_time?.end}
-									event_date={eventDetails?.event_date}
-									event_title={`${eventDetails?.event_title_1} ${eventDetails?.italic_title}`}
-								/>
-							) : null}
-							{eventDetails?.enable_gift_registry ? (
-								<Link href={`${pathname}/gift`}>
-									<ButtonProvider className='w-full uppercase'>
+								<>
+									<InviteTextProvider className='uppercase text-[16px] font-normal text-center'>
+										{attendingText}
+									</InviteTextProvider>
+									<div className='py-2 border-t border-b w-full'>
+										<InviteTextProvider className='uppercase text-[14px] font-medium text-center'>
+											{moment(event_date).format('dddd, D MMMM YYYY')}
+										</InviteTextProvider>
+									</div>
+								</>
+							) : status === 'notattending' ? (
+								<InviteTextProvider className='uppercase text-[16px] font-normal text-center'>
+									{notattendingText}
+								</InviteTextProvider>
+							) : (
+								<InviteTextProvider className='uppercase text-[16px] font-normal text-center'>
+									{maybeText}
+								</InviteTextProvider>
+							)}
+						</div>
+
+						<div className='flex flex-col gap-6'>
+							<div className='flex flex-col gap-3'>
+								{status === 'attending' ? (
+									<AddToCalendar
+										enable_bahasa={enable_bahasa}
+										address={eventDetails?.location_info?.address}
+										start_time={eventDetails?.event_time?.start}
+										end_time={eventDetails?.event_time?.end}
+										event_date={eventDetails?.event_date}
+										event_title={`${eventDetails?.event_title_1} ${eventDetails?.italic_title}`}
+									/>
+								) : null}
+								{eventDetails?.enable_gift_registry ? (
+									<ButtonProvider className='w-full uppercase' onClick={handleOpenGiftRegistry}>
 										<GiftIcon /> {enable_bahasa ? 'Bawa Hadiah' : 'Gift Registry'}
 									</ButtonProvider>
-								</Link>
-							) : null}
+								) : null}
+								{eventDetails?.enable_money_gift ? (
+									<ButtonProvider className='w-full uppercase' onClick={handleOpenMoneyGift}>
+										<MoneyGift />
+										{enable_bahasa ? 'Salam Kaut' : 'Money Gift'}
+									</ButtonProvider>
+								) : null}
 
-							<Link href='https://majlisku.com' target='_blank'>
-								<ButtonProvider type='primary' className='w-full uppercase'>
-									<MajliskuWhiteIcon />
-									{enable_bahasa ? 'Cipta undangan anda' : 'Create your invitation'}
-								</ButtonProvider>
-							</Link>
+								<Link href='https://majlisku.com' target='_blank'>
+									<ButtonProvider type='primary' className='w-full uppercase'>
+										<MajliskuWhiteIcon />
+										{enable_bahasa ? 'Cipta undangan anda' : 'Create your invitation'}
+									</ButtonProvider>
+								</Link>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</ModalProvider>
+			</ModalProvider>
+			<GiftRegistryModal
+				isOpen={openGift}
+				handleClose={() => setOpenGift(false)}
+				handleOpen={() => setOpenGift(true)}
+			/>
+			<MoneyGiftModal
+				enable_bahasa={enable_bahasa}
+				isOpen={openMoney}
+				handleClose={() => setOpenMoney(false)}
+			/>
+		</>
 	);
 }
 
