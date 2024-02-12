@@ -43,12 +43,16 @@ export default function SwipeableTemporaryDrawer({
 			onOpen={() => {}}
 			disableBackdropTransition={!iOS}
 			disableDiscovery={iOS}
+			ModalProps={{
+				// This should already be the default behavior
+				disableScrollLock: false,
+			}}
 			PaperProps={{
 				sx: {
 					zIndex: 200,
 					borderTopRightRadius: 15,
 					borderTopLeftRadius: 15,
-					maxHeight: '98vh',
+					maxHeight: '90vh',
 				},
 			}}>
 			<CardLoadingState loadingState={loading} />

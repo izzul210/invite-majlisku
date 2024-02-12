@@ -466,7 +466,7 @@ export const MajliskuLoadingIcon = ({ width = '94', height = '94' }) => (
 	</svg>
 );
 
-export const MajliskuMainIcon = ({ width = '94', height = '94' }) => (
+export const MajliskuMainIcon = ({ width = '68', height = '68' }) => (
 	<svg
 		width={width}
 		height={height}

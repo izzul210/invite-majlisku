@@ -7,7 +7,7 @@ import InviteTextProvider from '../../component/textProvider/InviteTextProvider'
 import ModalProvider from '../../component/drawer/DrawerProvider';
 import { useQueryClient } from 'react-query';
 //Hooks import
-import { useSubmitReserveGift } from '../../hooks/usePostApi';
+import { useSubmitPersonalReserveGift } from '../../hooks/usePostApi';
 //Gift Registry modal content
 const GiftRegistryModal = dynamic(() => import('../modal/GiftRegistryModal'));
 import GiftDetailModal from '../modal/GiftDetailModal';
@@ -16,15 +16,14 @@ import ReturnHomeModal from '../modal/ReturnHomeModal';
 import GiftPostReserveModal from '../modal/GiftPostReserveModal';
 
 function GiftRegistryButton({ enable_bahasa, preview }) {
+	const queryClient = useQueryClient();
 	const [openModal, setOpenModal] = useState(false);
 	const [modalContent, setModalContent] = useState(null);
 	const [giftDetails, setGiftDetails] = useState(null);
 	const [loading, setLoading] = useState(false);
 
-	const queryClient = useQueryClient();
-	const submitGuestReserveGift = useSubmitReserveGift();
-
-	const guestDetail = queryClient.getQueryData('guestDetail') || null;
+	const submitGuestReserveGift = useSubmitPersonalReserveGift();
+	const guestDetail = queryClient.getQueryData('personalizedGuestDetail') || null;
 
 	const handleOpenModal = () => {
 		setModalContent('giftRegistry');
@@ -99,6 +98,7 @@ function GiftRegistryButton({ enable_bahasa, preview }) {
 								<GiftDetailModal
 									giftDetails={giftDetails}
 									handleSwitchModalContent={handleSwitchModalContent}
+									enable_bahasa={enable_bahasa}
 								/>
 							);
 						case 'returnHome':

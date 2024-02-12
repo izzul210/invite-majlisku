@@ -32,7 +32,7 @@ export default function GreetingScreen({ eventDetails, guest_name = null, previe
 		enable_gift_registry,
 		enable_money_gift,
 	} = eventDetails || {};
-	const { design, premium_design } = useInviteContext();
+	const { design } = useInviteContext();
 
 	const greetingScreenProps = {
 		enable_bahasa,
@@ -55,14 +55,12 @@ export default function GreetingScreen({ eventDetails, guest_name = null, previe
 	switch (design) {
 		case 5:
 		case 7:
-			return (
-				<GreetingScreenIslamicAnimation premium_design={premium_design} {...greetingScreenProps} />
-			);
+			return <GreetingScreenIslamicAnimation premium_design={0} {...greetingScreenProps} />;
 		case 6:
 			return (
 				<GreetingScreenIslamicAnimation
 					backgroundColor='#FFFDFA'
-					premium_design={premium_design}
+					premium_design={0}
 					{...greetingScreenProps}
 				/>
 			);

@@ -6,22 +6,21 @@ import { useQueryClient } from 'react-query';
 //Components import
 import ModalProvider from '../../component/drawer/DrawerProvider';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
-//Modals content import
-import RsvpActionModal from '../modal/RsvpActionModal';
-import AttendingRsvpModal from '../modal/AttendingRsvpModal';
-import NotAttendingRsvpModal from '../modal/NotAttendingRsvpModal';
-import MaybeRsvpModal from '../modal/MaybeRsvpModal';
+//Modals import
+import PersonalizedAttendingRsvpModal from '../modal/PersonalizedAttendingRsvpModal';
+import PersonalizedNotAttendingRsvpModal from '../modal/PersonalizedNotAttendingRsvpModal';
+import PersonalizedMaybeRsvpModal from '../modal/PersonalizedMaybeRsvpModal';
+import PersonalizedRsvpActionModal from '../modal/PersonalizedRsvpActionModal';
 import ThankYouModal from '../modal/ThankYouModal';
 
-function RsvpButton(props) {
-	//From React Query:
-	const queryClient = useQueryClient();
-	const eventDetails = queryClient.getQueryData('eventDetails') || {};
-	//States
+function PersonalizedRsvpButton(props) {
 	const [openModal, setOpenModal] = useState(false);
 	const [modalContent, setModalContent] = useState('rsvpAction');
 	const [status, setStatus] = useState('attending');
-
+	//From React Query:
+	const queryClient = useQueryClient();
+	const eventDetails = queryClient.getQueryData('eventDetails') || {};
+	const guestDetails = queryClient.getQueryData('personalizedGuestDetail') || {};
 	const {
 		enable_bahasa,
 		event_time,
@@ -30,7 +29,6 @@ function RsvpButton(props) {
 		enable_multiple_slots,
 		enable_unlimited_pax,
 		guest_pax_limit,
-		enable_gift_registry,
 	} = eventDetails || {};
 
 	const renderBackButton = () => {
@@ -84,16 +82,34 @@ function RsvpButton(props) {
 		}
 	};
 
+	const handleOnClickRsvp = () => {
+		setOpenModal(true);
+		// setThankyouModal(true);
+	};
+
+	const renderRsvpButtonTitle = () => {
+		if (guestDetails?.response) {
+			if (guestDetails?.response?.rsvp === 'attending') {
+				return `RSVP'D - ${enable_bahasa ? 'Hadir' : 'Attending'}`;
+			} else if (guestDetails?.response?.rsvp === 'notattending') {
+				return `RSVP'D - ${enable_bahasa ? 'Tidak Hadir' : 'Not Attending'}`;
+			} else if (guestDetails?.response?.rsvp === 'maybe') {
+				return `RSVP'D - ${enable_bahasa ? 'Tidak Pasti' : 'Not Sure Yet'}`;
+			}
+		} else {
+			return 'RSVP';
+		}
+	};
+
 	return (
 		<>
 			<button
-				disabled={props.preview === true}
 				{...props}
-				onClick={handleOpenModal}
+				onClick={handleOnClickRsvp}
 				style={{ backgroundColor: '#1E1E1E', border: '1px solid #1E1E1E' }}
 				className='w-full font-medium rounded-full py-4 px-8 flex flex-row justify-center items-center gap-2 cursor-pointer'>
 				<InviteTextProvider className='uppercase' color='white'>
-					RSVP
+					{renderRsvpButtonTitle()}
 				</InviteTextProvider>
 			</button>
 			<ModalProvider
@@ -106,14 +122,14 @@ function RsvpButton(props) {
 					switch (modalContent) {
 						case 'rsvpAction':
 							return (
-								<RsvpActionModal
+								<PersonalizedRsvpActionModal
 									handleRsvp={handleOnClickRsvpResponse}
 									enable_bahasa={enable_bahasa}
 								/>
 							);
 						case 'attending':
 							return (
-								<AttendingRsvpModal
+								<PersonalizedAttendingRsvpModal
 									enable_unlimited_pax={enable_unlimited_pax}
 									guest_pax_limit={guest_pax_limit}
 									enable_bahasa={enable_bahasa}
@@ -130,7 +146,7 @@ function RsvpButton(props) {
 							);
 						case 'notattending':
 							return (
-								<NotAttendingRsvpModal
+								<PersonalizedNotAttendingRsvpModal
 									enable_bahasa={enable_bahasa}
 									handleClose={handleCloseModal}
 									handlePostRequest={() => {
@@ -142,7 +158,7 @@ function RsvpButton(props) {
 							);
 						case 'maybe':
 							return (
-								<MaybeRsvpModal
+								<PersonalizedMaybeRsvpModal
 									enable_bahasa={enable_bahasa}
 									handleClose={handleCloseModal}
 									handlePostRequest={() => {
@@ -171,4 +187,4 @@ function RsvpButton(props) {
 	);
 }
 
-export default RsvpButton;
+export default PersonalizedRsvpButton;

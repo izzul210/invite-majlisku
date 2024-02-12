@@ -10,8 +10,9 @@ import InviteTextProvider from '../../component/textProvider/InviteTextProvider'
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
 //Buttons import
 const RsvpButton = dynamic(() => import('./RsvpButton2'));
-const PersonalizedRsvpButton = dynamic(() => import('./PersonalizedRsvpButton'));
+const PersonalizedRsvpButton = dynamic(() => import('./PersonalizedRsvpButton2'));
 const GiftRegistryButton = dynamic(() => import('./GiftRegistryButton2'));
+const PersonalizedGiftRegistryButton = dynamic(() => import('./PersonalizedGiftRegistryButton'));
 const MoneyGiftButton = dynamic(() => import('./MoneyGiftButton'));
 
 const DeadlineText = ({ enable_bahasa, color, event_date_deadline = '2012-12-12' }) => {
@@ -108,10 +109,20 @@ function ActionButtons2({
 			animate={inView ? 'visible' : 'hidden'}
 			className='w-full flex flex-col gap-2 px-5'>
 			<motion.div className='w-full' variants={variants}>
-				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton {...actionButtonsProps} />}
+				{guest_name ? (
+					<PersonalizedRsvpButton {...actionButtonsProps} />
+				) : (
+					<RsvpButton {...actionButtonsProps} />
+				)}
 			</motion.div>
 			<motion.div className='w-full' variants={variants}>
-				{enable_gift_registry && <GiftRegistryButton {...actionButtonsProps} />}
+				{enable_gift_registry ? (
+					guest_name ? (
+						<PersonalizedGiftRegistryButton {...actionButtonsProps} />
+					) : (
+						<GiftRegistryButton {...actionButtonsProps} />
+					)
+				) : null}
 			</motion.div>
 			<motion.div className='w-full' variants={variants}>
 				{enable_money_gift && <MoneyGiftButton {...actionButtonsProps} />}

@@ -72,10 +72,11 @@ const OpeningComponent = ({ onOpen, title, enable_bahasa, isLoading }) => {
 };
 
 function InviteTemplate({ inviteId }) {
-	const [premium_design, setPremiumDesign] = useState(0);
+	//Fetch data
 	const { data: eventDetails, isLoading } = useEventDetails(inviteId);
 	const { data: itinerary } = useItineraryList();
 	const { data: wishlist } = useWishList();
+	//States
 	const [isOpen, setIsOpen] = useState(true);
 	const [mainPageVisible, setMainPageVisible] = useState(false);
 
@@ -119,7 +120,7 @@ function InviteTemplate({ inviteId }) {
 	};
 
 	return (
-		<InviteContext.Provider value={{ design, premium_design }}>
+		<InviteContext.Provider value={{ design }}>
 			<>
 				<AnimatePresence>
 					{isOpen ? (
