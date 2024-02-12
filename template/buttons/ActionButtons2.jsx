@@ -11,7 +11,7 @@ import InviteLineLogo from '../../component/misc/InviteLineLogo';
 //Buttons import
 const RsvpButton = dynamic(() => import('./RsvpButton2'));
 const PersonalizedRsvpButton = dynamic(() => import('./PersonalizedRsvpButton'));
-const GiftRegistryButton2 = dynamic(() => import('./GiftRegistryButton2'));
+const GiftRegistryButton = dynamic(() => import('./GiftRegistryButton2'));
 const MoneyGiftButton = dynamic(() => import('./MoneyGiftButton'));
 
 const DeadlineText = ({ enable_bahasa, color, event_date_deadline = '2012-12-12' }) => {
@@ -111,7 +111,7 @@ function ActionButtons2({
 				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton {...actionButtonsProps} />}
 			</motion.div>
 			<motion.div className='w-full' variants={variants}>
-				{enable_gift_registry && <GiftRegistryButton2 {...actionButtonsProps} />}
+				{enable_gift_registry && <GiftRegistryButton {...actionButtonsProps} />}
 			</motion.div>
 			<motion.div className='w-full' variants={variants}>
 				{enable_money_gift && <MoneyGiftButton {...actionButtonsProps} />}

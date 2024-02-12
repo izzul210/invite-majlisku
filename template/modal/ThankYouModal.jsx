@@ -3,7 +3,6 @@
 'use client';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
 import moment from 'moment';
 //Components import
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
@@ -88,18 +87,6 @@ export default function ThankYouModal({
 								event_title={`${eventDetails?.event_title_1} ${eventDetails?.italic_title}`}
 							/>
 						) : null}
-						{/* {eventDetails?.enable_gift_registry ? (
-							<ButtonProvider className='w-full uppercase' onClick={handleOpenGiftRegistry}>
-								<GiftIcon /> {enable_bahasa ? 'Bawa Hadiah' : 'Gift Registry'}
-							</ButtonProvider>
-						) : null}
-						{eventDetails?.enable_money_gift ? (
-							<ButtonProvider className='w-full uppercase' onClick={handleOpenMoneyGift}>
-								<MoneyGift />
-								{enable_bahasa ? 'Salam Kaut' : 'Money Gift'}
-							</ButtonProvider>
-						) : null} */}
-
 						<Link href='https://majlisku.com' target='_blank'>
 							<ButtonProvider type='primary' className='w-full uppercase'>
 								<MajliskuWhiteIcon />

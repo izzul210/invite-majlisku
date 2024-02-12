@@ -1,7 +1,6 @@
 /** @format */
 'use client';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
 import { useInviteContext } from '../inviteContext';
 //Templates import
 const EventDetailsBasic = dynamic(() => import('./EventDetailsBasic'));
@@ -10,11 +9,6 @@ const EventDetailsMinimal_2 = dynamic(() => import('./EventDetailsMinimal_2'));
 const EventDetailsPremium = dynamic(() => import('./EventDetailsPremium'));
 const EventDetailsBasicAnimation = dynamic(() => import('./EventDetailsBasicAnimation'));
 const EventDetailsPremiumAnimation = dynamic(() => import('./EventDetailsPremiumAnimation'));
-//Modals import
-const RsvpActionModal = dynamic(() => import('../modals/RsvpActionModal'));
-const AttendingRsvpModal = dynamic(() => import('../modals/AttendingRsvpModal'));
-const NotAttendingRsvpModal = dynamic(() => import('../modals/NotAttendingRsvpModal'));
-const MaybeRsvpModal = dynamic(() => import('../modals/MaybeRsvpModal'));
 
 export default function EventDetails({
 	eventDetails,
@@ -35,10 +29,6 @@ export default function EventDetails({
 		event_address,
 	} = eventDetails || {};
 	const { design } = useInviteContext();
-	const [openModal, setOpenModal] = useState(false);
-	const [attendingModal, setAttendingModal] = useState(false);
-	const [notAttendingModal, setNotAttendingModal] = useState(false);
-	const [maybeModal, setMaybeModal] = useState(false);
 
 	const eventDetailsProps = {
 		enable_bahasa,
@@ -57,17 +47,6 @@ export default function EventDetails({
 		guest_name,
 		preview,
 		inviteId,
-	};
-
-	const handleOnClickRsvpResponse = (status) => {
-		setOpenModal(false);
-		if (status === 0) {
-			setAttendingModal(true);
-		} else if (status === 1) {
-			setNotAttendingModal(true);
-		} else if (status === 2) {
-			setMaybeModal(true);
-		}
 	};
 
 	return (
@@ -117,39 +96,6 @@ export default function EventDetails({
 						return <EventDetailsDefault {...eventDetailsProps} />;
 				}
 			})()}
-			<RsvpActionModal
-				isOpen={openModal}
-				handleClose={() => setOpenModal(false)}
-				handleRsvp={handleOnClickRsvpResponse}
-				enable_bahasa={enable_bahasa}
-			/>
-			<AttendingRsvpModal
-				isOpen={attendingModal}
-				handleClose={() => setAttendingModal(false)}
-				handleBackButton={() => {
-					setAttendingModal(false);
-					setOpenModal(true);
-				}}
-				enable_bahasa={enable_bahasa}
-			/>
-			<NotAttendingRsvpModal
-				isOpen={notAttendingModal}
-				handleClose={() => setNotAttendingModal(false)}
-				handleBackButton={() => {
-					setNotAttendingModal(false);
-					setOpenModal(true);
-				}}
-				enable_bahasa={enable_bahasa}
-			/>
-			<MaybeRsvpModal
-				isOpen={maybeModal}
-				handleClose={() => setMaybeModal(false)}
-				handleBackButton={() => {
-					setMaybeModal(false);
-					setOpenModal(true);
-				}}
-				enable_bahasa={enable_bahasa}
-			/>
 		</>
 	);
 }

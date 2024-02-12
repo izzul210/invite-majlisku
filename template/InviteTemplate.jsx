@@ -1,6 +1,6 @@
 /** @format */
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEventDetails, useItineraryList, useWishList } from '../hooks/useApi';
 import Footnote from './Footnote';
@@ -31,7 +31,7 @@ const convertOldTheme = (type) => {
 	}
 };
 
-const OpeningComponent = ({ onOpen, enable_bahasa, isLoading }) => {
+const OpeningComponent = ({ onOpen, title, enable_bahasa, isLoading }) => {
 	return (
 		<motion.div
 			initial={{ opacity: 1, y: '0%', backgroundColor: '#0E7F6E' }}
@@ -49,13 +49,21 @@ const OpeningComponent = ({ onOpen, enable_bahasa, isLoading }) => {
 			className='opening-screen flex flex-col justify-between  items-center justify-center w-full'
 			onClick={onOpen}>
 			<div></div>
-			<MajliskuMainIcon />
+			<div className='flex items-center justify-center gap-12 flex-col'>
+				<MajliskuMainIcon />
+				<InviteTextProvider
+					fontFamily='greatVibes'
+					color='#F1BFBE'
+					className='uppercase lowercase capitalize text-center text-[34px] sm:text-3xl'>
+					<div style={{ whiteSpace: 'pre-line' }}>{title}</div>
+				</InviteTextProvider>
+			</div>
 			{isLoading ? (
-				<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-24'>
+				<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-[100px]'>
 					Loading...
 				</InviteTextProvider>
 			) : (
-				<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-24'>
+				<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-[100px]'>
 					{enable_bahasa ? 'Sila tekan untuk buka' : 'Tap To Open'}
 				</InviteTextProvider>
 			)}
@@ -110,8 +118,6 @@ function InviteTemplate({ inviteId }) {
 		},
 	};
 
-	// const design = 34;
-
 	return (
 		<InviteContext.Provider value={{ design, premium_design }}>
 			<>
@@ -120,6 +126,7 @@ function InviteTemplate({ inviteId }) {
 						<OpeningComponent
 							onOpen={handleOpen}
 							enable_bahasa={eventDetails?.enable_bahasa}
+							title={eventDetails?.italic_title}
 							isLoading={isLoading}
 						/>
 					) : null}
