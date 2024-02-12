@@ -91,6 +91,8 @@ function InviteTemplate({ inviteId }) {
 		? Number(eventDetails.design_num)
 		: convertOldTheme(eventDetails?.type);
 
+	// const design = 3;
+
 	const containerVariants = {
 		hidden: { opacity: 1, filter: 'blur(10px)', display: 'none' },
 		visible: {
@@ -107,7 +109,7 @@ function InviteTemplate({ inviteId }) {
 	};
 
 	const childVariants = {
-		hidden: { opacity: 0.2, y: '20%', filter: 'blur(20px)' },
+		hidden: { opacity: 0.2, y: '15%', filter: 'blur(20px)' },
 		visible: {
 			opacity: 1,
 			y: '0%',
@@ -148,8 +150,8 @@ function InviteTemplate({ inviteId }) {
 									style={{ maxWidth: '400px' }}>
 									<Tentative eventDetails={eventDetails} itinerary={itinerary} />
 									<Contacts eventDetails={eventDetails} />
-									<Wishlist eventDetails={eventDetails} wishlist={wishlist} />
 									<Calendar eventDetails={eventDetails} />
+									<Wishlist eventDetails={eventDetails} wishlist={wishlist} />
 								</div>
 							</div>
 						</div>

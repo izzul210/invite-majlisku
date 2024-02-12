@@ -13,6 +13,23 @@ export const ItalicTitle = ({ children, ...props }) => {
 	);
 };
 
+export const ItalicTitleAnimation = ({ italic_title, childVariants, ...props }) => {
+	return (
+		<motion.div className='w-full' variants={childVariants}>
+			<InviteTextProvider
+				fontFamily='greatVibes'
+				className='text-center flex flex-col text-5xl'
+				{...props}>
+				{italic_title.split('\n').map((char, index) => (
+					<motion.span key={char + '-' + index} variants={letterVariants}>
+						{char}
+					</motion.span>
+				))}
+			</InviteTextProvider>
+		</motion.div>
+	);
+};
+
 export const ItalicTitle_Playfair = ({ children, ...props }) => {
 	const { useConvertText } = useInviteFunc();
 	return (

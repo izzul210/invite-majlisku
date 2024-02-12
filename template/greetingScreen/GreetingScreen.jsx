@@ -3,14 +3,10 @@
 import dynamic from 'next/dynamic';
 import { useInviteContext } from '../inviteContext';
 //Template import
-const GreetingScreenPremium = dynamic(() => import('./GreetingScreenPremium'));
 const GreetingScreenDefaultNoAnimation = dynamic(() =>
 	import('./GreetingScreenDefaultNoAnimation')
 );
 const GreetingScreenDefault = dynamic(() => import('./GreetingScreenDefault'));
-const GreetingScreenIslamic_1 = dynamic(() => import('./GreetingScreenIslamic_1'));
-const GreetingScreenIslamic_2 = dynamic(() => import('./GreetingScreenIslamic_2'));
-const GreetingScreenRoyal = dynamic(() => import('./GreetingScreenRoyal'));
 const GreetingScreenRustic = dynamic(() => import('./GreetingScreenRustic'));
 const GreetingScreenVintage = dynamic(() => import('./GreetingScreenVintage'));
 //Animated Greeting Screen
@@ -98,10 +94,6 @@ export default function GreetingScreen({ eventDetails, guest_name = null, previe
 		case 60:
 			return <GreetingScreenDefault {...greetingScreenProps} />;
 		default:
-			return (
-				<>
-					<GreetingScreenDefaultNoAnimation {...greetingScreenProps} />
-				</>
-			);
+			return <GreetingScreenDefaultNoAnimation {...greetingScreenProps} />;
 	}
 }

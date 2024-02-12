@@ -5,9 +5,9 @@ import { Graphic_1, Ellipse_1 } from '../../../component/graphics/graphics';
 import defaultImage from '../../../public/defaultimage.png';
 import defaultImage2 from '../../../public/defaultimage2.png';
 
-export const RsvpHeaderImage = ({ rsvp_header_image, curveTopBorder = false }) => {
+export const RsvpHeaderImage = ({ rsvp_header_image, border = false, curveTopBorder = false }) => {
 	return (
-		<div style={{ width: '100%', height: 'auto' }}>
+		<div style={{ width: '100%', maxWidth: border ? '100%' : '300px', height: 'auto' }}>
 			{rsvp_header_image ? (
 				<Image
 					priority

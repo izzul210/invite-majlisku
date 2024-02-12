@@ -72,7 +72,7 @@ function ActionButtons2({
 	const [ref, inView] =
 		useInView({
 			triggerOnce: true, // Animation occurs only once when component comes into view
-			threshold: 1, // Defines at what percentage of the component's height the animation should start
+			threshold: 0.5, // Defines at what percentage of the component's height the animation should start
 		}) || [];
 
 	if (enable_deadline && hasDatePassed) {

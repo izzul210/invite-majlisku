@@ -6,19 +6,7 @@ import React, { useEffect } from 'react';
 import { useInviteContext } from '../inviteContext';
 //Template imports
 const FirstScreenDefault = dynamic(() => import('./FirstScreenDefault'));
-const FirstScreenMinimal_2 = dynamic(() => import('./FirstScreenMinimal_2'));
-const FirstScreenMinimal_1 = dynamic(() => import('./FirstScreenMinimal_1'));
-const FirstScreenPremium = dynamic(() => import('./FirstScreenPremium'));
 const FirstScreenEmbossed = dynamic(() => import('./FirstScreenEmbossed'));
-const FirstScreenIslamic_1 = dynamic(() => import('./FirstScreenIslamic_1'));
-const FirstScreenIslamic_2 = dynamic(() => import('./FirstScreenIslamic_2'));
-const FirstScreenIslamic_3 = dynamic(() => import('./FirstScreenIslamic_3'));
-const FirstScreenRoyal_1 = dynamic(() => import('./FirstScreenRoyal_1'));
-const FirstScreenRoyal_2 = dynamic(() => import('./FirstScreenRoyal_2'));
-const FirstScreenRoyal_3 = dynamic(() => import('./FirstScreenRoyal_3'));
-const FirstScreenRoyal_4 = dynamic(() => import('./FirstScreenRoyal_4'));
-const FirstScreenRoyal_5 = dynamic(() => import('./FirstScreenRoyal_5'));
-const FirstScreenRoyal_6 = dynamic(() => import('./FirstScreenRoyal_6'));
 const FirstScreenRustic_1 = dynamic(() => import('./FirstScreenRustic_1'));
 const FirstScreenRustic_2 = dynamic(() => import('./FirstScreenRustic_2'));
 const FirstScreenRustic_3 = dynamic(() => import('./FirstScreenRustic_3'));
@@ -27,6 +15,9 @@ const FirstScreenVintage_2 = dynamic(() => import('./FirstScreenVintage_2'));
 const FirstScreenVintage_3 = dynamic(() => import('./FirstScreenVintage_3'));
 //Animated template imports
 const FirstScreenDefaultAnimation = dynamic(() => import('./FirstScreenDefaultAnimation'));
+const FirstScreenMinimalAnimation_1 = dynamic(() => import('./FirstScreenMinimalAnimation_1'));
+const FirstScreenMinimalAnimation_2 = dynamic(() => import('./FirstScreenMinimalAnimation_2'));
+const FirstScreenMinimalAnimation_3 = dynamic(() => import('./FirstScreenMinimalAnimation_3'));
 const FirstScreenIslamicAnimation_1 = dynamic(() => import('./FirstScreenIslamicAnimation_1'));
 const FirstScreenIslamicAnimation_2 = dynamic(() => import('./FirstScreenIslamicAnimation_2'));
 const FirstScreenIslamicAnimation_3 = dynamic(() => import('./FirstScreenIslamicAnimation_3'));
@@ -74,11 +65,11 @@ export default function FirstScreen({ eventDetails, childVariants }) {
 		case 0:
 			return <FirstScreenDefault {...firstScreenProps} />;
 		case 1:
-			return <FirstScreenMinimal_2 {...firstScreenProps} />;
+			return <FirstScreenMinimalAnimation_2 {...firstScreenProps} childVariants={childVariants} />;
 		case 2:
-			return <FirstScreenMinimal_1 {...firstScreenProps} />;
+			return <FirstScreenMinimalAnimation_1 {...firstScreenProps} childVariants={childVariants} />;
 		case 3:
-			return <FirstScreenDefault {...firstScreenProps} />;
+			return <FirstScreenMinimalAnimation_3 {...firstScreenProps} childVariants={childVariants} />;
 		case 4:
 			return <FirstScreenEmbossed {...firstScreenProps} />;
 		case 5:

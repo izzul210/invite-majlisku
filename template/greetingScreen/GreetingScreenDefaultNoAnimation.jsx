@@ -2,9 +2,9 @@
 
 import React from 'react';
 //Components import
-import ActionButtons from '../buttons/ActionButtons';
+import ActionButtons from '../buttons/ActionButtons2';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
-import { MajliskuIconV3, GiftIcon, MoneyGift } from '../../component/icons/icons';
+import { MajliskuIconV3 } from '../../component/icons/icons';
 import {
 	HostsText,
 	GreetingText,

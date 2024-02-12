@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { premiumColorTheme } from '../colorThemes';
 import { EventTitle_Premium } from './components/EventTitle';
 import { RsvpHeaderImage_Premium } from './components/RsvpHeaderImage';
-import { ItalicTitle_Playfair, ItalicTitle_Playfair_Animation } from './components/ItalicTitle';
+import { ItalicTitle_Playfair_Animation } from './components/ItalicTitle';
 import { DateLocation_Premium } from './components/DateLocation';
 
 export default function FirstScreenPremiumAnimation({
