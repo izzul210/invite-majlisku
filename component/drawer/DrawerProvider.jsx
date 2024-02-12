@@ -36,6 +36,7 @@ export default function SwipeableTemporaryDrawer({
 
 	return (
 		<SwipeableDrawer
+			transitionDuration={400}
 			anchor='bottom'
 			open={isOpen}
 			onClose={disableSwipeToClose ? () => {} : handleClose}

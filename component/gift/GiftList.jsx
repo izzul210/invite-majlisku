@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
-import GiftDetailModal from './GiftDetailModal';
 import GiftListLoading from './GiftListLoading';
 //Default gift image
 import defaultgiftimage from '../../public/defaultgift.png';
@@ -12,13 +11,13 @@ const ReservedImage = ({ imageUrl, reserved }) => {
 	const reservedText = 'This gift is reserved';
 
 	return (
-		<div className='relative max-h-[320px] overflow-hidden'>
+		<div className='relative max-h-[200px] overflow-hidden'>
 			<div style={{ background: 'rgba(0, 0, 0, 0.30)' }}>
 				<Image
 					src={imageUrl ? imageUrl : defaultgiftimage}
 					alt={'Gift Image'}
 					width={320}
-					height={320}
+					height={200}
 					placeholder='blur'
 					blurDataURL='data:...'
 					style={{ opacity: 0.3 }}
@@ -105,12 +104,12 @@ const GiftCard = ({ giftDetails, ...props }) => {
 			{reserved ? (
 				<ReservedImage imageUrl={imageUrl} />
 			) : (
-				<div className=' max-h-[320px] overflow-hidden'>
+				<div className='max-h-[200px] overflow-hidden'>
 					<Image
 						src={imageUrl ? imageUrl : defaultgiftimage}
 						alt={name}
 						width={320}
-						height={320}
+						height={200}
 						placeholder='blur'
 						blurDataURL='data:...'
 					/>
@@ -140,21 +139,10 @@ const GiftCard = ({ giftDetails, ...props }) => {
 	);
 };
 
-function GiftList({
-	enable_bahasa,
-	giftlist,
-	giftIsLoading,
-	handleCloseGiftRegistry,
-	handleOpenGiftRegistry,
-	handleReturnMainPage,
-}) {
-	const [giftDetails, setGiftDetails] = useState({});
-	const [giftModal, setGiftModal] = useState(false);
+function GiftList({ enable_bahasa, handleSetGiftDetail, giftlist, giftIsLoading }) {
 	const handleClickGift = (gift) => {
 		if (gift.reserved) return;
-		setGiftDetails(gift);
-		handleCloseGiftRegistry();
-		setGiftModal(true);
+		handleSetGiftDetail(gift);
 	};
 
 	if (giftIsLoading) return <GiftListLoading />;
@@ -174,22 +162,6 @@ function GiftList({
 					</InviteTextProvider>
 				</div>
 			)}
-			<GiftDetailModal
-				enable_bahasa={enable_bahasa}
-				handleReturnMainPage={() => {
-					setGiftModal(false);
-					handleReturnMainPage();
-				}}
-				giftDetails={giftDetails}
-				isOpen={giftModal}
-				handleBack={() => {
-					setGiftModal(false);
-					handleOpenGiftRegistry();
-				}}
-				handleClose={() => {
-					setGiftModal(false);
-				}}
-			/>
 		</>
 	);
 }

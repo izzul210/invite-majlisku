@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
 //Event Details components import
-import ActionButtons from '../buttons/ActionButtons';
+import ActionButtons from '../buttons/ActionButtons2';
 import BasicEventTextProvider from './components/text/BasicEventTextProvider';
 import WazeButton from './components/button/WazeButton';
 import GoogleMapButton from './components/button/GoogleMapButton';
