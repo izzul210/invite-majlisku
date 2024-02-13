@@ -87,11 +87,9 @@ function InviteTemplate({ inviteId }) {
 		}
 	};
 
-	// const design = Number(eventDetails?.design_num)
-	// 	? Number(eventDetails.design_num)
-	// 	: convertOldTheme(eventDetails?.type);
-
-	const design = 51;
+	const design = Number(eventDetails?.design_num)
+		? Number(eventDetails.design_num)
+		: convertOldTheme(eventDetails?.type);
 
 	const containerVariants = {
 		hidden: { opacity: 1, filter: 'blur(10px)', display: 'none' },

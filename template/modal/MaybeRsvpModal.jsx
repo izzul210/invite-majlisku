@@ -69,6 +69,19 @@ export default function MaybeRsvpModal({ handleClose, handlePostRequest, enable_
 		}
 	};
 
+	const handleSubmitPreview = async () => {
+		if (checkForInputName()) {
+			let guestRes = {
+				name: name,
+				phone: tel,
+				rsvp: 'maybe',
+				pax: 1,
+				wish: wish,
+			};
+			handlePostRequest();
+		}
+	};
+
 	return (
 		<div className='w-full flex flex-col items-center'>
 			{/***** Page Container ***/}

@@ -169,8 +169,8 @@ function InviteTemplateGuest({ inviteId, guestId }) {
 										style={{ maxWidth: '400px' }}>
 										<Tentative eventDetails={eventDetails} itinerary={itinerary} />
 										<Contacts eventDetails={eventDetails} />
-										<Wishlist eventDetails={eventDetails} wishlist={wishlist} />
 										<Calendar eventDetails={eventDetails} />
+										<Wishlist eventDetails={eventDetails} wishlist={wishlist} />
 									</div>
 								</div>
 							</div>

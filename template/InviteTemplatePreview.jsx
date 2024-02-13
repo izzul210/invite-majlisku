@@ -17,7 +17,7 @@ import Contacts from './contacts/Contacts';
 import Calendar from './calendar/Calendar';
 import { MajliskuMainIcon } from '../component/icons/icons';
 
-const OpeningComponent = ({ onOpen, enable_bahasa }) => {
+const OpeningComponent = ({ onOpen, title, enable_bahasa, isLoading }) => {
 	return (
 		<motion.div
 			initial={{ opacity: 1, y: '0%', backgroundColor: '#0E7F6E' }}
@@ -35,10 +35,24 @@ const OpeningComponent = ({ onOpen, enable_bahasa }) => {
 			className='opening-screen flex flex-col justify-between  items-center justify-center  w-full'
 			onClick={onOpen}>
 			<div></div>
-			<MajliskuMainIcon />
-			<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-24'>
-				{enable_bahasa ? 'Sila tekan untuk buka' : 'Tap To Open'}
-			</InviteTextProvider>
+			<div className='flex items-center justify-center gap-12 flex-col'>
+				<MajliskuMainIcon />
+				<InviteTextProvider
+					fontFamily='greatVibes'
+					color='#F1BFBE'
+					className='uppercase lowercase capitalize text-center text-[34px] sm:text-3xl'>
+					<div style={{ whiteSpace: 'pre-line' }}>{title}</div>
+				</InviteTextProvider>
+			</div>
+			{isLoading ? (
+				<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-[100px]'>
+					Loading...
+				</InviteTextProvider>
+			) : (
+				<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-[100px]'>
+					{enable_bahasa ? 'Sila tekan untuk buka' : 'Tap To Open'}
+				</InviteTextProvider>
+			)}
 		</motion.div>
 	);
 };
@@ -49,9 +63,6 @@ function InviteTemplatePreview({ designId, userId }) {
 	const { data: eventDetails, isLoading } = useEventDetails(userId, 'previewdetails');
 	const { data: itinerary } = useItineraryList();
 	const { data: wishlist } = useWishList();
-
-	const [loadingAnimation, setLoadingAnimation] = useState(true);
-
 	const [isOpen, setIsOpen] = useState(true);
 	const [mainPageVisible, setMainPageVisible] = useState(false);
 
@@ -79,7 +90,7 @@ function InviteTemplatePreview({ designId, userId }) {
 	};
 
 	const childVariants = {
-		hidden: { opacity: 0.2, y: '20%', filter: 'blur(20px)' },
+		hidden: { opacity: 0.2, y: '15%', filter: 'blur(20px)' },
 		visible: {
 			opacity: 1,
 			y: '0%',
@@ -96,7 +107,12 @@ function InviteTemplatePreview({ designId, userId }) {
 			<>
 				<AnimatePresence>
 					{isOpen ? (
-						<OpeningComponent onOpen={handleOpen} enable_bahasa={eventDetails?.enable_bahasa} />
+						<OpeningComponent
+							onOpen={handleOpen}
+							enable_bahasa={eventDetails?.enable_bahasa}
+							title={eventDetails?.italic_title}
+							isLoading={isLoading}
+						/>
 					) : null}
 				</AnimatePresence>
 				<motion.div
@@ -108,15 +124,15 @@ function InviteTemplatePreview({ designId, userId }) {
 						<div className='w-full px-0 pb-6 sm:px-4 h-full flex flex-col items-center pt-0 sm:pt-24 sm:bg-transparent'>
 							<div className='w-full flex flex-col items-center bg-white max-w-md sm:shadow-xl'>
 								<FirstScreen eventDetails={eventDetails} childVariants={childVariants} />
-								<GreetingScreen eventDetails={eventDetails} />
-								<EventDetails eventDetails={eventDetails} />
+								<GreetingScreen eventDetails={eventDetails} preview />
+								<EventDetails eventDetails={eventDetails} preview />
 								<div
 									className='w-full flex gap-3 flex-col px-5 sm:px-0 py-8'
 									style={{ maxWidth: '400px' }}>
 									<Tentative eventDetails={eventDetails} itinerary={itinerary} />
 									<Contacts eventDetails={eventDetails} />
-									<Wishlist eventDetails={eventDetails} wishlist={wishlist} />
 									<Calendar eventDetails={eventDetails} />
+									<Wishlist eventDetails={eventDetails} wishlist={wishlist} />
 								</div>
 							</div>
 						</div>
