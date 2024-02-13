@@ -62,12 +62,12 @@ a {
 @keyframes glow {
 	from {
 		color: #f1bfbe;
-		text-shadow: 0 0 5px #00fff2;
+		text-shadow: 0 0 5px #f1bfbe;
 	}
 
 	to {
 		color: #fff;
-		text-shadow: 0 0 15px #00fff2;
+		text-shadow: 0 0 25px #f1bfbe;
 	}
 }
 
