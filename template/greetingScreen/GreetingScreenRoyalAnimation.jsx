@@ -78,7 +78,7 @@ export default function GreetingScreenRoyal({
 				objectFit='cover'
 				objectPosition='center'
 			/>
-			<div className='w-full text-center flex flex-col items-center justify-center gap-6 px-12 z-1 relative'>
+			<div className='w-full text-center flex flex-col items-center justify-center gap-6 mx-12 px-1 z-1 relative'>
 				<motion.div
 					ref={hostRef}
 					initial='hidden'
