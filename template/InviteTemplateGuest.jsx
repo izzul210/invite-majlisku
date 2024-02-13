@@ -75,7 +75,7 @@ const OpeningComponent = ({ onOpen, title, enable_bahasa, isLoading }) => {
 					Loading...
 				</InviteTextProvider>
 			) : (
-				<InviteTextProvider color='#F1BFBE' className='uppercase cursor-pointer pb-[120px]'>
+				<InviteTextProvider color='#F1BFBE' className='neons uppercase cursor-pointer pb-[120px]'>
 					{enable_bahasa ? 'Sila tekan untuk buka' : 'Tap To Open'}
 				</InviteTextProvider>
 			)}

@@ -53,6 +53,24 @@ a {
 @media (prefers-color-scheme: dark) {
 }
 
+.neons {
+	-webkit-animation: glow 1s ease-in-out infinite alternate;
+	-moz-animation: glow 1s ease-in-out infinite alternate;
+	animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+	from {
+		color: #f1bfbe;
+		text-shadow: 0 0 5px #00fff2;
+	}
+
+	to {
+		color: #fff;
+		text-shadow: 0 0 15px #00fff2;
+	}
+}
+
 .loading-overlay {
 	position: fixed;
 	top: 0;
