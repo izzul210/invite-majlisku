@@ -13,7 +13,7 @@ export default function CalendarAccordian({
 }) {
 	return (
 		<div className='w-full'>
-			<InviteAccordian title={enable_bahasa ? 'Kalendar' : 'Calendar'} noBorder>
+			<InviteAccordian title={enable_bahasa ? 'Kalendar' : 'Calendar'}>
 				<DatePickerCustom event_date={event_date} />
 				<div className='flex items-center justify-center my-4'>
 					<AddToCalendar

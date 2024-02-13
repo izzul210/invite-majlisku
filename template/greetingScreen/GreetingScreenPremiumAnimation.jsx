@@ -34,13 +34,8 @@ export default function GreetingScreenPremium({
 	guest_name,
 	premium_design = 0,
 }) {
-	const { useConvertText } = useInviteFunc();
-
 	//Extract premium color:
 	const { backgroundColor, greetingColor, fill, titleColor } = premiumColorTheme[premium_design];
-
-	let renderHosts = useConvertText(host_details);
-	let renderEventTitle = useConvertText(event_title_2);
 
 	const [hostRef, hostInView] =
 		useInView({

@@ -12,8 +12,6 @@ import {
 	MainTitle,
 	GuestNameTitle,
 } from './components/greetingScreenComponents';
-//Hooks import
-import { useInviteFunc } from '../../hooks/useInviteFunc';
 //Import animation const
 import { greetingTitleContainer, variants } from '../animationProps';
 

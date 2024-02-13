@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/legacy/image';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 //Components import
 import {
 	HostsText,
@@ -11,8 +13,7 @@ import {
 	MainTitle,
 	GuestNameTitle,
 } from './components/greetingScreenComponents';
-//Hooks import
-import { useInviteFunc } from '../../hooks/useInviteFunc';
+import { greetingTitleContainer, variants } from '../animationProps';
 
 const greetingsColor = 'rgba(201, 145, 126, 1)';
 const titleColor = 'rgba(201, 45, 96, 1)';
@@ -31,10 +32,6 @@ export default function GreetingScreenRustic({
 	greeting_2,
 	guest_name,
 }) {
-	const { useConvertText } = useInviteFunc();
-	let renderHosts = useConvertText(host_details);
-	let renderEventTitle = useConvertText(event_title_2);
-
 	const [windowWidth, setWindowWidth] = useState(0);
 
 	useEffect(() => {
@@ -51,6 +48,24 @@ export default function GreetingScreenRustic({
 		};
 	}, []);
 
+	const [hostRef, hostInView] =
+		useInView({
+			triggerOnce: true, // Animation occurs only once when component comes into view
+			threshold: 0.8, // Defines at what percentage of the component's height the animation should start
+		}) || [];
+
+	const [greetingTitleRef, greetingTitleInView] =
+		useInView({
+			triggerOnce: true, // Animation occurs only once when component comes into view
+			threshold: 0.8, // Defines at what percentage of the component's height the animation should start
+		}) || [];
+
+	const [eventTitleRef, eventTitleInView] =
+		useInView({
+			triggerOnce: true, // Animation occurs only once when component comes into view
+			threshold: 1, // Defines at what percentage of the component's height the animation should start
+		}) || [];
+
 	return (
 		<div
 			className='w-full relative flex justify-center items-center'
@@ -64,31 +79,67 @@ export default function GreetingScreenRustic({
 				objectPosition='center'
 			/>
 			<div className='w-full text-center flex flex-col items-center justify-center gap-6 px-11 z-1 relative'>
-				{event_opening_title ? (
-					<GreetingText_Premium color={greetingsColor}>
-						{event_opening_title ? event_opening_title : event_opening_title_default}
-					</GreetingText_Premium>
-				) : null}
-
-				<HostsText color={titleColor}>{renderHosts}</HostsText>
-				<div className='flex flex-col gap-4'>
-					<GreetingText_Premium color={greetingsColor}>
-						{greeting_1 ? greeting_1 : greeting_1_default}
-					</GreetingText_Premium>
-					{guest_name ? (
-						<GuestNameTitle color={titleColor}>{guest_name}</GuestNameTitle>
-					) : (
-						<GreetingTitle color={titleColor}>
-							{greeting_title ? greeting_title : greeting_title_default}
-						</GreetingTitle>
-					)}
-					<GreetingText_Premium color={greetingsColor}>
-						{greeting_2 ? greeting_2 : greeting_2_default}
-					</GreetingText_Premium>
-				</div>
-				<div className='flex w-full items-center flex-col pt-4 gap-4'>
-					<MainTitle color={titleColor}>{renderEventTitle}</MainTitle>
-				</div>
+				<motion.div
+					ref={hostRef}
+					initial='hidden'
+					animate={hostInView ? 'visible' : 'hidden'}
+					className='w-full'
+					variants={greetingTitleContainer}>
+					{event_opening_title ? (
+						<motion.div className='w-full' variants={variants}>
+							<GreetingText_Premium color={greetingsColor}>
+								{event_opening_title ? event_opening_title : event_opening_title_default}
+							</GreetingText_Premium>
+						</motion.div>
+					) : null}
+					<HostsText color={titleColor}>
+						{host_details.split('\n').map((char, index) => (
+							<motion.span key={char + '-' + index} variants={variants}>
+								{char}
+							</motion.span>
+						))}
+					</HostsText>
+				</motion.div>
+				<motion.div
+					ref={greetingTitleRef}
+					initial='hidden'
+					animate={greetingTitleInView ? 'visible' : 'hidden'}
+					className='flex flex-col gap-4'
+					variants={greetingTitleContainer}>
+					<motion.div className='w-full' variants={variants}>
+						<GreetingText_Premium color={greetingsColor}>
+							{greeting_1 ? greeting_1 : greeting_1_default}
+						</GreetingText_Premium>
+					</motion.div>
+					<motion.div className='w-full' variants={variants}>
+						{guest_name ? (
+							<GuestNameTitle color={titleColor}>{guest_name}</GuestNameTitle>
+						) : (
+							<GreetingTitle color={titleColor}>
+								{greeting_title ? greeting_title : greeting_title_default}
+							</GreetingTitle>
+						)}
+					</motion.div>
+					<motion.div className='w-full' variants={variants}>
+						<GreetingText_Premium color={greetingsColor}>
+							{greeting_2 ? greeting_2 : greeting_2_default}
+						</GreetingText_Premium>
+					</motion.div>
+				</motion.div>
+				<motion.div
+					ref={eventTitleRef}
+					initial='hidden'
+					animate={eventTitleInView ? 'visible' : 'hidden'}
+					className='flex w-full items-center flex-col pt-8 gap-4'
+					variants={greetingTitleContainer}>
+					<MainTitle color={titleColor}>
+						{event_title_2.split('\n').map((char, index) => (
+							<motion.span key={char + '-' + index} variants={variants}>
+								{char}
+							</motion.span>
+						))}
+					</MainTitle>
+				</motion.div>
 			</div>
 		</div>
 	);

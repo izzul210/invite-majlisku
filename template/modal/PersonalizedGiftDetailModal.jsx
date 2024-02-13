@@ -16,7 +16,7 @@ export default function GiftDetailModal({
 }) {
 	const queryClient = useQueryClient();
 	const { name, imageUrl, link, category, id } = giftDetails || {};
-	const guestDetail = queryClient.getQueryData('guestDetail') || null;
+	const guestDetail = queryClient.getQueryData('personalizedGuestDetail') || null;
 
 	useEffect(() => {}, [imageUrl]);
 

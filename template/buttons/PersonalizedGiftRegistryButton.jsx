@@ -10,7 +10,7 @@ import { useQueryClient } from 'react-query';
 import { useSubmitPersonalReserveGift } from '../../hooks/usePostApi';
 //Gift Registry modal content
 const GiftRegistryModal = dynamic(() => import('../modal/GiftRegistryModal'));
-import GiftDetailModal from '../modal/GiftDetailModal';
+import PersonalizedGiftDetailModal from '../modal/PersonalizedGiftDetailModal';
 import GiftConfirmModal from '../modal/GiftConfirmModal';
 import ReturnHomeModal from '../modal/ReturnHomeModal';
 import GiftPostReserveModal from '../modal/GiftPostReserveModal';
@@ -95,7 +95,7 @@ function GiftRegistryButton({ enable_bahasa, preview }) {
 							return <GiftRegistryModal handleSetGiftDetail={handleSetGiftDetail} />;
 						case 'giftDetail':
 							return (
-								<GiftDetailModal
+								<PersonalizedGiftDetailModal
 									giftDetails={giftDetails}
 									handleSwitchModalContent={handleSwitchModalContent}
 									enable_bahasa={enable_bahasa}

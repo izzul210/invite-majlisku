@@ -7,12 +7,6 @@ import { useInviteContext } from '../inviteContext';
 //Template imports
 const FirstScreenDefault = dynamic(() => import('./FirstScreenDefault'));
 const FirstScreenEmbossed = dynamic(() => import('./FirstScreenEmbossed'));
-const FirstScreenRustic_1 = dynamic(() => import('./FirstScreenRustic_1'));
-const FirstScreenRustic_2 = dynamic(() => import('./FirstScreenRustic_2'));
-const FirstScreenRustic_3 = dynamic(() => import('./FirstScreenRustic_3'));
-const FirstScreenVintage_1 = dynamic(() => import('./FirstScreenVintage_1'));
-const FirstScreenVintage_2 = dynamic(() => import('./FirstScreenVintage_2'));
-const FirstScreenVintage_3 = dynamic(() => import('./FirstScreenVintage_3'));
 //Animated template imports
 const FirstScreenDefaultAnimation = dynamic(() => import('./FirstScreenDefaultAnimation'));
 const FirstScreenMinimalAnimation_1 = dynamic(() => import('./FirstScreenMinimalAnimation_1'));
@@ -28,6 +22,12 @@ const FirstScreenRoyalAnimation_3 = dynamic(() => import('./FirstScreenRoyalAnim
 const FirstScreenRoyalAnimation_4 = dynamic(() => import('./FirstScreenRoyalAnimation_4'));
 const FirstScreenRoyalAnimation_5 = dynamic(() => import('./FirstScreenRoyalAnimation_5'));
 const FirstScreenRoyalAnimation_6 = dynamic(() => import('./FirstScreenRoyalAnimation_6'));
+const FirstScreenRusticAnimation_1 = dynamic(() => import('./FirstScreenRusticAnimation_1'));
+const FirstScreenRusticAnimation_2 = dynamic(() => import('./FirstScreenRusticAnimation_2'));
+const FirstScreenRusticAnimation_3 = dynamic(() => import('./FirstScreenRusticAnimation_3'));
+const FirstScreenVintageAnimation_1 = dynamic(() => import('./FirstScreenVintageAnimation_1'));
+const FirstScreenVintageAnimation_2 = dynamic(() => import('./FirstScreenVintageAnimation_2'));
+const FirstScreenVintageAnimation_3 = dynamic(() => import('./FirstScreenVintageAnimation_3'));
 
 export default function FirstScreen({ eventDetails, childVariants }) {
 	const {
@@ -155,17 +155,17 @@ export default function FirstScreen({ eventDetails, childVariants }) {
 		case 35:
 			return <FirstScreenRoyalAnimation_6 {...firstScreenProps} childVariants={childVariants} />;
 		case 40:
-			return <FirstScreenRustic_1 {...firstScreenProps} childVariants={childVariants} />;
+			return <FirstScreenRusticAnimation_1 {...firstScreenProps} childVariants={childVariants} />;
 		case 41:
-			return <FirstScreenRustic_2 {...firstScreenProps} childVariants={childVariants} />;
+			return <FirstScreenRusticAnimation_2 {...firstScreenProps} childVariants={childVariants} />;
 		case 42:
-			return <FirstScreenRustic_3 {...firstScreenProps} childVariants={childVariants} />;
+			return <FirstScreenRusticAnimation_3 {...firstScreenProps} childVariants={childVariants} />;
 		case 50:
-			return <FirstScreenVintage_1 {...firstScreenProps} childVariants={childVariants} />;
+			return <FirstScreenVintageAnimation_1 {...firstScreenProps} childVariants={childVariants} />;
 		case 51:
-			return <FirstScreenVintage_2 {...firstScreenProps} childVariants={childVariants} />;
+			return <FirstScreenVintageAnimation_2 {...firstScreenProps} childVariants={childVariants} />;
 		case 52:
-			return <FirstScreenVintage_3 {...firstScreenProps} childVariants={childVariants} />;
+			return <FirstScreenVintageAnimation_3 {...firstScreenProps} childVariants={childVariants} />;
 		case 60:
 			return <FirstScreenDefaultAnimation {...firstScreenProps} childVariants={childVariants} />;
 		default:

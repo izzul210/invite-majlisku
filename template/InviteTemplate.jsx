@@ -87,11 +87,11 @@ function InviteTemplate({ inviteId }) {
 		}
 	};
 
-	const design = Number(eventDetails?.design_num)
-		? Number(eventDetails.design_num)
-		: convertOldTheme(eventDetails?.type);
+	// const design = Number(eventDetails?.design_num)
+	// 	? Number(eventDetails.design_num)
+	// 	: convertOldTheme(eventDetails?.type);
 
-	// const design = 3;
+	const design = 51;
 
 	const containerVariants = {
 		hidden: { opacity: 1, filter: 'blur(10px)', display: 'none' },
