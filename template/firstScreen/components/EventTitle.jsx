@@ -3,7 +3,11 @@
 import InviteTextProvider from '../../../component/textProvider/InviteTextProvider';
 
 export const EventTitle_1 = ({ children }) => {
-	return <InviteTextProvider className='uppercase font-medium'>{children}</InviteTextProvider>;
+	return (
+		<InviteTextProvider className='uppercase text-center font-medium'>
+			{children}
+		</InviteTextProvider>
+	);
 };
 export const EventTitle_Premium = ({ children, ...props }) => {
 	return (
@@ -14,7 +18,7 @@ export const EventTitle_Premium = ({ children, ...props }) => {
 };
 export const EventTitle_Playfair = ({ children }) => {
 	return (
-		<InviteTextProvider fontFamily='playfair' className='uppercase text-lg font-medium'>
+		<InviteTextProvider fontFamily='playfair' className='uppercase text-center text-lg font-medium'>
 			{children}
 		</InviteTextProvider>
 	);
