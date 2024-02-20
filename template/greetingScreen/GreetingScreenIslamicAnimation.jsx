@@ -87,6 +87,8 @@ export default function GreetingScreenIslamicAnimation({
 				layout='fill'
 				objectFit='cover'
 				objectPosition='center'
+				quality={50}
+				priority
 			/>
 			<div className='w-full text-center flex flex-col items-center justify-center gap-6 p-11 md:p-10 z-1 relative'>
 				<motion.div

@@ -48,11 +48,9 @@ export default function FirstScreenRustic_2({
 					className='h-full z-0'
 					src='/rustic-2.png'
 					alt='Rustic 2'
-					height
 					layout='fill'
-					quality={100}
+					quality={50}
 					priority
-					// objectFit='cover'
 					objectPosition='center'
 				/>
 				<div

@@ -56,11 +56,9 @@ export default function FirstScreenVintage_2({
 					className='h-full z-0'
 					src='/vintage-2.png'
 					alt='Rustic 1'
-					height
 					layout='fill'
-					quality={100}
+					quality={50}
 					priority
-					// objectFit='cover'
 					objectPosition='center'
 				/>
 				<div

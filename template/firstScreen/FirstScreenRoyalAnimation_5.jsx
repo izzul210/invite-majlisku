@@ -52,11 +52,9 @@ export default function FirstScreenRoyal_5({
 					className='h-full z-0'
 					src='/royal-5.png'
 					alt='Royal 5'
-					height
 					layout='fill'
-					quality={100}
+					quality={50}
 					priority
-					// objectFit='cover'
 					objectPosition='center'
 				/>
 				<div

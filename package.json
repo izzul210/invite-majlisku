@@ -13,7 +13,7 @@
 		"@emotion/styled": "^11.10.4",
 		"@mui/icons-material": "^5.10.3",
 		"@mui/material": "^5.10.5",
-		"@mui/x-date-pickers": "^6.10.0",
+		"@mui/x-date-pickers": "^6.19.4",
 		"@next/bundle-analyzer": "^13.5.2",
 		"@vercel/speed-insights": "^1.0.5",
 		"add-to-calendar-button-react": "^2.4.3",

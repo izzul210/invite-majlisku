@@ -84,6 +84,8 @@ export default function GreetingScreenVintage({
 				layout='fill'
 				objectFit='cover'
 				objectPosition='center'
+				quality={50}
+				priority
 			/>
 			<div className='w-full text-center flex flex-col items-center justify-center gap-6 px-11 z-1 relative'>
 				<motion.div

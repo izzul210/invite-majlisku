@@ -38,7 +38,6 @@ const MoneyGiftModal = ({ isOpen, handleClose, enable_bahasa = false }) => {
 							priority
 							src={money_gift_details?.qrCodeUrl}
 							alt='Qr Code Url'
-							layout='responsive'
 							width={1000}
 							height={1200}
 							style={{

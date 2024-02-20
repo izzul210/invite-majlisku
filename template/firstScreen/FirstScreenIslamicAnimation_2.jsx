@@ -49,11 +49,9 @@ export default function FirstScreenIslamic_2({
 					className='h-full z-0'
 					src='/nikah-11.png'
 					alt='Nikah 11'
-					height
 					layout='fill'
-					quality={100}
+					quality={50}
 					priority
-					// objectFit='cover'
 					objectPosition='center'
 				/>
 				<div

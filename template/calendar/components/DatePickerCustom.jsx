@@ -8,6 +8,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import moment from 'moment';
 
 export default function DatePickerCustom({ event_date }) {
+	if (!event_date) return null;
 	return (
 		<LocalizationProvider dateAdapter={AdapterMoment}>
 			<DateCalendar

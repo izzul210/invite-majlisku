@@ -50,7 +50,7 @@ export default function FirstScreenIslamic_1({
 					src='/nikah-12.png'
 					alt='Nikah 12'
 					layout='fill'
-					quality={100}
+					quality={50}
 					priority
 					// objectFit='cover'
 					objectPosition='center'

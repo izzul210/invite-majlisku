@@ -55,7 +55,7 @@ function ActionButtonsTest({
 	//variants
 	guest_name = null,
 }) {
-	const { eventDetails, preview } = useInviteContext();
+	const { eventDetails } = useInviteContext();
 	const {
 		enable_bahasa,
 		enable_gift_registry,
@@ -65,8 +65,7 @@ function ActionButtonsTest({
 	} = eventDetails || {};
 
 	const actionButtonsProps = {
-		preview,
-		enable_bahasa,
+		enable_bahasa: enable_bahasa ? true : undefined,
 	};
 
 	const hasDatePassed = event_date_deadline ? moment().isAfter(moment(event_date_deadline)) : false;

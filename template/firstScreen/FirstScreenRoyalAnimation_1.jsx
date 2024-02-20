@@ -51,11 +51,9 @@ export default function FirstScreenRoyalAnimation_1({
 					className='h-full z-0'
 					src='/royal-1.png'
 					alt='Royal 1'
-					height
 					layout='fill'
-					quality={100}
+					quality={50}
 					priority
-					// objectFit='cover'
 					objectPosition='center'
 				/>
 				<div

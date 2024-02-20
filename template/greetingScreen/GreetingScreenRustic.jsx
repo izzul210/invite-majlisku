@@ -7,7 +7,6 @@ import { useInView } from 'react-intersection-observer';
 //Components import
 import {
 	HostsText,
-	GreetingText,
 	GreetingText_Premium,
 	GreetingTitle,
 	MainTitle,
@@ -23,7 +22,6 @@ const greeting_1_default = 'Dengan segala hormatnya kami\n mempersilakan';
 const greeting_2_default = 'ke majlis resepsi untuk meraikan majlis';
 
 export default function GreetingScreenRustic({
-	enable_bahasa = false,
 	event_opening_title,
 	host_details,
 	event_title_2,
@@ -77,6 +75,8 @@ export default function GreetingScreenRustic({
 				layout='fill'
 				objectFit='cover'
 				objectPosition='center'
+				quality={50}
+				priority
 			/>
 			<div className='w-full text-center flex flex-col items-center justify-center gap-6 px-11 z-1 relative'>
 				<motion.div

@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/legacy/image';
 import { motion } from 'framer-motion';
 //Components import
-import RoyalTitle from './components/titles/RoyalTitle';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import RoyalTitleAnimation from './components/titles/RoyalTitleAnimation';
 
@@ -52,11 +51,9 @@ export default function FirstScreenRoyal_4({
 					className='h-full z-0'
 					src='/royal-4.png'
 					alt='Royal 1'
-					height
 					layout='fill'
-					quality={100}
+					quality={50}
 					priority
-					// objectFit='cover'
 					objectPosition='center'
 				/>
 				<div
