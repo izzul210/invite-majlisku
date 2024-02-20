@@ -1,21 +1,21 @@
 /** @format */
+
 'use client';
+import moment from 'moment';
+import 'moment/locale/ms'; // Import the Malay locale
 import dynamic from 'next/dynamic';
 import { useInviteContext } from '../inviteContext';
 //Templates import
-const EventDetailsBasic = dynamic(() => import('./EventDetailsBasic'));
 const EventDetailsDefault = dynamic(() => import('./EventDetailsDefault'));
 const EventDetailsMinimal_2 = dynamic(() => import('./EventDetailsMinimal_2'));
-const EventDetailsPremium = dynamic(() => import('./EventDetailsPremium'));
 const EventDetailsBasicAnimation = dynamic(() => import('./EventDetailsBasicAnimation'));
 const EventDetailsPremiumAnimation = dynamic(() => import('./EventDetailsPremiumAnimation'));
 
-export default function EventDetails({
-	eventDetails,
-	inviteId,
-	guest_name = null,
-	preview = false,
-}) {
+export default function EventDetails({ guest_name = null }) {
+	const { design, eventDetails, preview } = useInviteContext();
+
+	moment.locale(eventDetails?.enable_bahasa ? 'ms' : 'en');
+
 	const {
 		event_date,
 		event_time,
@@ -28,7 +28,6 @@ export default function EventDetails({
 		enable_deadline,
 		event_address,
 	} = eventDetails || {};
-	const { design } = useInviteContext();
 
 	const eventDetailsProps = {
 		enable_bahasa,
@@ -46,7 +45,6 @@ export default function EventDetails({
 		//type
 		guest_name,
 		preview,
-		inviteId,
 	};
 
 	return (

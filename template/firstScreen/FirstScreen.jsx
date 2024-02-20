@@ -4,9 +4,6 @@ import moment from 'moment';
 import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
 import { useInviteContext } from '../inviteContext';
-//Template imports
-const FirstScreenDefault = dynamic(() => import('./FirstScreenDefault'));
-const FirstScreenEmbossed = dynamic(() => import('./FirstScreenEmbossed'));
 //Animated template imports
 const FirstScreenDefaultAnimation = dynamic(() => import('./FirstScreenDefaultAnimation'));
 const FirstScreenMinimalAnimation_1 = dynamic(() => import('./FirstScreenMinimalAnimation_1'));
@@ -29,7 +26,8 @@ const FirstScreenVintageAnimation_1 = dynamic(() => import('./FirstScreenVintage
 const FirstScreenVintageAnimation_2 = dynamic(() => import('./FirstScreenVintageAnimation_2'));
 const FirstScreenVintageAnimation_3 = dynamic(() => import('./FirstScreenVintageAnimation_3'));
 
-export default function FirstScreen({ eventDetails, childVariants }) {
+export default function FirstScreen({ childVariants }) {
+	const { design, eventDetails } = useInviteContext();
 	const {
 		event_title_1,
 		rsvp_header_image,
@@ -40,7 +38,6 @@ export default function FirstScreen({ eventDetails, childVariants }) {
 		event_time,
 		optional_description,
 	} = eventDetails || {};
-	const { design } = useInviteContext();
 
 	useEffect(() => {}, [design]);
 
@@ -62,16 +59,12 @@ export default function FirstScreen({ eventDetails, childVariants }) {
 	};
 
 	switch (design) {
-		case 0:
-			return <FirstScreenDefault {...firstScreenProps} />;
 		case 1:
 			return <FirstScreenMinimalAnimation_2 {...firstScreenProps} childVariants={childVariants} />;
 		case 2:
 			return <FirstScreenMinimalAnimation_1 {...firstScreenProps} childVariants={childVariants} />;
 		case 3:
 			return <FirstScreenMinimalAnimation_3 {...firstScreenProps} childVariants={childVariants} />;
-		case 4:
-			return <FirstScreenEmbossed {...firstScreenProps} />;
 		case 5:
 			return <FirstScreenIslamicAnimation_1 {...firstScreenProps} childVariants={childVariants} />;
 		case 6:
@@ -169,6 +162,6 @@ export default function FirstScreen({ eventDetails, childVariants }) {
 		case 60:
 			return <FirstScreenDefaultAnimation {...firstScreenProps} childVariants={childVariants} />;
 		default:
-			return <FirstScreenDefault {...firstScreenProps} />;
+			return <FirstScreenDefaultAnimation {...firstScreenProps} />;
 	}
 }

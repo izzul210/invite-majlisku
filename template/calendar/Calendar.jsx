@@ -5,10 +5,10 @@ import { useInviteContext } from '../inviteContext';
 const CalendarDefault = dynamic(() => import('./CalendarDefault'));
 const CalendarAccordian = dynamic(() => import('./CalendarAccordian'));
 
-export default function Calendar({ eventDetails }) {
+export default function Calendar() {
+	const { design, eventDetails } = useInviteContext();
 	const { enable_bahasa, event_date, location_info, event_time, event_title_1, italic_title } =
 		eventDetails;
-	const { design } = useInviteContext();
 
 	const renderComponent = () => {
 		switch (design) {
@@ -36,5 +36,6 @@ export default function Calendar({ eventDetails }) {
 		}
 	};
 
-	return renderComponent();
+	if (!event_date) return null;
+	else return renderComponent();
 }

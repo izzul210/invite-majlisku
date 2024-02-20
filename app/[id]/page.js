@@ -1,6 +1,6 @@
 /** @format */
 //Screen import
-import InviteTemplate from '../../template/InviteTemplate';
+import InviteTemplate from '../../template/InviteTemplateTest';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 // const API = 'http://localhost:5000/myweddingapp-25712/asia-southeast1/user';
@@ -45,6 +45,14 @@ export async function generateMetadata({ params }) {
 	};
 }
 
+async function fetchAPI(inviteId) {
+	const res = await fetch(`${API}/rsvpdetails/${inviteId}`, { cache: 'no-store' });
+	const data = await res.json();
+	console.log('data from server:', data);
+
+	return data;
+}
+
 /**************** Fetch API *******************/
 /*
  *
@@ -55,9 +63,11 @@ export async function generateMetadata({ params }) {
  *
  * INVITE MAIN PAGE */
 export default async function Page({ params }) {
+	const eventDetails = await fetchAPI(params.id);
+
 	return (
 		<main>
-			<InviteTemplate inviteId={params.id} />
+			<InviteTemplate eventDetails={eventDetails} />
 		</main>
 	);
 }

@@ -1,20 +1,19 @@
 /** @format */
+
 'use client';
 import dynamic from 'next/dynamic';
+//Context import
 import { useInviteContext } from '../inviteContext';
 //Template import
-const GreetingScreenDefaultNoAnimation = dynamic(() =>
-	import('./GreetingScreenDefaultNoAnimation')
-);
 const GreetingScreenDefault = dynamic(() => import('./GreetingScreenDefault'));
 const GreetingScreenRustic = dynamic(() => import('./GreetingScreenRustic'));
 const GreetingScreenVintage = dynamic(() => import('./GreetingScreenVintage'));
-//Animated Greeting Screen
 const GreetingScreenRoyalAnimation = dynamic(() => import('./GreetingScreenRoyalAnimation'));
 const GreetingScreenPremiumAnimation = dynamic(() => import('./GreetingScreenPremiumAnimation'));
 const GreetingScreenIslamicAnimation = dynamic(() => import('./GreetingScreenIslamicAnimation'));
 
-export default function GreetingScreen({ eventDetails, guest_name = null, preview = false }) {
+export default function GreetingScreenTest({ guest_name = null }) {
+	const { design, eventDetails, preview } = useInviteContext();
 	const {
 		enable_bahasa,
 		event_opening_title,
@@ -28,7 +27,6 @@ export default function GreetingScreen({ eventDetails, guest_name = null, previe
 		enable_gift_registry,
 		enable_money_gift,
 	} = eventDetails || {};
-	const { design } = useInviteContext();
 
 	const greetingScreenProps = {
 		enable_bahasa,
@@ -91,9 +89,7 @@ export default function GreetingScreen({ eventDetails, guest_name = null, previe
 		case 51:
 		case 52:
 			return <GreetingScreenVintage {...greetingScreenProps} />;
-		case 60:
-			return <GreetingScreenDefault {...greetingScreenProps} />;
 		default:
-			return <GreetingScreenDefaultNoAnimation {...greetingScreenProps} />;
+			return <GreetingScreenDefault {...greetingScreenProps} />;
 	}
 }

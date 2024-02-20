@@ -21,7 +21,7 @@ const greeting_1_default = 'Dengan segala hormatnya kami\n mempersilakan';
 const greeting_2_default = 'ke majlis resepsi untuk meraikan majlis';
 
 export default function GreetingScreenDefaultNoAnimation({
-	enable_bahasa = false,
+	enable_bahasa = null,
 	event_opening_title,
 	host_details,
 	event_title_2,
@@ -35,7 +35,7 @@ export default function GreetingScreenDefaultNoAnimation({
 	enable_money_gift = false,
 	//type
 	guest_name = null,
-	preview = false,
+	preview = null,
 }) {
 	const { useConvertText } = useInviteFunc();
 

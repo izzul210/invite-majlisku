@@ -5,9 +5,9 @@ import { useInviteContext } from '../inviteContext';
 const ContactDefault = dynamic(() => import('./ContactDefault'));
 const ContactAccordian = dynamic(() => import('./ContactAccordian'));
 
-export default function Contacts({ eventDetails }) {
+export default function Contacts() {
+	const { design, eventDetails } = useInviteContext();
 	const { contact_info, enable_bahasa } = eventDetails;
-	const { design } = useInviteContext();
 
 	const renderComponent = () => {
 		switch (design) {

@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
 //Event Details components import
-import ActionButtons from '../buttons/ActionButtons2';
+import ActionButtonsTest from '../buttons/ActionButtons';
 import BasicEventTextProvider from './components/text/BasicEventTextProvider';
 import WazeButton from './components/button/WazeButton';
 import GoogleMapButton from './components/button/GoogleMapButton';
@@ -122,16 +122,7 @@ export default function EventDetailsBasicAnimation({
 					</motion.div>
 				)}
 			</div>
-			<ActionButtons
-				inviteId={inviteId}
-				preview={preview}
-				guest_name={guest_name}
-				enable_bahasa={enable_bahasa}
-				enable_gift_registry={enable_gift_registry}
-				enable_money_gift={enable_money_gift}
-				enable_deadline={enable_deadline}
-				event_date_deadline={event_date_deadline}
-			/>
+			<ActionButtonsTest />
 		</div>
 	);
 }

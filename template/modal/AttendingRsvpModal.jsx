@@ -3,6 +3,8 @@
 'use client';
 import React, { useState } from 'react';
 import moment from 'moment';
+//Context import
+import { useInviteContext } from '../inviteContext';
 //Components import
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
@@ -20,10 +22,12 @@ export default function AttendingRsvpModal({
 	enable_unlimited_pax,
 	guest_pax_limit,
 	enable_multiple_slots,
-	enable_bahasa = false,
+	enable_bahasa,
 	event_time,
 	event_time_slot_2 = null,
 }) {
+	const { userId } = useInviteContext();
+	//STATES
 	const [name, setName] = useState('');
 	const [tel, setTel] = useState('');
 	const [pax, setPax] = useState(1);
@@ -32,7 +36,7 @@ export default function AttendingRsvpModal({
 	const [error, setError] = useState(null);
 	const [timeSlotError, setTimeSlotError] = useState(null);
 	//POST Request
-	const submitGuestResponse = useSubmitGuestResponse();
+	const submitGuestResponse = useSubmitGuestResponse(userId);
 	//Title Text
 	const greetingText = enable_bahasa ? 'Sila sahkan KEHADIRAN ANDA!' : 'Please confirm your RSVP';
 	const nameText = enable_bahasa ? 'Nama' : 'Name';

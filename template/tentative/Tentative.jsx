@@ -5,9 +5,9 @@ import { useInviteContext } from '../inviteContext';
 const TentativeDefault = dynamic(() => import('./TentativeDefault'));
 const TentativeAccordian = dynamic(() => import('./TentativeAccordian'));
 
-export default function Tentative({ eventDetails, itinerary }) {
+export default function Tentative({ itinerary }) {
+	const { design, eventDetails } = useInviteContext();
 	const { enable_bahasa, enable_itinerary } = eventDetails || {};
-	const { design } = useInviteContext();
 
 	const renderComponent = () => {
 		if (!enable_itinerary) {

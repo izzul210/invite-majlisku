@@ -12,7 +12,7 @@ import {
 	MaybeIcon,
 } from '../../component/icons/icons';
 
-export default function RsvpActionModal({ handleRsvp, enable_bahasa = false }) {
+export default function RsvpActionModal({ handleRsvp, enable_bahasa }) {
 	const inviteText = enable_bahasa
 		? 'Adakah Tuan/Puan hadir ke Majlis ini?'
 		: 'Would you be able to attend the event?';

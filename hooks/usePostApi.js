@@ -1,19 +1,16 @@
 /** @format */
 'use client';
 import { useMutation, useQueryClient } from 'react-query';
-import { useEventDetails } from './useApi';
-import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 
-export const useSubmitGuestResponse = () => {
+export const useSubmitGuestResponse = (userId) => {
 	const queryClient = useQueryClient();
-	const eventDetails = queryClient.getQueryData('eventDetails') || {};
 
 	const submitGuestResponse = useMutation({
 		mutationFn: async (data) => {
-			const response = await axios.post(`${API}/newguest/${eventDetails.user_id}`, data);
+			const response = await axios.post(`${API}/newguest/${userId}`, data);
 			return response.data;
 		},
 		onSuccess: (data) => {
@@ -28,17 +25,13 @@ export const useSubmitGuestResponse = () => {
 	return submitGuestResponse;
 };
 
-export const useSubmitPersonalGuestResponse = () => {
+export const useSubmitPersonalGuestResponse = (userId) => {
 	const queryClient = useQueryClient();
-	const eventDetails = queryClient.getQueryData('eventDetails');
 	const guestDetails = queryClient.getQueryData('personalizedGuestDetail');
 
 	const submitGuestResponse = useMutation({
 		mutationFn: async (data) => {
-			const response = await axios.post(
-				`${API}/guestresponse/${eventDetails.user_id}/${guestDetails.id}`,
-				data
-			);
+			const response = await axios.post(`${API}/guestresponse/${userId}/${guestDetails.id}`, data);
 			return response.data;
 		},
 		onSuccess: (data) => {
@@ -54,21 +47,17 @@ export const useSubmitPersonalGuestResponse = () => {
 	return submitGuestResponse;
 };
 
-export const useSubmitReserveGift = () => {
+export const useSubmitReserveGift = (userId) => {
 	const queryClient = useQueryClient();
-	const { data: eventDetails } = useEventDetails();
 	const guestDetail = queryClient.getQueryData('guestDetail');
 
 	const submitGuestReserveGift = useMutation({
 		mutationFn: async (body) => {
 			console.log('guestDetail', guestDetail);
-			const response = await axios.post(
-				`${API}/updategift/${eventDetails.user_id}/${body.giftId}`,
-				{
-					reserved: guestDetail.id,
-					giftReserved: body.giftReserved,
-				}
-			);
+			const response = await axios.post(`${API}/updategift/${userId}/${body.giftId}`, {
+				reserved: guestDetail.id,
+				giftReserved: body.giftReserved,
+			});
 			return response;
 		},
 		onSuccess: (data) => {
@@ -82,21 +71,17 @@ export const useSubmitReserveGift = () => {
 	return submitGuestReserveGift;
 };
 
-export const useSubmitPersonalReserveGift = () => {
+export const useSubmitPersonalReserveGift = (userId) => {
 	const queryClient = useQueryClient();
-	const { data: eventDetails } = useEventDetails();
 	const guestDetail = queryClient.getQueryData('personalizedGuestDetail');
 
 	const submitGuestReserveGift = useMutation({
 		mutationFn: async (body) => {
 			console.log('guestDetail', guestDetail);
-			const response = await axios.post(
-				`${API}/updategift/${eventDetails.user_id}/${body.giftId}`,
-				{
-					reserved: guestDetail.id,
-					giftReserved: body.giftReserved,
-				}
-			);
+			const response = await axios.post(`${API}/updategift/${userId}/${body.giftId}`, {
+				reserved: guestDetail.id,
+				giftReserved: body.giftReserved,
+			});
 			return response;
 		},
 		onSuccess: (data) => {

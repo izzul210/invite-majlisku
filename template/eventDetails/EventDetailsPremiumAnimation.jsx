@@ -8,7 +8,7 @@ import { useInviteFunc } from '../../hooks/useInviteFunc';
 //Event Details components import
 import WazeButton from './components/button/WazeButton';
 import GoogleMapButton from './components/button/GoogleMapButton';
-import ActionButtons from '../buttons/ActionButtons2';
+import ActionButtons from '../buttons/ActionButtons';
 //Components import
 import { TextContainer_Premium } from './components/eventDetailsComponents';
 import { Ellipse_1 } from '../../component/graphics/graphics';

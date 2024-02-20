@@ -4,12 +4,13 @@ import React from 'react';
 import moment from 'moment';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+//Context import
+import { useInviteContext } from '../inviteContext';
 //Buttons import
 import RsvpButton from './RsvpButton';
 import GiftRegistryButton from './GiftRegistryButton';
-import GiftRegistryButton2 from './GiftRegistryButton2';
 import MoneyGiftButton from './MoneyGiftButton';
-import PersonalizedRsvpButton from './PersonalizedRsvpButton';
+import PersonalizedRsvpButton from './PersonalizedRsvpButton2';
 //Components import
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
@@ -48,19 +49,21 @@ const ExpiredRsvp = ({ enable_bahasa }) => {
 	);
 };
 
-function ActionButtons({
+function ActionButtonsTest({
 	//theme
 	color = '#1D4648',
 	//variants
 	guest_name = null,
-	preview = false,
-	//enable states
-	enable_bahasa = false,
-	enable_gift_registry = false,
-	enable_money_gift = false,
-	enable_deadline = false,
-	event_date_deadline = null,
 }) {
+	const { eventDetails, preview } = useInviteContext();
+	const {
+		enable_bahasa,
+		enable_gift_registry,
+		enable_money_gift,
+		event_date_deadline,
+		enable_deadline,
+	} = eventDetails || {};
+
 	const actionButtonsProps = {
 		preview,
 		enable_bahasa,
@@ -111,7 +114,7 @@ function ActionButtons({
 				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton {...actionButtonsProps} />}
 			</motion.div>
 			<motion.div className='w-full' variants={variants}>
-				{enable_gift_registry && <GiftRegistryButton2 {...actionButtonsProps} />}
+				{enable_gift_registry && <GiftRegistryButton {...actionButtonsProps} />}
 			</motion.div>
 			<motion.div className='w-full' variants={variants}>
 				{enable_money_gift && <MoneyGiftButton {...actionButtonsProps} />}
@@ -129,4 +132,4 @@ function ActionButtons({
 	);
 }
 
-export default ActionButtons;
+export default ActionButtonsTest;

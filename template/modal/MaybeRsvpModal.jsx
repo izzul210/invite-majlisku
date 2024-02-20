@@ -1,6 +1,8 @@
 /** @format */
 
 import React, { useState } from 'react';
+//Context import
+import { useInviteContext } from '../inviteContext';
 //Components import
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
@@ -12,13 +14,15 @@ import { PhoneIcon, OpenLetterIcon } from '../../component/icons/icons';
 //API import
 import { useSubmitGuestResponse } from '../../hooks/usePostApi';
 
-export default function MaybeRsvpModal({ handleClose, handlePostRequest, enable_bahasa = false }) {
+export default function MaybeRsvpModal({ handleClose, handlePostRequest, enable_bahasa }) {
+	const { userId } = useInviteContext();
+	//STATES
 	const [name, setName] = useState('');
 	const [tel, setTel] = useState('');
 	const [wish, setWish] = useState('');
 	const [error, setError] = useState(null);
 	//POST Request
-	const submitGuestResponse = useSubmitGuestResponse();
+	const submitGuestResponse = useSubmitGuestResponse(userId);
 	//Title text
 	const greetingText = enable_bahasa ? 'Sila sahkan KEHADIRAN ANDA' : 'Please confirm your RSVP';
 	const nameText = enable_bahasa ? 'Nama' : 'Name';
