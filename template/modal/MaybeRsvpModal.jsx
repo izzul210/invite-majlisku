@@ -15,7 +15,7 @@ import { PhoneIcon, OpenLetterIcon } from '../../component/icons/icons';
 import { useSubmitGuestResponse } from '../../hooks/usePostApi';
 
 export default function MaybeRsvpModal({ handleClose, handlePostRequest, enable_bahasa }) {
-	const { userId } = useInviteContext();
+	const { userId, preview } = useInviteContext();
 	//STATES
 	const [name, setName] = useState('');
 	const [tel, setTel] = useState('');
@@ -73,15 +73,8 @@ export default function MaybeRsvpModal({ handleClose, handlePostRequest, enable_
 		}
 	};
 
-	const handleSubmitPreview = async () => {
+	const handleSubmitPreview = () => {
 		if (checkForInputName()) {
-			let guestRes = {
-				name: name,
-				phone: tel,
-				rsvp: 'maybe',
-				pax: 1,
-				wish: wish,
-			};
 			handlePostRequest();
 		}
 	};
@@ -92,6 +85,7 @@ export default function MaybeRsvpModal({ handleClose, handlePostRequest, enable_
 			<div className='w-full max-w-2xl gap-4 py-2 mt-4'>
 				<div className='p-0  w-full items-center flex flex-col gap-4'>
 					<OpenLetterIcon width={48} height={48} />
+					{preview ? <InviteTextProvider className='text-xs'>Preview</InviteTextProvider> : null}
 					<InviteTextProvider className='uppercase font-medium text-center'>
 						{greetingText}
 					</InviteTextProvider>
@@ -155,7 +149,7 @@ export default function MaybeRsvpModal({ handleClose, handlePostRequest, enable_
 						<RsvpActionButton
 							isLoading={submitGuestResponse.isLoading}
 							className='w-full uppercase'
-							onClick={handleSubmit}>
+							onClick={preview ? handleSubmitPreview : handleSubmit}>
 							{confirmText}
 						</RsvpActionButton>
 					</div>

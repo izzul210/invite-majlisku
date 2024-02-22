@@ -2,10 +2,9 @@
 
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { GiftIcon } from '../../component/icons/icons';
-import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
-import ModalProvider from '../../component/drawer/DrawerProvider';
 import { useQueryClient } from 'react-query';
+//Context import
+import { useInviteContext } from '../inviteContext';
 //Hooks import
 import { useSubmitPersonalReserveGift } from '../../hooks/usePostApi';
 //Gift Registry modal content
@@ -14,15 +13,21 @@ import PersonalizedGiftDetailModal from '../modal/PersonalizedGiftDetailModal';
 import GiftConfirmModal from '../modal/GiftConfirmModal';
 import ReturnHomeModal from '../modal/ReturnHomeModal';
 import GiftPostReserveModal from '../modal/GiftPostReserveModal';
+import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
+import ModalProvider from '../../component/drawer/DrawerProvider';
+import { GiftIcon } from '../../component/icons/icons';
 
 function GiftRegistryButton({ enable_bahasa, preview }) {
-	const queryClient = useQueryClient();
+	const { userId } = useInviteContext();
+	//STATES
 	const [openModal, setOpenModal] = useState(false);
 	const [modalContent, setModalContent] = useState(null);
 	const [giftDetails, setGiftDetails] = useState(null);
 	const [loading, setLoading] = useState(false);
-
-	const submitGuestReserveGift = useSubmitPersonalReserveGift();
+	//POST Request
+	const queryClient = useQueryClient();
+	const submitGuestReserveGift = useSubmitPersonalReserveGift(userId);
+	//GET
 	const guestDetail = queryClient.getQueryData('personalizedGuestDetail') || null;
 
 	const handleOpenModal = () => {

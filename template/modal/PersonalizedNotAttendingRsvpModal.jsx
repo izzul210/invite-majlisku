@@ -2,13 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { useQueryClient } from 'react-query';
+//Context import
+import { useInviteContext } from '../inviteContext';
 //Components import
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
 import ButtonProvider from '../../component/button/ButtonProvider';
 import RsvpActionButton from '../../component/button/RsvpActionButton';
 //Assets import
-import { PhoneIcon, OpenLetterIcon } from '../../component/icons/icons';
+import { OpenLetterIcon } from '../../component/icons/icons';
 //API import
 import { useSubmitPersonalGuestResponse } from '../../hooks/usePostApi';
 
@@ -17,67 +19,42 @@ export default function PersonalizedNotAttendingRsvpModal({
 	handlePostRequest,
 	enable_bahasa = false,
 }) {
+	const { userId } = useInviteContext();
 	//From React Query
 	const queryClient = useQueryClient();
 	const guestDetails = queryClient.getQueryData('personalizedGuestDetail') || {};
 	//States
-	const [name, setName] = useState('');
-	const [tel, setTel] = useState('');
 	const [wish, setWish] = useState('');
 	const [error, setError] = useState(null);
 	//POST Request
-	const submitGuestResponse = useSubmitPersonalGuestResponse();
+	const submitGuestResponse = useSubmitPersonalGuestResponse(userId);
 	//Title text
 	const greetingText = enable_bahasa ? `Sila sahkan kehadiran` : `Please confirm your RSVP`;
 	const wishText = enable_bahasa ? 'Ucapan anda' : 'Your Wish';
 	const confirmText = enable_bahasa ? 'Saya tidak hadir' : `I'm Not Attending`;
 	const cancelText = enable_bahasa ? 'Batal' : 'Cancel';
-	const nameInputErrorText = enable_bahasa ? 'Sila nyatakan nama anda' : 'Please enter your name';
 
 	useEffect(() => {
-		setName(guestDetails?.name || '');
-		setTel(guestDetails?.response?.phone || '');
 		setWish(guestDetails?.response?.wish || '');
 	}, [guestDetails]);
 
-	const handleChangeName = (e) => {
-		setError(null);
-		setName(e.target.value);
-	};
-
 	const handleReset = () => {
-		setName('');
-		setTel('');
 		setWish('');
 		setError(null);
 	};
 
-	const checkForInputName = () => {
-		setError(null);
-		if (name === '') {
-			setError(nameInputErrorText);
-			return false;
-		} else {
-			return true;
-		}
-	};
-
 	const handleSubmit = async () => {
-		if (checkForInputName()) {
-			let guestRes = {
-				name: name,
-				phone: tel,
-				rsvp: 'notattending',
-				pax: 1,
-				wish: wish,
-			};
+		let guestRes = {
+			rsvp: 'notattending',
+			pax: 1,
+			wish: wish,
+		};
 
-			const response = await submitGuestResponse.mutateAsync(guestRes);
-			if (response) {
-				handlePostRequest();
-			} else {
-				window.alert('Error please contact me!');
-			}
+		const response = await submitGuestResponse.mutateAsync(guestRes);
+		if (response) {
+			handlePostRequest();
+		} else {
+			window.alert('Error please contact me!');
 		}
 	};
 

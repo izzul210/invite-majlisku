@@ -1,7 +1,8 @@
 /** @format */
 import React from 'react';
-import { useQueryClient } from 'react-query';
 import moment from 'moment';
+//Context import
+import { useInviteContext } from '../inviteContext';
 //Components import
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
@@ -15,13 +16,12 @@ import {
 } from '../../component/icons/icons';
 
 export default function PersonalizedRsvpActionModal({ handleRsvp, enable_bahasa = false }) {
-	//From React Query
-	const queryClient = useQueryClient();
-	const guestDetails = queryClient.getQueryData('personalizedGuestDetail') || {};
+	const { personalizedGuestDetail } = useInviteContext();
+	const guestDetails = personalizedGuestDetail || {};
 	//Text states
 	const inviteText = enable_bahasa
-		? `Adakah Tuan/Puan hadir ke Majlis ini, ${guestDetails?.name}?`
-		: `Would you be able to attend the event, ${guestDetails?.name}?`;
+		? `Adakah Tuan/Puan hadir ke Majlis ini,`
+		: `Would you be able to attend the event,`;
 	const attendingButtonText = enable_bahasa ? 'Hadir' : 'Attending';
 	const notAttendingButtonText = enable_bahasa ? 'Tidak Hadir' : 'Not Attending';
 	const notSureButtonText = enable_bahasa ? 'Tidak pasti' : 'Not Sure Yet';
@@ -63,7 +63,11 @@ export default function PersonalizedRsvpActionModal({ handleRsvp, enable_bahasa 
 				);
 			}
 		} else {
-			return inviteText;
+			return (
+				<>
+					{inviteText} <br /> {guestDetails?.name} ?
+				</>
+			);
 		}
 	};
 

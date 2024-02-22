@@ -15,7 +15,7 @@ import { PhoneIcon, OpenLetterIcon } from '../../component/icons/icons';
 import { useSubmitGuestResponse } from '../../hooks/usePostApi';
 
 export default function NotAttendingRsvpModal({ handleClose, handlePostRequest, enable_bahasa }) {
-	const { userId } = useInviteContext();
+	const { userId, preview } = useInviteContext();
 	const [name, setName] = useState('');
 	const [tel, setTel] = useState('');
 	const [wish, setWish] = useState('');
@@ -72,12 +72,27 @@ export default function NotAttendingRsvpModal({ handleClose, handlePostRequest, 
 		}
 	};
 
+	const handleSubmitPreview = () => {
+		if (checkForInputName()) {
+			let guestRes = {
+				name: name,
+				phone: tel,
+				rsvp: 'notattending',
+				pax: 1,
+				wish: wish,
+			};
+
+			handlePostRequest();
+		}
+	};
+
 	return (
 		<div className='w-full flex flex-col items-center'>
 			{/***** Page Container ***/}
 			<div className='w-full max-w-2xl gap-4 py-2 mt-4'>
 				<div className='p-0  w-full items-center flex flex-col gap-4'>
 					<OpenLetterIcon width={48} height={48} />
+					{preview ? <InviteTextProvider className='text-xs'>Preview</InviteTextProvider> : null}
 					<InviteTextProvider className='uppercase font-medium text-center'>
 						{greetingText}
 					</InviteTextProvider>
@@ -141,7 +156,7 @@ export default function NotAttendingRsvpModal({ handleClose, handlePostRequest, 
 						<RsvpActionButton
 							isLoading={submitGuestResponse.isLoading}
 							className='w-full uppercase'
-							onClick={handleSubmit}>
+							onClick={preview ? handleSubmitPreview : handleSubmit}>
 							{confirmText}
 						</RsvpActionButton>
 					</div>

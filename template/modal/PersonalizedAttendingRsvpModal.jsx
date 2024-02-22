@@ -1,8 +1,9 @@
 /** @format */
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useQueryClient } from 'react-query';
 import moment from 'moment';
+//Context import
+import { useInviteContext } from '../inviteContext';
 //Components import
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
@@ -11,7 +12,7 @@ import RsvpActionButton from '../../component/button/RsvpActionButton';
 //API import
 import { useSubmitPersonalGuestResponse } from '../../hooks/usePostApi';
 //Assets import
-import { PhoneIcon, MinusIcon, PlusIcon, OpenLetterIcon } from '../../component/icons/icons';
+import { MinusIcon, PlusIcon, OpenLetterIcon } from '../../component/icons/icons';
 
 export default function PersonalizedAttendingRsvpModal({
 	handleClose,
@@ -23,19 +24,16 @@ export default function PersonalizedAttendingRsvpModal({
 	event_time,
 	event_time_slot_2 = null,
 }) {
-	//From React Query
-	const queryClient = useQueryClient();
-	const guestDetails = queryClient.getQueryData('personalizedGuestDetail') || {};
+	const { personalizedGuestDetail, userId } = useInviteContext();
+	const guestDetails = personalizedGuestDetail;
 	//States
-	const [name, setName] = useState(guestDetails?.name || '');
-	const [tel, setTel] = useState(guestDetails?.response?.phone || '');
 	const [pax, setPax] = useState(guestDetails?.response?.pax || 1);
 	const [wish, setWish] = useState(guestDetails?.response?.wish || '');
 	const [timeSlot, setTimeSlot] = useState(guestDetails?.response?.timeSlot || null);
 	const [error, setError] = useState(null);
 	const [timeSlotError, setTimeSlotError] = useState(null);
 	//POST Request
-	const submitGuestResponse = useSubmitPersonalGuestResponse();
+	const submitGuestResponse = useSubmitPersonalGuestResponse(userId);
 	//Title Text
 	const greetingText = enable_bahasa ? `Sila sahkan kehadiran` : `Please confirm your RSVP`;
 	const paxText = enable_bahasa ? 'Bilangan Kehadiran' : 'Total Pax';
@@ -43,23 +41,17 @@ export default function PersonalizedAttendingRsvpModal({
 	const wishText = enable_bahasa ? 'Ucapan anda' : 'Your Wish';
 	const confirmText = enable_bahasa ? 'Saya Hadir' : `I'm Attending`;
 	const cancelText = enable_bahasa ? 'Batal' : 'Cancel';
-	const nameInputErrorText = enable_bahasa ? 'Sila nyatakan nama anda' : 'Please enter your name';
 	const timeSlotInputErrorText = enable_bahasa ? 'Sila pilih waktu' : 'Please choose a timeslot';
 
 	useEffect(() => {
-		setName(guestDetails?.name || '');
-		setTel(guestDetails?.response?.phone || '');
 		setPax(guestDetails?.response?.pax || 1);
 		setWish(guestDetails?.response?.wish || '');
 		setTimeSlot(guestDetails?.response?.timeSlot || null);
 	}, [guestDetails]);
 
-	const checkForInputName = () => {
+	const checkForTimeslot = () => {
 		setError(null);
-		if (name === '') {
-			setError(nameInputErrorText);
-			return false;
-		} else if (!timeSlot && enable_multiple_slots) {
+		if (!timeSlot && enable_multiple_slots) {
 			setTimeSlotError(timeSlotInputErrorText);
 			return false;
 		} else {
@@ -67,21 +59,9 @@ export default function PersonalizedAttendingRsvpModal({
 		}
 	};
 
-	const handleReset = () => {
-		setName('');
-		setTel('');
-		setPax(1);
-		setWish('');
-		setTimeSlot(null);
-		setError(null);
-		setTimeSlotError(null);
-	};
-
 	const handleSubmit = async () => {
-		if (checkForInputName()) {
+		if (checkForTimeslot()) {
 			let guestRes = {
-				name: name,
-				phone: tel,
 				rsvp: 'attending',
 				pax: pax,
 				wish: wish ? wish : '',

@@ -9,8 +9,9 @@ import { useInviteContext } from '../inviteContext';
 //Buttons import
 import RsvpButton from './RsvpButton';
 import GiftRegistryButton from './GiftRegistryButton';
+import PersonalizedGiftRegistryButton from './PersonalizedGiftRegistryButton';
 import MoneyGiftButton from './MoneyGiftButton';
-import PersonalizedRsvpButton from './PersonalizedRsvpButton2';
+import PersonalizedRsvpButton from './PersonalizedRsvpButton';
 //Components import
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
@@ -49,13 +50,11 @@ const ExpiredRsvp = ({ enable_bahasa }) => {
 	);
 };
 
-function ActionButtonsTest({
+function ActionButtons({
 	//theme
 	color = '#1D4648',
-	//variants
-	guest_name = null,
 }) {
-	const { eventDetails } = useInviteContext();
+	const { eventDetails, personalizedGuestDetail } = useInviteContext();
 	const {
 		enable_bahasa,
 		enable_gift_registry,
@@ -63,6 +62,8 @@ function ActionButtonsTest({
 		event_date_deadline,
 		enable_deadline,
 	} = eventDetails || {};
+
+	const guest_name = personalizedGuestDetail?.name;
 
 	const actionButtonsProps = {
 		enable_bahasa: enable_bahasa ? true : undefined,
@@ -110,10 +111,20 @@ function ActionButtonsTest({
 			animate={inView ? 'visible' : 'hidden'}
 			className='w-full flex flex-col gap-2 px-5'>
 			<motion.div className='w-full' variants={variants}>
-				{guest_name ? <PersonalizedRsvpButton /> : <RsvpButton {...actionButtonsProps} />}
+				{guest_name ? (
+					<PersonalizedRsvpButton {...actionButtonsProps} />
+				) : (
+					<RsvpButton {...actionButtonsProps} />
+				)}
 			</motion.div>
 			<motion.div className='w-full' variants={variants}>
-				{enable_gift_registry && <GiftRegistryButton {...actionButtonsProps} />}
+				{enable_gift_registry ? (
+					guest_name ? (
+						<PersonalizedGiftRegistryButton />
+					) : (
+						<GiftRegistryButton {...actionButtonsProps} />
+					)
+				) : null}
 			</motion.div>
 			<motion.div className='w-full' variants={variants}>
 				{enable_money_gift && <MoneyGiftButton {...actionButtonsProps} />}
@@ -131,4 +142,4 @@ function ActionButtonsTest({
 	);
 }
 
-export default ActionButtonsTest;
+export default ActionButtons;

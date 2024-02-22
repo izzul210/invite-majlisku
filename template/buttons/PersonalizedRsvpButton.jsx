@@ -1,33 +1,25 @@
 /** @format */
 
 'use client';
-import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
-import { useQueryClient } from 'react-query';
+//Context import
+import { useInviteContext } from '../inviteContext';
 //Components import
+import ModalProvider from '../../component/drawer/DrawerProvider';
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 //Modals import
-const PersonalizedRsvpActionModal = dynamic(() => import('../modals/PersonalizedRsvpActionModal'));
-const PersonalizedAttendingRsvpModal = dynamic(() =>
-	import('../modals/PersonalizedAttendingRsvpModal')
-);
-const PersonalizedNotAttendingRsvpModal = dynamic(() =>
-	import('../modals/PersonalizedNotAttendingRsvpModal')
-);
-const PersonalizedMaybeRsvpModal = dynamic(() => import('../modals/PersonalizedMaybeRsvpModal'));
-const ThankYouModal = dynamic(() => import('../modals/ThankYouModal'));
+import PersonalizedAttendingRsvpModal from '../modal/PersonalizedAttendingRsvpModal';
+import PersonalizedNotAttendingRsvpModal from '../modal/PersonalizedNotAttendingRsvpModal';
+import PersonalizedMaybeRsvpModal from '../modal/PersonalizedMaybeRsvpModal';
+import PersonalizedRsvpActionModal from '../modal/PersonalizedRsvpActionModal';
+import ThankYouModal from '../modal/ThankYouModal';
 
 function PersonalizedRsvpButton(props) {
+	const { eventDetails, personalizedGuestDetail } = useInviteContext();
+	const guestDetails = personalizedGuestDetail || {};
 	const [openModal, setOpenModal] = useState(false);
-	const [thankyouModal, setThankyouModal] = useState(false);
-	const [attendingModal, setAttendingModal] = useState(false);
-	const [notAttendingModal, setNotAttendingModal] = useState(false);
-	const [maybeModal, setMaybeModal] = useState(false);
+	const [modalContent, setModalContent] = useState('rsvpAction');
 	const [status, setStatus] = useState('attending');
-	//From React Query:
-	const queryClient = useQueryClient();
-	const eventDetails = queryClient.getQueryData('eventDetails') || {};
-	const guestDetails = queryClient.getQueryData('personalizedGuestDetail') || {};
 	const {
 		enable_bahasa,
 		event_time,
@@ -37,6 +29,57 @@ function PersonalizedRsvpButton(props) {
 		enable_unlimited_pax,
 		guest_pax_limit,
 	} = eventDetails || {};
+
+	const renderBackButton = () => {
+		if (
+			modalContent === 'attending' ||
+			modalContent === 'notattending' ||
+			modalContent === 'maybe'
+		) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	const handleOpenModal = () => {
+		setOpenModal(true);
+	};
+
+	const handleCloseModal = () => {
+		setOpenModal(false);
+		setTimeout(() => {
+			setModalContent('rsvpAction');
+		}, 500);
+	};
+
+	const handleSwitchModalContent = (content) => {
+		setOpenModal(false);
+		setTimeout(() => {
+			setModalContent(content);
+			setOpenModal(true);
+		}, 500);
+	};
+
+	const handleBackButton = () => {
+		if (
+			modalContent === 'attending' ||
+			modalContent === 'notattending' ||
+			modalContent === 'maybe'
+		) {
+			handleSwitchModalContent('rsvpAction');
+		}
+	};
+
+	const handleOnClickRsvpResponse = (status) => {
+		if (status === 0) {
+			handleSwitchModalContent('attending');
+		} else if (status === 1) {
+			handleSwitchModalContent('notattending');
+		} else if (status === 2) {
+			handleSwitchModalContent('maybe');
+		}
+	};
 
 	const handleOnClickRsvp = () => {
 		setOpenModal(true);
@@ -57,17 +100,6 @@ function PersonalizedRsvpButton(props) {
 		}
 	};
 
-	const handleOnClickRsvpResponse = (status) => {
-		setOpenModal(false);
-		if (status === 0) {
-			setAttendingModal(true);
-		} else if (status === 1) {
-			setNotAttendingModal(true);
-		} else if (status === 2) {
-			setMaybeModal(true);
-		}
-	};
-
 	return (
 		<>
 			<button
@@ -79,70 +111,77 @@ function PersonalizedRsvpButton(props) {
 					{renderRsvpButtonTitle()}
 				</InviteTextProvider>
 			</button>
-			<PersonalizedRsvpActionModal
+			<ModalProvider
+				topBorder={renderBackButton()}
+				backButton={renderBackButton()}
 				isOpen={openModal}
-				handleClose={() => setOpenModal(false)}
-				handleRsvp={handleOnClickRsvpResponse}
-				eventDetails={eventDetails}
-				enable_bahasa={enable_bahasa}
-			/>
-			<PersonalizedAttendingRsvpModal
-				isOpen={attendingModal}
-				enable_multiple_slots={enable_multiple_slots}
-				enable_unlimited_pax={enable_unlimited_pax}
-				guest_pax_limit={guestDetails?.allocatedPax ? guestDetails?.allocatedPax : guest_pax_limit}
-				event_time={event_time?.start}
-				event_time_slot_2={event_time_slot_2}
-				handleClose={() => setAttendingModal(false)}
-				handleBackButton={() => {
-					setAttendingModal(false);
-					setOpenModal(true);
-				}}
-				handlePostRequest={() => {
-					setAttendingModal(false);
-					setThankyouModal(true);
-				}}
-				eventDetails={eventDetails}
-				enable_bahasa={enable_bahasa}
-			/>
-			<PersonalizedNotAttendingRsvpModal
-				isOpen={notAttendingModal}
-				handleClose={() => setNotAttendingModal(false)}
-				handleBackButton={() => {
-					setNotAttendingModal(false);
-					setOpenModal(true);
-				}}
-				handlePostRequest={() => {
-					setStatus('notattending');
-					setNotAttendingModal(false);
-					setThankyouModal(true);
-				}}
-				eventDetails={eventDetails}
-				enable_bahasa={enable_bahasa}
-			/>
-			<PersonalizedMaybeRsvpModal
-				isOpen={maybeModal}
-				handleClose={() => setMaybeModal(false)}
-				handleBackButton={() => {
-					setMaybeModal(false);
-					setOpenModal(true);
-				}}
-				handlePostRequest={() => {
-					setStatus('maybe');
-					setMaybeModal(false);
-					setThankyouModal(true);
-				}}
-				enable_bahasa={enable_bahasa}
-			/>
-			<ThankYouModal
-				guestName={guestDetails?.name}
-				isOpen={thankyouModal}
-				event_date={event_date}
-				eventDetails={eventDetails}
-				status={status}
-				handleClose={() => setThankyouModal(false)}
-				enable_bahasa={enable_bahasa}
-			/>
+				handleBackButton={handleBackButton}
+				handleClose={handleCloseModal}>
+				{(() => {
+					switch (modalContent) {
+						case 'rsvpAction':
+							return (
+								<PersonalizedRsvpActionModal
+									handleRsvp={handleOnClickRsvpResponse}
+									enable_bahasa={enable_bahasa}
+								/>
+							);
+						case 'attending':
+							return (
+								<PersonalizedAttendingRsvpModal
+									enable_unlimited_pax={enable_unlimited_pax}
+									guest_pax_limit={guest_pax_limit}
+									enable_bahasa={enable_bahasa}
+									enable_multiple_slots={enable_multiple_slots}
+									event_time={event_time?.start}
+									event_time_slot_2={event_time_slot_2}
+									handleClose={handleCloseModal}
+									handlePostRequest={() => {
+										setStatus('attending');
+										handleSwitchModalContent('thankyou');
+									}}
+									eventDetails={eventDetails}
+								/>
+							);
+						case 'notattending':
+							return (
+								<PersonalizedNotAttendingRsvpModal
+									enable_bahasa={enable_bahasa}
+									handleClose={handleCloseModal}
+									handlePostRequest={() => {
+										setStatus('notattending');
+										handleSwitchModalContent('thankyou');
+									}}
+									eventDetails={eventDetails}
+								/>
+							);
+						case 'maybe':
+							return (
+								<PersonalizedMaybeRsvpModal
+									enable_bahasa={enable_bahasa}
+									handleClose={handleCloseModal}
+									handlePostRequest={() => {
+										setStatus('maybe');
+										handleSwitchModalContent('thankyou');
+									}}
+								/>
+							);
+						case 'thankyou':
+							return (
+								<ThankYouModal
+									enable_bahasa={enable_bahasa}
+									event_date={event_date}
+									eventDetails={eventDetails}
+									status={status}
+									handleClose={handleCloseModal}
+								/>
+							);
+
+						default:
+							return null;
+					}
+				})()}
+			</ModalProvider>
 		</>
 	);
 }

@@ -17,7 +17,8 @@ export default function GiftConfirmModal({
 		<div className='mt-4 flex flex-col gap-8 items-center'>
 			<GiftIcon height='39.5' width='32' />
 			<InviteTextProvider className='uppercase text-center px-2'>
-				{enable_bahasa ? 'Anda ingin menghantar hadiah ini' : 'Do you want to reserve this gift'},{' '}
+				{enable_bahasa ? 'Anda ingin menghantar hadiah ini' : 'Do you want to reserve this gift'},
+				<br />
 				<b>{guestDetail?.name}</b> ?
 			</InviteTextProvider>
 			<div className='w-full flex-1 flex flex-row gap-4 pb-8'>
@@ -25,7 +26,7 @@ export default function GiftConfirmModal({
 					{enable_bahasa ? 'Batal' : 'Cancel'}
 				</ButtonProvider>
 				<ButtonProvider onClick={() => handleConfirm()} type='primary' className='w-full uppercase'>
-					{enable_bahasa ? 'Setuju' : 'Cofirm'}
+					{enable_bahasa ? 'Setuju' : 'Confirm'}
 				</ButtonProvider>
 			</div>
 		</div>

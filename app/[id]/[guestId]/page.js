@@ -52,10 +52,21 @@ export async function generateMetadata({ params }) {
 	};
 }
 
+async function fetchAPI(inviteId) {
+	const res = await fetch(`${API}/rsvpdetails/${inviteId}`, { cache: 'no-store' });
+	const data = await res.json();
+
+	console.log(`rsvpdetails/${inviteId}`, data);
+
+	return data;
+}
+
 export default async function Page({ params }) {
+	const eventDetails = await fetchAPI(params.id);
+
 	return (
 		<main>
-			<InviteTemplateGuest inviteId={params.id} guestId={params.guestId} />
+			<InviteTemplateGuest eventDetails={eventDetails} guestId={params.guestId} />
 		</main>
 	);
 }

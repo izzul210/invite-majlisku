@@ -9,7 +9,7 @@ import ButtonProvider from '../../component/button/ButtonProvider';
 //Default gift image
 import defaultgiftimage from '../../public/defaultgift.png';
 
-export default function GiftDetailModal({
+export default function PersonalizedGiftDetailModal({
 	giftDetails,
 	enable_bahasa = false,
 	handleSwitchModalContent,

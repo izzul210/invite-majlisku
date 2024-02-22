@@ -3,6 +3,8 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useQueryClient } from 'react-query';
+//Context import
+import { useInviteContext } from '../inviteContext';
 //Components import
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import ButtonProvider from '../../component/button/ButtonProvider';
@@ -14,6 +16,8 @@ export default function GiftDetailModal({
 	enable_bahasa = false,
 	handleSwitchModalContent,
 }) {
+	const { preview } = useInviteContext();
+
 	const queryClient = useQueryClient();
 	const { name, imageUrl, link, category, id } = giftDetails || {};
 	const guestDetail = queryClient.getQueryData('guestDetail') || null;
@@ -26,6 +30,10 @@ export default function GiftDetailModal({
 		} else {
 			handleSwitchModalContent('returnHome');
 		}
+	};
+
+	const handlePreviewReserve = () => {
+		handleSwitchModalContent('previewReserve');
 	};
 
 	return (
@@ -62,7 +70,10 @@ export default function GiftDetailModal({
 				</div>
 			</div>
 			<div className='w-full flex-1 pb-4'>
-				<ButtonProvider onClick={handleReserveButton} type='primary' className='w-full uppercase'>
+				<ButtonProvider
+					onClick={preview ? handlePreviewReserve : handleReserveButton}
+					type='primary'
+					className='w-full uppercase'>
 					{enable_bahasa ? 'Simpan Hadiah' : 'Reserve Gift'}
 				</ButtonProvider>
 				{link && link !== '' ? (

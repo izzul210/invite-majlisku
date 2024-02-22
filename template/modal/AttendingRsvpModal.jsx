@@ -26,7 +26,7 @@ export default function AttendingRsvpModal({
 	event_time,
 	event_time_slot_2 = null,
 }) {
-	const { userId } = useInviteContext();
+	const { userId, preview } = useInviteContext();
 	//STATES
 	const [name, setName] = useState('');
 	const [tel, setTel] = useState('');
@@ -103,6 +103,27 @@ export default function AttendingRsvpModal({
 		}
 	};
 
+	const handleSubmitPreview = () => {
+		if (checkForInputName()) {
+			let guestRes = {
+				name: name,
+				phone: tel,
+				rsvp: 'attending',
+				pax: pax,
+				wish: wish ? wish : '',
+			};
+
+			if (enable_multiple_slots) {
+				guestRes = {
+					...guestRes,
+					timeSlot: timeSlot,
+				};
+			}
+
+			handlePostRequest();
+		}
+	};
+
 	const onClickAddPax = () => {
 		if (!enable_unlimited_pax && guest_pax_limit && pax >= guest_pax_limit) return;
 		setPax(pax + 1);
@@ -122,6 +143,7 @@ export default function AttendingRsvpModal({
 			<div className='w-full max-w-2xl gap-4 py-2 mt-4'>
 				<div className='p-0  w-full items-center flex flex-col gap-4'>
 					<OpenLetterIcon width={48} height={48} />
+					{preview ? <InviteTextProvider className='text-xs'>Preview</InviteTextProvider> : null}
 					<InviteTextProvider className='uppercase font-medium text-center'>
 						{greetingText}
 					</InviteTextProvider>
@@ -235,7 +257,7 @@ export default function AttendingRsvpModal({
 						<RsvpActionButton
 							isLoading={submitGuestResponse.isLoading}
 							className='w-full uppercase'
-							onClick={handleSubmit}>
+							onClick={preview ? handleSubmitPreview : handleSubmit}>
 							{confirmText}
 						</RsvpActionButton>
 					</div>

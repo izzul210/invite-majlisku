@@ -19,7 +19,7 @@ export default function GiftConfirmModal({ enable_bahasa, handleClose }) {
 			</InviteTextProvider>
 			<div className='w-full flex-1 flex flex-col gap-2 pb-8'>
 				<ButtonProvider onClick={handleClose} className='w-full uppercase'>
-					{enable_bahasa ? 'Back to home' : 'Halaman Utama'}
+					{enable_bahasa ? 'Halaman Utama' : 'Back to Home'}
 				</ButtonProvider>
 				<Link href='https://majlisku.com' target='_blank'>
 					<ButtonProvider type='primary' className='w-full uppercase'>

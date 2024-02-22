@@ -1,6 +1,6 @@
 /** @format */
 //Screen import
-import InviteTemplate from '../../template/InviteTemplateTest';
+import InviteTemplate from '../../template/InviteTemplate';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 // const API = 'http://localhost:5000/myweddingapp-25712/asia-southeast1/user';
@@ -20,9 +20,6 @@ export async function generateMetadata({ params }) {
 		const metadataDetails = await fetch(`${API}/metadata/${id}`, { cache: 'no-store' }).then(
 			(res) => res.json()
 		);
-
-		console.log('metadataDetails', metadataDetails);
-
 		title = metadataDetails?.metadata_title;
 		description = metadataDetails?.metadata_description;
 		imageUrl = metadataDetails?.metadata_image_url
@@ -48,7 +45,8 @@ export async function generateMetadata({ params }) {
 async function fetchAPI(inviteId) {
 	const res = await fetch(`${API}/rsvpdetails/${inviteId}`, { cache: 'no-store' });
 	const data = await res.json();
-	console.log('data from server:', data);
+
+	console.log(`rsvpdetails/${inviteId}`, data);
 
 	return data;
 }

@@ -12,7 +12,7 @@ const GreetingScreenRoyalAnimation = dynamic(() => import('./GreetingScreenRoyal
 const GreetingScreenPremiumAnimation = dynamic(() => import('./GreetingScreenPremiumAnimation'));
 const GreetingScreenIslamicAnimation = dynamic(() => import('./GreetingScreenIslamicAnimation'));
 
-export default function GreetingScreenTest({ guest_name = null }) {
+export default function GreetingScreen({ guest_name = null }) {
 	const { design, eventDetails, preview } = useInviteContext();
 	const {
 		enable_bahasa,

@@ -126,6 +126,13 @@ function GiftRegistryButton({ enable_bahasa, preview }) {
 									handleClose={handleCloseModal}
 								/>
 							);
+						case 'previewReserve':
+							return (
+								<GiftPostReserveModal
+									enable_bahasa={enable_bahasa}
+									handleClose={handleCloseModal}
+								/>
+							);
 						default:
 							return null;
 					}
