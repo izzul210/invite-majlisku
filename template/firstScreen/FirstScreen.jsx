@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
 import { useInviteContext } from '../inviteContext';
 //Animated template imports
+const FirstScreenVideo = dynamic(() => import('./FirstScreenVideoWithText'));
 const FirstScreenDefaultAnimation = dynamic(() => import('./FirstScreenDefaultAnimation'));
 const FirstScreenMinimalAnimation_1 = dynamic(() => import('./FirstScreenMinimalAnimation_1'));
 const FirstScreenMinimalAnimation_2 = dynamic(() => import('./FirstScreenMinimalAnimation_2'));
@@ -161,6 +162,8 @@ export default function FirstScreen({ childVariants }) {
 			return <FirstScreenVintageAnimation_3 {...firstScreenProps} childVariants={childVariants} />;
 		case 60:
 			return <FirstScreenDefaultAnimation {...firstScreenProps} childVariants={childVariants} />;
+		case 70:
+			return <FirstScreenVideo {...firstScreenProps} childVariants={childVariants} />;
 		default:
 			return <FirstScreenDefaultAnimation {...firstScreenProps} />;
 	}

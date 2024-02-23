@@ -50,6 +50,8 @@ function InviteTemplateTest({ eventDetails }) {
 		? Number(eventDetails.design_num)
 		: convertOldTheme(eventDetails?.type);
 
+	// const design = 70;
+
 	const containerVariants = {
 		hidden: { opacity: 1, filter: 'blur(10px)', display: 'none' },
 		visible: {
