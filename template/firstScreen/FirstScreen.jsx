@@ -5,7 +5,8 @@ import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
 import { useInviteContext } from '../inviteContext';
 //Animated template imports
-const FirstScreenVideo = dynamic(() => import('./FirstScreenVideoWithText'));
+const FirstScreenVideoCover = dynamic(() => import('./FirstScreenVideoCover'));
+const FirstScreenImageCover = dynamic(() => import('./FirstScreenImageCover'));
 const FirstScreenDefaultAnimation = dynamic(() => import('./FirstScreenDefaultAnimation'));
 const FirstScreenMinimalAnimation_1 = dynamic(() => import('./FirstScreenMinimalAnimation_1'));
 const FirstScreenMinimalAnimation_2 = dynamic(() => import('./FirstScreenMinimalAnimation_2'));
@@ -38,6 +39,10 @@ export default function FirstScreen({ childVariants }) {
 		italic_title,
 		event_time,
 		optional_description,
+		enable_cover,
+		video_cover_url,
+		image_cover_url,
+		cover_url,
 	} = eventDetails || {};
 
 	useEffect(() => {}, [design]);
@@ -57,7 +62,19 @@ export default function FirstScreen({ childVariants }) {
 		event_time,
 		event_start: event_time?.start,
 		event_end: event_time?.end,
+		enable_cover,
+		video_cover_url,
+		image_cover_url,
+		cover_url,
 	};
+
+	if (enable_cover) {
+		if (cover_url === video_cover_url) {
+			return <FirstScreenVideoCover {...firstScreenProps} />;
+		} else if (cover_url === image_cover_url) {
+			return <FirstScreenImageCover {...firstScreenProps} />;
+		} else return;
+	}
 
 	switch (design) {
 		case 1:
@@ -162,8 +179,6 @@ export default function FirstScreen({ childVariants }) {
 			return <FirstScreenVintageAnimation_3 {...firstScreenProps} childVariants={childVariants} />;
 		case 60:
 			return <FirstScreenDefaultAnimation {...firstScreenProps} childVariants={childVariants} />;
-		case 70:
-			return <FirstScreenVideo {...firstScreenProps} childVariants={childVariants} />;
 		default:
 			return <FirstScreenDefaultAnimation {...firstScreenProps} />;
 	}

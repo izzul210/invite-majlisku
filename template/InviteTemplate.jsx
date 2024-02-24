@@ -2,6 +2,7 @@
 
 'use client';
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useItineraryList, useWishList } from '../hooks/useApi';
 import Footnote from './Footnote';
@@ -14,7 +15,7 @@ import EventDetails from './eventDetails/EventDetails';
 import Tentative from './tentative/Tentative';
 import Wishlist from './wishlist/Wishlist';
 import Contacts from './contacts/Contacts';
-import Calendar from './calendar/Calendar';
+const Calendar = dynamic(() => import('./calendar/Calendar'));
 
 const convertOldTheme = (type) => {
 	if (!type) return 1;
@@ -39,10 +40,12 @@ function InviteTemplateTest({ eventDetails }) {
 	const { data: wishlist } = useWishList(userId);
 	//States
 	const [isOpen, setIsOpen] = useState(true);
+	const [calendarVisible, setCalendarVisible] = useState(false);
 	const [mainPageVisible, setMainPageVisible] = useState(false);
 
 	const handleOpen = () => {
 		setIsOpen(false);
+		setCalendarVisible(true);
 		setTimeout(() => setMainPageVisible(true), 100);
 	};
 
@@ -108,7 +111,8 @@ function InviteTemplateTest({ eventDetails }) {
 								style={{ maxWidth: '400px' }}>
 								<Tentative itinerary={itinerary} />
 								<Contacts />
-								<Calendar />
+								{calendarVisible && <Calendar />}
+
 								<Wishlist wishlist={wishlist} />
 							</div>
 						</div>
