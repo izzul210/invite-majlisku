@@ -34,11 +34,11 @@ export default function FirstScreenVideo({}) {
 					autoPlay
 					loop
 					muted
+					playsInline
 					preload='none'
-					style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-					<source src={videoURL} type='video/mp4' />
-					Your browser does not support the video tag.
-				</video>
+					src={videoURL}
+					type='video/mp4'
+					style={{ width: '100%', height: '100%', objectFit: 'cover' }}></video>
 			</div>
 		</div>
 	);
