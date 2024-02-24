@@ -112,7 +112,6 @@ function InviteTemplateTest({ eventDetails }) {
 								<Tentative itinerary={itinerary} />
 								<Contacts />
 								{calendarVisible && <Calendar />}
-
 								<Wishlist wishlist={wishlist} />
 							</div>
 						</div>

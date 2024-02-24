@@ -24,6 +24,7 @@ function InviteTemplatePreview({ designId, userId, eventDetails }) {
 	const { data: wishlist } = useWishList(userId);
 	//States
 	const [isOpen, setIsOpen] = useState(true);
+	const [calendarVisible, setCalendarVisible] = useState(false);
 	const [mainPageVisible, setMainPageVisible] = useState(false);
 
 	const handleOpen = () => {
@@ -88,7 +89,7 @@ function InviteTemplatePreview({ designId, userId, eventDetails }) {
 								style={{ maxWidth: '400px' }}>
 								<Tentative itinerary={itinerary} />
 								<Contacts />
-								<Calendar />
+								{calendarVisible && <Calendar />}
 								<Wishlist wishlist={wishlist} />
 							</div>
 						</div>

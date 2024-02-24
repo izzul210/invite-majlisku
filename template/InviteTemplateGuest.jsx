@@ -39,11 +39,13 @@ function InviteTemplateGuest({ eventDetails, guestId }) {
 	const { data: wishlist } = useWishList(userId);
 	//States
 	const [isOpen, setIsOpen] = useState(true);
+	const [calendarVisible, setCalendarVisible] = useState(false);
 	const [mainPageVisible, setMainPageVisible] = useState(false);
 
 	const handleOpen = () => {
 		if (!isLoadingPersonalizedGuestDetail) {
 			setIsOpen(false);
+			setCalendarVisible(true);
 			setTimeout(() => setMainPageVisible(true), 100);
 		}
 	};
@@ -108,7 +110,7 @@ function InviteTemplateGuest({ eventDetails, guestId }) {
 								style={{ maxWidth: '400px' }}>
 								<Tentative itinerary={itinerary} />
 								<Contacts />
-								<Calendar />
+								{calendarVisible && <Calendar />}
 								<Wishlist wishlist={wishlist} />
 							</div>
 						</div>
