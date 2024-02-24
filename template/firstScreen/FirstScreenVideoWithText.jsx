@@ -47,6 +47,7 @@ export default function FirstScreenVideoWithText({
 					autoPlay
 					loop
 					muted
+					playsInline
 					preload='none'
 					style={{
 						position: 'absolute',
