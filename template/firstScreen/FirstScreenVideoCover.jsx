@@ -12,6 +12,7 @@ export default function FirstScreenVideo({ cover_url }) {
 					width='100%'
 					height='100%'
 					autoPlay
+					controls
 					loop
 					muted
 					playsInline
