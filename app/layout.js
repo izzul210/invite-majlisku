@@ -10,6 +10,7 @@ import '../component/textProvider/InviteTextProvider.scss';
 import '../template/firstScreen/FirstScreen.scss';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 
 export const metadata = {
 	title: {
@@ -24,7 +25,9 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang='en'>
 			<body>
-				<Providers>{children}</Providers>
+				<Providers>
+					<AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+				</Providers>
 				<SpeedInsights />
 			</body>
 		</html>

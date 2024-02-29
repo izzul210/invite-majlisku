@@ -43,10 +43,7 @@ export default function SwipeableTemporaryDrawer({
 			onOpen={() => {}}
 			disableBackdropTransition={!iOS}
 			disableDiscovery={iOS}
-			ModalProps={{
-				// This should already be the default behavior
-				disableScrollLock: false,
-			}}
+			BackdropProps={{ style: { backdropFilter: 'blur(3px)' } }}
 			PaperProps={{
 				sx: {
 					zIndex: 200,
