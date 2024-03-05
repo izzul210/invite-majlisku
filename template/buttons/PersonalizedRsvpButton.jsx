@@ -130,7 +130,9 @@ function PersonalizedRsvpButton(props) {
 							return (
 								<PersonalizedAttendingRsvpModal
 									enable_unlimited_pax={enable_unlimited_pax}
-									guest_pax_limit={guest_pax_limit}
+									guest_pax_limit={
+										guestDetails?.allocatedPax ? guestDetails?.allocatedPax : guest_pax_limit
+									}
 									enable_bahasa={enable_bahasa}
 									enable_multiple_slots={enable_multiple_slots}
 									event_time={event_time?.start}
