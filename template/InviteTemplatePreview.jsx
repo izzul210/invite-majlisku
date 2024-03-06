@@ -29,6 +29,7 @@ function InviteTemplatePreview({ designId, userId, eventDetails }) {
 
 	const handleOpen = () => {
 		setIsOpen(false);
+		setCalendarVisible(true);
 		setTimeout(() => setMainPageVisible(true), 100);
 		// Delay to match the opening screen animation
 	};
