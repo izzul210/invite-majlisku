@@ -122,7 +122,7 @@ export default function PersonalizedAttendingRsvpModal({
 										setTimeSlotError(null);
 										setTimeSlot(1);
 									}}>
-									{moment(event_time).format('h:mm A')}
+									{moment.parseZone(event_time).locale('en').format('h:mm A')}
 								</TimeSlotButton>
 								<TimeSlotButton
 									active={timeSlot === 2}
@@ -130,7 +130,7 @@ export default function PersonalizedAttendingRsvpModal({
 										setTimeSlotError(null);
 										setTimeSlot(2);
 									}}>
-									{moment(event_time_slot_2).format('h:mm A')}
+									{moment.parseZone(event_time_slot_2).locale('en').format('h:mm A')}
 								</TimeSlotButton>
 							</div>
 							{timeSlotError && (
