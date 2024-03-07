@@ -66,7 +66,7 @@ function ActionButtons({
 	const guest_name = personalizedGuestDetail?.name;
 
 	const actionButtonsProps = {
-		enable_bahasa: enable_bahasa ? true : undefined,
+		enable_bahasa: enable_bahasa ? 'true' : undefined,
 	};
 
 	const hasDatePassed = event_date_deadline ? moment().isAfter(moment(event_date_deadline)) : false;

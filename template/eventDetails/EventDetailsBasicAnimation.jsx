@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 //Hooks import
 import { useInviteFunc } from '../../hooks/useInviteFunc';
 //Event Details components import
-import ActionButtonsTest from '../buttons/ActionButtons';
+import ActionButtons from '../buttons/ActionButtons';
 import BasicEventTextProvider from './components/text/BasicEventTextProvider';
 import WazeButton from './components/button/WazeButton';
 import GoogleMapButton from './components/button/GoogleMapButton';
@@ -14,9 +14,6 @@ import GoogleMapButton from './components/button/GoogleMapButton';
 import { addressContainer, variants } from '../animationProps';
 
 export default function EventDetailsBasicAnimation({
-	enable_bahasa,
-	guest_name = null,
-	preview,
 	event_date = '2023-07-19',
 	event_start = '2023-03-30T18:00:52-07:00',
 	event_end = '2023-03-30T20:00:52-07:00',
@@ -24,12 +21,6 @@ export default function EventDetailsBasicAnimation({
 	description,
 	waze_link = null,
 	google_link = null,
-	//For RSVP
-	event_date_deadline = null,
-	enable_deadline = false,
-	enable_gift_registry = false,
-	enable_money_gift = false,
-	inviteId,
 }) {
 	const { useConvertText } = useInviteFunc();
 
@@ -122,7 +113,7 @@ export default function EventDetailsBasicAnimation({
 					</motion.div>
 				)}
 			</div>
-			<ActionButtonsTest />
+			<ActionButtons />
 		</div>
 	);
 }

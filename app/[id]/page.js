@@ -34,6 +34,7 @@ export async function generateMetadata({ params }) {
 	return {
 		title: title,
 		description: description,
+		metadataBase: new URL('https://invite.majlisku.app'),
 		openGraph: {
 			title: title,
 			description: description,
