@@ -27,9 +27,9 @@ function OpeningScreen({ onOpen, title, enable_bahasa, isLoading }) {
 			<div className='flex items-center justify-center gap-12 flex-col'>
 				<MajliskuMainIcon />
 				<InviteTextProvider
-					fontFamily='greatVibes'
+					fontFamily='ebGaramond'
 					color='#F1BFBE'
-					className='uppercase lowercase capitalize text-center text-[34px] sm:text-3xl'>
+					className=' text-center text-[34px] sm:text-3xl'>
 					<div style={{ whiteSpace: 'pre-line' }}>{title}</div>
 				</InviteTextProvider>
 			</div>

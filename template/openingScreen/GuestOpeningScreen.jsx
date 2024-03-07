@@ -34,9 +34,9 @@ function GuestOpeningScreen({ onOpen, title, enable_bahasa, isLoading }) {
 							<div style={{ whiteSpace: 'pre-line' }}>{enable_bahasa ? 'Kepada:' : 'To:'}</div>
 						</InviteTextProvider>
 						<InviteTextProvider
-							fontFamily='greatVibes'
+							fontFamily='ebGaramond'
 							color='#F1BFBE'
-							className='uppercase lowercase capitalize text-center text-[34px] sm:text-3xl'>
+							className=' text-center text-[34px] sm:text-3xl'>
 							<div style={{ whiteSpace: 'pre-line' }}>{title}</div>
 						</InviteTextProvider>
 					</div>
