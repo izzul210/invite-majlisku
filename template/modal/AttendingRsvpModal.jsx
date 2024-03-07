@@ -143,7 +143,6 @@ export default function AttendingRsvpModal({
 			<div className='w-full max-w-2xl gap-4 py-2 mt-4'>
 				<div className='p-0  w-full items-center flex flex-col gap-4'>
 					<OpenLetterIcon width={48} height={48} />
-					{preview ? <InviteTextProvider className='text-xs'>Preview</InviteTextProvider> : null}
 					<InviteTextProvider className='uppercase font-medium text-center'>
 						{greetingText}
 					</InviteTextProvider>
@@ -194,7 +193,7 @@ export default function AttendingRsvpModal({
 										setTimeSlotError(null);
 										setTimeSlot(1);
 									}}>
-									{moment(event_time).format('h:mm A')}
+									{moment.parseZone(event_time).locale('en').format('h:mm A')}
 								</TimeSlotButton>
 								<TimeSlotButton
 									active={timeSlot === 2}
@@ -202,7 +201,7 @@ export default function AttendingRsvpModal({
 										setTimeSlotError(null);
 										setTimeSlot(2);
 									}}>
-									{moment(event_time_slot_2).format('h:mm A')}
+									{moment.parseZone(event_time_slot_2).locale('en').format('h:mm A')}
 								</TimeSlotButton>
 							</div>
 							{timeSlotError && (

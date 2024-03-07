@@ -40,9 +40,10 @@ export default function EventDetailsPremiumAnimation({
 	const { backgroundColor, color, fill } = premiumColorTheme[premium_design];
 
 	let formatted_event_date = moment(event_date).format('dddd, D MMMM YYYY');
-	let formatted_time = `${moment(event_start).format('h:mm A')} - ${moment(event_end).format(
-		'h:mm A'
-	)}`;
+	let formatted_time = `${moment.parseZone(event_start).locale('en').format('h:mm A')} - ${moment
+		.parseZone(event_end)
+		.locale('en')
+		.format('h:mm A')}`;
 	let formatted_event_address = useConvertText(event_address);
 	let formatted_event_description = useConvertText(description);
 

@@ -68,9 +68,9 @@ export default function FirstScreen({ childVariants }) {
 		cover_url,
 	};
 
-	if (enable_cover && cover_url === video_cover_url) {
+	if (enable_cover && cover_url && cover_url === video_cover_url) {
 		return <FirstScreenVideoCover {...firstScreenProps} />;
-	} else if (enable_cover && cover_url === image_cover_url) {
+	} else if (enable_cover && cover_url && cover_url === image_cover_url) {
 		return <FirstScreenImageCover {...firstScreenProps} />;
 	} else {
 		switch (design) {
