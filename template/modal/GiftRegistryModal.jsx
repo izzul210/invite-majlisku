@@ -11,7 +11,7 @@ import { useInviteContext } from '../inviteContext';
 //Components import
 import InviteTextProvider from '../../component/textProvider/InviteTextProvider';
 import InviteLineLogo from '../../component/misc/InviteLineLogo';
-
+import defaultgiftimage from '../../public/defaultgift.png';
 /****** Misc */
 const AddressIcon = () => (
 	<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'>
