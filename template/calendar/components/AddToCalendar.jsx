@@ -48,7 +48,7 @@ function AddToCalendar({ enable_bahasa, event_title, start_time, end_time, addre
 				//Event Details
 				label={enable_bahasa ? 'SIMPAN DI KALENDAR' : 'SAVE TO CALENDAR'}
 				name={event_title || 'The Wedding'}
-				location={address || 'Wedding Place'}
+				location={address ? address : 'Wedding Place'}
 				startDate={event_date || '2023-12-01'}
 				startTime={moment.parseZone(start_time).format('HH:mm')}
 				endTime={moment.parseZone(end_time).format('HH:mm')}></AddToCalendarButton>

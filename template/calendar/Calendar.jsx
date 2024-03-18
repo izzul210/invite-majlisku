@@ -7,8 +7,15 @@ const CalendarAccordian = dynamic(() => import('./CalendarAccordian'));
 
 export default function Calendar() {
 	const { design, eventDetails } = useInviteContext();
-	const { enable_bahasa, event_date, location_info, event_time, event_title_1, italic_title } =
-		eventDetails;
+	const {
+		enable_bahasa,
+		event_address,
+		event_date,
+		location_info,
+		event_time,
+		event_title_1,
+		italic_title,
+	} = eventDetails;
 
 	const renderComponent = () => {
 		switch (design) {
@@ -17,7 +24,7 @@ export default function Calendar() {
 				return (
 					<CalendarDefault
 						enable_bahasa={enable_bahasa}
-						location_info={location_info}
+						event_address={event_address}
 						event_time={event_time}
 						event_date={event_date}
 						event_title={`${event_title_1} ${italic_title}`}
@@ -27,7 +34,7 @@ export default function Calendar() {
 				return (
 					<CalendarAccordian
 						enable_bahasa={enable_bahasa}
-						location_info={location_info}
+						event_address={event_address}
 						event_time={event_time}
 						event_date={event_date}
 						event_title={`${event_title_1} ${italic_title}`}
