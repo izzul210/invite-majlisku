@@ -96,8 +96,8 @@ function InviteTemplateTest({ eventDetails }) {
 		<InviteContext.Provider value={{ design, eventDetails, userId, preview }}>
 			<>
 				<MusicPlayButton
+					eventDetails={eventDetails}
 					playing={playing}
-					start={60}
 					musicPlayerVisible={musicPlayerVisible}
 					stopPlaying={stopPlaying}
 					startPlaying={() => setPlaying(true)}

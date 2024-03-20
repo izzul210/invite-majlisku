@@ -15,6 +15,7 @@ import Tentative from './tentative/Tentative';
 import Wishlist from './wishlist/Wishlist';
 import Contacts from './contacts/Contacts';
 import Calendar from './calendar/Calendar';
+import MusicPlayButton from './buttons/MusicPlayButton';
 
 function InviteTemplatePreview({ designId, userId, eventDetails }) {
 	const preview = true;
@@ -26,12 +27,20 @@ function InviteTemplatePreview({ designId, userId, eventDetails }) {
 	const [isOpen, setIsOpen] = useState(true);
 	const [calendarVisible, setCalendarVisible] = useState(false);
 	const [mainPageVisible, setMainPageVisible] = useState(false);
+	const [musicPlayerVisible, setMusicPlayerVisible] = useState(false);
+	const [playing, setPlaying] = useState(false);
 
 	const handleOpen = () => {
 		setIsOpen(false);
 		setCalendarVisible(true);
+		setMusicPlayerVisible(true);
+		setPlaying(true);
 		setTimeout(() => setMainPageVisible(true), 100);
 		// Delay to match the opening screen animation
+	};
+
+	const stopPlaying = () => {
+		setPlaying(false);
 	};
 
 	const containerVariants = {
@@ -65,6 +74,13 @@ function InviteTemplatePreview({ designId, userId, eventDetails }) {
 	return (
 		<InviteContext.Provider value={{ design, eventDetails, userId, preview }}>
 			<>
+				<MusicPlayButton
+					eventDetails={eventDetails}
+					playing={playing}
+					musicPlayerVisible={musicPlayerVisible}
+					stopPlaying={stopPlaying}
+					startPlaying={() => setPlaying(true)}
+				/>
 				<AnimatePresence>
 					{isOpen ? (
 						<OpeningScreen

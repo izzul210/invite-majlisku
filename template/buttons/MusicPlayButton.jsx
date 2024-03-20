@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import ModalProvider from '../../component/drawer/DrawerProvider';
 
-function MusicPlayButton({ musicPlayerVisible, playing, start, stopPlaying, startPlaying }) {
+function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlaying, startPlaying }) {
+	const { enable_bg_music, youtube_url, youtube_timestamp } = eventDetails || {};
 	const [open, setOpen] = useState(false);
+
+	if (!enable_bg_music) return null;
 
 	return (
 		<>
@@ -49,7 +52,7 @@ function MusicPlayButton({ musicPlayerVisible, playing, start, stopPlaying, star
 					<ReactPlayer
 						width={320}
 						height={200}
-						url='https://www.youtube.com/watch?v=hNLlx9zXF1Y?t=42'
+						url={`${youtube_url}?t=${youtube_timestamp}`}
 						playing={playing}
 						controls={true}
 					/>

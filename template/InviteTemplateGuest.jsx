@@ -14,6 +14,7 @@ import Tentative from './tentative/Tentative';
 import Wishlist from './wishlist/Wishlist';
 import Contacts from './contacts/Contacts';
 import Calendar from './calendar/Calendar';
+import MusicPlayButton from './buttons/MusicPlayButton';
 
 const convertOldTheme = (type) => {
 	if (!type) return 1;
@@ -41,11 +42,15 @@ function InviteTemplateGuest({ eventDetails, guestId }) {
 	const [isOpen, setIsOpen] = useState(true);
 	const [calendarVisible, setCalendarVisible] = useState(false);
 	const [mainPageVisible, setMainPageVisible] = useState(false);
+	const [musicPlayerVisible, setMusicPlayerVisible] = useState(false);
+	const [playing, setPlaying] = useState(false);
 
 	const handleOpen = () => {
 		if (!isLoadingPersonalizedGuestDetail) {
 			setIsOpen(false);
 			setCalendarVisible(true);
+			setMusicPlayerVisible(true);
+			setPlaying(true);
 			setTimeout(() => setMainPageVisible(true), 100);
 		}
 	};
@@ -53,6 +58,10 @@ function InviteTemplateGuest({ eventDetails, guestId }) {
 	const design = Number(eventDetails?.design_num)
 		? Number(eventDetails.design_num)
 		: convertOldTheme(eventDetails?.type);
+
+	const stopPlaying = () => {
+		setPlaying(false);
+	};
 
 	const containerVariants = {
 		hidden: { opacity: 1, filter: 'blur(10px)', display: 'none' },
@@ -85,6 +94,13 @@ function InviteTemplateGuest({ eventDetails, guestId }) {
 	return (
 		<InviteContext.Provider value={{ design, eventDetails, userId, personalizedGuestDetail }}>
 			<>
+				<MusicPlayButton
+					eventDetails={eventDetails}
+					playing={playing}
+					musicPlayerVisible={musicPlayerVisible}
+					stopPlaying={stopPlaying}
+					startPlaying={() => setPlaying(true)}
+				/>
 				<AnimatePresence>
 					{isOpen ? (
 						<GuestOpeningScreen
