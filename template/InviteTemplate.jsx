@@ -16,6 +16,7 @@ import Tentative from './tentative/Tentative';
 import Wishlist from './wishlist/Wishlist';
 import Contacts from './contacts/Contacts';
 const Calendar = dynamic(() => import('./calendar/Calendar'));
+import MusicPlayButton from './buttons/MusicPlayButton';
 
 const convertOldTheme = (type) => {
 	if (!type) return 1;
@@ -42,10 +43,12 @@ function InviteTemplateTest({ eventDetails }) {
 	const [isOpen, setIsOpen] = useState(true);
 	const [calendarVisible, setCalendarVisible] = useState(false);
 	const [mainPageVisible, setMainPageVisible] = useState(false);
+	const [playing, setPlaying] = useState(false);
 
 	const handleOpen = () => {
 		setIsOpen(false);
 		setCalendarVisible(true);
+		setPlaying(true);
 		setTimeout(() => setMainPageVisible(true), 100);
 	};
 
@@ -86,6 +89,7 @@ function InviteTemplateTest({ eventDetails }) {
 	return (
 		<InviteContext.Provider value={{ design, eventDetails, userId, preview }}>
 			<>
+				<MusicPlayButton playing={playing} />
 				<AnimatePresence>
 					{isOpen ? (
 						<OpeningScreen
@@ -105,6 +109,7 @@ function InviteTemplateTest({ eventDetails }) {
 						<div className='w-full flex flex-col items-center bg-white max-w-md sm:shadow-xl'>
 							<FirstScreen childVariants={childVariants} />
 							<GreetingScreen />
+
 							<EventDetails />
 							<div
 								className='w-full flex gap-3 flex-col px-5 sm:px-0 py-8'
@@ -116,7 +121,6 @@ function InviteTemplateTest({ eventDetails }) {
 							</div>
 						</div>
 					</div>
-
 					<Footnote />
 				</motion.div>
 			</>
