@@ -43,11 +43,13 @@ function InviteTemplateTest({ eventDetails }) {
 	const [isOpen, setIsOpen] = useState(true);
 	const [calendarVisible, setCalendarVisible] = useState(false);
 	const [mainPageVisible, setMainPageVisible] = useState(false);
+	const [musicPlayerVisible, setMusicPlayerVisible] = useState(false);
 	const [playing, setPlaying] = useState(false);
 
 	const handleOpen = () => {
 		setIsOpen(false);
 		setCalendarVisible(true);
+		setMusicPlayerVisible(true);
 		setPlaying(true);
 		setTimeout(() => setMainPageVisible(true), 100);
 	};
@@ -57,6 +59,10 @@ function InviteTemplateTest({ eventDetails }) {
 		: convertOldTheme(eventDetails?.type);
 
 	// const design = 70;
+
+	const stopPlaying = () => {
+		setPlaying(false);
+	};
 
 	const containerVariants = {
 		hidden: { opacity: 1, filter: 'blur(10px)', display: 'none' },
@@ -89,7 +95,13 @@ function InviteTemplateTest({ eventDetails }) {
 	return (
 		<InviteContext.Provider value={{ design, eventDetails, userId, preview }}>
 			<>
-				<MusicPlayButton playing={playing} />
+				<MusicPlayButton
+					playing={playing}
+					start={60}
+					musicPlayerVisible={musicPlayerVisible}
+					stopPlaying={stopPlaying}
+					startPlaying={() => setPlaying(true)}
+				/>
 				<AnimatePresence>
 					{isOpen ? (
 						<OpeningScreen
