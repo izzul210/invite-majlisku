@@ -5,7 +5,7 @@ import ReactPlayer from 'react-player/lazy';
 import ModalProvider from '../../component/drawer/DrawerProvider';
 
 function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlaying, startPlaying }) {
-	const { enable_bg_music, youtube_url, youtube_timestamp } = eventDetails || {};
+	const { enable_bg_music, youtube_url } = eventDetails || {};
 	const [open, setOpen] = useState(false);
 
 	if (!enable_bg_music || !youtube_url || youtube_url === '') return null;
@@ -52,7 +52,7 @@ function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlayin
 					<ReactPlayer
 						width={320}
 						height={200}
-						url={`${youtube_url}?t=${youtube_timestamp}`}
+						url={`${youtube_url}`}
 						playing={playing}
 						controls={true}
 					/>
