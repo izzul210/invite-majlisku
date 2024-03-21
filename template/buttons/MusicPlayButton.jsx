@@ -8,7 +8,7 @@ function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlayin
 	const { enable_bg_music, youtube_url, youtube_timestamp } = eventDetails || {};
 	const [open, setOpen] = useState(false);
 
-	if (!enable_bg_music) return null;
+	if (!enable_bg_music || !youtube_url || youtube_url === '') return null;
 
 	return (
 		<>
