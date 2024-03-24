@@ -4,12 +4,22 @@ import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import ModalProvider from '../../component/drawer/DrawerProvider';
 
-function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlaying, startPlaying }) {
+function MusicPlayButton({
+	eventDetails,
+	musicPlayerVisible,
+	playing,
+	stopPlaying,
+	startPlaying,
+	handleAlloweOpen,
+}) {
 	const { enable_bg_music, youtube_url } = eventDetails || {};
 	const [open, setOpen] = useState(false);
 	const [backupPlay, setBackupPlay] = useState(false);
 
-	if (!enable_bg_music || !youtube_url || youtube_url === '') return null;
+	if (!enable_bg_music || !youtube_url || youtube_url === '') {
+		handleAlloweOpen();
+		return null;
+	}
 
 	return (
 		<>
@@ -50,7 +60,9 @@ function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlayin
 			)}
 
 			<ModalProvider isOpen={open} handleClose={() => setOpen(false)}>
-				<h4>Test</h4>
+				<h4>
+					Test {backupPlay && 'backupPlay'} {playing && 'playing'}
+				</h4>
 				<div className='w-full flex justify-center'>
 					<ReactPlayer
 						width={320}
@@ -60,9 +72,7 @@ function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlayin
 						controls={true}
 						playsinline={true}
 						onReady={() => {
-							if (playing) {
-								setBackupPlay(true);
-							}
+							handleAlloweOpen();
 						}}
 					/>
 				</div>
