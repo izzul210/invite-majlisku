@@ -16,8 +16,9 @@ function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlayin
 				<div
 					className='floatingMusicButton'
 					onClick={() => {
-						if (playing) stopPlaying();
-						else startPlaying();
+						// if (playing) stopPlaying();
+						// else startPlaying();
+						setOpen(true);
 					}}>
 					{playing ? (
 						<svg
