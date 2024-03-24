@@ -29,8 +29,11 @@ function InviteTemplatePreview({ designId, userId, eventDetails }) {
 	const [mainPageVisible, setMainPageVisible] = useState(false);
 	const [musicPlayerVisible, setMusicPlayerVisible] = useState(false);
 	const [playing, setPlaying] = useState(false);
+	const [openIsAllowed, setOpenIsAllowed] = useState(false);
 
 	const handleOpen = () => {
+		if (!openIsAllowed) return;
+
 		setIsOpen(false);
 		setCalendarVisible(true);
 		setMusicPlayerVisible(true);
@@ -41,6 +44,10 @@ function InviteTemplatePreview({ designId, userId, eventDetails }) {
 
 	const stopPlaying = () => {
 		setPlaying(false);
+	};
+
+	const handleAllowToOpen = () => {
+		setOpenIsAllowed(true);
 	};
 
 	const containerVariants = {
@@ -80,6 +87,7 @@ function InviteTemplatePreview({ designId, userId, eventDetails }) {
 					musicPlayerVisible={musicPlayerVisible}
 					stopPlaying={stopPlaying}
 					startPlaying={() => setPlaying(true)}
+					handleAllowToOpen={handleAllowToOpen}
 				/>
 				<AnimatePresence>
 					{isOpen ? (
@@ -87,7 +95,7 @@ function InviteTemplatePreview({ designId, userId, eventDetails }) {
 							onOpen={handleOpen}
 							enable_bahasa={eventDetails?.enable_bahasa}
 							title={eventDetails?.italic_title}
-							isLoading={false}
+							isLoading={!openIsAllowed}
 						/>
 					) : null}
 				</AnimatePresence>

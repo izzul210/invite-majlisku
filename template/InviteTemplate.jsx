@@ -66,7 +66,7 @@ function InviteTemplateTest({ eventDetails }) {
 		setPlaying(false);
 	};
 
-	const handleAlloweOpen = () => {
+	const handleAllowToOpen = () => {
 		setOpenIsAllowed(true);
 	};
 
@@ -107,7 +107,7 @@ function InviteTemplateTest({ eventDetails }) {
 					musicPlayerVisible={musicPlayerVisible}
 					stopPlaying={stopPlaying}
 					startPlaying={() => setPlaying(true)}
-					handleAlloweOpen={handleAlloweOpen}
+					handleAllowToOpen={handleAllowToOpen}
 				/>
 				<AnimatePresence>
 					{isOpen ? (

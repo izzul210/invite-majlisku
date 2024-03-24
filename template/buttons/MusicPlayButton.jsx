@@ -10,14 +10,13 @@ function MusicPlayButton({
 	playing,
 	stopPlaying,
 	startPlaying,
-	handleAlloweOpen,
+	handleAllowToOpen,
 }) {
 	const { enable_bg_music, youtube_url } = eventDetails || {};
 	const [open, setOpen] = useState(false);
-	const [backupPlay, setBackupPlay] = useState(false);
 
 	if (!enable_bg_music || !youtube_url || youtube_url === '') {
-		handleAlloweOpen();
+		handleAllowToOpen();
 		return null;
 	}
 
@@ -27,9 +26,8 @@ function MusicPlayButton({
 				<div
 					className='floatingMusicButton'
 					onClick={() => {
-						// if (playing) stopPlaying();
-						// else startPlaying();
-						setOpen(true);
+						if (playing) stopPlaying();
+						else startPlaying();
 					}}>
 					{playing ? (
 						<svg
@@ -60,19 +58,16 @@ function MusicPlayButton({
 			)}
 
 			<ModalProvider isOpen={open} handleClose={() => setOpen(false)}>
-				<h4>
-					Test {backupPlay && 'backupPlay'} {playing && 'playing'}
-				</h4>
 				<div className='w-full flex justify-center'>
 					<ReactPlayer
 						width={320}
 						height={200}
 						url={`${youtube_url}`}
-						playing={playing || backupPlay}
+						playing={playing}
 						controls={true}
 						playsinline={true}
 						onReady={() => {
-							handleAlloweOpen();
+							handleAllowToOpen();
 						}}
 					/>
 				</div>
