@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState } from 'react';
-import ReactPlayer from 'react-player/lazy';
+import ReactPlayer from 'react-player/youtube';
 import ModalProvider from '../../component/drawer/DrawerProvider';
 
 function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlaying, startPlaying }) {
@@ -55,6 +55,7 @@ function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlayin
 						url={`${youtube_url}`}
 						playing={playing}
 						controls={true}
+						playsinline={true}
 					/>
 				</div>
 			</ModalProvider>
