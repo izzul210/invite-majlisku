@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import ModalProvider from '../../component/drawer/DrawerProvider';
 
@@ -9,6 +9,10 @@ function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlayin
 	const [open, setOpen] = useState(false);
 
 	if (!enable_bg_music || !youtube_url || youtube_url === '') return null;
+
+	useEffect(() => {
+		if (playing) startPlaying();
+	}, [playing]);
 
 	return (
 		<>
