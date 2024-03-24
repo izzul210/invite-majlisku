@@ -10,10 +10,6 @@ function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlayin
 
 	if (!enable_bg_music || !youtube_url || youtube_url === '') return null;
 
-	useEffect(() => {
-		if (playing) startPlaying();
-	}, [playing]);
-
 	return (
 		<>
 			{musicPlayerVisible && (
@@ -61,6 +57,12 @@ function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlayin
 						playing={playing}
 						controls={true}
 						playsinline={true}
+						onReady={() => {
+							if (playing) {
+								stopPlaying();
+								startPlaying();
+							}
+						}}
 					/>
 				</div>
 			</ModalProvider>
