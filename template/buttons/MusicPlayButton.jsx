@@ -7,6 +7,7 @@ import ModalProvider from '../../component/drawer/DrawerProvider';
 function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlaying, startPlaying }) {
 	const { enable_bg_music, youtube_url } = eventDetails || {};
 	const [open, setOpen] = useState(false);
+	const [backupPlay, setBackupPlay] = useState(false);
 
 	if (!enable_bg_music || !youtube_url || youtube_url === '') return null;
 
@@ -49,18 +50,18 @@ function MusicPlayButton({ eventDetails, musicPlayerVisible, playing, stopPlayin
 			)}
 
 			<ModalProvider isOpen={open} handleClose={() => setOpen(false)}>
+				<h4>Test</h4>
 				<div className='w-full flex justify-center'>
 					<ReactPlayer
 						width={320}
 						height={200}
 						url={`${youtube_url}`}
-						playing={playing}
+						playing={playing || backupPlay}
 						controls={true}
 						playsinline={true}
 						onReady={() => {
 							if (playing) {
-								stopPlaying();
-								startPlaying();
+								setBackupPlay(true);
 							}
 						}}
 					/>
