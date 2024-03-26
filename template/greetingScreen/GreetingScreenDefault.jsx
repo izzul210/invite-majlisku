@@ -20,7 +20,7 @@ const greeting_title_default = `Ybhg Tun/ Toh Puan/ Tan Sri/ Puan Sri/ Dato’s 
 const greeting_1_default = 'Dengan segala hormatnya kami\n mempersilakan';
 const greeting_2_default = 'ke majlis resepsi untuk meraikan majlis';
 
-export default function GreetingScreenDefaultTesting({
+export default function GreetingScreenDefault({
 	event_opening_title,
 	host_details,
 	event_title_2,

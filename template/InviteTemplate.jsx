@@ -33,7 +33,7 @@ const convertOldTheme = (type) => {
 	}
 };
 
-function InviteTemplateTest({ eventDetails }) {
+function InviteTemplate({ eventDetails }) {
 	const preview = false;
 	const userId = eventDetails?.user_id;
 	//Fetch data
@@ -147,4 +147,4 @@ function InviteTemplateTest({ eventDetails }) {
 	);
 }
 
-export default InviteTemplateTest;
+export default InviteTemplate;

@@ -1,6 +1,7 @@
 /** @format */
 //Screen import
 import InviteTemplate from '../../template/InviteTemplate';
+import ErrorPage from '../../template/ErrorPage';
 
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 // const API = 'http://localhost:5000/myweddingapp-25712/asia-southeast1/user';
@@ -63,6 +64,10 @@ async function fetchAPI(inviteId) {
  * INVITE MAIN PAGE */
 export default async function Page({ params }) {
 	const eventDetails = await fetchAPI(params.id);
+
+	if (!eventDetails.event_title_1) {
+		return <ErrorPage />;
+	}
 
 	return (
 		<main>
