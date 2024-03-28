@@ -5,6 +5,15 @@ import InviteTemplatePreview from '../../../template/InviteTemplatePreview';
 const API = 'https://asia-southeast1-myweddingapp-25712.cloudfunctions.net/user';
 // const API = 'http://localhost:5000/myweddingapp-25712/asia-southeast1/user';
 
+export const metadata = {
+	title: {
+		absolute: 'Majlisku | Preview',
+	},
+	description: {
+		absolute: 'Create e-invite with Majlisku.app',
+	},
+};
+
 async function fetchAPI(userId) {
 	const res = await fetch(`${API}/previewdetails/${userId}`, { cache: 'no-store' });
 	const data = await res.json();

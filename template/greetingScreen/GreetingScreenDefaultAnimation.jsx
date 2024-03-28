@@ -115,7 +115,7 @@ export default function GreetingScreenDefaultAnimation({
 					ref={eventTitleRef}
 					initial='hidden'
 					animate={eventTitleInView ? 'visible' : 'hidden'}
-					className='flex w-full items-center flex-col pt-8 gap-4'
+					className='flex w-full items-center flex-col pt-4 gap-4'
 					variants={greetingTitleContainer}>
 					<motion.div variants={variants}>
 						<MajliskuIconV3 />
